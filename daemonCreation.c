@@ -16,10 +16,16 @@ daemonCreation(int flags)
     int maxfd, fd;
 
     switch (fork()) {                   /* Become background process */
-    case -1: return -1;
-    case 0:  break;                     /* Child falls through... */
+    	case -1: return -1;								/* Problem with fork() syscall */
+    	
+			case 0:  break;                     /* Child falls through... */
+
     default: _exit(EXIT_SUCCESS);       /* while parent terminates */
-    }
+		/* Parent process has to terminate so that the process that will become the daemon,
+		will never get to be the Process Group Leader. If the process is not the PGL, then it
+		is not possible for it to have a controlling terminal (exactly this behaviour is 
+		desirable for a daemon)*/
+    } // end switch case fork
 
     if (setsid() == -1)                 /* Become leader of new session */
         return -1;
