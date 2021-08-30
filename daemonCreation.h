@@ -1,4 +1,5 @@
 /* daemonCreation.h
+Originally taken from Michael Kerrisk, but files will eventually be altered
 
 */
 #ifndef DAEMONCREATION_H             /* Header guard */
