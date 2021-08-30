@@ -19,12 +19,14 @@ daemonCreation(int flags)
     	case -1: return -1;								/* Problem with fork() syscall */
     	
 			case 0:  break;                     /* Child falls through... */
+			/* break call exits from switch cases, so that no other switch case 
+			could theoretically be executed */
 
-    default: _exit(EXIT_SUCCESS);       /* while parent terminates */
-		/* Parent process has to terminate so that the process that will become the daemon,
-		will never get to be the Process Group Leader. If the process is not the PGL, then it
-		is not possible for it to have a controlling terminal (exactly this behaviour is 
-		desirable for a daemon)*/
+    	default: _exit(EXIT_SUCCESS);       /* parent process terminates */
+			/* Parent process has to terminate so that the process that will become the daemon,
+			will never get to be the Process Group Leader. If the process is not the PGL, then it
+			is not possible for it to have a controlling terminal (exactly this behaviour is 
+			desirable for a daemon)*/
     } // end switch case fork
 
     if (setsid() == -1)                 /* Become leader of new session */
