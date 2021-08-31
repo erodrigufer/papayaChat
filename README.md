@@ -1,3 +1,3 @@
 # papayaChat
 
-Self hosted terminal chat service for the cloud.
+Self hosted terminal chat service for the cloud written in C.
