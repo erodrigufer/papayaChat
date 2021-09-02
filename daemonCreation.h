@@ -1,5 +1,4 @@
 /* daemonCreation.h
-Originally taken from Michael Kerrisk, but files will eventually be altered
 
 */
 #ifndef DAEMONCREATION_H             /* Header guard */
@@ -19,3 +18,10 @@ Originally taken from Michael Kerrisk, but files will eventually be altered
 int becomeDaemon(int flags);
 
 #endif
+
+
+/*
+License and copyright notice
+Originally taken from Michael Kerrisk, extensive modifications and comments from Eduardo Rodriguez (@erodrigufer)
+Licensed under GNU GPLv3
+*/
