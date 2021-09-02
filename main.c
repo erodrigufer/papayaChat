@@ -1,11 +1,10 @@
 #include "daemonCreation.h"
+#include <stdlib.h>
+
+int main(int argc, char *argv[]){
+
+	daemonCreation(0);
 
 
-int main(void){
-
-	int flags = 0; // no flags
-	daemonCreation(flags);
-
-
-	return 0;
+	exit(0);
 }
