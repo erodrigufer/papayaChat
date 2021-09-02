@@ -3,7 +3,8 @@
 
 int main(void){
 
-int daemon = daemonCreation();
+	int flags = 0; // no flags
+	int daemon = daemonCreation(flags);
 
 
 return 0;
