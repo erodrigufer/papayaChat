@@ -4,8 +4,8 @@
 int main(void){
 
 	int flags = 0; // no flags
-	int daemon = daemonCreation(flags);
+	daemonCreation(flags);
 
 
-return 0;
+	return 0;
 }
