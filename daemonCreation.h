@@ -15,7 +15,7 @@
 #define BD_MAX_CLOSE  8192          /* Maximum file descriptors to close if
                                        sysconf(_SC_OPEN_MAX) is indeterminate */
 
-int becomeDaemon(int flags);
+int daemonCreation(int flags);
 
 #endif
 
