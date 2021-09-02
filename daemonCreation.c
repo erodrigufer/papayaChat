@@ -10,7 +10,8 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 #include "daemonCreation.h" /* local header for this file */
-#include "tlpi_hdr.h"
+// comment out the library from the book (although it might be necessary for some functions)
+// #include "tlpi_hdr.h"
 
 int                                     /* Returns 0 on success, -1 on error */
 daemonCreation(int flags)
