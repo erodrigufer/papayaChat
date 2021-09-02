@@ -1,4 +1,4 @@
-tandard header file used by nearly all of our example programs.
+/* Standard header file used by nearly all of our example programs.
 */
 #ifndef TLPI_HDR_H
 #define TLPI_HDR_H      /* Prevent accidental double inclusion */
@@ -12,10 +12,11 @@ tandard header file used by nearly all of our example programs.
 #include <string.h>     /* Commonly used string-handling functions */
 #include <stdbool.h>    /* 'bool' type plus 'true' and 'false' constants */
 
-#include "get_num.h"    /* Declares our functions for handling numeric
+//#include "get_num.h"    
+/* Declares our functions for handling numeric
                            arguments (getInt(), getLong()) */
 
-#include "error_functions.h"  /* Declares our error-handling functions */
+//#include "error_functions.h"  /* Declares our error-handling functions */
 
 /* Unfortunately some UNIX implementations define FALSE and TRUE -
    here we'll undefine them */
