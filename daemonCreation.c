@@ -60,7 +60,7 @@ daemonCreation(int flags)
 
         fd = open("/dev/null", O_RDWR);
 
-        if (fd != STDIN_FILENO)         /* 'fd' should be 0 */
+        if (fd != STDIN_FILENO)         /* 'fd' should be 0, STDIN is fd 0 normally */
             return -1;
         if (dup2(STDIN_FILENO, STDOUT_FILENO) != STDOUT_FILENO)
             return -1;
