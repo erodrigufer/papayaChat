@@ -4,7 +4,11 @@
 #ifndef DAEMONCREATION_H             /* Header guard */
 #define DAEMONCREATION_H             
 
-/* Bit-mask values for 'flags' argument of becomeDaemon() */
+/* Bit-mask values for 'flags' argument of daemonCreation() 
+Description: 
+This are self-defined macros (or flag values) to be used as inputs with the 'flags' argument 
+for the function daemonCreation()
+*/
 
 #define BD_NO_CHDIR           01    /* Don't chdir("/") */
 #define BD_NO_CLOSE_FILES     02    /* Don't close all open files */
