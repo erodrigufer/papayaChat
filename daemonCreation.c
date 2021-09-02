@@ -1,7 +1,9 @@
 /* daemonCreation.c
-Originally taken from Michael Kerrisk, but files will eventually be altered
 
 	Make a process a daemon with this function
+
+	Licensing and copyright at the end of file.
+
 */
 
 
@@ -69,4 +71,8 @@ daemonCreation(int flags)
     return 0;
 }
 
-
+/*
+License and copyright notice
+Originally taken from Michael Kerrisk, extensive modifications and comments from Eduardo Rodriguez (@erodrigufer)
+Licensed under GNU GPLv3
+*/
