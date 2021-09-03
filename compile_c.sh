@@ -9,11 +9,15 @@ USER_INPUT=$1
 # all C-files in this directory
 # The ls programm is written in parenthesis, so that exactly ls is executed
 # and not an alias of ls like "ls -1"
-FILES_TO_COMPILE=$(ls -C *.c)
+FILES_TO_COMPILE=$(ls -C prueba.c)
+
+echo $PWD
+
+cd $PWD
 
 compile_with_standard_name() {
 
-	gcc -Wall "$FILES_TO_COMPILE"
+	gcc -Wall "${PWD}/${FILES_TO_COMPILE}"
 
 }
 
