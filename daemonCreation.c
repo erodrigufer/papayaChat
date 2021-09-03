@@ -42,22 +42,22 @@ daemonCreation(int flags)
     default: _exit(EXIT_SUCCESS);
     }
 
-    if (!(flags & BD_NO_UMASK0))
+    if (!(flags & DAEMON_FLAG_NO_UMASK0))
         umask(0);                       /* Clear file mode creation mask */
 
-    if (!(flags & BD_NO_CHDIR))
+    if (!(flags & DAEMON_FLAG_NO_CHDIR))
         chdir("/");                     /* Change to root directory */
 
-    if (!(flags & BD_NO_CLOSE_FILES)) { /* Close all open files */
+    if (!(flags & DAEMON_FLAG_NO_CLOSE_FILES)) { /* Close all open files */
         maxfd = sysconf(_SC_OPEN_MAX);
         if (maxfd == -1)                /* Limit is indeterminate... */
-            maxfd = BD_MAX_CLOSE;       /* so take a guess */
+            maxfd = DAEMON_FLAG_MAX_CLOSE;       /* so take a guess */
 
         for (fd = 0; fd < maxfd; fd++)
             close(fd);
     }
 
-    if (!(flags & BD_NO_REOPEN_STD_FDS)) {
+    if (!(flags & DAEMON_FLAG_NO_REOPEN_STD_FDS)) {
         close(STDIN_FILENO);            /* Reopen standard fd's to /dev/null */
 
         fd = open("/dev/null", O_RDWR);
