@@ -11,6 +11,8 @@ USER_INPUT=$1
 # and not an alias of ls like "ls -1"
 FILES_TO_COMPILE=$(ls -C prueba.c)
 
+# TO DO: change FILES_TO_COMPILE with awk or something, so that each file name gets its PWD
+
 echo $PWD
 
 cd $PWD
