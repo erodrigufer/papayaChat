@@ -1,8 +1,11 @@
 #!/bin/sh
 # compile_c.sh
+# This shell script compiles all .c files in the working directory together into a file named
+# as the first parameter passed to this script
+# It compiles activating all warning (-Wall)
 
 # use 1st parameter of bash script as name for compiled file
-# user input can also be none, then use standard file output name
+# user input can also be none, then use standard file output name: a.out
 USER_INPUT=$1
 
 compile_with_standard_name() {
