@@ -46,7 +46,8 @@ daemonCreation(int flags)
 
  /* Only the child of the leader of the new session has come this far.
  Compare the flags passed to the function call of daemonCreation() with the flags
- stored in the header daemonCreation.h, and if necessary*/
+ stored in the header daemonCreation.h. If the flags are equal then the commands in the if-statement
+ are not executed, since the comparison is being negated. */
     if (!(flags & DAEMON_FLAG_NO_UMASK0))
         umask(0);                       /* Clear file mode creation mask */
 
@@ -59,9 +60,10 @@ daemonCreation(int flags)
         if (maxfd == -1)                /* Limit is indeterminate... */
             maxfd = DAEMON_FLAG_MAX_CLOSE;       /* so take a guess */
 
+				/* close all file descriptors up to the max file descriptor numer */
         for (fd = 0; fd < maxfd; fd++)
             close(fd);
-    }
+    } // end if-DAEMON_FLAG_NO_CLOSE_FILES
 
     if (!(flags & DAEMON_FLAG_NO_REOPEN_STD_FDS)) {
         close(STDIN_FILENO);            /* Reopen standard fd's to /dev/null */
