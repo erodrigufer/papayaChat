@@ -1,11 +1,11 @@
 #include "daemonCreation.h"
-#include <stdlib.h>
 #include "basics.h"
 
 int main(int argc, char *argv[]){
 
 	daemonCreation(0);
 
+	sleep(40);	
 
-	exit(0);
+	exit(EXIT_SUCCESS);
 }
