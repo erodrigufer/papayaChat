@@ -26,11 +26,14 @@ int main(int argc, char *argv[]){
 
 	daemonCreation(0);
 
+/* configure the syslog API */
 	if(configureSysLog() == 1)
 		exit(EXIT_FAILURE); /* at this point stderr was probably redirected to 
 		/dev/null so there is no point on writing an error message */
 
-	sleep(40);	
+	syslog(LOG_INFO, "Test #1");
+
+	closelog();
 
 	exit(EXIT_SUCCESS);
 }
