@@ -27,7 +27,8 @@ int main(int argc, char *argv[]){
 	daemonCreation(0);
 
 	if(configureSysLog() == 1)
-		exit(EXIT_FAILURE);
+		exit(EXIT_FAILURE); /* at this point stderr was probably redirected to 
+		/dev/null so there is no point on writing an error message */
 
 	sleep(40);	
 
