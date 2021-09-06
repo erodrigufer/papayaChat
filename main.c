@@ -16,7 +16,7 @@ int main(int argc, char *argv[]){
 
 int configureSysLog(void){
 
-	/* identityString: this const char* will be appended to all lig messages */
+	/* identityString: this const char* will be appended to all log messages */
 	const char *identityString = "testDaemon";
 
 	/* specify options for syslog 
