@@ -4,16 +4,6 @@
 /* add sys logging capabilities to daemon */
 #include <syslog.h>
 
-int main(int argc, char *argv[]){
-
-	daemonCreation(0);
-
-	sleep(40);	
-
-	exit(EXIT_SUCCESS);
-}
-
-
 int configureSysLog(void){
 
 	/* identityString: this const char* will be appended to all log messages */
@@ -30,6 +20,17 @@ int configureSysLog(void){
 	/* open a syslog with specified configuration */
 	openlog(identityString, logOptions, logFacility);
 
+	return 0;
 }
+int main(int argc, char *argv[]){
+
+	daemonCreation(0);
+
+	sleep(40);	
+
+	exit(EXIT_SUCCESS);
+}
+
+
 
 /* Eduardo Rodriguez 2021 (c) (@erodrigufer) with some code taken and modified from Michael Kerrisk GNU GPLv3 */
