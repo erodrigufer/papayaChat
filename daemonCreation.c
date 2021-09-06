@@ -37,11 +37,16 @@ daemonCreation(int flags)
         return -1;
 
     switch (fork()) {                   /* Ensure we are not session leader */
-    case -1: return -1;
-    case 0:  break;
-    default: _exit(EXIT_SUCCESS);
+    	case -1: return -1; /* There was a problem with the syscall */
+    	
+			case 0:  break; /* This child process will be our daemon, which cannot be the session leader */
+    	
+			default: _exit(EXIT_SUCCESS); /* session leader exits */
     }
 
+ /* Only the child of the leader of the new session has come this far.
+ Compare the flags passed to the function call of daemonCreation() with the flags
+ stored in the header daemonCreation.h, and if necessary*/
     if (!(flags & DAEMON_FLAG_NO_UMASK0))
         umask(0);                       /* Clear file mode creation mask */
 
@@ -49,7 +54,8 @@ daemonCreation(int flags)
         chdir("/");                     /* Change to root directory */
 
     if (!(flags & DAEMON_FLAG_NO_CLOSE_FILES)) { /* Close all open files */
-        maxfd = sysconf(_SC_OPEN_MAX);
+        maxfd = sysconf(_SC_OPEN_MAX); /* store in maxfd, the max number of open file descriptors
+				that can be in the system */
         if (maxfd == -1)                /* Limit is indeterminate... */
             maxfd = DAEMON_FLAG_MAX_CLOSE;       /* so take a guess */
 
