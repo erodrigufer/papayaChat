@@ -31,3 +31,5 @@ int configureSysLog(void){
 	openlog(identityString, logOptions, logFacility);
 
 }
+
+/* Eduardo Rodriguez 2021 (c) (@erodrigufer) with some code taken and modified from Michael Kerrisk GNU GPLv3 */
