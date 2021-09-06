@@ -10,7 +10,7 @@ This are self-defined macros (or flag values) to be used as inputs with the 'fla
 for the function daemonCreation()
 */
 
-#define DAEMON_FLAG_NO_CHDIR           01    /* Don't chdir("/") */
+#define DAEMON_FLAG_NO_CHDIR           01    /* Don't chdir("/"), do not change the working directory to '/' */
 #define DAEMON_FLAG_NO_CLOSE_FILES     02    /* Don't close all open files */
 #define DAEMON_FLAG_NO_REOPEN_STD_FDS  04    /* Don't reopen stdin, stdout, and
                                        stderr to /dev/null */
