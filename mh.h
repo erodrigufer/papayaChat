@@ -1,7 +1,7 @@
-/* Standard header file used by nearly all of our example programs.
+/* Header file with basic functionalities
 */
-#ifndef TLPI_HDR_H
-#define TLPI_HDR_H      /* Prevent accidental double inclusion */
+#ifndef BASICS_H
+#define BASICS_H /* Header guard */
 
 #include <sys/types.h>  /* Type definitions used by many programs */
 #include <stdio.h>      /* Standard I/O functions */
