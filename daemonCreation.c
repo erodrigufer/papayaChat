@@ -87,6 +87,6 @@ daemonCreation(int flags)
 
 /*
 License and copyright notice
-Originally taken from Michael Kerrisk, extensive modifications and comments from Eduardo Rodriguez (@erodrigufer)
+Originally taken from Michael Kerrisk, extensive modifications and comments by Eduardo Rodriguez (@erodrigufer)
 Licensed under GNU GPLv3
 */
