@@ -54,24 +54,28 @@ daemonCreation(int flags)
     if (!(flags & DAEMON_FLAG_NO_CHDIR))
         chdir("/");                     /* Change to root directory */
 
-    if (!(flags & DAEMON_FLAG_NO_CLOSE_FILES)) { /* Close all open files */
+    if (!(flags & DAEMON_FLAG_NO_CLOSE_FILES)) { /* Close all open files, if flags does not equal
+		the flag stored in the header file */
         maxfd = sysconf(_SC_OPEN_MAX); /* store in maxfd, the max number of open file descriptors
 				that can be in the system */
         if (maxfd == -1)                /* Limit is indeterminate... */
-            maxfd = DAEMON_FLAG_MAX_CLOSE;       /* so take a guess */
-
+            maxfd = DAEMON_FLAG_MAX_CLOSE;       /* so take a guess (stored in header file) */
 				/* close all file descriptors up to the max file descriptor numer */
         for (fd = 0; fd < maxfd; fd++)
             close(fd);
     } // end if-DAEMON_FLAG_NO_CLOSE_FILES
 
     if (!(flags & DAEMON_FLAG_NO_REOPEN_STD_FDS)) {
+				/* STDIN should be per default 0, so close file descriptor 0 */
         close(STDIN_FILENO);            /* Reopen standard fd's to /dev/null */
 
+				/* the system will allocate the smallest number to a newly open file descriptor
+				we open the dile /dev/null, and since fd 0 is now free, it should get allocated to fd 0.
+				All file descriptors normally get passed from a parent process to its children */
         fd = open("/dev/null", O_RDWR);
 
         if (fd != STDIN_FILENO)         /* 'fd' should be 0, STDIN is fd 0 normally */
-            return -1;
+            return -1; /* fd is not 0, there was an error */
         if (dup2(STDIN_FILENO, STDOUT_FILENO) != STDOUT_FILENO)
             return -1;
         if (dup2(STDIN_FILENO, STDERR_FILENO) != STDERR_FILENO)
