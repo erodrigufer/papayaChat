@@ -26,6 +26,9 @@ int main(int argc, char *argv[]){
 
 	daemonCreation(0);
 
+	if(configureSysLog() == 1)
+		exit(-1);
+
 	sleep(40);	
 
 	exit(EXIT_SUCCESS);
