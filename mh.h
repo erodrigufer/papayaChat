@@ -65,3 +65,9 @@ typedef int socklen_t;
 #endif
 
 #endif
+
+/*
+License and copyright notice
+Originally taken from Michael Kerrisk, extensive modifications and comments by Eduardo Rodriguez (@erodrigufer)
+Licensed under GNU GPLv3
+*/
