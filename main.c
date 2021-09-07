@@ -52,8 +52,8 @@ Function definition to
 	pid_t daemonpid = getpid(); /* declare daemonpid to print on syslog */
 
 	/* cast pid_t to a long inside the snprintf call, since there is no specifier for pid_t */ 
-		
-	syslog(LOG_INFO, "Test #1");
+			
+	syslog(LOG_INFO, "Daemon's PID: %ld", (long) daemonpid);
 
 	closelog();
 
