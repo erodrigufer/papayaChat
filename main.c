@@ -50,11 +50,11 @@ Function definition to
 */
 
 	pid_t daemonpid = getpid(); /* declare daemonpid to print on syslog */
-
+	pid_t daemonppid = getppid(); /* get daemonppid */
 	/* cast pid_t to a long inside the snprintf call, since there is no specifier for pid_t */ 
 	
 	/* Print the Daemon's PID into syslog */			
-	syslog(LOG_INFO, "Daemon's PID: %ld", (long) daemonpid);
+	syslog(LOG_INFO, "Daemon's PID: %ld. Daemon's PPID: %ld.", (long) daemonpid, (long) daemonppid);
 
 	closelog();
 
