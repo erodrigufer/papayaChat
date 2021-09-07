@@ -53,7 +53,8 @@ Function definition to
 	pid_t daemonppid = getppid(); /* get daemonppid */
 	/* cast pid_t to a long inside the snprintf call, since there is no specifier for pid_t */ 
 	
-	/* Print the Daemon's PID into syslog */			
+	/* Print the Daemon's PID and PPID into syslog. The PPID should be 1, since the parent of an 
+	orphaned process gets to be PID 1 (systemd or init) */
 	syslog(LOG_INFO, "Daemon's PID: %ld. Daemon's PPID: %ld.", (long) daemonpid, (long) daemonppid);
 
 	closelog();
