@@ -7,6 +7,10 @@
 #include <sys/socket.h>
 #include <netdb.h>
 
+
+/* Create a socket with the given socket 'type', and connect it to the
+address specified by 'host' and 'service'. It can handle both TCP and 
+UDP clients, that connect their sockets to a server */
 int inetConnect(const char *host, const char *service, int type);
 
 int inetListen(const char *service, int backlog, socklen_t *addrlen);
