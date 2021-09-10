@@ -29,7 +29,7 @@ Returns a file descriptor on success, or a -1 on error */
 int
 inetConnect(const char *host, const char *service, int type)
 {
-    struct addrinfo hints;
+    struct addrinfo addr_criteria;
 	/* store getaddrinfo() results*/
     struct addrinfo *addr_results;
 	/* iterate through the linked list of results
@@ -41,13 +41,15 @@ inetConnect(const char *host, const char *service, int type)
 	int s;
 
 	/* use memset to guarantee that all values inside the addrinfo struct
-	are initialized with a 0 */
-    memset(&hints, 0, sizeof(struct addrinfo));
-    hints.ai_canonname = NULL;
-    hints.ai_addr = NULL;
-    hints.ai_next = NULL;
-    hints.ai_family = AF_UNSPEC;        /* Allows IPv4 or IPv6 */
-    hints.ai_socktype = type;			/* can be either SOCK_STREAM or SOCK_DGRAM
+	of addr_criteria are initialized with a 0 */
+    memset(&addr_criteria, 0, sizeof(struct addrinfo));
+	/* addr_criteria points to an addrinfo structure that specifies criteria for selecting the socket address structures returned in the list pointed to by possible_addr. If addr_criteria is not NULL it points to an addrinfo structure whose ai_family, ai_socktype, and ai_protocol specify criteria that limit the set of socket addresses returned by getaddrinfo().
+	*/
+    addr_criteria.ai_canonname = NULL;
+    addr_criteria.ai_addr = NULL;
+    addr_criteria.ai_next = NULL;
+    addr_criteria.ai_family = AF_UNSPEC;        /* Allows IPv4 or IPv6 */
+    addr_criteria.ai_socktype = type;			/* can be either SOCK_STREAM or SOCK_DGRAM
 										to handle TCP and UDP */
 
 	/* man 3 getaddrinfo
@@ -55,7 +57,7 @@ inetConnect(const char *host, const char *service, int type)
 
 	Store the possible results in the addrinfo struct pointer at addr_results
 	*/
-    s = getaddrinfo(host, service, &hints, &addr_results);
+    s = getaddrinfo(host, service, &addr_criteria, &addr_results);
     if (s != 0) { /* getaddrinfo() returns 0 on success */
         errno = ENOSYS; /* still not sure
 		why pick ENOSYS?? eliminate this errno change after testing!! */
@@ -98,19 +100,19 @@ static int              /* Public interfaces: inetBind() and inetListen() */
 inetPassiveSocket(const char *service, int type, socklen_t *addrlen,
                   Boolean doListen, int backlog)
 {
-    struct addrinfo hints;
+    struct addrinfo addr_criteria;
     struct addrinfo *addr_results, *rp;
     int socket_fd, optval, s;
 
-    memset(&hints, 0, sizeof(struct addrinfo));
-    hints.ai_canonname = NULL;
-    hints.ai_addr = NULL;
-    hints.ai_next = NULL;
-    hints.ai_socktype = type;
-    hints.ai_family = AF_UNSPEC;        /* Allows IPv4 or IPv6 */
-    hints.ai_flags = AI_PASSIVE;        /* Use wildcard IP address */
+    memset(&addr_criteria, 0, sizeof(struct addrinfo));
+    addr_criteria.ai_canonname = NULL;
+    addr_criteria.ai_addr = NULL;
+    addr_criteria.ai_next = NULL;
+    addr_criteria.ai_socktype = type;
+    addr_criteria.ai_family = AF_UNSPEC;        /* Allows IPv4 or IPv6 */
+    addr_criteria.ai_flags = AI_PASSIVE;        /* Use wildcard IP address */
 
-    s = getaddrinfo(NULL, service, &hints, &addr_results);
+    s = getaddrinfo(NULL, service, &addr_criteria, &addr_results);
     if (s != 0)
         return -1;
 
