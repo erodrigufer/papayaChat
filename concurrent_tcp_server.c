@@ -59,7 +59,7 @@ main(int argc, char *argv[])
 
 	/* server should run as a daemon */
     if (daemonCreation(0) == -1)
-        errExit("becomeDaemon");
+        errExit("becomeDaemon");		/* TODO: change these error-handling dependencies */
 
     /* Establish SIGCHLD handler to reap terminated child processes */
 
