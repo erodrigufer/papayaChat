@@ -40,7 +40,8 @@ inetConnect(const char *host, const char *service, int type)
     hints.ai_addr = NULL;
     hints.ai_next = NULL;
     hints.ai_family = AF_UNSPEC;        /* Allows IPv4 or IPv6 */
-    hints.ai_socktype = type;
+    hints.ai_socktype = type;			/* can be either SOCK_STREAM or SOCK_DGRAM
+										to handle TCP and UDP */
 
     s = getaddrinfo(host, service, &hints, &result);
     if (s != 0) {
