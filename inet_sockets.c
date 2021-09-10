@@ -103,7 +103,7 @@ clientConnect(const char *host, const char *service, int type)
    address structure for the address family for this socket.
    Return the socket descriptor on success, or -1 on error. */
 
-static int              /* Public interfaces: inetBind() and inetListen() */
+static int              /* Public interfaces: inetBind() and serverListen() */
 inetPassiveSocket(const char *service, int type, socklen_t *addrlen,
                   Boolean doListen, int backlog)
 {
@@ -169,7 +169,7 @@ inetPassiveSocket(const char *service, int type, socklen_t *addrlen,
   'backlog'. Return socket descriptor on success, or -1 on error. */
 
 int
-inetListen(const char *service, int backlog, socklen_t *addrlen)
+serverListen(const char *service, int backlog, socklen_t *addrlen)
 {
     return inetPassiveSocket(service, SOCK_STREAM, addrlen, TRUE, backlog);
 }
