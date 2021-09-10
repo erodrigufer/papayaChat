@@ -72,7 +72,7 @@ main(int argc, char *argv[])
         exit(EXIT_FAILURE);
     }
 
-    listen_fd = inetListen(SERVICE, 10, NULL);
+    listen_fd = serverListen(SERVICE, 10, NULL);
     if (listen_fd == -1) {
 				/* The listening socket could not be created.
 				*/
