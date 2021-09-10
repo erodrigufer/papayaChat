@@ -44,14 +44,14 @@ inetConnect(const char *host, const char *service, int type)
 										to handle TCP and UDP */
 
 	/* man 3 getaddrinfo
-(From the man page) Given  host  and  service,  which  identify an Internet host and a service, getaddrinfo() returns one or more addrinfo structures, each of which contains an Internet  address that can be specified in a call to bind(2) or connect(2).
+	(From the man page) Given  host  and  service,  which  identify an Internet host and a service, getaddrinfo() returns one or more addrinfo structures, each of which contains an Internet  address that can be specified in a call to bind(2) or connect(2).
 
-Store the possible results in the addrinfo struct pointer at addr_results
+	Store the possible results in the addrinfo struct pointer at addr_results
 	*/
     s = getaddrinfo(host, service, &hints, &addr_results);
     if (s != 0) { /* getaddrinfo() returns 0 on success */
         errno = ENOSYS; /* still not sure
-		why pick ENOSYS ?? */
+		why pick ENOSYS?? eliminate this errno change after testing!! */
         return -1; /* getaddrinfo() failed so end inetConnect with -1 */
     }
 
