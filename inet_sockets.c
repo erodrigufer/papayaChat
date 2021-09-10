@@ -19,6 +19,7 @@
 									 (both IPv4 and IPv6)
 
         (const char*) 'service':      either a name or a port number
+									check /etc/services
         (int) 'type':         		either SOCK_STREAM or SOCK_DGRAM
 */
 
