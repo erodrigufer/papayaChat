@@ -30,7 +30,7 @@ int
 inetConnect(const char *host, const char *service, int type)
 {
     struct addrinfo hints;
-    struct addrinfo *result, *rp;
+    struct addrinfo *addr_results, *rp;
     int sfd, s;
 
 	/* use memset to guarantee that all values inside the addrinfo struct
@@ -46,8 +46,9 @@ inetConnect(const char *host, const char *service, int type)
 	/* man 3 getaddrinfo
 (From the man page) Given  host  and  service,  which  identify an Internet host and a service, getaddrinfo() returns one or more addrinfo structures, each of which contains an Internet  address that can be specified in a call to bind(2) or connect(2).
 
+Store the possible results in the addrinfo struct pointer at addr_results
 	*/
-    s = getaddrinfo(host, service, &hints, &result);
+    s = getaddrinfo(host, service, &hints, &addr_results);
     if (s != 0) { /* getaddrinfo() returns 0 on success */
         errno = ENOSYS; /* still not sure
 		why pick ENOSYS ?? */
@@ -56,7 +57,7 @@ inetConnect(const char *host, const char *service, int type)
 
     /* Walk through returned list until we find an address structure
        that can be used to successfully connect a socket */
-    for (rp = result; rp != NULL; rp = rp->ai_next) {
+    for (rp = addr_results; rp != NULL; rp = rp->ai_next) {
         sfd = socket(rp->ai_family, rp->ai_socktype, rp->ai_protocol);
         if (sfd == -1)
             continue;                   /* On error, try next address */
@@ -68,7 +69,7 @@ inetConnect(const char *host, const char *service, int type)
         close(sfd);
     }
 
-    freeaddrinfo(result);
+    freeaddrinfo(addr_results);
 
     return (rp == NULL) ? -1 : sfd;
 }
@@ -86,7 +87,7 @@ inetPassiveSocket(const char *service, int type, socklen_t *addrlen,
                   Boolean doListen, int backlog)
 {
     struct addrinfo hints;
-    struct addrinfo *result, *rp;
+    struct addrinfo *addr_results, *rp;
     int sfd, optval, s;
 
     memset(&hints, 0, sizeof(struct addrinfo));
@@ -97,7 +98,7 @@ inetPassiveSocket(const char *service, int type, socklen_t *addrlen,
     hints.ai_family = AF_UNSPEC;        /* Allows IPv4 or IPv6 */
     hints.ai_flags = AI_PASSIVE;        /* Use wildcard IP address */
 
-    s = getaddrinfo(NULL, service, &hints, &result);
+    s = getaddrinfo(NULL, service, &hints, &addr_results);
     if (s != 0)
         return -1;
 
@@ -105,7 +106,7 @@ inetPassiveSocket(const char *service, int type, socklen_t *addrlen,
        that can be used to successfully create and bind a socket */
 
     optval = 1;
-    for (rp = result; rp != NULL; rp = rp->ai_next) {
+    for (rp = addr_results; rp != NULL; rp = rp->ai_next) {
         sfd = socket(rp->ai_family, rp->ai_socktype, rp->ai_protocol);
         if (sfd == -1)
             continue;                   /* On error, try next address */
@@ -114,7 +115,7 @@ inetPassiveSocket(const char *service, int type, socklen_t *addrlen,
             if (setsockopt(sfd, SOL_SOCKET, SO_REUSEADDR, &optval,
                     sizeof(optval)) == -1) {
                 close(sfd);
-                freeaddrinfo(result);
+                freeaddrinfo(addr_results);
                 return -1;
             }
         }
@@ -129,7 +130,7 @@ inetPassiveSocket(const char *service, int type, socklen_t *addrlen,
 
     if (rp != NULL && doListen) {
         if (listen(sfd, backlog) == -1) {
-            freeaddrinfo(result);
+            freeaddrinfo(addr_results);
             return -1;
         }
     }
@@ -137,7 +138,7 @@ inetPassiveSocket(const char *service, int type, socklen_t *addrlen,
     if (rp != NULL && addrlen != NULL)
         *addrlen = rp->ai_addrlen;      /* Return address structure size */
 
-    freeaddrinfo(result);
+    freeaddrinfo(addr_results);
 
     return (rp == NULL) ? -1 : sfd;
 }
