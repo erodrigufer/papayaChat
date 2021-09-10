@@ -33,9 +33,12 @@ inetConnect(const char *host, const char *service, int type)
 	/* store getaddrinfo() results*/
     struct addrinfo *addr_results;
 	/* iterate through the linked list of results
-	found with getaddrinfo() */
+	found with getaddrinfo() with this pointer */
 	struct addrinfo *possible_addr;
-    int sfd, s;
+	/* file descriptor for socket created */
+    int socket_fd;
+	/* store return value of getaddrinfo()*/
+	int s;
 
 	/* use memset to guarantee that all values inside the addrinfo struct
 	are initialized with a 0 */
@@ -61,22 +64,24 @@ inetConnect(const char *host, const char *service, int type)
 
     /* Walk through returned list until we find an address structure
        that can be used to successfully connect a socket 
-	   Stop when possible_addr points to NULL (no more addresses in the structure [linked list] */
+	   Stop when possible_addr points to NULL (no more addresses in the structure [linked list],
+	   possible_addr->ai_next points to the next address in the linked list */
     for (possible_addr = addr_results; possible_addr != NULL; possible_addr = possible_addr->ai_next) {
-        sfd = socket(possible_addr->ai_family, possible_addr->ai_socktype, possible_addr->ai_protocol);
-        if (sfd == -1)
+		/* Create a socket */
+        socket_fd = socket(possible_addr->ai_family, possible_addr->ai_socktype, possible_addr->ai_protocol);
+        if (socket_fd == -1)
             continue;                   /* On error, try next address */
 
-        if (connect(sfd, possible_addr->ai_addr, possible_addr->ai_addrlen) != -1)
+        if (connect(socket_fd, possible_addr->ai_addr, possible_addr->ai_addrlen) != -1)
             break;                      /* Success */
 
         /* Connect failed: close this socket and try next address */
-        close(sfd);
+        close(socket_fd);
     }
 
     freeaddrinfo(addr_results);
 
-    return (possible_addr == NULL) ? -1 : sfd;
+    return (possible_addr == NULL) ? -1 : socket_fd;
 }
 
 /* Create an Internet domain socket and bind it to the address
@@ -93,7 +98,7 @@ inetPassiveSocket(const char *service, int type, socklen_t *addrlen,
 {
     struct addrinfo hints;
     struct addrinfo *addr_results, *rp;
-    int sfd, optval, s;
+    int socket_fd, optval, s;
 
     memset(&hints, 0, sizeof(struct addrinfo));
     hints.ai_canonname = NULL;
@@ -112,29 +117,29 @@ inetPassiveSocket(const char *service, int type, socklen_t *addrlen,
 
     optval = 1;
     for (rp = addr_results; rp != NULL; rp = rp->ai_next) {
-        sfd = socket(rp->ai_family, rp->ai_socktype, rp->ai_protocol);
-        if (sfd == -1)
+        socket_fd = socket(rp->ai_family, rp->ai_socktype, rp->ai_protocol);
+        if (socket_fd == -1)
             continue;                   /* On error, try next address */
 
         if (doListen) {
-            if (setsockopt(sfd, SOL_SOCKET, SO_REUSEADDR, &optval,
+            if (setsockopt(socket_fd, SOL_SOCKET, SO_REUSEADDR, &optval,
                     sizeof(optval)) == -1) {
-                close(sfd);
+                close(socket_fd);
                 freeaddrinfo(addr_results);
                 return -1;
             }
         }
 
-        if (bind(sfd, rp->ai_addr, rp->ai_addrlen) == 0)
+        if (bind(socket_fd, rp->ai_addr, rp->ai_addrlen) == 0)
             break;                      /* Success */
 
         /* bind() failed: close this socket and try next address */
 
-        close(sfd);
+        close(socket_fd);
     }
 
     if (rp != NULL && doListen) {
-        if (listen(sfd, backlog) == -1) {
+        if (listen(socket_fd, backlog) == -1) {
             freeaddrinfo(addr_results);
             return -1;
         }
@@ -145,7 +150,7 @@ inetPassiveSocket(const char *service, int type, socklen_t *addrlen,
 
     freeaddrinfo(addr_results);
 
-    return (rp == NULL) ? -1 : sfd;
+    return (rp == NULL) ? -1 : socket_fd;
 }
 
 /* Create stream socket, bound to wildcard IP address + port given in
