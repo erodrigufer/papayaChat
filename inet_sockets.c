@@ -45,7 +45,10 @@ inetConnect(const char *host, const char *service, int type)
     memset(&addr_criteria, 0, sizeof(struct addrinfo));
 	/* addr_criteria points to an addrinfo structure that specifies criteria for selecting the socket address structures returned in the list pointed to by possible_addr. If addr_criteria is not NULL it points to an addrinfo structure whose ai_family, ai_socktype, and ai_protocol specify criteria that limit the set of socket addresses returned by getaddrinfo().
 	*/
+	/* canonname flag will not be taken into consideration to display hostname (unimportant,
+	for more details check man page) */
     addr_criteria.ai_canonname = NULL;
+	/* pointers are then definitely NULL pointers */
     addr_criteria.ai_addr = NULL;
     addr_criteria.ai_next = NULL;
     addr_criteria.ai_family = AF_UNSPEC;        /* Allows IPv4 or IPv6 */
