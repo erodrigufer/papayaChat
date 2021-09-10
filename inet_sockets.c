@@ -12,13 +12,14 @@
 #include "inet_sockets.h"       /* Declares functions defined here */
 #include "basics.h"
 
-/* The following arguments are common to several of the routines
-   below:
+/* Common arguments to the functions of this library:
 
-        'host':         NULL for loopback IP address, or
-                        a host name or numeric IP address
-        'service':      either a name or a port number
-        'type':         either SOCK_STREAM or SOCK_DGRAM
+        (const char *)'host':         NULL for loopback IP address, or
+                        			 a host name or numeric IP address
+									 (both IPv4 and IPv6)
+
+        (const char*) 'service':      either a name or a port number
+        (int) 'type':         		either SOCK_STREAM or SOCK_DGRAM
 */
 
 /* Create a socket with the given socket 'type', and connect it to the
