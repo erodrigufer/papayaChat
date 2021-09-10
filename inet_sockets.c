@@ -61,8 +61,7 @@ inetConnect(const char *host, const char *service, int type)
 
     /* Walk through returned list until we find an address structure
        that can be used to successfully connect a socket 
-	   Stop when possible_addr points to NULL (no more addresses in the structure [linked 
-	   list] */
+	   Stop when possible_addr points to NULL (no more addresses in the structure [linked list] */
     for (possible_addr = addr_results; possible_addr != NULL; possible_addr = possible_addr->ai_next) {
         sfd = socket(possible_addr->ai_family, possible_addr->ai_socktype, possible_addr->ai_protocol);
         if (sfd == -1)
