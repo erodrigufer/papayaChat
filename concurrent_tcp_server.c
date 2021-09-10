@@ -10,7 +10,8 @@
    See also is_echo_cl.c.
 */
 #include <signal.h>
-#include <syslog.h>
+#include <syslog.h>				/* server runs as a daemon, logging handled
+								through syslog API */
 #include <sys/wait.h>
 #include "daemonCreation.h"		/* Create a daemon with one function call */
 #include "inet_sockets.h"       /* Declarations of inet*() socket functions */
