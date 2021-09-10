@@ -50,7 +50,7 @@ inetConnect(const char *host, const char *service, int type)
     addr_criteria.ai_next = NULL;
     addr_criteria.ai_family = AF_UNSPEC;        /* Allows IPv4 or IPv6 */
     addr_criteria.ai_socktype = type;			/* can be either SOCK_STREAM or SOCK_DGRAM
-										to handle TCP and UDP */
+												to handle TCP and UDP */
 
 	/* man 3 getaddrinfo
 	(From the man page) Given  host  and  service,  which  identify an Internet host and a service, getaddrinfo() returns one or more addrinfo structures, each of which contains an Internet  address that can be specified in a call to bind(2) or connect(2).
