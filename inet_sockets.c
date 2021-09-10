@@ -24,7 +24,8 @@
 
 /* Create a socket with the given socket 'type', and connect it to the
 address specified by 'host' and 'service'. It can handle both TCP and 
-UDP clients, that connect their sockets to a server */
+UDP clients, that connect their sockets to a server 
+Returns a file descriptor on success, or a -1 on error */
 int
 inetConnect(const char *host, const char *service, int type)
 {
