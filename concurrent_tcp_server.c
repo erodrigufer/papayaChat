@@ -31,8 +31,9 @@ grimReaper(int sig)
     errno = savedErrno;
 }
 
-/* Handle a client request: copy socket input back to socket */
-
+/* Handle a client request: copy socket input back to socket,
+good coding practices, function is static, because it should only
+be available in this local script */
 static void
 handleRequest(int client_fd)
 {
