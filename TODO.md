@@ -1,3 +1,3 @@
 ## inet_sockets.c
 ### inetConnect()
-[ ] Change errno value modification
+1. [ ] Change errno value modification
