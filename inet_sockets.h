@@ -26,4 +26,4 @@ char *inetAddressStr(const struct sockaddr *addr, socklen_t addrlen,
                            than (NI_MAXHOST + NI_MAXSERV + 4) */
 #endif
 
-/* Eduardo Rodriguez 2021 (c) (@erodrigufer) with some code taken and modified from Michael Kerrisk. Licensed under GNU GPLv3 */
+/* Eduardo Rodriguez 2021 (c) (@erodrigufer) with some code taken and modified from Michael Kerrisk. Licensed under GNU AGPLv3 */
