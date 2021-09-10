@@ -176,4 +176,4 @@ inetAddressStr(const struct sockaddr *addr, socklen_t addrlen,
     return addrStr;
 }
 
-/* Eduardo Rodriguez 2021 (c) (@erodrigufer) with some code taken and modified from Michael Kerrisk. Licensed under GNU GPLv3 */
+/* Eduardo Rodriguez 2021 (c) (@erodrigufer) with some code taken and modified from Michael Kerrisk. Licensed under GNU AGPLv3 */
