@@ -29,7 +29,7 @@ address specified by 'host' and 'service'. It can handle both TCP and
 UDP clients, that connect their sockets to a server 
 Returns a file descriptor on success, or a -1 on error */
 int
-inetConnect(const char *host, const char *service, int type)
+clientConnect(const char *host, const char *service, int type)
 {
     struct addrinfo addr_criteria;
 	/* store getaddrinfo() results*/
@@ -66,7 +66,7 @@ inetConnect(const char *host, const char *service, int type)
     if (s != 0) { /* getaddrinfo() returns 0 on success */
         errno = ENOSYS; /* still not sure
 		why pick ENOSYS?? eliminate this errno change after testing!! */
-        return -1; /* getaddrinfo() failed so end inetConnect with -1 */
+        return -1; /* getaddrinfo() failed so end clientConnect with -1 */
     }
 
     /* Walk through returned list until we find an address structure
