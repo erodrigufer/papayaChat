@@ -73,14 +73,16 @@ inetConnect(const char *host, const char *service, int type)
             continue;                   /* On error, try next address */
 
         if (connect(socket_fd, possible_addr->ai_addr, possible_addr->ai_addrlen) != -1)
-            break;                      /* Success */
-
+            break;                      /* Success, break out of for-loop 
+										   without closing fd created */
         /* Connect failed: close this socket and try next address */
         close(socket_fd);
     }
-
+	/* the linked list memory can be freed */
     freeaddrinfo(addr_results);
 
+	/* if -1, no possible_addr could be connected to a socket, otherwise return 
+	socket file descriptor */
     return (possible_addr == NULL) ? -1 : socket_fd;
 }
 
