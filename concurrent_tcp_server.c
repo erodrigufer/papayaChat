@@ -57,6 +57,7 @@ main(int argc, char *argv[])
     int listen_fd, client_fd;               /* Listening and connected sockets */
     struct sigaction sa;
 
+	/* server should run as a daemon */
     if (daemonCreation(0) == -1)
         errExit("becomeDaemon");
 
