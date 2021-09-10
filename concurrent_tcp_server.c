@@ -12,7 +12,7 @@
 #include <signal.h>
 #include <syslog.h>
 #include <sys/wait.h>
-#include "daemonCreation.h"
+#include "daemonCreation.h"		/* Create a daemon with one function call */
 #include "inet_sockets.h"       /* Declarations of inet*() socket functions */
 #include "basics.h"
 
