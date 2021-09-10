@@ -31,6 +31,7 @@ Returns a file descriptor on success, or a -1 on error */
 int
 clientConnect(const char *host, const char *service, int type)
 {
+	/* struct to supply criteria for getaddrinfo() */
     struct addrinfo addr_criteria;
 	/* store getaddrinfo() results*/
     struct addrinfo *addr_results;
@@ -101,14 +102,17 @@ clientConnect(const char *host, const char *service, int type)
    calling listen() with 'backlog'), with the SO_REUSEADDR option set.
    If 'addrLen' is not NULL, then use it to return the size of the
    address structure for the address family for this socket.
-   Return the socket descriptor on success, or -1 on error. */
-
+   Return the socket descriptor on success, or -1 on error. 
+   Good coding practice: declare function as static, since  it will be only 
+   available inside this file (the function is not even named in the 
+   header file for this file) */
 static int              /* Public interfaces: inetBind() and serverListen() */
 inetPassiveSocket(const char *service, int type, socklen_t *addrlen,
                   Boolean doListen, int backlog)
 {
+	/* struct to supply criteria for getaddrinfo() */
     struct addrinfo addr_criteria;
-    struct addrinfo *addr_results, *rp;
+    struct addrinfo *addr_results, *possible_addr;
     int socket_fd, optval, s;
 
     memset(&addr_criteria, 0, sizeof(struct addrinfo));
@@ -127,8 +131,8 @@ inetPassiveSocket(const char *service, int type, socklen_t *addrlen,
        that can be used to successfully create and bind a socket */
 
     optval = 1;
-    for (rp = addr_results; rp != NULL; rp = rp->ai_next) {
-        socket_fd = socket(rp->ai_family, rp->ai_socktype, rp->ai_protocol);
+    for (possible_addr = addr_results; possible_addr != NULL; possible_addr = possible_addr->ai_next) {
+        socket_fd = socket(possible_addr->ai_family, possible_addr->ai_socktype, possible_addr->ai_protocol);
         if (socket_fd == -1)
             continue;                   /* On error, try next address */
 
@@ -141,7 +145,7 @@ inetPassiveSocket(const char *service, int type, socklen_t *addrlen,
             }
         }
 
-        if (bind(socket_fd, rp->ai_addr, rp->ai_addrlen) == 0)
+        if (bind(socket_fd, possible_addr->ai_addr, possible_addr->ai_addrlen) == 0)
             break;                      /* Success */
 
         /* bind() failed: close this socket and try next address */
@@ -149,19 +153,19 @@ inetPassiveSocket(const char *service, int type, socklen_t *addrlen,
         close(socket_fd);
     }
 
-    if (rp != NULL && doListen) {
+    if (possible_addr != NULL && doListen) {
         if (listen(socket_fd, backlog) == -1) {
             freeaddrinfo(addr_results);
             return -1;
         }
     }
 
-    if (rp != NULL && addrlen != NULL)
-        *addrlen = rp->ai_addrlen;      /* Return address structure size */
+    if (possible_addr != NULL && addrlen != NULL)
+        *addrlen = possible_addr->ai_addrlen;      /* Return address structure size */
 
     freeaddrinfo(addr_results);
 
-    return (rp == NULL) ? -1 : socket_fd;
+    return (possible_addr == NULL) ? -1 : socket_fd;
 }
 
 /* Create stream socket, bound to wildcard IP address + port given in
