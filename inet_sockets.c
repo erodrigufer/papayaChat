@@ -80,7 +80,9 @@ inetConnect(const char *host, const char *service, int type)
         /* Connect failed: close this socket and try next address */
         close(socket_fd);
     }
-	/* the linked list memory can be freed */
+	/* the linked list memory can be freed, this list should be freed 
+	since it is dynamically allocated (a linked list has a variable size, 
+	determined dynamically) */
     freeaddrinfo(addr_results);
 
 	/* if -1, no possible_addr could be connected to a socket, otherwise return 
