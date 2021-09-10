@@ -43,15 +43,19 @@ inetConnect(const char *host, const char *service, int type)
     hints.ai_socktype = type;			/* can be either SOCK_STREAM or SOCK_DGRAM
 										to handle TCP and UDP */
 
+	/* man 3 getaddrinfo
+(From the man page) Given  host  and  service,  which  identify an Internet host and a service, getaddrinfo() returns one or more addrinfo structures, each of which contains an Internet  address that can be specified in a call to bind(2) or connect(2).
+
+	*/
     s = getaddrinfo(host, service, &hints, &result);
-    if (s != 0) {
-        errno = ENOSYS;
-        return -1;
+    if (s != 0) { /* getaddrinfo() returns 0 on success */
+        errno = ENOSYS; /* still not sure
+		why pick ENOSYS ?? */
+        return -1; /* getaddrinfo() failed so end inetConnect with -1 */
     }
 
     /* Walk through returned list until we find an address structure
        that can be used to successfully connect a socket */
-
     for (rp = result; rp != NULL; rp = rp->ai_next) {
         sfd = socket(rp->ai_family, rp->ai_socktype, rp->ai_protocol);
         if (sfd == -1)
