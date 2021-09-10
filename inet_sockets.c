@@ -21,10 +21,9 @@
         'type':         either SOCK_STREAM or SOCK_DGRAM
 */
 
-/* Create socket and connect it to the address specified by
-  'host' + 'service'/'type'. Return socket descriptor on success,
-  or -1 on error */
-
+/* Create a socket with the given socket 'type', and connect it to the
+address specified by 'host' and 'service'. It can handle both TCP and 
+UDP clients, that connect their sockets to a server */
 int
 inetConnect(const char *host, const char *service, int type)
 {
@@ -32,8 +31,8 @@ inetConnect(const char *host, const char *service, int type)
     struct addrinfo *result, *rp;
     int sfd, s;
 
-		/* use memset to guarantee that all values inside the addrinfo struct
-		are initialized with a 0 */
+	/* use memset to guarantee that all values inside the addrinfo struct
+	are initialized with a 0 */
     memset(&hints, 0, sizeof(struct addrinfo));
     hints.ai_canonname = NULL;
     hints.ai_addr = NULL;
