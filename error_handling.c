@@ -16,7 +16,8 @@
 __attribute__ ((__noreturn__))  /* if we call this function as last */
 #endif                          /* statement in a non-void function */
 static void
-terminate(Boolean useExit3)
+terminate(Boolean useExit3)		/* useExit3 refers to using the glibc function
+								exit() (see 'man 3 exit', instead of _exit() */
 {
     char *s;
 
