@@ -28,12 +28,21 @@ terminate(Boolean useExit3)
 	
 	/* if the pointer s is not NULL and its contents are not '\0' */
     if (s != NULL && *s != '\0')
-		/* use the syscall abort() */
+		/* use the syscall abort(), one would use abort() instead
+		of exit() because abort() does not call any other functions
+		before abnormally terminating the process. exit() calls the
+		functions registered atexit().
+		Moreover, calling abort() will cause a core dump. */
         abort();
-    else if (useExit3)
-        exit(EXIT_FAILURE);
+    else if (useExit3)		/* useExit3 is the Boolean input parameter
+							for the terminate function() */
+        exit(EXIT_FAILURE); /* use exit() stdlib function, it runs any
+							function defined atexit() before terminating
+							the process. */
     else
-        _exit(EXIT_FAILURE);
+        _exit(EXIT_FAILURE); /* _exit() is like exit(3), but does not call
+							 any  functions  registered  with  atexit(3)  
+							 or on_exit(3).*/
 }
 
 /* Diagnose 'errno' error by:
