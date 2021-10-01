@@ -130,7 +130,8 @@ errExit(const char *format, ...)
     va_end(argList);		/* va_end call to invalidate argList as noted
 							above. */
 
-    terminate(TRUE);
+    terminate(TRUE);		/* if core dump environment value not set, 
+							then exit() 3, which runs functions atexit() */
 }
 
 /* Display error message including 'errno' diagnostic, and
