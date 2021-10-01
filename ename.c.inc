@@ -36,4 +36,4 @@ static char *ename[] = {
     /* 130 */ "EOWNERDEAD", "ENOTRECOVERABLE", "ERFKILL", "EHWPOISON"
 };
 
-#define MAX_ENAME 133
+#define MAX_ENAME 133 /* max. number of error code names */
