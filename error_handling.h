@@ -16,13 +16,14 @@ In other words, one can use GNU extensions/attributes */
        end of non-void function" if we use the following functions to
        terminate main() or some other non-void function. */
 
-/* compiler optimization attribute
-check for more info: 
-https://gcc.gnu.org/onlinedocs/gcc-3.2/gcc/Function-Attributes.html */
-#define NORETURN __attribute__ ((__noreturn__))
-#else
-#define NORETURN /* if we are not using GCC then NORETURN will just be
-a blank macro definition */
+	/* compiler optimization attribute
+	   check for more info: 
+	   https://gcc.gnu.org/onlinedocs/gcc-3.2/gcc/Function-Attributes.html */
+	#define NORETURN __attribute__ ((__noreturn__))
+	#else
+	
+	#define NORETURN /* if we are not using GCC then NORETURN will just be
+						a blank macro definition */
 #endif
 
 /* Display error message including 'errno' diagnostic, and
