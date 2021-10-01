@@ -15,6 +15,8 @@
 #ifdef __GNUC__                 /* Prevent 'gcc -Wall' complaining  */
 __attribute__ ((__noreturn__))  /* if we call this function as last */
 #endif                          /* statement in a non-void function */
+
+/* defined as static, because only used inside this file! */
 static void
 terminate(Boolean useExit3)		/* useExit3 refers to using the glibc function
 								exit() (see 'man 3 exit', instead of _exit() */
@@ -88,7 +90,8 @@ outputError(Boolean useErr, int err, Boolean flushStdout,
 
     if (flushStdout)
         fflush(stdout);       /* Flush any pending stdout */
-    fputs(buf, stderr);
+    fputs(buf, stderr);		  /* fputs() writes the string s to stream, 
+							     without its terminating null byte ('\0'). */
     fflush(stderr);           /* In case stderr is not line-buffered */
 }
 
@@ -112,7 +115,6 @@ errMsg(const char *format, ...)
 
 /* Display error message including 'errno' diagnostic, and
    terminate the process */
-
 void
 errExit(const char *format, ...)
 {
@@ -136,7 +138,8 @@ errExit(const char *format, ...)
 							above. */
 
     terminate(TRUE);		/* if core dump environment value not set, 
-							then exit() 3, which runs functions atexit() */
+							then exit(3) [because TRUE parameter], which
+							runs functions atexit() */
 }
 
 /* Display error message including 'errno' diagnostic, and
