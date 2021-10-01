@@ -25,8 +25,10 @@ terminate(Boolean useExit3)
        depending on the value of 'useExit3'. */
 
     s = getenv("EF_DUMPCORE");
-
+	
+	/* if the pointer s is not NULL and its contents are not '\0' */
     if (s != NULL && *s != '\0')
+		/* use the syscall abort() */
         abort();
     else if (useExit3)
         exit(EXIT_FAILURE);
@@ -43,6 +45,7 @@ terminate(Boolean useExit3)
       * outputting the caller-supplied error message specified in
         'format' and 'ap'. */
 
+/* define as static function, because only used inside this file!*/
 static void
 outputError(Boolean useErr, int err, Boolean flushStdout,
         const char *format, va_list ap)
