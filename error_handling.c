@@ -42,7 +42,8 @@ terminate(Boolean useExit3)
     else
         _exit(EXIT_FAILURE); /* _exit() is like exit(3), but does not call
 							 any  functions  registered  with  atexit(3)  
-							 or on_exit(3).*/
+							 or on_exit(3). _exit() is a syscall check 
+							 'man _exit' or 'man 2 exit' */
 }
 
 /* Diagnose 'errno' error by:
