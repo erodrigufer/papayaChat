@@ -8,7 +8,9 @@
    (e.g., "51000"), and make a corresponding change in the client.
 
 */
-#include <signal.h>
+#include <signal.h>				/* Check 'man 3 signal' 
+								signal() is a simplified interface to the 
+								more general sigaction(2) facility. */
 #include <syslog.h>				/* server runs as a daemon, logging handled
 								through syslog API */
 #include <sys/wait.h>
