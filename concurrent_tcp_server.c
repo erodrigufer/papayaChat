@@ -1,4 +1,4 @@
-/* is_echo_sv.c
+/* concurrent_tcp_server.c
 
    An implementation of the TCP "echo" service.
 
@@ -7,7 +7,6 @@
    replace the SERVICE name below with a suitable unreserved port number
    (e.g., "51000"), and make a corresponding change in the client.
 
-   See also is_echo_cl.c.
 */
 #include <signal.h>
 #include <syslog.h>				/* server runs as a daemon, logging handled
