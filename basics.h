@@ -11,8 +11,7 @@
 #include <errno.h>      /* Declares errno and defines error constants */
 #include <string.h>     /* Commonly used string-handling functions */
 #include <stdbool.h>    /* 'bool' type plus 'true' and 'false' constants */
-
-//#include "error_functions.h"  /* Declares our error-handling functions */
+#include "error_handling.h"  /* Tailor-made error-handling functions */
 
 /* Unfortunately some UNIX implementations define FALSE and TRUE -
    here we'll undefine them */
