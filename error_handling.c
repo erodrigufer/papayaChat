@@ -2,8 +2,13 @@
 
    Error handling routines 
 */
-#include <stdarg.h>
-#include "error_handling.h"
+#include <stdarg.h>				/* A function may be called with a varying 
+								number of arguments of varying types.  The 
+								include file <stdarg.h> declares a type 
+								(va_list) and defines three macros for 
+								stepping through a list of arguments whose
+								number and types are not known to the called function. */
+#include "error_handling.h"		/* Custom-made error handling functions */
 #include "basics.h"
 #include "ename.c.inc"          /* Defines ename and MAX_ENAME */
 
