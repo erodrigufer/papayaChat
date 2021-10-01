@@ -102,11 +102,20 @@ errExit(const char *format, ...)
 							a type (va_list) and defines three macros
 							for stepping through a list of arguments
 							whose number and types are not known to
-							the called function.*/
+							the called function. */
 
-    va_start(argList, format);
+    va_start(argList, format);	/* The va_start() macro must be called 
+								first, and it initializes argList, which can
+								be passed to va_arg() for each argument
+								to be processed.  Calling va_end() signals
+								that there are no further arguments,and
+								causes argList to be invalidated.  Note that
+								each call to va_start() must be matched
+								by a call to va_end(), from within the
+								same function. */
     outputError(TRUE, errno, TRUE, format, argList);
-    va_end(argList);
+    va_end(argList);		/* va_end call to invalidate argList as noted
+							above. */
 
     terminate(TRUE);
 }
