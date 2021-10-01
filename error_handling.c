@@ -65,6 +65,10 @@ outputError(Boolean useErr, int err, Boolean flushStdout,
     char buf[BUF_SIZE], userMsg[BUF_SIZE], errText[BUF_SIZE];
 
     vsnprintf(userMsg, BUF_SIZE, format, ap);
+	/* vsnprintf() is equivalent to the function snprintf(), except that it is 
+	called  with  a va_list  instead  of  a variable number of arguments.  This
+	function does not call the va_end macro.  Because it invokes the va_arg 
+	macro, the value of ap is undefined after the call.*/
 
     if (useErr)
         snprintf(errText, BUF_SIZE, " [%s %s]",
