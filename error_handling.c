@@ -163,6 +163,8 @@ errExit(const char *format, ...)
 								each call to va_start() must be matched
 								by a call to va_end(), from within the
 								same function. */
+
+	/* print error codes TRUE, and flushStdOut TRUE */
     outputError(TRUE, errno, TRUE, format, argList);
     va_end(argList);		/* va_end call to invalidate argList as noted
 							above. */
