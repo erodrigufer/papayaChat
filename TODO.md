@@ -9,4 +9,4 @@
 * [ ] Change errno value modification
 
 ## concurrent_tcp_server.c
-* [X] file uses error-handling functions from the book that have not been implemented!! Compilation will fail!
+* [X] file uses error-handling functions from the book that have not been implemented!! Compilation will fail! **4.10.2021**
