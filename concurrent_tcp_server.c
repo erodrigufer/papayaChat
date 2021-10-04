@@ -144,7 +144,9 @@ main(int argc, char *argv[])
 										an input parameter, because it would otherwise not know
 										to which and from which file descriptor to perform
 										write and read calls */
-            _exit(EXIT_SUCCESS);
+            _exit(EXIT_SUCCESS);		/* child processes should generally only call _exit();
+										for a more general discussion about the topic check
+										25.4 'The Linux Programming Interface' */
 
         default:                        /* Parent */
             close(client_fd);                 /* Unneeded copy of connected socket */
