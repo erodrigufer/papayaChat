@@ -65,8 +65,9 @@ main(int argc, char *argv[])
         errExit("daemonCreation");			/* daemon creation failed, abort program
 											core dump if EF_DUMPCORE env variable set */
 
-    /* Establish SIGCHLD handler to reap terminated child processes */
-
+    /* Establish SIGCHLD handler to reap terminated child processes,
+	if SIGCHLD is not properly handled by the parent process, then 
+	zombie processes could happen */
     sigemptyset(&sa.sa_mask);
     sa.sa_flags = SA_RESTART;
 	/* grimReaper is the function handler for a SIGCHLD signal */
@@ -78,8 +79,7 @@ main(int argc, char *argv[])
 
     listen_fd = serverListen(SERVICE, 10, NULL);
     if (listen_fd == -1) {
-				/* The listening socket could not be created.
-				*/
+		/* The listening socket could not be created. */
         syslog(LOG_ERR, "Could not create server socket (%s)", strerror(errno));
         exit(EXIT_FAILURE);
     }
