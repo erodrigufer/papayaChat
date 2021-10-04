@@ -62,7 +62,8 @@ main(int argc, char *argv[])
 
 	/* server should run as a daemon */
     if (daemonCreation(0) == -1)
-        errExit("becomeDaemon");	
+        errExit("daemonCreation");			/* daemon creation failed, abort program
+											core dump if EF_DUMPCORE env variable set */
 
     /* Establish SIGCHLD handler to reap terminated child processes */
 
