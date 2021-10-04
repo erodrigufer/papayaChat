@@ -70,9 +70,16 @@ main(int argc, char *argv[])
     /* Establish SIGCHLD handler to reap terminated child processes,
 	if SIGCHLD is not properly handled by the parent process, then 
 	zombie processes could happen 
-	create an empyte signal set */
+
+	SIGCHLD is sent by the kernel to a parent process when one of its childern terminates
+	(either by calling exit() or as a result of being killed by a signal).
+
+	sa_mask is the signal set of signals that would be blocked during the
+	invocation of the handler
+	-> create an empyte signal set, no signal blocked during invocation of handler */
     sigemptyset(&sa.sa_mask);				/*TODO: sigemptyset() should also be handled 
 											with if statement in case there is an error == -1 */
+
 	/* if a syscall is interrupted by the SIGCHLD, the kernel should
 	restart the syscall after handling the signal,
 	for that the SA_RESTART flag is used. Not all syscalls can be
@@ -81,8 +88,10 @@ main(int argc, char *argv[])
     sa.sa_flags = SA_RESTART;
 	/* grimReaper is the function handler for a SIGCHLD signal */
     sa.sa_handler = grimReaper;
+	/* the new disposition for SIGCHLD signal is the grimReaper function, the old
+	signal disposition is not stored anywhere (NULL) */
     if (sigaction(SIGCHLD, &sa, NULL) == -1) {
-        syslog(LOG_ERR, "Error from sigaction(): %s", strerror(errno));
+        syslog(LOG_ERR, "Error from sigaction(SIGCHLD): %s", strerror(errno));
         exit(EXIT_FAILURE);
     }
 
