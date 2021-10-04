@@ -125,7 +125,9 @@ main(int argc, char *argv[])
         if (client_fd == -1) {
             syslog(LOG_ERR, "Failure in accept(): %s", strerror(errno));
             exit(EXIT_FAILURE);				/* TODO: if accept() fails, should it try again?
-											and not exit inmediately ?? */
+											and not exit inmediately ?? Check man page of accept()
+											for all possible errors, one error is probably if the
+											internet is down! */
         }
 
         /* Handle each client request in a new child process */
