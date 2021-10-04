@@ -30,7 +30,9 @@ to prevent any children becoming zombie processes! */
 static void             /* SIGCHLD handler to reap dead child processes */
 grimReaper(int sig)
 {
-    int savedErrno;             /* Save 'errno' in case changed here */
+    int savedErrno;             /* Save 'errno' in case changed here, errno
+								can be changed by waitpid() if no more children exist
+								then 'errno'= ECHILD */
     savedErrno = errno;
     while (waitpid(-1, NULL, WNOHANG) > 0)	/* 'man 2 waitpid' -1 means that it waits 
 	for any of its child processes, the option WNOHANG makes the syscall waitpid()
