@@ -171,7 +171,6 @@ inetPassiveSocket(const char *service, int type, socklen_t *addrlen,
 /* Create stream socket, bound to wildcard IP address + port given in
   'service'. Make the socket a listening socket, with the specified
   'backlog'. Return socket descriptor on success, or -1 on error. */
-
 int
 serverListen(const char *service, int backlog, socklen_t *addrlen)
 {
