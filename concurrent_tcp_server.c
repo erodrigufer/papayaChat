@@ -134,7 +134,7 @@ main(int argc, char *argv[])
 
         switch (fork()) {
         case -1:
-            syslog(LOG_ERR, "Can't create child (%s)", strerror(errno));
+            syslog(LOG_ERR, "Error fork() call. Can't create child (%s)", strerror(errno));
             close(client_fd);                 /* Give up on this client */
             break;                      /* May be temporary; try next client */
 
