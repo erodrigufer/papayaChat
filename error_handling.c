@@ -10,11 +10,16 @@
 								number and types are not known to the called function. */
 #include "error_handling.h"		/* Custom-made error handling functions */
 #include "basics.h"
-#include "ename.c.inc"          /* Defines ename and MAX_ENAME */
+#include "ename.c.inc"          /* Defines ename and MAX_ENAME,
+								MAX_ENAME define the max number of error codes */
 
+/* it first checks if the compiler is GCC, GCC with -Wall flag will
+complain that main function does not return if one of the error 
+functions that does not return is called due to an error */
 #ifdef __GNUC__                 /* Prevent 'gcc -Wall' complaining  */
 __attribute__ ((__noreturn__))  /* if we call this function as last */
 #endif                          /* statement in a non-void function */
+
 
 /* defined as static, because only used inside this file! */
 static void
