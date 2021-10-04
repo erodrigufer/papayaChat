@@ -69,6 +69,7 @@ outputError(Boolean useErr, int err, Boolean flushStdout,
         const char *format, va_list ap)
 {
 #define BUF_SIZE 500
+	/* initialize 3 character strings with a length of 500 */
     char buf[BUF_SIZE], userMsg[BUF_SIZE], errText[BUF_SIZE];
 
     vsnprintf(userMsg, BUF_SIZE, format, ap);
@@ -84,7 +85,11 @@ outputError(Boolean useErr, int err, Boolean flushStdout,
     if (useErr) /* useErr is a Boolean parameter for this function */
         snprintf(errText, BUF_SIZE, " [%s %s]",
                 (err > 0 && err <= MAX_ENAME) ?
-                ename[err] : "?UNKNOWN?", strerror(err));
+                ename[err] : "**UNKNOWN?? Error code**", strerror(err));
+				/* if the error code err is larger than 0 and
+				smaller or equal to MAX_ENAME, then use as first string 
+				the error code stored in ename[err], otherwise write '**UNKNOWN?? Error code**'
+				and the output of strerror(err) */
     else
         snprintf(errText, BUF_SIZE, ":");
 
