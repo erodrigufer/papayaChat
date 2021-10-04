@@ -60,7 +60,7 @@ int
 main(int argc, char *argv[])
 {
     int listen_fd, client_fd;               /* server listening socket and client socker */
-    struct sigaction sa;					/* TODO: re-read signals section of book */
+    struct sigaction sa;					
 
 	/* server should run as a daemon */
     if (daemonCreation(0) == -1)
