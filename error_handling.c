@@ -73,11 +73,14 @@ outputError(Boolean useErr, int err, Boolean flushStdout,
 
     vsnprintf(userMsg, BUF_SIZE, format, ap);
 	/* vsnprintf() is equivalent to the function snprintf(), except that it is 
-	called  with  a va_list  instead  of  a variable number of arguments.  This
-	function does not call the va_end macro.  Because it invokes the va_arg 
-	macro, the value of ap is undefined after the call.*/
+	called  with  a va_list.  
+	This function does not call the va_end macro.  Because it invokes the va_arg 
+	macro, the value of ap is undefined after the call. 
 
-    if (useErr)
+	snprintf writes a maximum of BUF_SIZE bytes to the character string userMsg
+	*/
+
+    if (useErr) /* useErr is a Boolean parameter for this function */
         snprintf(errText, BUF_SIZE, " [%s %s]",
                 (err > 0 && err <= MAX_ENAME) ?
                 ename[err] : "?UNKNOWN?", strerror(err));
