@@ -140,7 +140,10 @@ main(int argc, char *argv[])
 
         case 0:                         /* Child */
             close(listen_fd);                 /* Unneeded copy of listening socket */
-            handleRequest(client_fd);
+            handleRequest(client_fd);	/* handleRequest() needs to have the client_fd as
+										an input parameter, because it would otherwise not know
+										to which and from which file descriptor to perform
+										write and read calls */
             _exit(EXIT_SUCCESS);
 
         default:                        /* Parent */
