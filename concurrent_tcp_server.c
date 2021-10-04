@@ -23,13 +23,22 @@
 
 /* static: function only used inside this file 
 the signal handler receives as parameter an integer to differentiate 
-the signal that triggered the signal handler */
+the signal that triggered the signal handler 
+In this case the grimReaper function is only triggered when a child process
+is either killed or exits, so the parent process can perform a nonblocking wait
+to prevent any children becoming zombie processes! */
 static void             /* SIGCHLD handler to reap dead child processes */
 grimReaper(int sig)
 {
     int savedErrno;             /* Save 'errno' in case changed here */
     savedErrno = errno;
-    while (waitpid(-1, NULL, WNOHANG) > 0)
+    while (waitpid(-1, NULL, WNOHANG) > 0)	/* 'man 2 waitpid' -1 means that it waits 
+	for any of its child processes, the option WNOHANG makes the syscall waitpid()
+	to return inmediately if no children has exited, if children exist but none has changed 
+	status, then waitpid returns 0, so it exits the while-loop (on error, it returns -1 and
+	also exits the while-loop). In any other case, multiple children have exited, so waitpid()
+	will return their pids (which are larger than 0). After the last children which has changed
+	status, waitpid will return either 0 or -1 and the while-loop will come to an end */
         continue;
     errno = savedErrno;
 }
