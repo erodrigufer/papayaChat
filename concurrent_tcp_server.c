@@ -38,7 +38,8 @@ grimReaper(int sig)
 	status, then waitpid returns 0, so it exits the while-loop (on error, it returns -1 and
 	also exits the while-loop). In any other case, multiple children have exited, so waitpid()
 	will return their pids (which are larger than 0). After the last children which has changed
-	status, waitpid will return either 0 or -1 and the while-loop will come to an end */
+	status, waitpid will return either 0 or -1 and the while-loop will come to an end
+	If there are no more children, then waitpid will return -1 and set errno to ECHILD */
         continue;
     errno = savedErrno;
 }
