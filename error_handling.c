@@ -220,14 +220,15 @@ errExitEN(int errnum, const char *format, ...)
     terminate(TRUE);
 }
 
-/* Print an error message (without an 'errno' diagnostic) */
-
+/* Print an error message (without an 'errno' diagnostic),
+then terminate process (core dump) */
 void
 fatal(const char *format, ...)
 {
     va_list argList;
 
     va_start(argList, format);
+	/* Do not print 'errno' diagnostic FALSE, flush StdOut TRUE */
     outputError(FALSE, 0, TRUE, format, argList);
     va_end(argList);
 
