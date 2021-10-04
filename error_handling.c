@@ -90,15 +90,30 @@ outputError(Boolean useErr, int err, Boolean flushStdout,
 				smaller or equal to MAX_ENAME, then use as first string 
 				the error code stored in ename[err], otherwise write '**UNKNOWN?? Error code**'
 				and the output of strerror(err) */
+	
+	/* if useErr==False then do not print Error codes */
     else
         snprintf(errText, BUF_SIZE, ":");
 
+/* if GCC major version >= 7 then */
 #if __GNUC__ >= 7
+/* with pragma, compiler diagnostics can be enabled and disabled 
+push (as with a stack) stores the current diagnostics settings */
 #pragma GCC diagnostic push
+/* disable -Wformat-truncation warning at compile time
+Warn about calls to formatted input/output functions such as snprintf and vsnprintf that 
+might result in output truncation. When the exact number of bytes written by a format 
+directive cannot be determined at compile-time it is estimated based on heuristics that 
+depend on the level argument and on optimization. While enabling optimization will 
+in most cases improve the accuracy of the warning, it may also result 
+in false positives. Except as noted otherwise, the option uses the same logic -Wformat-overflow.
+Check for more info:
+https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#Warning-Options */
 #pragma GCC diagnostic ignored "-Wformat-truncation"
 #endif
     snprintf(buf, BUF_SIZE, "ERROR%s %s\n", errText, userMsg);
 #if __GNUC__ >= 7
+/* restore the previous diagnostics settings by using pop */
 #pragma GCC diagnostic pop
 #endif
 
