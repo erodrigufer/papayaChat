@@ -21,11 +21,13 @@
 #define SERVICE "echo"          /* Name of TCP service */
 #define BUF_SIZE 4096
 
+/* static: function only used inside this file 
+the signal handler receives as parameter an integer to differentiate 
+the signal that triggered the signal handler */
 static void             /* SIGCHLD handler to reap dead child processes */
 grimReaper(int sig)
 {
     int savedErrno;             /* Save 'errno' in case changed here */
-
     savedErrno = errno;
     while (waitpid(-1, NULL, WNOHANG) > 0)
         continue;
@@ -67,8 +69,15 @@ main(int argc, char *argv[])
 
     /* Establish SIGCHLD handler to reap terminated child processes,
 	if SIGCHLD is not properly handled by the parent process, then 
-	zombie processes could happen */
-    sigemptyset(&sa.sa_mask);
+	zombie processes could happen 
+	create an empyte signal set */
+    sigemptyset(&sa.sa_mask);				/*TODO: sigemptyset() should also be handled 
+											with if statement in case there is an error == -1 */
+	/* if a syscall is interrupted by the SIGCHLD, the kernel should
+	restart the syscall after handling the signal,
+	for that the SA_RESTART flag is used. Not all syscalls can be
+	properly restarted by the kernel, check 21.5 of 'The Linux 
+	Programming Interface' */
     sa.sa_flags = SA_RESTART;
 	/* grimReaper is the function handler for a SIGCHLD signal */
     sa.sa_handler = grimReaper;
