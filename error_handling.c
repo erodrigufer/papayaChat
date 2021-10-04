@@ -144,7 +144,8 @@ errMsg(const char *format, ...)
 }
 
 /* Display error message including 'errno' diagnostic, and
-   terminate the process */
+   terminate the process, if environment variable is set
+   this will produce a core dump */
 void
 errExit(const char *format, ...)
 {
