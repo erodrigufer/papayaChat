@@ -68,7 +68,7 @@ main(int argc, char *argv[])
 
     sigemptyset(&sa.sa_mask);
     sa.sa_flags = SA_RESTART;
-		/* grimReaper is the function handler for a SIGCHLD signal */
+	/* grimReaper is the function handler for a SIGCHLD signal */
     sa.sa_handler = grimReaper;
     if (sigaction(SIGCHLD, &sa, NULL) == -1) {
         syslog(LOG_ERR, "Error from sigaction(): %s", strerror(errno));
