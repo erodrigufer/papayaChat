@@ -127,7 +127,6 @@ https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#Warning-Options */
 
 /* Display error message including 'errno' diagnostic, and
    return to caller */
-
 void
 errMsg(const char *format, ...)
 {
@@ -137,10 +136,14 @@ errMsg(const char *format, ...)
     savedErrno = errno;       /* In case we change it here */
 
     va_start(argList, format);
+	/* print error code TRUE, and flush StdOut TRUE */
     outputError(TRUE, errno, TRUE, format, argList);
     va_end(argList);
 
     errno = savedErrno;
+	/* errMsg does not terminate the process, it just returns
+	to the caller, in comparison to errExit which executes
+	terminate() -> core dump */
 }
 
 /* Display error message including 'errno' diagnostic, and
