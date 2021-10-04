@@ -1,7 +1,7 @@
 ## basics.h
 * [ ] Keep commenting file, remove unnecessary parts
 ## error_handling.c
-* [ ] Keep commenting file, remove unnecessary parts
+* [ ] Keep commenting file, remove unnecessary parts, not all functions have been commented
 ## ename.c.inc
 * [ ] Produce file for ubuntu cloud server error names
 ## inet_sockets.c
