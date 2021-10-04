@@ -103,7 +103,10 @@ main(int argc, char *argv[])
 	/* the new disposition for SIGCHLD signal is the grimReaper function, the old
 	signal disposition is not stored anywhere (NULL) */
     if (sigaction(SIGCHLD, &sa, NULL) == -1) {
-        syslog(LOG_ERR, "Error from sigaction(SIGCHLD): %s", strerror(errno));
+		/* the server runs as a daemon, so no errors can be output to stderr, since
+		there is no controlling terminal. All errors are going to be logged into the 
+		syslog using the syslog API */
+        syslog(LOG_ERR, "Error: sigaction(SIGCHLD): %s", strerror(errno));
         exit(EXIT_FAILURE);
     }
 
