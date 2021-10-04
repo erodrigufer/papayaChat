@@ -1,11 +1,14 @@
 /* error_handling.h
 
+TODO: Only the functions with a description here have being commented
+in the .c file
+
 */
 #ifndef ERROR_HANDLING_H
 #define ERROR_HANDLING_H		/* Header guard */
 
-/* Error diagnostic routines */
-
+/* Display error message including 'errno' diagnostic,
+return to caller without terminating process */
 void errMsg(const char *format, ...);
 
 /* only if the compiler is gcc, the following macros will be defined
@@ -27,13 +30,16 @@ In other words, one can use GNU extensions/attributes */
 #endif
 
 /* Display error message including 'errno' diagnostic, and
-   terminate the process */
+   terminate the process, core dump will take place if env 
+   variable EF_COREDUMP is set beforehand */
 void errExit(const char *format, ...) NORETURN ;
 
 void err_exit(const char *format, ...) NORETURN ;
 
 void errExitEN(int errnum, const char *format, ...) NORETURN ;
 
+/* Prints an error message without 'errno' diagnostic,
+and termiantes process (core dump) */
 void fatal(const char *format, ...) NORETURN ;
 
 void usageErr(const char *format, ...) NORETURN ;
