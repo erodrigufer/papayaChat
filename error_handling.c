@@ -77,7 +77,8 @@ outputError(Boolean useErr, int err, Boolean flushStdout,
 	This function does not call the va_end macro.  Because it invokes the va_arg 
 	macro, the value of ap is undefined after the call. 
 
-	snprintf writes a maximum of BUF_SIZE bytes to the character string userMsg
+	snprintf writes at most BUF_SIZE bytes to the character string userMsg and ends it
+	with '\0'
 	*/
 
     if (useErr) /* useErr is a Boolean parameter for this function */
