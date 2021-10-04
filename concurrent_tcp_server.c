@@ -116,7 +116,7 @@ main(int argc, char *argv[])
     listen_fd = serverListen(SERVICE, 10, NULL);
     if (listen_fd == -1) {
 		/* The listening socket could not be created. */
-        syslog(LOG_ERR, "Could not create server socket (%s)", strerror(errno));
+        syslog(LOG_ERR, "Could not create server listening socket (%s)", strerror(errno));
         exit(EXIT_FAILURE);
     }
 
