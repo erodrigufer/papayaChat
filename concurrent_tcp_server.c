@@ -121,10 +121,11 @@ main(int argc, char *argv[])
     }
 
     for (;;) {
-        client_fd = accept(listen_fd, NULL, NULL);  /* Wait for connection */
+        client_fd = accept(listen_fd, NULL, NULL);  /* Wait for connection from client */
         if (client_fd == -1) {
             syslog(LOG_ERR, "Failure in accept(): %s", strerror(errno));
-            exit(EXIT_FAILURE);
+            exit(EXIT_FAILURE);				/* TODO: if accept() fails, should it try again?
+											and not exit inmediately ?? */
         }
 
         /* Handle each client request in a new child process */
