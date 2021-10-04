@@ -90,8 +90,9 @@ outputError(Boolean useErr, int err, Boolean flushStdout,
 
     if (flushStdout)
         fflush(stdout);       /* Flush any pending stdout */
-    fputs(buf, stderr);		  /* fputs() writes the string s to stream, 
-							     without its terminating null byte ('\0'). */
+    fputs(buf, stderr);		  /* fputs() writes the string buf to the 
+								 stream stderr, without its terminating 
+								 null byte ('\0'). */
     fflush(stderr);           /* In case stderr is not line-buffered */
 }
 

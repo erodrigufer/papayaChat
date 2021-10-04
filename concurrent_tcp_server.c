@@ -57,7 +57,7 @@ handleRequest(int client_fd)
 int
 main(int argc, char *argv[])
 {
-    int listen_fd, client_fd;               /* Listening and connected sockets */
+    int listen_fd, client_fd;               /* server listening socket and client socker */
     struct sigaction sa;
 
 	/* server should run as a daemon */
