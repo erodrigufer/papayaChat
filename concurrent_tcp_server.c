@@ -43,7 +43,7 @@ grimReaper(int sig)
 	status, waitpid will return either 0 or -1 and the while-loop will come to an end
 	If there are no more children, then waitpid will return -1 and set errno to ECHILD */
         continue;
-    errno = savedErrno;
+    errno = savedErrno;			/* restore errno to value before signal handler */
 }
 
 /* Handle a client request: copy socket input back to socket,
