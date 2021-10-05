@@ -113,8 +113,8 @@ main(int argc, char *argv[])
     }
 
 
-	/* Keep working from here! */
-
+	/* server listens on port 'SERVICE', with a certain BACKLOG_NUMBER, and does not want to 
+	receive information about the address of the client socket (NULL) */
     listen_fd = serverListen(SERVICE, 10, NULL);
     if (listen_fd == -1) {
 		/* The listening socket could not be created. */
