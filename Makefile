@@ -8,7 +8,7 @@ EXECUTABLE1 = daemonLogger
 OBJECTS2 = concurrent_server.o
 EXECUTABLE2 = concurrent_server
 
-OBJECTS = $(OBJECT1) $(OBJECTS2)
+OBJECTS = $(OBJECTS1) $(OBJECTS2)
 EXECUTABLES = $(EXECUTABLE1) $(EXECUTABLE2)
 
 all : $(EXECUTABLES)
