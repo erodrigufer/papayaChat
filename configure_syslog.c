@@ -1,6 +1,6 @@
 #include <syslog.h>
 
-int configureSysLog(void){
+int configure_syslog(void){
 
 	/* identityString: this const char* will be appended to all log messages */
 	const char *identityString = "Server daemon";
