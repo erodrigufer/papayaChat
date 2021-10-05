@@ -1,3 +1,5 @@
+## Makefile
+* [ ] Makefile should compile both logDaemon and concurrent_server
 ## basics.h
 * [ ] Keep commenting file, remove unnecessary parts
 ## error_handling.c
