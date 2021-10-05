@@ -123,6 +123,8 @@ main(int argc, char *argv[])
         exit(EXIT_FAILURE);
     }
 
+	/* send message to syslog, server is listening */
+	syslog(LOG_DEBUG, "Server is listening on incomming connections.");
     for (;;) {
         client_fd = accept(listen_fd, NULL, NULL);  /* Wait for connection from client */
         if (client_fd == -1) {
@@ -142,6 +144,8 @@ main(int argc, char *argv[])
             break;                      /* May be temporary; try next client */
 
         case 0:                       /* Child */
+			/* write debug to syslog with child's PID */
+            syslog(LOG_DEBUG, "Child process initialized (handling client connection)");
             close(listen_fd);                 /* Unneeded copy of listening socket */
             handleRequest(client_fd);	/* handleRequest() needs to have the client_fd as
 										an input parameter, because it would otherwise not know
