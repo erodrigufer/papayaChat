@@ -9,7 +9,6 @@ on:
 jobs:
   Build_daemonLogger:
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v2
     #- name: configure
@@ -23,7 +22,6 @@ jobs:
 
   Build_concurrent_server:
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v2
     #- name: configure
