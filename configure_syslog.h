@@ -2,6 +2,6 @@
 #define CONFIGURE_SYSLOG_H
 
 /* return 0 if successful */
-int configureSysLog(void);
+int configure_syslog(void);
 
 #endif
