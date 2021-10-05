@@ -36,9 +36,12 @@ int configureSysLog(void){
 }
 int main(int argc, char *argv[]){
 
+/* service should run as a daemon */
 	daemonCreation(0);
 
-/* configure the syslog API */
+/* configure the syslog API,
+a daemon does not have a controlling terminal, so it should output all of its 
+error messages to a log */
 	if(configureSysLog() == -1)
 		exit(EXIT_FAILURE); /* at this point stderr was probably redirected to 
 		/dev/null so there is no point on writing an error message */
