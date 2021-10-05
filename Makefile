@@ -13,5 +13,7 @@ daemonCreation.o : basics.h daemonCreation.h
 
 main.o : basics.h daemonCreation.h
 
-
-
+# Remove object files and linked program
+.PHONY : clean
+clean :
+	rm $(PROGRAM_NAME) $(OBJECTS)
