@@ -4,7 +4,7 @@ OBJECTS = daemonCreation.o main.o
 
 PROGRAM_NAME = daemonLog
 
-PROGRAM_NAME : $(OBJECTS)
+$(PROGRAM_NAME) : $(OBJECTS)
 	cc -o $(PROGRAM_NAME) $(OBJECTS)
 
 # Implicit rules, daemonCreation.c is missing
