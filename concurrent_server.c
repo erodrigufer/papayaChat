@@ -72,7 +72,9 @@ int
 main(int argc, char *argv[])
 {
     int listen_fd, client_fd;               /* server listening socket and client socker */
-    struct sigaction sa;					
+    struct sigaction sa;					/* struc is necessary to define signals mask
+											to be blocked during signal handler, needed for syscall
+											sigaction*/
 
 	/* server should run as a daemon */
     if (daemonCreation(0) == -1)
