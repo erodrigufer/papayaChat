@@ -17,3 +17,6 @@
 ### main()
 * [ ] sigemptyset() function should actually be handled check if an error ocurred! with an if-statement. But wait for a deployment in the server to perform this change
 * [ ] question legitimacy of exit after failed accept() call in server
+
+##configure_syslog.c
+* [ ] Handle error of openlog
