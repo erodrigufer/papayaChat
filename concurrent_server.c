@@ -19,6 +19,7 @@
 #include "basics.h"
 
 #define SERVICE "echo"          /* Name of TCP service */
+#define BACKLOG_QUEUE 10		/* max number of clients in listening backlog queue */
 #define BUF_SIZE 4096
 
 /* static: function only used inside this file 
@@ -113,9 +114,9 @@ main(int argc, char *argv[])
     }
 
 
-	/* server listens on port 'SERVICE', with a certain BACKLOG_NUMBER, and does not want to 
+	/* server listens on port 'SERVICE', with a certain BACKLOG_QUEUE, and does not want to 
 	receive information about the address of the client socket (NULL) */
-    listen_fd = serverListen(SERVICE, 10, NULL);
+    listen_fd = serverListen(SERVICE, BACKLOG_QUEUE, NULL);
     if (listen_fd == -1) {
 		/* The listening socket could not be created. */
         syslog(LOG_ERR, "Could not create server listening socket (%s)", strerror(errno));
