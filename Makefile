@@ -5,7 +5,7 @@ OBJECTS1 = daemonCreation.o daemonLogger.o
 EXECUTABLE1 = daemonLogger
 
 # Objects and executable for concurrent_server
-OBJECTS2 = concurrent_server.o error_handling.o inet_sockets.o daemonCreation.o
+OBJECTS2 = concurrent_server.o error_handling.o inet_sockets.o daemonCreation.o configure_syslog.o
 EXECUTABLE2 = concurrent_server
 
 OBJECTS = $(OBJECTS1) $(OBJECTS2)
@@ -29,11 +29,13 @@ daemonCreation.o : basics.h daemonCreation.h
 
 daemonLogger.o : basics.h daemonCreation.h
 
-concurrent_server.o : inet_sockets.o inet_sockets.h basics.h daemonCreation.o daemonCreation.h error_handling.o
+concurrent_server.o : inet_sockets.o inet_sockets.h basics.h daemonCreation.o daemonCreation.h error_handling.o configure_syslog.o
 
 error_handling.o : error_handling.h basics.h
 
 inet_sockets.o : inet_sockets.h basics.h
+
+configure_syslog.o : 
 
 # Remove object files and linked program
 .PHONY : clean
