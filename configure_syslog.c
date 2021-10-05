@@ -15,6 +15,7 @@ int configure_syslog(void){
 
 	/* open a syslog with specified configuration */
 	openlog(identityString, logOptions, logFacility);
+	/* TODO: can openlog fail?? handle error */
 
 	return 0;
 }
