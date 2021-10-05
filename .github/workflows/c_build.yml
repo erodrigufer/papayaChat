@@ -22,16 +22,16 @@ jobs:
     #- name: make distcheck
     #  run: make distcheck
 
-  Build concurrent_server:
+#  Build concurrent_server:
 
-    runs-on: ubuntu-latest
+#    runs-on: ubuntu-latest
 
-    steps:
-    - uses: actions/checkout@v2
+#    steps:
+#    - uses: actions/checkout@v2
     #- name: configure
     #  run: ./configure
-    - name: make concurrent_server
-      run: make concurrent_server
+#    - name: make concurrent_server
+#      run: make concurrent_server
     #- name: make check
     #  run: make check
     #- name: make distcheck
