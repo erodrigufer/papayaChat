@@ -8,7 +8,6 @@ on:
 
 jobs:
   Build_daemonLogger:
-	name: Build daemon logger
     runs-on: ubuntu-latest
 
     steps:
@@ -23,7 +22,6 @@ jobs:
     #  run: make distcheck
 
   Build_concurrent_server:
-	name: Build concurrent server back-end
     runs-on: ubuntu-latest
 
     steps:
