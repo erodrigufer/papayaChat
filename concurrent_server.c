@@ -133,15 +133,15 @@ main(int argc, char *argv[])
 											internet is down! */
         }
 
-        /* Handle each client request in a new child process */
-
+        /* Multi-process server back-end architecture:
+		Handle each client request in a new child process */
         switch (fork()) {
         case -1:
             syslog(LOG_ERR, "Error fork() call. Can't create child (%s)", strerror(errno));
-            close(client_fd);                 /* Give up on this client */
+            close(client_fd);         /* Give up on this client */
             break;                      /* May be temporary; try next client */
 
-        case 0:                         /* Child */
+        case 0:                       /* Child */
             close(listen_fd);                 /* Unneeded copy of listening socket */
             handleRequest(client_fd);	/* handleRequest() needs to have the client_fd as
 										an input parameter, because it would otherwise not know
@@ -154,8 +154,8 @@ main(int argc, char *argv[])
         default:                        /* Parent */
             close(client_fd);                 /* Unneeded copy of connected socket */
             break;                      /* Loop to accept next connection */
-        }
-    }
+        } // end switch-case after fork()
+    } // end for-loop accept() clients
 }
 
 /* Eduardo Rodriguez 2021 (c) (@erodrigufer) with some code taken and modified from Michael Kerrisk. Licensed under GNU AGPLv3 */
