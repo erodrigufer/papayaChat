@@ -4,10 +4,9 @@
 /* add sys logging capabilities to daemon */
 #include <syslog.h>
 
-/* libraries needed to prnt the pid of a process,
-both libraries are already included in "basics.h" */
-//#include <sys/types.h>
-//#include <unistd.h>
+/* libraries needed to print the pid of a process, */
+#include <sys/types.h>
+#include <unistd.h>
 
 /*
 This is how the getpid() function is declared,
