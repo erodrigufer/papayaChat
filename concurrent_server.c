@@ -29,7 +29,7 @@ so it is found on (2)])
 #include "basics.h"
 #include "configure_syslog.h"	/* handle configuration of syslog */
 
-#define SERVICE 51000          /* Name of TCP service */
+#define SERVICE "51000"          /* Name of TCP service */
 #define BACKLOG_QUEUE 10		/* max number of clients in listening backlog queue */
 #define BUF_SIZE 4096
 
