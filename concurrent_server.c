@@ -14,6 +14,16 @@
 #include <syslog.h>				/* server runs as a daemon, logging handled
 								through syslog API */
 #include <sys/wait.h>
+/* libraries needed to print the pid of a process, */
+#include <sys/types.h>
+#include <unistd.h>
+
+/* This is how the getpid() function is declared,
+this functions always work (see documentation man 2 getpid [getpid is a kernel system call
+so it is found on (2)])
+       pid_t getpid(void);
+       pid_t getppid(void); */
+
 #include "daemonCreation.h"		/* Create a daemon with one function call */
 #include "inet_sockets.h"       /* Declarations of inet*() socket functions */
 #include "basics.h"
