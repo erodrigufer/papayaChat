@@ -7,7 +7,7 @@ on:
     branches: [ main ]
 
 jobs:
-  build:
+  Build daemonLogger:
 
     runs-on: ubuntu-latest
 
@@ -15,8 +15,23 @@ jobs:
     - uses: actions/checkout@v2
     #- name: configure
     #  run: ./configure
-    - name: make
-      run: make
+    - name: make daemonLogger
+      run: make daemonLogger
+    #- name: make check
+    #  run: make check
+    #- name: make distcheck
+    #  run: make distcheck
+
+  Build concurrent_server:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    #- name: configure
+    #  run: ./configure
+    - name: make concurrent_server
+      run: make concurrent_server
     #- name: make check
     #  run: make check
     #- name: make distcheck
