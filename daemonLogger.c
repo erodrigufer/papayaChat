@@ -36,8 +36,6 @@ int configureSysLog(void){
 }
 int main(int argc, char *argv[]){
 
-error_to_test_github_actions_fail;
-
 /* service should run as a daemon */
 	daemonCreation(0);
 
