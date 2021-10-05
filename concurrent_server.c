@@ -27,6 +27,7 @@ so it is found on (2)])
 #include "daemonCreation.h"		/* Create a daemon with one function call */
 #include "inet_sockets.h"       /* Declarations of inet*() socket functions */
 #include "basics.h"
+#include "configure_syslog.h"	/* handle configuration of syslog */
 
 #define SERVICE "echo"          /* Name of TCP service */
 #define BACKLOG_QUEUE 10		/* max number of clients in listening backlog queue */
