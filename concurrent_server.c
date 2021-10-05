@@ -137,6 +137,8 @@ main(int argc, char *argv[])
     if (listen_fd == -1) {
 		/* The listening socket could not be created. */
         syslog(LOG_ERR, "Could not create server listening socket (%s)", strerror(errno));
+		/* this error happens, if the listening PORT needs sudo rights to run, and
+		the program is not run with sudo rights */
         exit(EXIT_FAILURE);
     }
 
