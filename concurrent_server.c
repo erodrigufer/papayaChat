@@ -85,13 +85,19 @@ main(int argc, char *argv[])
 {
     int listen_fd, client_fd;               /* server listening socket and client socker */
     struct sigaction sa;					/* struc is necessary to define signals mask
-											to be blocked during signal handler, needed for syscall
-											sigaction*/
+											to be blocked during signal handler, needed 
+											for syscall sigaction*/
 
 	/* server should run as a daemon */
     if (daemonCreation(0) == -1)
         errExit("daemonCreation");			/* daemon creation failed, abort program
 											core dump if EF_DUMPCORE env variable set */
+
+	/* configure the syslog API,
+	a daemon does not have a controlling terminal, so it should output all of its 
+	error messages to a log */
+	/* TODO: handle error of configureSyslog*/
+	configure_syslog();
 
     /* Establish SIGCHLD handler to reap terminated child processes,
 	if SIGCHLD is not properly handled by the parent process, then 
