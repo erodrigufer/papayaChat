@@ -1,5 +1,7 @@
+## configureSyslog.c
+* [ ] Create the configure syslog file or transfer the function to the concurrent server file, because it is needed there.
 ## Makefile
-* [ ] Makefile should compile both logDaemon and concurrent_server
+* [X] Makefile should compile both logDaemon and concurrent_server
 ## basics.h
 * [ ] Keep commenting file, remove unnecessary parts
 ## error_handling.c
