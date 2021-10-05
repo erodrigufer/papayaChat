@@ -43,7 +43,6 @@ int main(int argc, char *argv[]){
 		exit(EXIT_FAILURE); /* at this point stderr was probably redirected to 
 		/dev/null so there is no point on writing an error message */
 
-
 /*
 int snprintf(char *str, size_t size, const char *format, ...);
 Function definition to 

@@ -1,0 +1,2 @@
+# Ignore all C-Object files, since they are architecture specific
+*.o
