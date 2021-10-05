@@ -35,7 +35,7 @@ int configureSysLog(void){
 	return 0;
 }
 int main(int argc, char *argv[]){
- testForWrongBuild;
+
 	daemonCreation(0);
 
 /* configure the syslog API */
