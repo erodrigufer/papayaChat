@@ -1,5 +1,9 @@
+## General
+* [ ] Re-arrange filesystem of project into folders
 ## configureSyslog.c
-* [ ] Create the configure syslog file or transfer the function to the concurrent server file, because it is needed there.
+* [X] Create the configure syslog file or transfer the function to the concurrent server file, because it is needed there.
+* [ ] Handle error of openlog
+* [ ] Change API, so that function configureSyslog() accepts parameters with different options
 ## Makefile
 * [X] Makefile should compile both logDaemon and concurrent_server
 ## basics.h
@@ -7,16 +11,14 @@
 ## error_handling.c
 * [ ] Keep commenting file, remove unnecessary parts, not all functions have been commented
 ## ename.c.inc
+* [ ] Integrate to Makefile -> Check if ename file already exists for build system, otherwise run ename creation script
 * [ ] Produce file for ubuntu cloud server error names
 ## inet_sockets.c
 ### inetConnect()
 * [ ] Change errno value modification
-
 ## concurrent_server.c
 * [X] file uses error-handling functions from the book that have not been implemented!! Compilation will fail! **4.10.2021**
-### main()
+### concurrent_server()
 * [ ] sigemptyset() function should actually be handled check if an error ocurred! with an if-statement. But wait for a deployment in the server to perform this change
 * [ ] question legitimacy of exit after failed accept() call in server
 
-##configure_syslog.c
-* [ ] Handle error of openlog
