@@ -1,5 +1,6 @@
 ## General
 * [ ] Re-arrange filesystem of project into folders
+* [ ] **Issue with syslog** When running in the cloud service, it gets logged to syslog (problem with config file of syslog instance). It should be all written to a specific file for server daemon
 ## configureSyslog.c
 * [X] Create the configure syslog file or transfer the function to the concurrent server file, because it is needed there.
 * [ ] Handle error of openlog
