@@ -11,8 +11,7 @@
 ## error_handling.c
 * [ ] Keep commenting file, remove unnecessary parts, not all functions have been commented
 ## ename.c.inc
-* [ ] Integrate to Makefile -> Check if ename file already exists for build system, otherwise run ename creation script
-* [ ] Produce file for ubuntu cloud server error names
+* [X] Produce file for ubuntu cloud server error names
 ## inet_sockets.c
 ### inetConnect()
 * [ ] Change errno value modification
