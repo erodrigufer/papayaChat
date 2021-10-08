@@ -1,11 +1,11 @@
 #!/bin/sh
 #
-# Create a new version of the file ename.c.inc by parsing symbolic
+# Create a new version of the file error_names.c.inc by parsing symbolic
 # error names defined in errno.h
 #
 #
 # 'cpp -dM' : Refers to the C pre-processor, the flag -dM 
-# generates a list of #definde directives for all the macros defined
+# generates a list of #define directives for all the macros defined
 # during the execution of the preprocessor, including predefined
 # macros. This gives you a way of finding out what is predefined in your version
 # of the preprocessor. 
