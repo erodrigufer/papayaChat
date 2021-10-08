@@ -83,7 +83,7 @@ handleRequest(int client_fd)
 int
 main(int argc, char *argv[])
 {
-    int listen_fd, client_fd;               /* server listening socket and client socker */
+    int listen_fd, client_fd;               /* server listening socket and client socket */
     struct sigaction sa;					/* struc is necessary to define signals mask
 											to be blocked during signal handler, needed 
 											for syscall sigaction*/
