@@ -3,7 +3,7 @@
    Package with configuration functions for TCP/IP sockets in C
 
 */
-#define _BSD_SOURCE             /* To get NI_MAXHOST and NI_MAXSERV
+#define _DEFAULT_SOURCE             /* To get NI_MAXHOST and NI_MAXSERV
                                    definitions from <netdb.h> */
 #include <sys/socket.h>
 #include <netinet/in.h>
