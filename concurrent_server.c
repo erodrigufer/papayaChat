@@ -39,6 +39,7 @@ the signal that triggered the signal handler
 In this case the grimReaper function is only triggered when a child process
 is either killed or exits, so the parent process can perform a nonblocking wait
 to prevent any children becoming zombie processes! */
+/* TODO: check that all syscalls used in grimReaper() are async-safe syscalls */
 static void             /* SIGCHLD handler to reap dead child processes */
 grimReaper(int sig)
 { 	/* SIGTERM is the default signal sent to a process when the 'kill' command is used 
@@ -46,6 +47,9 @@ grimReaper(int sig)
 	parent/listening server! */
 	if(sig==SIGTERM){
 		syslog(LOG_DEBUG, "SIGTERM signal received. Killing process!");
+		/* if exit is not specified then daemon does not terminate, and
+		must be killed with a SIGKILL signal */
+		exit(EXIT_SUCCESS);
 	}
 	if(sig==SIGCHLD){
 		int savedErrno;             /* Save 'errno' in case changed here, errno
