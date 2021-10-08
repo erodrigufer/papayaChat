@@ -31,7 +31,11 @@ daemonLogger.o : basics.h daemonCreation.h
 
 concurrent_server.o : inet_sockets.o inet_sockets.h basics.h daemonCreation.o daemonCreation.h error_handling.o configure_syslog.o
 
-error_handling.o : error_handling.h basics.h
+error_handling.o : error_handling.h basics.h error_names.c.inc
+
+error_names.c.inc :
+	sh Build_error_names.sh > error_names.c.inc
+	echo 1>&2 "error_names.c.inc built"
 
 inet_sockets.o : inet_sockets.h basics.h
 
@@ -40,7 +44,7 @@ configure_syslog.o :
 # Remove object files and linked program
 .PHONY : clean
 clean :
-	rm $(EXECUTABLES) $(OBJECTS)
+	rm $(EXECUTABLES) $(OBJECTS) error_names.c.inc
 
 
 
