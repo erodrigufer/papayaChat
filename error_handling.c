@@ -10,7 +10,7 @@
 								number and types are not known to the called function. */
 #include "error_handling.h"		/* Custom-made error handling functions */
 #include "basics.h"
-#include "ename.c.inc"          /* Defines ename and MAX_ENAME,
+#include "error_names.c.inc"    /* Defines error name codes and MAX_ENAME,
 								MAX_ENAME define the max number of error codes */
 
 /* it first checks if the compiler is GCC, GCC with -Wall flag will
