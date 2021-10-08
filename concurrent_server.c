@@ -138,6 +138,15 @@ main(int argc, char *argv[])
         exit(EXIT_FAILURE);
     }
 
+	/* the new disposition for SIGTERM signal is the grimReaper function, the old
+	signal disposition is not stored anywhere (NULL) */
+    if (sigaction(SIGTERM, &sa, NULL) == -1) {
+		/* the server runs as a daemon, so no errors can be output to stderr, since
+		there is no controlling terminal. All errors are going to be logged into the 
+		syslog using the syslog API */
+        syslog(LOG_ERR, "Error: sigaction(SIGTERM): %s", strerror(errno));
+        exit(EXIT_FAILURE);
+    }
 
 	/* server listens on port 'SERVICE', with a certain BACKLOG_QUEUE, and does not want to 
 	receive information about the address of the client socket (NULL) */
