@@ -8,4 +8,4 @@ Self hosted terminal chat service for the cloud written in C.
 ### Back-end
 To build and run the back-end executable:
 1. `make`
-2. (If necessary change permissions of executable `chmod -x concurrent_server`) Run executable `./concurrent_server`
+2. (If necessary change permissions of executable `chmod +x concurrent_server`) Run executable `./concurrent_server`
