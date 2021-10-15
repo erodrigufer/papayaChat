@@ -97,7 +97,7 @@ handleRequest(int client_fd)
 \n\
 --------------------------------------------------------------\n\
                   ...PapayaChat Service...\n\n\
-PapayaChat is licensed under GNU AGPLv3.\n\n\
+PapayaChat is licensed under GNU AGPLv3.\n\
 The code is hosted at: www.github.com/erodrigufer/papayaChat\n\
 --------------------------------------------------------------\n\
 \n\
