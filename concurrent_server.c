@@ -99,10 +99,12 @@ GNU AGPLv3.\nThe code is hosted at: www.github.com/erodrigufer/papayaChat\n";
 	/* the size of the string is calculated statically at compile time,
 	check 'Effective C' page 133 */
 	size_t greetingSize = sizeof greetingMessage;
-
-	if(write(client_fd,greetingMessage,greetingSize)==-1){	
+	
+	/* the write() call should write exactly greetingSize bytes, otherwise
+	it has failed */
+	if(write(client_fd,greetingMessage,greetingSize)!=greetingSize){	
             syslog(LOG_ERR, "write() failed: %s", strerror(errno));
-			_exit(EXIT_FAILURE);
+	    _exit(EXIT_FAILURE);
 	}
 
     while ((numRead = read(client_fd, buf, BUF_SIZE)) > 0) {
