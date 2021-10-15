@@ -126,6 +126,10 @@ main(int argc, char *argv[])
 	-> create an empyte signal set, no signal blocked during invocation of handler */
     sigemptyset(&sa_sigchild.sa_mask);			
 
+	/* during the SIGTERM handler all other signals are blocked, since the 
+	process should terminate immediately */
+	sigfillset(&sa_sigterm.sa_mask);
+
 	/* if a syscall is interrupted by the SIGCHLD, the kernel should
 	restart the syscall after handling the signal,
 	for that the SA_RESTART flag is used. Not all syscalls can be
@@ -133,7 +137,11 @@ main(int argc, char *argv[])
 	Programming Interface' */
     sa_sigchild.sa_flags = SA_RESTART;
 	/* grimReaper is the function handler for a SIGCHLD signal */
-    sa_sigchild.sa_handler = grimReaper;
+    sa_sigchild.sa_handler = grimReaper;	
+
+	/* termHandler is the function handler for a SIGTERM signal */
+    sa_sigchild.sa_handler = termHandler;
+
 	/* the new disposition for SIGCHLD signal is the grimReaper function, the old
 	signal disposition is not stored anywhere (NULL) */
     if (sigaction(SIGCHLD, &sa_sigchild, NULL) == -1) {
@@ -144,9 +152,9 @@ main(int argc, char *argv[])
         exit(EXIT_FAILURE);
     }
 
-	/* the new disposition for SIGTERM signal is the terminateParent function, the old
+	/* the new disposition for SIGTERM signal is the termHandler function, the old
 	signal disposition is not stored anywhere (NULL) */
-    if (sigaction(SIGTERM, &sa, NULL) == -1) {
+    if (sigaction(SIGTERM, &sa_sigterm, NULL) == -1) {
 		/* the server runs as a daemon, so no errors can be output to stderr, since
 		there is no controlling terminal. All errors are going to be logged into the 
 		syslog using the syslog API */
