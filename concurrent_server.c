@@ -38,13 +38,23 @@ so it is found on (2)])
 															 this program from inside signal
 															 handler */
 
+
 /* signal handler for SIGTERM signal 
 TODO: this signal handler should eventually differentiate between the parent process
 exitting and its children */
 static void termHandler(int sig){
+
+	/* the first argument is always per convention the filename being executed,
+	see execv(2) */
+	char *termargv[] = { PATHNAME_TERM_ASYNC_SAFE, NULL };
 	/* if execv fails, there is no way of safely knowing about the error, since syslog
 	is not an async-safe function that can be used inside a signal handler */
-	execv(PATHNAME_TERM_ASYNC_SAFE, char *const argv[]);
+	execv(PATHNAME_TERM_ASYNC_SAFE, termargv);
+
+	/* we should not get to this point, if it so happens, execv produced an error,
+	in that case exit with failure, _exit() is async-safe, exit(3) is not, since it
+	calls at_exit() */
+	_exit(EXIT_FAILURE);
 }
 
 /* static: function only used inside this file 
