@@ -113,7 +113,7 @@ The code is hosted at: www.github.com/erodrigufer/papayaChat\n\
             syslog(LOG_ERR, "write() failed: %s", strerror(errno));
 	    _exit(EXIT_FAILURE);
 	}
-
+	syslog(LOG_DEBUG, "Child handling client.");
     while ((numRead = read(client_fd, buf, BUF_SIZE)) > 0) {
         if (write(client_fd, buf, numRead) != numRead) {
             syslog(LOG_ERR, "write() failed: %s", strerror(errno));
