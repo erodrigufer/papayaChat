@@ -93,8 +93,8 @@ handleRequest(int client_fd)
     ssize_t numRead;
 
 	/* define greetingMessage string, the compiler allocates enough memory for the string */
-	const char greetingMessage [] = "PapayaChat Service initialized.\nPapayaChat is licensed under \
-	GNU AGPLv3.\nThe code is hosted at: www.github.com/erodrigufer/papayaChat";
+	const char greetingMessage [] = "...PapayaChat Service...\nPapayaChat is licensed under \
+GNU AGPLv3.\nThe code is hosted at: www.github.com/erodrigufer/papayaChat\n";
 
 	/* the size of the string is calculated statically at compile time,
 	check 'Effective C' page 133 */
