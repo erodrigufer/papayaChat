@@ -32,7 +32,7 @@ so it is found on (2)])
 #define SERVICE "51000"          /* Name of TCP service */
 #define BACKLOG_QUEUE 10		/* max number of clients in listening backlog queue */
 #define BUF_SIZE 4096
-#define PATHNAME_TERM_ASYNC_SAFE "./term_handler_aysnc_safe" /* pathname of program to 
+#define PATHNAME_TERM_ASYNC_SAFE "./termHandlerAsyncSafe" /* pathname of program to 
 															 handle sigterm handler
 															 in async-safe way, execve to
 															 this program from inside signal
@@ -45,16 +45,8 @@ static void termHandler(int sig){
 	/* if execv fails, there is no way of safely knowing about the error, since syslog
 	is not an async-safe function that can be used inside a signal handler */
 	execv(PATHNAME_TERM_ASYNC_SAFE, char *const argv[])
-	
-	/* SIGTERM is the default signal sent to a process when the 'kill' command is used 
-	in the terminal (when no other signal is specified). Use this signal to kill the 
-	parent/listening server! */
-	syslog(LOG_DEBUG, "SIGTERM signal received. Killing process!");
-	/* if exit is not specified then daemon does not terminate, and
-	must be killed with a SIGKILL signal */
-	exit(EXIT_SUCCESS);
-
 }
+
 /* static: function only used inside this file 
 the signal handler receives as parameter an integer to differentiate 
 the signal that triggered the signal handler 
