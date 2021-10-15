@@ -94,26 +94,27 @@ handleRequest(int client_fd)
 
 	/* define greetingMessage string, the compiler allocates enough memory for the string */
 	const char greetingMessage [] = "PapayaChat Service initialized.\nPapayaChat is licensed under \
-	GNU AGPLv3, the code is hosted at github.com/erodrigufer/papayaChat"
+	GNU AGPLv3.\nThe code is hosted at: www.github.com/erodrigufer/papayaChat"
 
 	/* the size of the string is calculated statically at compile time,
 	check 'Effective C' page 133 */
 	size_t greetingSize = sizeof greetingMessage;
 
-	if(write(client_fd,greetingMessage,greetingSize)==-1){
-		
+	if(write(client_fd,greetingMessage,greetingSize)==-1){	
+            syslog(LOG_ERR, "write() failed: %s", strerror(errno));
+			_exit(EXIT_FAILURE);
 	}
 
     while ((numRead = read(client_fd, buf, BUF_SIZE)) > 0) {
         if (write(client_fd, buf, numRead) != numRead) {
             syslog(LOG_ERR, "write() failed: %s", strerror(errno));
-            exit(EXIT_FAILURE);
+            _exit(EXIT_FAILURE);
         }
     }
 
     if (numRead == -1) {
         syslog(LOG_ERR, "Error from read(): %s", strerror(errno));
-        exit(EXIT_FAILURE);
+        _exit(EXIT_FAILURE);
     }
 }
 
