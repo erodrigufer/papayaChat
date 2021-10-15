@@ -33,26 +33,28 @@ so it is found on (2)])
 #define BACKLOG_QUEUE 10		/* max number of clients in listening backlog queue */
 #define BUF_SIZE 4096
 
+/* signal handler for SIGTERM signal 
+TODO: this signal handler should eventually differentiate between the parent process
+exitting and its children */
+static void termHandler(int sig){
+	/* SIGTERM is the default signal sent to a process when the 'kill' command is used 
+	in the terminal (when no other signal is specified). Use this signal to kill the 
+	parent/listening server! */
+	syslog(LOG_DEBUG, "SIGTERM signal received. Killing process!");
+	/* if exit is not specified then daemon does not terminate, and
+	must be killed with a SIGKILL signal */
+	exit(EXIT_SUCCESS);
+
+}
 /* static: function only used inside this file 
 the signal handler receives as parameter an integer to differentiate 
 the signal that triggered the signal handler 
 In this case the grimReaper function is only triggered when a child process
 is either killed or exits, so the parent process can perform a nonblocking wait
 to prevent any children becoming zombie processes! */
-/* TODO: check that all syscalls used in grimReaper() are async-safe syscalls */
 static void             /* SIGCHLD handler to reap dead child processes */
 grimReaper(int sig)
-{ 	/* SIGTERM is the default signal sent to a process when the 'kill' command is used 
-	in the terminal (when no other signal is specified). Use this signal to kill the 
-	parent/listening server! */
-	if(sig==SIGTERM){
-		syslog(LOG_DEBUG, "SIGTERM signal received. Killing process!");
-		/* if exit is not specified then daemon does not terminate, and
-		must be killed with a SIGKILL signal */
-		exit(EXIT_SUCCESS);
-	}
-	if(sig==SIGCHLD){
-		int savedErrno;             /* Save 'errno' in case changed here, errno
+{ 		int savedErrno;             /* Save 'errno' in case changed here, errno
 									can be changed by waitpid() if no more children exist
 									then 'errno'= ECHILD */
 		savedErrno = errno;
@@ -66,7 +68,6 @@ grimReaper(int sig)
 		If there are no more children, then waitpid will return -1 and set errno to ECHILD */
 			continue;
 		errno = savedErrno;			/* restore errno to value before signal handler */
-	}
 }
 
 /* Handle a client request: copy socket input back to socket,
