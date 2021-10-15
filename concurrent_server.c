@@ -96,9 +96,13 @@ main(int argc, char *argv[])
 {
 	/* TODO: block all signal handling before the daemon is created */
     int listen_fd, client_fd;               /* server listening socket and client socket */
-    struct sigaction sa;					/* struc is necessary to define signals mask
+    struct sigaction sa_sigchild;					/* struc is necessary to define signals mask
 											to be blocked during signal handler, needed 
 											for syscall sigaction*/
+	struct sigaction sa_term;				/* struc is necessary to define signals mask
+											to be blocked during signal handler, needed 
+											for syscall sigaction*/
+
 
 	/* server should run as a daemon */
     if (daemonCreation(0) == -1)
@@ -112,16 +116,15 @@ main(int argc, char *argv[])
 	configure_syslog();
 
     /* Establish SIGCHLD handler to reap terminated child processes,
-	if SIGCHLD is not properly handled by the parent process, then 
-	zombie processes could happen 
-
+	if SIGCHLD is gathered with waitpid() or wait() by parent, then child
+	process becomes a zombie and resources (PIDs) are not used efficiently.
 	SIGCHLD is sent by the kernel to a parent process when one of its childern terminates
 	(either by calling exit() or as a result of being killed by a signal).
 
 	sa_mask is the signal set of signals that would be blocked during the
 	invocation of the handler
 	-> create an empyte signal set, no signal blocked during invocation of handler */
-    sigemptyset(&sa.sa_mask);				/*TODO: sigemptyset() should also be handled 
+    sigemptyset(&sa_sigchild.sa_mask);				/*TODO: sigemptyset() should also be handled 
 											with if statement in case there is an error == -1 */
 
 	/* if a syscall is interrupted by the SIGCHLD, the kernel should
@@ -129,12 +132,12 @@ main(int argc, char *argv[])
 	for that the SA_RESTART flag is used. Not all syscalls can be
 	properly restarted by the kernel, check 21.5 of 'The Linux 
 	Programming Interface' */
-    sa.sa_flags = SA_RESTART;
+    sa_sigchild.sa_flags = SA_RESTART;
 	/* grimReaper is the function handler for a SIGCHLD signal */
-    sa.sa_handler = grimReaper;
+    sa_sigchild.sa_handler = grimReaper;
 	/* the new disposition for SIGCHLD signal is the grimReaper function, the old
 	signal disposition is not stored anywhere (NULL) */
-    if (sigaction(SIGCHLD, &sa, NULL) == -1) {
+    if (sigaction(SIGCHLD, &sa_sigchild, NULL) == -1) {
 		/* the server runs as a daemon, so no errors can be output to stderr, since
 		there is no controlling terminal. All errors are going to be logged into the 
 		syslog using the syslog API */
@@ -142,7 +145,7 @@ main(int argc, char *argv[])
         exit(EXIT_FAILURE);
     }
 
-	/* the new disposition for SIGTERM signal is the grimReaper function, the old
+	/* the new disposition for SIGTERM signal is the terminateParent function, the old
 	signal disposition is not stored anywhere (NULL) */
     if (sigaction(SIGTERM, &sa, NULL) == -1) {
 		/* the server runs as a daemon, so no errors can be output to stderr, since
