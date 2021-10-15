@@ -134,7 +134,9 @@ main(int argc, char *argv[])
 	restart the syscall after handling the signal,
 	for that the SA_RESTART flag is used. Not all syscalls can be
 	properly restarted by the kernel, check 21.5 of 'The Linux 
-	Programming Interface' */
+	Programming Interface' 
+	for the SIGTERM handler this is not required, since all kernel syscalls
+	interrupted will not matter since the process should exit ASAP */
     sa_sigchild.sa_flags = SA_RESTART;
 	/* grimReaper is the function handler for a SIGCHLD signal */
     sa_sigchild.sa_handler = grimReaper;	
