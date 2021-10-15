@@ -55,6 +55,7 @@ static void termHandler(int sig){
 	in that case exit with failure, _exit() is async-safe, exit(3) is not, since it
 	calls at_exit() */
 	_exit(EXIT_FAILURE);
+
 }
 
 /* static: function only used inside this file 
