@@ -96,7 +96,7 @@ handleRequest(int client_fd)
 	const char greetingMessage [] = "\
 \n\
 --------------------------------------------------------------\n\
-                  ...PapayaChat Service...\n\
+                  ...PapayaChat Service...\n\n\
 PapayaChat is licensed under GNU AGPLv3.\n\n\
 The code is hosted at: www.github.com/erodrigufer/papayaChat\n\
 --------------------------------------------------------------\n\
