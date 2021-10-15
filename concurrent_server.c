@@ -96,10 +96,10 @@ main(int argc, char *argv[])
 {
 	/* TODO: block all signal handling before the daemon is created */
     int listen_fd, client_fd;               /* server listening socket and client socket */
-    struct sigaction sa_sigchild;					/* struc is necessary to define signals mask
+    struct sigaction sa_sigchild;			/* struc is necessary to define signals mask
 											to be blocked during signal handler, needed 
 											for syscall sigaction*/
-	struct sigaction sa_term;				/* struc is necessary to define signals mask
+	struct sigaction sa_sigterm;			/* struc is necessary to define signals mask
 											to be blocked during signal handler, needed 
 											for syscall sigaction*/
 
@@ -124,8 +124,7 @@ main(int argc, char *argv[])
 	sa_mask is the signal set of signals that would be blocked during the
 	invocation of the handler
 	-> create an empyte signal set, no signal blocked during invocation of handler */
-    sigemptyset(&sa_sigchild.sa_mask);				/*TODO: sigemptyset() should also be handled 
-											with if statement in case there is an error == -1 */
+    sigemptyset(&sa_sigchild.sa_mask);			
 
 	/* if a syscall is interrupted by the SIGCHLD, the kernel should
 	restart the syscall after handling the signal,
