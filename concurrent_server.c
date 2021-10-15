@@ -142,7 +142,7 @@ main(int argc, char *argv[])
     sa_sigchild.sa_handler = grimReaper;	
 
 	/* termHandler is the function handler for a SIGTERM signal */
-    sa_sigchild.sa_handler = termHandler;
+    sa_sigterm.sa_handler = termHandler;
 
 	/* the new disposition for SIGCHLD signal is the grimReaper function, the old
 	signal disposition is not stored anywhere (NULL) */
