@@ -8,8 +8,8 @@ EXECUTABLE1 = daemonLogger
 OBJECTS2 = concurrent_server.o error_handling.o inet_sockets.o daemonCreation.o configure_syslog.o 
 EXECUTABLE2 = concurrent_server 
 
-OBJECTS = $(OBJECTS1) $(OBJECTS2)
-EXECUTABLES = $(EXECUTABLE1) $(EXECUTABLE2)
+OBJECTS = $(OBJECTS1) $(OBJECTS2) termHandlerAsyncSafe.o
+EXECUTABLES = $(EXECUTABLE1) $(EXECUTABLE2) termHandlerAsyncSafe
 
 all : $(EXECUTABLES)
 
@@ -49,7 +49,7 @@ configure_syslog.o :
 # Remove object files and linked program
 .PHONY : clean
 clean :
-	rm $(EXECUTABLES) $(OBJECTS) error_names.c.inc
+	rm $(EXECUTABLES) $(OBJECTS) error_names.c.inc 
 
 
 
