@@ -5,8 +5,8 @@ OBJECTS1 = daemonCreation.o daemonLogger.o
 EXECUTABLE1 = daemonLogger
 
 # Objects and executable for concurrent_server
-OBJECTS2 = concurrent_server.o error_handling.o inet_sockets.o daemonCreation.o configure_syslog.o
-EXECUTABLE2 = concurrent_server
+OBJECTS2 = concurrent_server.o error_handling.o inet_sockets.o daemonCreation.o configure_syslog.o termHandlerAsyncSafe
+EXECUTABLE2 = concurrent_server 
 
 OBJECTS = $(OBJECTS1) $(OBJECTS2)
 EXECUTABLES = $(EXECUTABLE1) $(EXECUTABLE2)
@@ -23,6 +23,10 @@ $(EXECUTABLE1) : $(OBJECTS1)
 $(EXECUTABLE2) : $(OBJECTS2)
 	cc -Wall -o $(EXECUTABLE2) $(OBJECTS2)
 
+termHandlerAsyncSafe : termHandlerAsyncSafe.o
+	cc -Wall -o termHandlerAsyncSafe termHandlerAsyncSafe.o
+
+termHandlerAsyncSafe.o : basics.h
 # Implicit rules, daemonCreation.c is missing
 # cc -c daemonCreation.c is also not required
 daemonCreation.o : basics.h daemonCreation.h
