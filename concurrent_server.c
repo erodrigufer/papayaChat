@@ -32,7 +32,7 @@ so it is found on (2)])
 #define SERVICE "51000"          /* Name of TCP service */
 #define BACKLOG_QUEUE 10		/* max number of clients in listening backlog queue */
 #define BUF_SIZE 4096
-#define PATHNAME_TERM_ASYNC_SAFE "./termHandlerAsyncSafe" /* pathname of program to 
+#define PATHNAME_TERM_ASYNC_SAFE "termHandlerAsyncSafe" /* pathname of program to 
 															 handle sigterm handler
 															 in async-safe way, execve to
 															 this program from inside signal
@@ -44,6 +44,7 @@ TODO: this signal handler should eventually differentiate between the parent pro
 exitting and its children */
 static void termHandler(int sig){
 
+	syslog(LOG_DEBUG, "SIGTERM handler active!");
 	/* the first argument is always per convention the filename being executed,
 	see execv(2) */
 	char *termargv[] = { PATHNAME_TERM_ASYNC_SAFE, NULL };
@@ -51,6 +52,8 @@ static void termHandler(int sig){
 	is not an async-safe function that can be used inside a signal handler */
 	execv(PATHNAME_TERM_ASYNC_SAFE, termargv);
 
+        syslog(LOG_ERR, "execv() failed: %s", strerror(errno));
+	//syslog(LOG_DEBUG, "execv failed!");
 	/* we should not get to this point, if it so happens, execv produced an error,
 	in that case exit with failure, _exit() is async-safe, exit(3) is not, since it
 	calls at_exit() */

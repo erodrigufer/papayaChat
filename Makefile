@@ -23,10 +23,10 @@ $(EXECUTABLE1) : $(OBJECTS1)
 $(EXECUTABLE2) : $(OBJECTS2)
 	cc -Wall -o $(EXECUTABLE2) $(OBJECTS2)
 
-termHandlerAsyncSafe : termHandlerAsyncSafe.o
-	cc -Wall -o termHandlerAsyncSafe termHandlerAsyncSafe.o
+termHandlerAsyncSafe : termHandlerAsyncSafe.o configure_syslog.o
+	cc -Wall -o termHandlerAsyncSafe termHandlerAsyncSafe.o configure_syslog.o
 
-termHandlerAsyncSafe.o : basics.h
+termHandlerAsyncSafe.o : basics.h configure_syslog.o configure_syslog.h
 # Implicit rules, daemonCreation.c is missing
 # cc -c daemonCreation.c is also not required
 daemonCreation.o : basics.h daemonCreation.h
