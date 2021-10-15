@@ -42,18 +42,16 @@ so it is found on (2)])
 /* signal handler for SIGTERM signal 
 TODO: this signal handler should eventually differentiate between the parent process
 exitting and its children */
-static void termHandler(int sig){
-
-	syslog(LOG_DEBUG, "SIGTERM handler active!");
+static void 
+termHandler(int sig)
+{
 	/* the first argument is always per convention the filename being executed,
-	see execv(2) */
+	see execv(2), always finish the strings array with 'NULL' */
 	char *termargv[] = { PATHNAME_TERM_ASYNC_SAFE, NULL };
 	/* if execv fails, there is no way of safely knowing about the error, since syslog
 	is not an async-safe function that can be used inside a signal handler */
 	execv(PATHNAME_TERM_ASYNC_SAFE, termargv);
 
-        syslog(LOG_ERR, "execv() failed: %s", strerror(errno));
-	//syslog(LOG_DEBUG, "execv failed!");
 	/* we should not get to this point, if it so happens, execv produced an error,
 	in that case exit with failure, _exit() is async-safe, exit(3) is not, since it
 	calls at_exit() */
