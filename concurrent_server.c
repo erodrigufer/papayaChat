@@ -44,7 +44,7 @@ exitting and its children */
 static void termHandler(int sig){
 	/* if execv fails, there is no way of safely knowing about the error, since syslog
 	is not an async-safe function that can be used inside a signal handler */
-	execv(PATHNAME_TERM_ASYNC_SAFE, char *const argv[])
+	execv(PATHNAME_TERM_ASYNC_SAFE, char *const argv[]);
 }
 
 /* static: function only used inside this file 
