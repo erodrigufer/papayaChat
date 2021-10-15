@@ -120,8 +120,10 @@ main(int argc, char *argv[])
 											for syscall sigaction*/
 
 
-	/* server should run as a daemon */
-    if (daemonCreation(0) == -1)
+	/* server should run as a daemon, 
+	DAEMON_FLAH_NO_CHDIR -> daemon should initially stay in the same 
+	working directory to have access to other executables required */
+    if (daemonCreation(DAEMON_FLAG_NO_CHDIR) == -1)
         errExit("daemonCreation");			/* daemon creation failed, abort program
 											core dump if EF_DUMPCORE env variable set */
 
