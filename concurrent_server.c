@@ -42,7 +42,9 @@ so it is found on (2)])
 TODO: this signal handler should eventually differentiate between the parent process
 exitting and its children */
 static void termHandler(int sig){
-	execv(const char *pathname, char *const argv[] == -1)
+	/* if execv fails, there is no way of safely knowing about the error, since syslog
+	is not an async-safe function that can be used inside a signal handler */
+	execv(PATHNAME_TERM_ASYNC_SAFE, char *const argv[])
 	
 	/* SIGTERM is the default signal sent to a process when the 'kill' command is used 
 	in the terminal (when no other signal is specified). Use this signal to kill the 
