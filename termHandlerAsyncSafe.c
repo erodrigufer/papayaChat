@@ -10,7 +10,7 @@ int main(int argc, char *argv[]){
 	/* SIGTERM is the default signal sent to a process when the 'kill' command is used 
 	in the terminal (when no other signal is specified). Use this signal to kill the 
 	parent/listening server! */
-	syslog(LOG_DEBUG, "SIGTERM signal received. Killing process!");
+	syslog(LOG_DEBUG, "SIGTERM signal received. Killing server backend (parent process)!");
 	exit(EXIT_SUCCESS);
 
 }
