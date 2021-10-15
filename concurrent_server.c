@@ -32,16 +32,18 @@ so it is found on (2)])
 #define SERVICE "51000"          /* Name of TCP service */
 #define BACKLOG_QUEUE 10		/* max number of clients in listening backlog queue */
 #define BUF_SIZE 4096
-#define PATHNAME_TERM_ASYNC_SAFE ./term_handler_aysnc_safe /* pathname of program to 
-															handle sigterm handler
-															in async-safe way, execve to
-															this program from inside signal
-															handler */
+#define PATHNAME_TERM_ASYNC_SAFE "./term_handler_aysnc_safe" /* pathname of program to 
+															 handle sigterm handler
+															 in async-safe way, execve to
+															 this program from inside signal
+															 handler */
 
 /* signal handler for SIGTERM signal 
 TODO: this signal handler should eventually differentiate between the parent process
 exitting and its children */
 static void termHandler(int sig){
+	execv(const char *pathname, char *const argv[] == -1)
+	
 	/* SIGTERM is the default signal sent to a process when the 'kill' command is used 
 	in the terminal (when no other signal is specified). Use this signal to kill the 
 	parent/listening server! */
