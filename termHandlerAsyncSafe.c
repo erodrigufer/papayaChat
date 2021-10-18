@@ -5,7 +5,7 @@
 
 int main(int argc, char *argv[]){
 
-	configure_syslog();
+	configure_syslog("papayaChat[parent]");
 	
 	/* SIGTERM is the default signal sent to a process when the 'kill' command is used 
 	in the terminal (when no other signal is specified). Use this signal to kill the 
