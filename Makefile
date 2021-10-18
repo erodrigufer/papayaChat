@@ -12,7 +12,7 @@ OBJECTS2 = concurrent_server.o error_handling.o inet_sockets.o daemonCreation.o 
 EXECUTABLE2 = concurrent_server 
 
 OBJECTS = $(OBJECTS1) $(OBJECTS2) termHandlerAsyncSafe.o
-EXECUTABLES = $(EXECUTABLE1) $(EXECUTABLE2) termHandlerAsyncSafe
+EXECUTABLES = $(EXECUTABLE1) $(EXECUTABLE2) termHandlerAsyncSafe $(EXECUTABLE_CLIENT)
 
 all : $(EXECUTABLES)
 
