@@ -109,9 +109,9 @@ The code is hosted at: www.github.com/erodrigufer/papayaChat\n\
 	
 	/* the write() call should write exactly greetingSize bytes, otherwise
 	it has failed */
-	if(write(client_fd,greetingMessage,greetingSize)!=greetingSize){	
-            syslog(LOG_ERR, "write() failed: %s", strerror(errno));
-	    _exit(EXIT_FAILURE);
+	if(write(client_fd,greetingMessage,greetingSize)!=greetingSize){
+		syslog(LOG_ERR, "write() failed: %s", strerror(errno));
+		_exit(EXIT_FAILURE);
 	}
     
 	while ((numRead = read(client_fd, buf, BUF_SIZE)) > 0) {

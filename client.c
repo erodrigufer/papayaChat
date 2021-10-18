@@ -4,6 +4,13 @@
 #define SERVICE "51000" // port number
 #define HOST "payaserver" // server IP
 
+
+static int
+getGreetingsMessage(int server_fd)
+{
+
+}
+
 int
 main(int argc, char *argv[])
 {
