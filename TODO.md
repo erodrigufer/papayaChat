@@ -3,7 +3,7 @@
 * [ ] **Issue with syslog** When running in the cloud service, it gets logged to syslog (problem with config file of syslog instance). It should be all written to a specific file for server daemon
 ## configureSyslog.c
 * [X] Create the configure syslog file or transfer the function to the concurrent server file, because it is needed there.
-* [ ] Handle error of openlog
+* [X] ~Handle error of openlog~ openlog does not return a value (void)
 * [ ] Change API, so that function configureSyslog() accepts parameters with different options
 ## Makefile
 * [X] Makefile should compile both logDaemon and concurrent_server
