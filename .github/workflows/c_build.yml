@@ -7,20 +7,20 @@ on:
     branches: [ main ]
 
 jobs:
-  Build_daemonLogger:
+  PapayaChat_Client:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
     #- name: configure
     #  run: ./configure
-    - name: make daemonLogger
-      run: make daemonLogger
+    - name: make client
+      run: make client
     #- name: make check
     #  run: make check
     #- name: make distcheck
     #  run: make distcheck
 
-  Build_concurrent_server:
+  Concurrent_server:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
