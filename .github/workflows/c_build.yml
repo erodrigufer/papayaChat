@@ -8,7 +8,7 @@ on:
 
 jobs:
   Client_Build:
-  - name: Client (build)
+  	name: Client (build)
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -22,6 +22,7 @@ jobs:
     #  run: make distcheck
 
   Server_Build:
+  	name: Server (build)
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
