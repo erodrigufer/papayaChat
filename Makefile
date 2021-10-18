@@ -1,6 +1,6 @@
 # Makefile 
 
-OBJECTS_CLIENT = client.o
+OBJECTS_CLIENT = client.o error_handling.o
 EXECUTABLE_CLIENT = papayaChat_client
 
 # Objects and executable for daemonLogger
@@ -55,7 +55,7 @@ client: $(EXECUTABLE_CLIENT)
 $(EXECUTABLE_CLIENT) : $(OBJECTS_CLIENT)
 	cc -Wall -o $(EXECUTABLE_CLIENT) $(OBJECTS_CLIENT)
 
-client.o : inet_sockets.h basics.h
+client.o : inet_sockets.h basics.h error_handling.o
 
 # Remove object files and linked program
 .PHONY : clean
