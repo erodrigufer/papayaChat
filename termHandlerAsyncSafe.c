@@ -14,3 +14,5 @@ int main(int argc, char *argv[]){
 	exit(EXIT_SUCCESS);
 
 }
+
+/* Eduardo Rodriguez 2021 (c) (@erodrigufer). Licensed under GNU AGPLv3 */
