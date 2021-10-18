@@ -1,10 +1,9 @@
 #include <syslog.h>
 
-int configure_syslog(void){
-
-	/* identityString: this const char* will be appended to all log messages */
-	const char *identityString = "Server daemon";
-
+/* configuring syslog is optional, but if it is not configured 
+it will use the deault options
+identityString: const char* will be appended to all log messages */
+void configure_syslog(const char* identityString){
 	/* specify options for syslog 
 	LOG_CONS: if there is an error sending to the system logger, then write the log
 	message to the system console at /dev/console 
@@ -15,8 +14,8 @@ int configure_syslog(void){
 
 	/* open a syslog with specified configuration */
 	openlog(identityString, logOptions, logFacility);
-	/* TODO: can openlog fail?? handle error */
 
-	return 0;
+	/* since openlog does not return a value (void) we do not have a way, of
+	knowing that an error occured while configuring syslog */
 }
 
