@@ -11,7 +11,7 @@ EXECUTABLE1 = daemonLogger
 OBJECTS2 = concurrent_server.o error_handling.o inet_sockets.o daemonCreation.o configure_syslog.o 
 EXECUTABLE2 = concurrent_server 
 
-OBJECTS = $(OBJECTS1) $(OBJECTS2) termHandlerAsyncSafe.o
+OBJECTS = $(OBJECTS1) $(OBJECTS2) termHandlerAsyncSafe.o $(OBJECTS_CLIENT)
 EXECUTABLES = $(EXECUTABLE1) $(EXECUTABLE2) termHandlerAsyncSafe $(EXECUTABLE_CLIENT)
 
 all : $(EXECUTABLES)
