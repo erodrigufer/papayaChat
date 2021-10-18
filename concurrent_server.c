@@ -154,8 +154,7 @@ main(int argc, char *argv[])
 	/* configure the syslog API,
 	a daemon does not have a controlling terminal, so it should output all of its 
 	error messages to a log */
-	/* TODO: handle error of configureSyslog*/
-	configure_syslog();
+	configure_syslog("papayaChat");
 
     /* Establish SIGCHLD handler to reap terminated child processes,
 	if SIGCHLD is gathered with waitpid() or wait() by parent, then child
