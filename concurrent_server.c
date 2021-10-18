@@ -32,7 +32,7 @@ so it is found on (2)])
 #define SERVICE "51000"          /* Name of TCP service */
 #define BACKLOG_QUEUE 10		/* max number of clients in listening backlog queue */
 #define BUF_SIZE 4096
-#define PATHNAME_TERM_ASYNC_SAFE "termHandlerAsyncSafe" /* pathname of program to 
+#define PATHNAME_TERM_ASYNC_SAFE "./termHandlerAsyncSafe" /* pathname of program to 
 															 handle sigterm handler
 															 in async-safe way, execve to
 															 this program from inside signal
