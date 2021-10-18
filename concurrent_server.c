@@ -154,7 +154,7 @@ main(int argc, char *argv[])
 	/* configure the syslog API,
 	a daemon does not have a controlling terminal, so it should output all of its 
 	error messages to a log */
-	configure_syslog("papayaChat");
+	configure_syslog("papayaChat(parent)");
 
     /* Establish SIGCHLD handler to reap terminated child processes,
 	if SIGCHLD is gathered with waitpid() or wait() by parent, then child
@@ -237,7 +237,8 @@ main(int argc, char *argv[])
             break;                      /* May be temporary; try next client */
 
         case 0:                       /* Child */
-			/* write debug to syslog with child's PID */
+			/* write debug to syslog with child's PID, new configuration of syslog */
+			configure_syslog("papayaChat(child)");
             syslog(LOG_DEBUG, "Child process initialized (handling client connection)");
             close(listen_fd);           /* Unneeded copy of listening socket */
             handleRequest(client_fd);	/* handleRequest() needs to have the client_fd as
