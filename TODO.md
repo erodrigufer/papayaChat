@@ -4,7 +4,7 @@
 ## configureSyslog.c
 * [X] Create the configure syslog file or transfer the function to the concurrent server file, because it is needed there.
 * [X] ~Handle error of openlog~ openlog does not return a value (void)
-* [ ] Change API, so that function configureSyslog() accepts parameters with different options
+* [X] Change API, so that function configureSyslog() accepts parameters with different options
 ## Makefile
 * [X] Makefile should compile both logDaemon and concurrent_server
 ## basics.h
