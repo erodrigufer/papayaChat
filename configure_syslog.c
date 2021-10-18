@@ -19,3 +19,4 @@ void configure_syslog(const char* identityString){
 	knowing that an error occured while configuring syslog */
 }
 
+/* Eduardo Rodriguez 2021 (c) (@erodrigufer). Licensed under GNU AGPLv3 */
