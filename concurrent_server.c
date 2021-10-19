@@ -231,13 +231,15 @@ main(int argc, char *argv[])
         /* Multi-process server back-end architecture:
 		Handle each client request in a new child process */
         switch (fork()) {
+		/* an error occured with fork() syscall, no children were created*/
         case -1:
             syslog(LOG_ERR, "Error fork() call. Can't create child (%s)", strerror(errno));
             close(client_fd);         /* Give up on this client */
             break;                      /* May be temporary; try next client */
 
-        case 0:                       /* Child */
-			/* write debug to syslog with child's PID, new configuration of syslog */
+		/* Child process (returns 0) */
+        case 0:                       			
+		/* write debug to syslog with child's PID, new configuration of syslog */
 			configure_syslog("papayaChat(child)");
             syslog(LOG_DEBUG, "Child process initialized (handling client connection)");
             close(listen_fd);           /* Unneeded copy of listening socket */
@@ -250,7 +252,8 @@ main(int argc, char *argv[])
 										for a more general discussion about the topic check
 										25.4 'The Linux Programming Interface' */
 
-        default:                        /* Parent */
+	 	/* Parent: fork() actually returns the PID of the newly created child process */
+        default:                       
             close(client_fd);                 /* Unneeded copy of connected socket */
             break;                      /* Loop to accept next connection */
         } // end switch-case after fork()
