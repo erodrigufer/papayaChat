@@ -113,7 +113,7 @@ The code is hosted at: www.github.com/erodrigufer/papayaChat\n\
 		syslog(LOG_ERR, "write() failed: %s", strerror(errno));
 		_exit(EXIT_FAILURE);
 	}
-    
+/*    
 	while ((numRead = read(client_fd, buf, BUF_SIZE)) > 0) {
         if (write(client_fd, buf, numRead) != numRead) {
             syslog(LOG_ERR, "write() failed: %s", strerror(errno));
@@ -125,7 +125,7 @@ The code is hosted at: www.github.com/erodrigufer/papayaChat\n\
         syslog(LOG_ERR, "Error from read(): %s", strerror(errno));
         _exit(EXIT_FAILURE);
     }
-
+*/
 	/* if the client closes its connection, the previous read() syscall will get an
 	EOF, and it will return 0, in that case, the while-loop ends, and there is no 
 	syslog error appended to the log, since read() did not return an error */
