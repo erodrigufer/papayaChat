@@ -231,7 +231,7 @@ main(int argc, char *argv[])
         /* Multi-process server back-end architecture:
 		Handle each client request in a new child process */
         switch (fork()) {
-		/* an error occured with fork() syscall, no children were created*/
+		/* an error occured with fork() syscall, no children were created, this error is still handled by the parent process */
         case -1:
             syslog(LOG_ERR, "Error fork() call. Can't create child (%s)", strerror(errno));
             close(client_fd);         /* Give up on this client */
