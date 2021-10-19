@@ -21,6 +21,36 @@ getGreetingsMessage(int server_fd)
 	return 0;
 }
 
+static void 
+handleWriteSocket(void){
+
+}
+
+static void
+handleReadSocket(void){
+
+}
+
+static void
+createChildProcess(void){
+	switch(fork()) {
+	
+	/* error on fork() call */
+	case -1:
+		/* exit with an error message, if fork fails then terminate 
+		all child's processes, since all processes are vital */
+		errExit("fork(), child could not be created.");
+
+	/* Child process (returns 0) */
+	case 0:
+		/* add function pointer to function of child process */
+	
+	/* Parent: fork() returns PID of the newly created child */
+	default:
+		/* add parent's functions */
+	} // end switch-statement
+}
+
 int
 main(int argc, char *argv[])
 {
