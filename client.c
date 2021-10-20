@@ -3,13 +3,12 @@
 
 #define SERVICE "51000" // port number
 #define HOST "payaserver" // server IP
-
+#define BUF_SIZE 4096
 
 static int
 getGreetingsMessage(int server_fd)
 {
 
-	#define BUF_SIZE 4096
 	ssize_t bytesRead;
 	char string_buf[BUF_SIZE];
 
@@ -29,10 +28,20 @@ handleWriteSocket(void){
 static void
 handleReadSocket(void){
 
+	ssize_t bytesRead;
+	char string_buf[BUF_SIZE];
+
+	while((bytesRead = read(server_fd, string_buf, BUF_SIZE)) != -1){
+		printf("%s",string_buf); /* later implement this with write
+								 directly to stdout */
+	}
 }
 
+/* the parameter of the function is a function pointer to
+the function that should be run by the child process:
+either handleReadSocket or handleWriteSocket */
 static void
-createChildProcess(void){
+createChildProcess(void *functionChild(void)){
 	switch(fork()) {
 	
 	/* error on fork() call */
@@ -40,14 +49,17 @@ createChildProcess(void){
 		/* exit with an error message, if fork fails then terminate 
 		all child's processes, since all processes are vital */
 		errExit("fork(), child could not be created.");
+		break; /* break out of switch-statement*/
 
 	/* Child process (returns 0) */
 	case 0:
-		/* add function pointer to function of child process */
-	
+		/* function pointer to function of child process */
+		functionChild();
+		break; /* break out of switch-statement*/
+			
 	/* Parent: fork() returns PID of the newly created child */
 	default:
-		/* add parent's functions */
+		break; /* break out of switch-statement*/
 	} // end switch-statement
 }
 
@@ -62,7 +74,7 @@ main(int argc, char *argv[])
 	if(server_fd == -1)
 		errExit("clientConnect"); /* connection failed, exit */
 
-
+	
 	getGreetingsMessage(server_fd);
 	
 	exit(EXIT_SUCCESS);
