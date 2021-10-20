@@ -3,9 +3,6 @@ name: C Build (CI)
 on:
   push:
     branches: [ '**' ]
-	# '**' stands for all possible characters, check
-	# wildcards and patterns cheat sheet:
-	# https://docs.github.com/en/actions/learn-github-actions/workflow-syntax-for-github-actions#filter-pattern-cheat-sheet
   pull_request:
     branches: [ '**' ]
 
@@ -35,3 +32,9 @@ jobs:
     #  run: make check
     #- name: make distcheck
     #  run: make distcheck
+
+
+	# '**' stands for all possible characters, check
+	# wildcards and patterns cheat sheet:
+	# https://docs.github.com/en/actions/learn-github-actions/workflow-syntax-for-github-actions#filter-pattern-cheat-sheet
+
