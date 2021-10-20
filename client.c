@@ -27,7 +27,7 @@ static void
 handleWriteSocket(int server_fd){
 
 	ssize_t bytesStdin;
-	char unserInput[BUF_SIZE];
+	char userInput[BUF_SIZE];
 
 	for(;;){
 		while((bytesStdin = read(STDIN_FILENO, userInput,BUF_SIZE)) > 0){
