@@ -47,7 +47,7 @@ handleReadSocket(int server_fd){
 the function that should be run by the child process:
 either handleReadSocket or handleWriteSocket */
 static void
-createChildProcess(void *functionChild(int), int server_fd){
+createChildProcess(void functionChild(int), int server_fd){
 	pid_t pidChild;
 	pidChild = fork();
 	switch(pidChild) {
