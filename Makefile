@@ -60,7 +60,7 @@ client.o : inet_sockets.h basics.h error_handling.o inet_sockets.o
 # Remove object files and linked program
 .PHONY : clean
 clean :
-	rm $(EXECUTABLES) $(OBJECTS) error_names.c.inc 
+	rm $(EXECUTABLES) *.o error_names.c.inc 
 
 
 
