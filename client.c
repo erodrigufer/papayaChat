@@ -42,7 +42,9 @@ the function that should be run by the child process:
 either handleReadSocket or handleWriteSocket */
 static void
 createChildProcess(void *functionChild(int), int server_fd){
-	switch(fork()) {
+	pid_t pidChild;
+	pidChild = fork();
+	switch(pidChild) {
 	
 	/* error on fork() call */
 	case -1:
@@ -53,12 +55,14 @@ createChildProcess(void *functionChild(int), int server_fd){
 
 	/* Child process (returns 0) */
 	case 0:
+		printf("Intializing child process");
 		/* function pointer to function of child process */
 		functionChild(server_fd);
 		break; /* break out of switch-statement*/
 			
 	/* Parent: fork() returns PID of the newly created child */
 	default:
+		printf("PID Child %ld",(long)pidChild);
 		break; /* break out of switch-statement*/
 	} // end switch-statement
 }
@@ -75,7 +79,8 @@ main(int argc, char *argv[])
 		errExit("clientConnect"); /* connection failed, exit */
 
 	
-	getGreetingsMessage(server_fd);
+	createChildProcess(handleReadSocket,server_fd);
+	//getGreetingsMessage(server_fd);
 	
 	exit(EXIT_SUCCESS);
 
