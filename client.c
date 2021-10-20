@@ -85,7 +85,7 @@ main(int argc, char *argv[])
 		errExit("clientConnect"); /* connection failed, exit */
 
 	
-	createChildProcess(&handleReadSocket,server_fd);
+	createChildProcess(handleReadSocket,server_fd);
 	//getGreetingsMessage(server_fd);
 	
 	exit(EXIT_SUCCESS);
