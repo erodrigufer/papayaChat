@@ -31,9 +31,11 @@ handleReadSocket(int server_fd){
 	ssize_t bytesRead;
 	char string_buf[BUF_SIZE];
 
-	while((bytesRead = read(server_fd, string_buf, BUF_SIZE)) != -1){
-		printf("%s",string_buf); /* later implement this with write
-								 directly to stdout */
+	for(;;){
+		while((bytesRead = read(server_fd, string_buf, BUF_SIZE)) > 0){
+			printf("%s",string_buf); /* later implement this with write
+									 directly to stdout */
+		}
 	}
 }
 
