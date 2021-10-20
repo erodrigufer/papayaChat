@@ -5,6 +5,9 @@ on:
     branches: [ '**' ]
   pull_request:
     branches: [ '**' ]
+    # '**' stands for all possible characters, check
+    # wildcards and patterns cheat sheet:
+    # https://docs.github.com/en/actions/learn-github-actions/workflow-syntax-for-github-actions#filter-pattern-cheat-sheet
 
 jobs:
   Client_Build:
@@ -34,7 +37,4 @@ jobs:
     #  run: make distcheck
 
 
-	# '**' stands for all possible characters, check
-	# wildcards and patterns cheat sheet:
-	# https://docs.github.com/en/actions/learn-github-actions/workflow-syntax-for-github-actions#filter-pattern-cheat-sheet
 
