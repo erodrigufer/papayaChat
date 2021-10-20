@@ -57,14 +57,14 @@ createChildProcess(void *functionChild(int), int server_fd){
 
 	/* Child process (returns 0) */
 	case 0:
-		printf("Intializing child process");
+		printf("Intializing child process\n");
 		/* function pointer to function of child process */
 		functionChild(server_fd);
 		break; /* break out of switch-statement*/
 			
 	/* Parent: fork() returns PID of the newly created child */
 	default:
-		printf("PID Child %ld",(long)pidChild);
+		printf("PID Child %ld\n",(long)pidChild);
 		break; /* break out of switch-statement*/
 	} // end switch-statement
 }
