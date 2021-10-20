@@ -2,7 +2,7 @@
 #include "basics.h"
 
 #define SERVICE "51000" // port number
-#define HOST "payaserver" // server IP
+#define HOST "kah" // server IP
 #define BUF_SIZE 4096
 
 static int
@@ -34,7 +34,7 @@ handleWriteSocket(int server_fd){
 				errExit("write to server");
 		}
 		if(bytesStdin == -1)
-			errExit("read from server");
+			errExit("read from STDIN_FILENO");
 	}
 
 }
