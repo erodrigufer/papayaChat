@@ -17,4 +17,4 @@
 ## concurrent_server.c
 ### main()
 * [ ] question legitimacy of exit after failed accept() call in server
-
+* [ ] Prevent a fork-bomb when establishing connections (pg. 1243 *The Linux Programming Interface*
