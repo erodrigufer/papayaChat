@@ -26,7 +26,7 @@ handleWriteSocket(void){
 }
 
 static void
-handleReadSocket(void){
+handleReadSocket(int server_fd){
 
 	ssize_t bytesRead;
 	char string_buf[BUF_SIZE];
@@ -41,7 +41,7 @@ handleReadSocket(void){
 the function that should be run by the child process:
 either handleReadSocket or handleWriteSocket */
 static void
-createChildProcess(void *functionChild(void)){
+createChildProcess(void *functionChild(int), int server_fd){
 	switch(fork()) {
 	
 	/* error on fork() call */
@@ -54,7 +54,7 @@ createChildProcess(void *functionChild(void)){
 	/* Child process (returns 0) */
 	case 0:
 		/* function pointer to function of child process */
-		functionChild();
+		functionChild(server_fd);
 		break; /* break out of switch-statement*/
 			
 	/* Parent: fork() returns PID of the newly created child */
