@@ -102,6 +102,8 @@ main(int argc, char *argv[])
 
 	
 	createChildProcess(handleReadSocket,server_fd);
+
+	createChildProcess(handleWriteSocket,server_fd);
 	//getGreetingsMessage(server_fd);
 	
 	exit(EXIT_SUCCESS);
