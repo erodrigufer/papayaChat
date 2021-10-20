@@ -45,7 +45,7 @@ handleReadSocket(int server_fd){
 	ssize_t bytesRead;
 	char string_buf[BUF_SIZE];
 
-	/* infinte for-loop reading from the TCP-socket
+	/* endless for-loop reading from the TCP-socket
 	every time a whole message is read, then read() returns 0
 	and the while-loop will then re-start with a blocking read()
 	until some bytes can be read from the socket */
