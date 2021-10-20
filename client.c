@@ -16,7 +16,6 @@ getGreetingsMessage(int server_fd)
 		printf("%s",string_buf); /* later implement this with write
 								 directly to stdout */
 	}
-
 	if(bytesRead == -1)
 		errExit("read greetings message");
 
@@ -31,8 +30,8 @@ handleWriteSocket(int server_fd){
 
 	for(;;){
 		while((bytesStdin = read(STDIN_FILENO, userInput,BUF_SIZE)) > 0){
-			if (write(server_fd, userInput, bytesStdin) != bytesStdin) {
-			errExit("write to server");
+			if (write(server_fd, userInput, bytesStdin) != bytesStdin)
+				errExit("write to server");
 		}
 		if(bytesStdin == -1)
 			errExit("read from server");
