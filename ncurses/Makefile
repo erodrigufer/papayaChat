@@ -1,2 +1,2 @@
 papayaChat : frontEnd.c
-	gcc -Wall -o papayaChat frontEnd.c -lncurses
+	gcc -Wall -Werror -o papayaChat frontEnd.c -lncurses
