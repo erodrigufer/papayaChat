@@ -24,12 +24,12 @@ int main()
 	//wrefresh(input_window);
 	wprintw(stdscr,"Comm received from server\n");
 
-	wrefresh(stdscr);			/* Print it on to the real screen */
+	wrefresh(stdscr);	/* Refresh real screen */
 
 	/* stdin reading should be non-blocking, if no character is read from
 	stdin, then getch returns ERR */
 	if(nodelay(stdscr,TRUE)==ERR)
-		exit(EXIT_FAILURE);
+		exit(EXIT_FAILURE);		/* nodelay() failed, catastrophic error */
 
 	char a;
 	/* Stop ncurses when 'q' is pressed */
