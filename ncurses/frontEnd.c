@@ -53,7 +53,6 @@ int main()
 	int y_start = 25;
 	move(y_start,x_start); /* move cursor to start position */
 
-
 	/* Stop ncurses when 'q' is pressed */
 	while(a!= KEY_DOWN){
 		a = getch();
@@ -62,7 +61,7 @@ int main()
 		if(a != ERR){
 			/* carriage return was pressed, go to next line and move cursor */
 			if(a == '\n'){
-				/* move to start position */
+				/* copy 200 characters at position, into message char array */
 				mvinnstr(y_start,x_start,message,200);
 				break;
 			}
