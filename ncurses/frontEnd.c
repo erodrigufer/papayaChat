@@ -30,11 +30,6 @@ int main()
 
 	//wrefresh(stdscr);	/* Refresh real screen */
 
-	/* stdin reading should be non-blocking, if no character is read from
-	stdin, then getch returns ERR */
-	if(nodelay(stdscr,TRUE)==ERR)
-		exit(EXIT_FAILURE);		/* nodelay() failed, catastrophic error */
-
 	int a = 0;			/* TODO: uninitialized ERROR found here fix that*/
 
 
@@ -44,25 +39,39 @@ int main()
 	/* string for message */
 	char message[200];
 
-	/* Draw horizontal line */
-	if(hline('_',COLS)==ERR)
-		exit(EXIT_FAILURE);
-
 	/* starting position for messages */
 	int x_start = 0;
 	int y_start = 25;
-	move(y_start,x_start); /* move cursor to start position */
+	move(y_start-1,x_start); /* move cursor to start position */
+
+	/* Draw horizontal line */
+	if(hline('_',COLS)==ERR)
+		exit(EXIT_FAILURE);
+	/* refresh() is needed to depict horizontal line */
+	refresh();
+
+	WINDOW * chatWindow;
+	chatWindow = newwin(LINES-y_start,COLS,y_start,x_start);
+	if(chatWindow == NULL)
+		exit(EXIT_FAILURE);
+
+	keypad(chatWindow, TRUE); /* Enable keypad and F-keys */
+
+	/* stdin reading should be non-blocking, if no character is read from
+	stdin, then getch returns ERR */
+	if(nodelay(chatWindow,TRUE)==ERR)
+		exit(EXIT_FAILURE);		/* nodelay() failed, catastrophic error */
 
 	/* Stop ncurses when 'KEY_DOWN' is pressed */
 	while(a!= KEY_DOWN){
-		a = getch();
+		a = wgetch(chatWindow);
 		/* if getch returns ERR then no character was typed,
 		getch was configured as non-blocking with the nodelay() function */
 		if(a != ERR){
 			/* carriage return was pressed, go to next line and move cursor */
 			if(a == '\n'){
 				/* copy 200 characters at position, into message char array */
-				mvinnstr(y_start,x_start,message,200);
+				//mvinnstr(y_start,x_start,message,200);
 				/* TODO: after storing contents of line, delete line and pipe
 				the contents to the process dealing with sending the messages
 				to the back-end server */
@@ -73,19 +82,19 @@ int main()
 			/* BACKSPACE was pressed, delete characters */
 			if(a == KEY_BACKSPACE || a == KEY_LEFT){
 				/* get current x position */
-				x_position=getcurx(stdscr);
+				x_position=getcurx(chatWindow);
 				/* move cursor to the left to delete last pressed character */
 				x_position--;
-				y_position=getcury(stdscr);
-				move(y_position,x_position); /* move cursor to new position */
+				y_position=getcury(chatWindow);
+				wmove(chatWindow,y_position,x_position); /* move cursor to new position */
 				/* delete character under cursor */
-				delch();
+				wdelch(chatWindow);
 				continue;
 			}
 			/* a character was read, print and move cursor */
-			addch(a);
+			waddch(chatWindow,a);
 
-			refresh();
+			wrefresh(chatWindow);
 		}
     }
 
