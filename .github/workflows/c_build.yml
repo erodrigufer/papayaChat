@@ -36,5 +36,9 @@ jobs:
     #- name: make distcheck
     #  run: make distcheck
 
-
-
+  ncurses_Build:
+    runs-on: ubuntu-latest
+	steps:
+	- uses: actions/checkout@v2
+	- name: make ncurses UI
+	  run: /ncurses/compile.sh
