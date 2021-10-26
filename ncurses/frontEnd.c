@@ -37,9 +37,19 @@ int main()
 		exit(EXIT_FAILURE);		/* nodelay() failed, catastrophic error */
 
 	int a = 0;			/* TODO: uninitialized ERROR found here fix that*/
+
+
+	/* starting position for messages */
+	int x_start = 0;
+	int y_start = 25;
+
 	int x_position = 0;
-	int y_position = 25;
-	move(y_position,x_position); /* move cursor to new position */
+	int y_position = 0;
+	move(y_start,x_start); /* move cursor to new position */
+
+	/* string for message */
+	char message[200];
+
 	/* Stop ncurses when 'q' is pressed */
 	while(a!='q'){
 		a = getch();
@@ -48,11 +58,12 @@ int main()
 		if(a != ERR){
 			/* carriage return was pressed, go to next line and move cursor */
 			if(a == '\n'){
-				y_position++;
-				x_position = 0;
-				move(y_position,x_position); /* move cursor to new position */
-				continue;
+				/* move to start position */
+				mvinnstr(y_start,x_start,message,200);
+				break;
 			}
+
+			/* TODO: if x-position == 0, edge case, should do nothing */
 			/* BACKSPACE was pressed, delete characters */
 			if(a == KEY_BACKSPACE || a == KEY_LEFT){
 			/* get current x position */
@@ -71,13 +82,9 @@ int main()
 		}
     }
 
-	char str[10];
-	/* move cursor to specific position and extract at most n characters and store in
-	char * */
-	mvinnstr(25,0,str,10);
 	endwin();			/* End ncurses */
 
-	printf("%s\n",str);
+	printf("%s\n",message);
 	exit(EXIT_SUCCESS);
 }
 
