@@ -38,19 +38,24 @@ int main()
 	int a = 0;			/* TODO: uninitialized ERROR found here fix that*/
 
 
-	/* starting position for messages */
-	int x_start = 0;
-	int y_start = 25;
-
 	int x_position = 0;
 	int y_position = 0;
-	move(y_start,x_start); /* move cursor to new position */
 
 	/* string for message */
 	char message[200];
 
+	/* Draw horizontal line */
+	if(hline('_',COLS)==ERR)
+		exit(EXIT_FAILURE);
+
+	/* starting position for messages */
+	int x_start = 0;
+	int y_start = 25;
+	move(y_start,x_start); /* move cursor to start position */
+
+
 	/* Stop ncurses when 'q' is pressed */
-	while(a!='q'){
+	while(a!= KEY_DOWN){
 		a = getch();
 		/* if getch returns ERR then no character was typed,
 		getch was configured as non-blocking with the nodelay() function */
