@@ -55,13 +55,17 @@ int main()
 			}
 			/* BACKSPACE was pressed, delete characters */
 			if(a == KEY_BACKSPACE || a == KEY_LEFT){
+			/* get current x position */
+			x_position=getcurx(stdscr);
+			/* move cursor oen to the left to delete last pressed character */
 			x_position--;
-			mvaddch(y_position,x_position,' ');
+			y_position=getcury(stdscr);
 			move(y_position,x_position); /* move cursor to new position */
+			/* delete character under cursor */
+			delch();
 			continue;
 			}
-			mvaddch(y_position,x_position,a);
-			x_position++;
+			addch(a);
 
 			refresh();
 		}
