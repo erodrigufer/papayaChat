@@ -39,6 +39,7 @@ int main()
 	int a = 0;			/* TODO: uninitialized ERROR found here fix that*/
 	int x_position = 0;
 	int y_position = 25;
+	move(y_position,x_position); /* move cursor to new position */
 	/* Stop ncurses when 'q' is pressed */
 	while(a!='q'){
 		a = getch();
@@ -50,6 +51,7 @@ int main()
 				y_position++;
 				x_position = 0;
 				move(y_position,x_position); /* move cursor to new position */
+				continue;
 			}
 			if(a == KEY_BACKSPACE || a == KEY_LEFT){
 			x_position--;
