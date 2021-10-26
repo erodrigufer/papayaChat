@@ -37,16 +37,20 @@ int main()
 	char a;
 	_Bool pressed = FALSE;
 	int x_position = 0;
+	int y_position = 25;
 	/* Stop ncurses when 'q' is pressed */
 	while(a!='q'){
 		a = getch();
 		/* if getch returns ERR then no character was typed,
 		getch was configured as non-blocking with the nodelay() function */
 		if(a != ERR){
+			if(a == '\n')
+				y_position++;
+				x_position = 0;
 			if(a == 'D')
 				pressed = TRUE;
 			if(pressed == TRUE){
-				mvaddch(30,x_position,a);
+				mvaddch(y_position,x_position,a);
 				x_position++;
 				}
 			else
