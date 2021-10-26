@@ -27,7 +27,6 @@ int main()
 
 	// mvwprintw(input_window,10,10,"Input");
 	//wrefresh(input_window);
-	//wprintw(stdscr,"Comm received from server\n");
 
 	//wrefresh(stdscr);	/* Refresh real screen */
 
@@ -66,16 +65,17 @@ int main()
 			/* TODO: if x-position == 0, edge case, should do nothing */
 			/* BACKSPACE was pressed, delete characters */
 			if(a == KEY_BACKSPACE || a == KEY_LEFT){
-			/* get current x position */
-			x_position=getcurx(stdscr);
-			/* move cursor oen to the left to delete last pressed character */
-			x_position--;
-			y_position=getcury(stdscr);
-			move(y_position,x_position); /* move cursor to new position */
-			/* delete character under cursor */
-			delch();
-			continue;
+				/* get current x position */
+				x_position=getcurx(stdscr);
+				/* move cursor to the left to delete last pressed character */
+				x_position--;
+				y_position=getcury(stdscr);
+				move(y_position,x_position); /* move cursor to new position */
+				/* delete character under cursor */
+				delch();
+				continue;
 			}
+			/* a character was read, print and move cursor */
 			addch(a);
 
 			refresh();
