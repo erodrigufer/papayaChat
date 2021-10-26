@@ -53,6 +53,7 @@ int main()
 				move(y_position,x_position); /* move cursor to new position */
 				continue;
 			}
+			/* BACKSPACE was pressed, delete characters */
 			if(a == KEY_BACKSPACE || a == KEY_LEFT){
 			x_position--;
 			mvaddch(y_position,x_position,' ');
