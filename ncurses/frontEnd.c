@@ -14,6 +14,9 @@ int main()
 	keypad(stdscr, TRUE); /* Enable keypad and F-keys */
 	noecho();			/* Do not automatically echo characters typed by user */
 
+	/* Print 'papayaChat' in the first 0, right in the middle of the screen 
+	subtract half of the length of 'papayaChat' from the x position in the
+	middle of the screen */
 	mvwprintw(stdscr,0,COLS/2-strlen("papayaChat")/2,"papayaChat\n");
 
 	//	WINDOW * input_window;
