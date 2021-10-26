@@ -59,10 +59,8 @@ int main()
 			move(y_position,x_position); /* move cursor to new position */
 			continue;
 			}
-			if(a != '\n'){
-				mvaddch(y_position,x_position,a);
-				x_position++;
-				}
+			mvaddch(y_position,x_position,a);
+			x_position++;
 
 			refresh();
 		}
