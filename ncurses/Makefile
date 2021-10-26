@@ -1,2 +1,10 @@
+CC_FLAGS = -Wall -Werror
+
+EXECUTABLE = papayaChat_client
+
 papayaChat : frontEnd.c
-	gcc -Wall -Werror -o papayaChat frontEnd.c -lncurses
+	gcc $(CC_FLAGS) -o $(EXECUTABLE) frontEnd.c -lncurses
+
+clean:
+	rm $(EXECUTABLE)
+
