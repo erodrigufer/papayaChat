@@ -53,7 +53,7 @@ int main()
 	int y_start = 25;
 	move(y_start,x_start); /* move cursor to start position */
 
-	/* Stop ncurses when 'q' is pressed */
+	/* Stop ncurses when 'KEY_DOWN' is pressed */
 	while(a!= KEY_DOWN){
 		a = getch();
 		/* if getch returns ERR then no character was typed,
@@ -63,6 +63,9 @@ int main()
 			if(a == '\n'){
 				/* copy 200 characters at position, into message char array */
 				mvinnstr(y_start,x_start,message,200);
+				/* TODO: after storing contents of line, delete line and pipe
+				the contents to the process dealing with sending the messages
+				to the back-end server */
 				break;
 			}
 
