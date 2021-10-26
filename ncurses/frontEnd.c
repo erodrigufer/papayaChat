@@ -17,18 +17,12 @@ int main()
 	/* Print 'papayaChat' in the first 0, right in the middle of the screen 
 	subtract half of the length of 'papayaChat' from the x position in the
 	middle of the screen */
-	mvprintw(0,COLS/2-strlen("papayaChat")/2,"papayaChat\n\n");
-	/* after this print statement, the cursor can be found two lines below the title */
+	mvprintw(0,COLS/2-strlen("papayaChat")/2,"papayaChat\n");
+	
+	if(hline('_',COLS)==ERR)
+		exit(EXIT_FAILURE);
+
 	refresh();
-
-	//	WINDOW * input_window;
-
-	//input_window = newwin(LINES/2,COLS,LINES/2,0);
-
-	// mvwprintw(input_window,10,10,"Input");
-	//wrefresh(input_window);
-
-	//wrefresh(stdscr);	/* Refresh real screen */
 
 	int a = 0;			/* TODO: uninitialized ERROR found here fix that*/
 
@@ -40,9 +34,9 @@ int main()
 	char message[200];
 
 	/* starting position for messages */
-	int x_start = 0;
-	int y_start = 25;
-	move(y_start-1,x_start); /* move cursor to start position */
+	int x_start = 1;
+	int y_start = (int) LINES*3/4;
+	move(y_start-1,0); /* move cursor to start position */
 
 	/* Draw horizontal line */
 	if(hline('_',COLS)==ERR)
@@ -50,11 +44,11 @@ int main()
 	/* refresh() is needed to depict horizontal line */
 	refresh();
 
+	/* create separate window for chat input */
 	WINDOW * chatWindow;
-	chatWindow = newwin(LINES-y_start,COLS,y_start,x_start);
+	chatWindow = newwin(LINES-y_start,COLS-1,y_start,x_start);
 	if(chatWindow == NULL)
 		exit(EXIT_FAILURE);
-
 	keypad(chatWindow, TRUE); /* Enable keypad and F-keys */
 
 	/* stdin reading should be non-blocking, if no character is read from
@@ -71,7 +65,11 @@ int main()
 			/* carriage return was pressed, go to next line and move cursor */
 			if(a == '\n'){
 				/* copy 200 characters at position, into message char array */
-				//mvinnstr(y_start,x_start,message,200);
+				int errorString = mvwinnstr(chatWindow,y_start,x_start,message,200);
+				if(errorString == ERR){
+					endwin();
+					exit(EXIT_FAILURE);
+					}
 				/* TODO: after storing contents of line, delete line and pipe
 				the contents to the process dealing with sending the messages
 				to the back-end server */
