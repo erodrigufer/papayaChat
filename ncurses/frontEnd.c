@@ -36,8 +36,7 @@ int main()
 	if(nodelay(stdscr,TRUE)==ERR)
 		exit(EXIT_FAILURE);		/* nodelay() failed, catastrophic error */
 
-	char a;
-	_Bool pressed = FALSE;
+	int a;
 	int x_position = 0;
 	int y_position = 25;
 	/* Stop ncurses when 'q' is pressed */
@@ -46,22 +45,24 @@ int main()
 		/* if getch returns ERR then no character was typed,
 		getch was configured as non-blocking with the nodelay() function */
 		if(a != ERR){
-			if(a == '\n' && pressed == TRUE){
+			if(a == '\n'){
 				y_position++;
-				x_position = 0;}
-			if(a == 'D')
-				pressed = TRUE;
-			if(pressed == TRUE && a != '\n'){
+				x_position = 0;
+			}
+			if(a == KEY_BACKSPACE || a == KEY_LEFT){
+			x_position--;
+			mvaddch(y_position,x_position,' ');
+			continue;
+			}
+			if(a != '\n'){
 				mvaddch(y_position,x_position,a);
 				x_position++;
 				}
-			else
-				addch(a);
 
 			refresh();
 		}
     }
-	endwin();			/* End curses mode		  */
+	endwin();			/* End ncurses */
 
 	exit(EXIT_SUCCESS);
 }
