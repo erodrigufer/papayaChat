@@ -49,7 +49,7 @@ int main()
 				x_position = 0;
 			if(a == 'D')
 				pressed = TRUE;
-			if(pressed == TRUE){
+			if(pressed == TRUE && a != '\n'){
 				mvaddch(y_position,x_position,a);
 				x_position++;
 				}
