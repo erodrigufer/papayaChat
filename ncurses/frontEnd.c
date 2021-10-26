@@ -36,7 +36,7 @@ int main()
 	if(nodelay(stdscr,TRUE)==ERR)
 		exit(EXIT_FAILURE);		/* nodelay() failed, catastrophic error */
 
-	int a;
+	int a = 0;			/* TODO: uninitialized ERROR found here fix that*/
 	int x_position = 0;
 	int y_position = 25;
 	/* Stop ncurses when 'q' is pressed */
@@ -45,13 +45,16 @@ int main()
 		/* if getch returns ERR then no character was typed,
 		getch was configured as non-blocking with the nodelay() function */
 		if(a != ERR){
+			/* carriage return was pressed, go to next line and move cursor */
 			if(a == '\n'){
 				y_position++;
 				x_position = 0;
+				move(y_position,x_position); /* move cursor to new position */
 			}
 			if(a == KEY_BACKSPACE || a == KEY_LEFT){
 			x_position--;
 			mvaddch(y_position,x_position,' ');
+			move(y_position,x_position); /* move cursor to new position */
 			continue;
 			}
 			if(a != '\n'){
