@@ -67,8 +67,14 @@ int main()
 			refresh();
 		}
     }
+
+	char str[10];
+	/* move cursor to specific position and extract at most n characters and store in
+	char * */
+	mvinnstr(25,0,str,10);
 	endwin();			/* End ncurses */
 
+	printf("%s\n",str);
 	exit(EXIT_SUCCESS);
 }
 
