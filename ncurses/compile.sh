@@ -1,5 +1,3 @@
 #! /bin/sh
 
-make
-
-./papayaChat
+make && ./papayaChat
