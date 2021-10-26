@@ -17,7 +17,9 @@ int main()
 	/* Print 'papayaChat' in the first 0, right in the middle of the screen 
 	subtract half of the length of 'papayaChat' from the x position in the
 	middle of the screen */
-	//mvwprintw(stdscr,0,COLS/2-strlen("papayaChat")/2,"papayaChat\n");
+	mvprintw(0,COLS/2-strlen("papayaChat")/2,"papayaChat\n\n");
+	/* after this print statement, the cursor can be found two lines below the title */
+	refresh();
 
 	//	WINDOW * input_window;
 
@@ -44,9 +46,9 @@ int main()
 		/* if getch returns ERR then no character was typed,
 		getch was configured as non-blocking with the nodelay() function */
 		if(a != ERR){
-			if(a == '\n')
+			if(a == '\n' && pressed == TRUE){
 				y_position++;
-				x_position = 0;
+				x_position = 0;}
 			if(a == 'D')
 				pressed = TRUE;
 			if(pressed == TRUE && a != '\n'){
