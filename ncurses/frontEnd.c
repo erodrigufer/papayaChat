@@ -17,7 +17,7 @@ int main()
 	/* Print 'papayaChat' in the first 0, right in the middle of the screen 
 	subtract half of the length of 'papayaChat' from the x position in the
 	middle of the screen */
-	mvwprintw(stdscr,0,COLS/2-strlen("papayaChat")/2,"papayaChat\n");
+	//mvwprintw(stdscr,0,COLS/2-strlen("papayaChat")/2,"papayaChat\n");
 
 	//	WINDOW * input_window;
 
@@ -25,9 +25,9 @@ int main()
 
 	// mvwprintw(input_window,10,10,"Input");
 	//wrefresh(input_window);
-	wprintw(stdscr,"Comm received from server\n");
+	//wprintw(stdscr,"Comm received from server\n");
 
-	wrefresh(stdscr);	/* Refresh real screen */
+	//wrefresh(stdscr);	/* Refresh real screen */
 
 	/* stdin reading should be non-blocking, if no character is read from
 	stdin, then getch returns ERR */
@@ -35,9 +35,25 @@ int main()
 		exit(EXIT_FAILURE);		/* nodelay() failed, catastrophic error */
 
 	char a;
+	_Bool pressed = FALSE;
+	int x_position = 0;
 	/* Stop ncurses when 'q' is pressed */
 	while(a!='q'){
 		a = getch();
+		/* if getch returns ERR then no character was typed,
+		getch was configured as non-blocking with the nodelay() function */
+		if(a != ERR){
+			if(a == 'D')
+				pressed = TRUE;
+			if(pressed == TRUE){
+				mvaddch(30,x_position,a);
+				x_position++;
+				}
+			else
+				addch(a);
+
+			refresh();
+		}
     }
 	endwin();			/* End curses mode		  */
 
