@@ -1,5 +1,8 @@
 # Makefile 
 
+# Enable most warnings, and make warnings behave as errors
+CC_FLAGS = -Wall -Werror
+
 OBJECTS_CLIENT = client.o error_handling.o inet_sockets.o
 EXECUTABLE_CLIENT = papayaChat_client
 
@@ -20,14 +23,14 @@ all : $(EXECUTABLES)
 # using all Warning
 # daemonLogger
 $(EXECUTABLE1) : $(OBJECTS1)
-	cc -Wall -o $(EXECUTABLE1) $(OBJECTS1)
+	cc $(CC_FLAGS) -o $(EXECUTABLE1) $(OBJECTS1)
 
 # concurrent_server
 $(EXECUTABLE2) : $(OBJECTS2)
-	cc -Wall -o $(EXECUTABLE2) $(OBJECTS2)
+	cc $(CC_FLAGS) -o $(EXECUTABLE2) $(OBJECTS2)
 
 termHandlerAsyncSafe : termHandlerAsyncSafe.o configure_syslog.o
-	cc -Wall -o termHandlerAsyncSafe termHandlerAsyncSafe.o configure_syslog.o
+	cc $(CC_FLAGS) -o termHandlerAsyncSafe termHandlerAsyncSafe.o configure_syslog.o
 
 termHandlerAsyncSafe.o : basics.h configure_syslog.o configure_syslog.h
 # Implicit rules, daemonCreation.c is missing
@@ -53,7 +56,7 @@ configure_syslog.o :
 client: $(EXECUTABLE_CLIENT)
 
 $(EXECUTABLE_CLIENT) : $(OBJECTS_CLIENT)
-	cc -Wall -o $(EXECUTABLE_CLIENT) $(OBJECTS_CLIENT)
+	cc $(CC_FLAGS) -o $(EXECUTABLE_CLIENT) $(OBJECTS_CLIENT)
 
 client.o : inet_sockets.h basics.h error_handling.o inet_sockets.o
 
@@ -61,7 +64,5 @@ client.o : inet_sockets.h basics.h error_handling.o inet_sockets.o
 .PHONY : clean
 clean :
 	rm $(EXECUTABLES) *.o error_names.c.inc 
-
-
 
 # Eduardo Rodriguez 2021 (c) @erodrigufer. Licensed under GNU AGPLv3
