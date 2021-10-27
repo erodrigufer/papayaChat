@@ -2,6 +2,33 @@
 #include <stdlib.h>
 #include <string.h>
 
+/* function to configure and create a window for the chat (lower
+half of screen)
+y_start and x_start are the y,x-coordinates where the window should 
+be initialized */
+static WINDOW * configureChatWindow(int y_start, int x_start)
+{
+
+	/* create separate window for chat input */
+	WINDOW * chatWindow;
+	/* height is LINES-y_start
+	width is COLS -1 */
+	chatWindow = newwin(LINES-y_start,COLS-1,y_start,x_start);
+	if(chatWindow == NULL)	/* there was an error */
+		exit(EXIT_FAILURE);
+
+	keypad(chatWindow, TRUE); /* Enable keypad and F-keys */
+
+	/* stdin reading should be non-blocking, if no character is read from
+	stdin, then getch returns ERR 
+	Otherwise, if it weren't non-blocking, we would not be able to 
+	print in the upper half of the chat window concurrently */
+	if(nodelay(chatWindow,TRUE)==ERR)
+		exit(EXIT_FAILURE);		/* nodelay() failed, catastrophic error */
+
+	return chatWindow;
+}
+
 int main()
 {
 
@@ -26,7 +53,6 @@ int main()
 
 	int a = 0;			/* TODO: uninitialized ERROR found here fix that*/
 
-
 	int x_position = 0;
 	int y_position = 0;
 
@@ -44,17 +70,8 @@ int main()
 	/* refresh() is needed to depict horizontal line */
 	refresh();
 
-	/* create separate window for chat input */
 	WINDOW * chatWindow;
-	chatWindow = newwin(LINES-y_start,COLS-1,y_start,x_start);
-	if(chatWindow == NULL)
-		exit(EXIT_FAILURE);
-	keypad(chatWindow, TRUE); /* Enable keypad and F-keys */
-
-	/* stdin reading should be non-blocking, if no character is read from
-	stdin, then getch returns ERR */
-	if(nodelay(chatWindow,TRUE)==ERR)
-		exit(EXIT_FAILURE);		/* nodelay() failed, catastrophic error */
+	chatWindow=configureChatWindow(y_start,x_start);
 
 	/* Stop ncurses when 'KEY_DOWN' is pressed */
 	while(a!= KEY_DOWN){
