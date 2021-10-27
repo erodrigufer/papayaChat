@@ -109,7 +109,7 @@ int main()
 				wdelch(chatWindow);
 				continue;
 			}
-			/* a character was read, print and move cursor */
+			/* add new read character to chatWindow */
 			waddch(chatWindow,a);
 
 			wrefresh(chatWindow);
