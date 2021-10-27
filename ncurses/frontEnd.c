@@ -2,6 +2,22 @@
 #include <stdlib.h>
 #include <string.h>
 
+
+static void configureNcurses(void)
+{
+
+	initscr();			/* Start curses mode 		  */
+	start_color();		/* Add colour functionality */
+	cbreak();			/* No line buffering -> terminal input is
+						received immediately, no waiting for carriage
+						return (ENTER), CTRL-C and CTRL-Z still work
+						though, to send STOP and TERM signals to process */
+	keypad(stdscr, TRUE); /* Enable keypad and F-keys */
+	noecho();			/* Do not automatically echo characters typed by user */
+
+
+}
+
 /* function to configure and create a window for the chat (lower
 half of screen)
 y_start and x_start are the y,x-coordinates where the window should 
@@ -29,17 +45,9 @@ static WINDOW * configureChatWindow(int y_start, int x_start)
 	return chatWindow;
 }
 
-int main()
+int main(int argc, char *argv[])
 {
-
-	initscr();			/* Start curses mode 		  */
-	start_color();		/* Add colour functionality */
-	cbreak();			/* No line buffering -> terminal input is
-						received immediately, no waiting for carriage
-						return (ENTER), CTRL-C and CTRL-Z still work
-						though, to send STOP and TERM signals to process */
-	keypad(stdscr, TRUE); /* Enable keypad and F-keys */
-	noecho();			/* Do not automatically echo characters typed by user */
+	configureNcurses();
 
 	/* Print 'papayaChat' in the first 0, right in the middle of the screen 
 	subtract half of the length of 'papayaChat' from the x position in the
