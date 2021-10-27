@@ -12,8 +12,8 @@ static WINDOW * configureChatWindow(int y_start, int x_start)
 	/* create separate window for chat input */
 	WINDOW * chatWindow;
 	/* height is LINES-y_start
-	width is COLS -1 */
-	chatWindow = newwin(LINES-y_start,COLS-1,y_start,x_start);
+	width is COLS -2 */
+	chatWindow = newwin(LINES-y_start,COLS-2,y_start,x_start);
 	if(chatWindow == NULL)	/* there was an error */
 		exit(EXIT_FAILURE);
 
@@ -85,6 +85,7 @@ int main()
 				int errorString = mvwinnstr(chatWindow,y_start,x_start,message,200);
 				if(errorString == ERR){
 					endwin();
+					fprintf(stderr,"mvwinnstr failed.\n");
 					exit(EXIT_FAILURE);
 					}
 				/* TODO: after storing contents of line, delete line and pipe
