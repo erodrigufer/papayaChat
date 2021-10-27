@@ -1,6 +1,5 @@
 #include "basics.h"
 #include "daemonCreation.h"
-
 /* add sys logging capabilities to daemon */
 #include <syslog.h>
 
