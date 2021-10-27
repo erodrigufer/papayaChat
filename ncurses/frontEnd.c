@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-
+/* function to configure and initialize the ncurses environment */
 static void configureNcurses(void)
 {
 
