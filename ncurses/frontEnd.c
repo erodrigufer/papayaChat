@@ -106,11 +106,15 @@ int main(int argc, char *argv[])
 				break;
 			}
 
-			/* TODO: if x-position == 0, edge case, should do nothing */
+			/* TODO: if x-position == x_start, edge case, should do nothing */
 			/* BACKSPACE was pressed, delete characters */
 			if(a == KEY_BACKSPACE || a == KEY_LEFT){
 				/* get current x position */
 				x_position=getcurx(chatWindow);
+				/* if cursor position is x=x_start, then do not do anything 
+				(edge case) */
+				if(x_position==x_start)
+					continue;
 				/* move cursor to the left to delete last pressed character */
 				x_position--;
 				y_position=getcury(chatWindow);
