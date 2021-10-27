@@ -82,7 +82,9 @@ int main()
 			/* carriage return was pressed, go to next line and move cursor */
 			if(a == '\n'){
 				/* copy 200 characters at position, into message char array */
-				int errorString = mvwinnstr(chatWindow,y_start,x_start,message,200);
+				//int errorString = mvwinnstr(chatWindow,y_start,x_start,message,200);
+				int errorString = mvinnstr(0,0,message,200); /* strangely this function
+				is properly working and with stdscr */
 				if(errorString == ERR){
 					endwin();
 					fprintf(stderr,"mvwinnstr failed.\n");
