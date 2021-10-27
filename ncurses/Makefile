@@ -2,8 +2,12 @@ CC_FLAGS = -Wall -Werror
 
 EXECUTABLE = papayaChat_client
 
-$(EXECUTABLE) : frontEnd.c
-	gcc $(CC_FLAGS) -o $(EXECUTABLE) frontEnd.c -lncurses
+OBJECTS = frontEnd.o
+
+$(EXECUTABLE) : $(OBJECTS)
+	gcc $(CC_FLAGS) -o $(EXECUTABLE) $(OBJECTS) -lncurses
+
+frontEnd.o :
 
 .PHONY : run
 run: 
