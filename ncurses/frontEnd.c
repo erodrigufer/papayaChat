@@ -90,11 +90,11 @@ int main(int argc, char *argv[])
 		if(a != ERR){
 			/* carriage return was pressed, go to next line and move cursor */
 			if(a == '\n'){
-				/* copy 200 characters at position, into message char array */
-				/* TODO: mvwinnstr is not working for chatWindow */
-				//int errorString = mvwinnstr(chatWindow,y_start,x_start,message,200);
-				int errorString = mvinnstr(0,0,message,200); /* strangely this function
-				is properly working and with stdscr */
+				/* copy 200 characters at position, into message char array,
+				the coordinates to start copying strings, should be the relative
+				coordinates inside chatWindow, so 0,0 actually equals 
+				y_start,x_start */
+				int errorString = mvwinnstr(chatWindow,0,0,message,200);
 				if(errorString == ERR){
 					endwin();
 					fprintf(stderr,"mvwinnstr failed.\n");
@@ -106,15 +106,16 @@ int main(int argc, char *argv[])
 				break;
 			}
 
-			/* TODO: if x-position == x_start, edge case, should do nothing */
 			/* BACKSPACE was pressed, delete characters */
 			if(a == KEY_BACKSPACE || a == KEY_LEFT){
-				/* get current x position */
+				/* get current x position (relative to chatWindow coordinates, so
+				x=0, actually equals to x_start) */
 				x_position=getcurx(chatWindow);
-				/* if cursor position is x=x_start, then do not do anything 
-				(edge case) */
-				if(x_position==x_start)
-					continue;
+				/* if cursor position is x=0, then do not do anything 
+				(edge case). the coordinates are relative to chatWindow */
+				if(x_position==0)
+					continue; /* do not continue deleting characters, since the 
+								cursor is at the border of the window */
 				/* move cursor to the left to delete last pressed character */
 				x_position--;
 				y_position=getcury(chatWindow);
