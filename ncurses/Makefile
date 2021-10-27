@@ -15,5 +15,5 @@ run:
 
 .PHONY : clean
 clean:
-	rm $(EXECUTABLE)
+	rm $(EXECUTABLE) $(OBJECTS)
 
