@@ -10,7 +10,7 @@ $(EXECUTABLE) : $(OBJECTS)
 frontEnd.o :
 
 .PHONY : run
-run: 
+run: $(EXECUTABLE)
 	./$(EXECUTABLE)
 
 .PHONY : clean
