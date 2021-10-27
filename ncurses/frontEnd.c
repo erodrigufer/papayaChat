@@ -47,6 +47,7 @@ static WINDOW * configureChatWindow(int y_start, int x_start)
 
 int main(int argc, char *argv[])
 {
+	/* initialize and configure ncurses */
 	configureNcurses();
 
 	/* Print 'papayaChat' in the first 0, right in the middle of the screen 
