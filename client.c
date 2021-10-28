@@ -5,6 +5,7 @@
 #define HOST "kah" // server IP
 #define BUF_SIZE 4096
 
+/* Get the standard greetings message from the server */
 static int
 getGreetingsMessage(int server_fd)
 {
