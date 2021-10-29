@@ -47,6 +47,11 @@ static WINDOW * configureChatWindow(int y_start, int x_start)
 
 int main(int argc, char *argv[])
 {
+	/* Create child processes which will handle the communication with the server
+	1. Child process will send messages to the server
+	2. Child process will receive messages from the server
+	Both child process will communicate with the parent process handling the front-end through pipes */
+
 	/* initialize and configure ncurses */
 	configureNcurses();
 
