@@ -6,7 +6,7 @@ CC_FLAGS = -Wall -Werror
 OBJECTS_CLIENT = client.o error_handling.o inet_sockets.o
 EXECUTABLE_CLIENT = papayaChat_client
 
-OBJECTS_FRONTEND = frontEnd.o
+OBJECTS_FRONTEND = frontEnd.o error_handling.o
 EXECUTABLE_FRONTEND = frontEnd
 
 # Objects and executable for daemonLogger
@@ -32,10 +32,7 @@ $(EXECUTABLE1) : $(OBJECTS1)
 $(EXECUTABLE2) : $(OBJECTS2)
 	cc $(CC_FLAGS) -o $(EXECUTABLE2) $(OBJECTS2)
 
-# frontEnd with ncurses
-$(EXECUTABLE_FRONTEND) : $(OBJECTS_FRONTEND)
-	cc $(CC_FLAGS) -o $(EXECUTABLE_FRONTEND) $(OBJECTS_FRONTEND) -lncurses
-
+#termHandlerAsyncSafe
 termHandlerAsyncSafe : termHandlerAsyncSafe.o configure_syslog.o
 	cc $(CC_FLAGS) -o termHandlerAsyncSafe termHandlerAsyncSafe.o configure_syslog.o
 
@@ -64,7 +61,11 @@ configure_syslog.o :
 run : $(EXECUTABLE_FRONTEND)
 	./$(EXECUTABLE_FRONTEND)
 
-frontEnd.o :
+frontEnd.o : basics.h error_handling.o
+
+# frontEnd with ncurses
+$(EXECUTABLE_FRONTEND) : $(OBJECTS_FRONTEND)
+	cc $(CC_FLAGS) -o $(EXECUTABLE_FRONTEND) $(OBJECTS_FRONTEND) -lncurses
 
 .PHONY : client
 client: $(EXECUTABLE_CLIENT)
