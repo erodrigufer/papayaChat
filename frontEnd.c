@@ -95,6 +95,8 @@ int main(int argc, char *argv[])
 		case 0: 
 			/* Close stdout of pipe shared with parent */
 			close(pipe_fds_receive_server[0]);
+			/* Close pipe from 1. Child inherited through parent */
+			close(pipe_fds_send_server[1]);
 			/*TODO: add actions of 2. Child process 
 			temporarily just make child exit*/
 			_exit(EXIT_SUCCESS);
