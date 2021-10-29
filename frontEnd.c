@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "basics.h"
+
 /* function to configure and initialize the ncurses environment */
 static void configureNcurses(void)
 {
@@ -51,7 +53,12 @@ int main(int argc, char *argv[])
 	1. Child process will send messages to the server
 	2. Child process will receive messages from the server
 	Both child process will communicate with the parent process handling the front-end through pipes */
-
+	/* Create pipe for 1. Child process, which will send messages to the server.
+	The pipe is created before fork() so that the fds are shared between both the
+	parent and the child process */
+	int pipe_fds_send_server[2];
+	if(pipe(pipe_fds_send_server)==-1)
+		errExit("pipe send to server");
 	/* initialize and configure ncurses */
 	configureNcurses();
 
