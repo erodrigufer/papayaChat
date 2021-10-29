@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "basics.h"
+#include "basics.h" /* includes library to handle errors */
 
 /* function to configure and initialize the ncurses environment */
 static void configureNcurses(void)
