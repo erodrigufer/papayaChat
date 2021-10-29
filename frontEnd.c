@@ -67,8 +67,8 @@ int main(int argc, char *argv[])
 
 		/* 1. Child process (returns 0) */
 		case 0: 
-			/* Close stdout of pipe shared with parent */
-			close(pipe_fds_send_server[0]);
+			/* Close stdin of pipe shared with parent */
+			close(pipe_fds_send_server[1]);
 			/*TODO: add actions of 1. Child process 
 			temporarily just make child exit*/
 			_exit(EXIT_SUCCESS);
@@ -76,8 +76,8 @@ int main(int argc, char *argv[])
 
 		/* Parent: fork() returns PID of newly created child */
 		default:
-			/* Close stdin of pipe shared with 1. Child */
-			close(pipe_fds_send_server[1]);
+			/* Close stdout of pipe shared with 1. Child */
+			close(pipe_fds_send_server[0]);
 			break;
 	}// end switch-case fork 1
 
@@ -93,8 +93,8 @@ int main(int argc, char *argv[])
 
 		/* 2. Child process (returns 0) */
 		case 0: 
-			/* Close stdin of pipe shared with parent */
-			close(pipe_fds_receive_server[1]);
+			/* Close stdout of pipe shared with parent */
+			close(pipe_fds_receive_server[0]);
 			/*TODO: add actions of 2. Child process 
 			temporarily just make child exit*/
 			_exit(EXIT_SUCCESS);
@@ -102,8 +102,8 @@ int main(int argc, char *argv[])
 
 		/* Parent: fork() returns PID of newly created child */
 		default:
-			/* Close stdout of pipe shared with 2. Child */
-			close(pipe_fds_receive_server[0]);
+			/* Close stdin of pipe shared with 2. Child */
+			close(pipe_fds_receive_server[1]);
 			break;
 	}// end switch-case fork 2
 
