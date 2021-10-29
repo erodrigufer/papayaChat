@@ -1,6 +1,5 @@
-#include <ncurses.h>
-#include <stdlib.h>
-#include <string.h>
+#include <ncurses.h> /* required to create terminal UI */
+#include <string.h>	/* required for string manipulation */
 
 #include "basics.h" /* includes library to handle errors */
 
