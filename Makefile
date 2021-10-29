@@ -59,8 +59,8 @@ inet_sockets.o : inet_sockets.h basics.h
 
 configure_syslog.o :
 
-.PHONY : run frontend
-run frontend : $(EXECUTABLE_FRONTEND)
+.PHONY : run 
+run : $(EXECUTABLE_FRONTEND)
 	./$(EXECUTABLE_FRONTEND)
 
 frontEnd.o :
