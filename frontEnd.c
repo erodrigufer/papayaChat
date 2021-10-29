@@ -63,21 +63,50 @@ int main(int argc, char *argv[])
 		/* error on fork() call  */
 		case -1:
 			/* exit with an error message */
-			errExit("fork(), 1. Child could not be created.");
+			errExit("fork(), 1. Child [send] could not be created.");
 			break;
 
 		/* 1. Child process (returns 0) */
 		case 0: 
 			/* Close stdout of pipe shared with parent */
 			close(pipe_fds_send_server[0]);
+			/*TODO: add actions of 1. Child process 
+			temporarily just make child exit*/
+			_exit(EXIT_SUCCESS);
 			break;
 
-		/* Parent: fork(9 return PID of newly created child */
+		/* Parent: fork() returns PID of newly created child */
 		default:
 			/* Close stdin of pipe shared with 1. Child */
 			close(pipe_fds_send_server[1]);
 			break;
 	}// end switch-case fork 1
+
+	int pipe_fds_receive_server[2];
+	if(pipe(pipe_fds_receive_server)==-1)
+		errExit("pipe receive from server");
+	switch(fork()) {
+		/* error on fork() call  */
+		case -1:
+			/* exit with an error message */
+			errExit("fork(), 2. Child [receive] could not be created.");
+			break;
+
+		/* 2. Child process (returns 0) */
+		case 0: 
+			/* Close stdin of pipe shared with parent */
+			close(pipe_fds_receive_server[1]);
+			/*TODO: add actions of 2. Child process 
+			temporarily just make child exit*/
+			_exit(EXIT_SUCCESS);
+			break;
+
+		/* Parent: fork() returns PID of newly created child */
+		default:
+			/* Close stdout of pipe shared with 2. Child */
+			close(pipe_fds_receive_server[0]);
+			break;
+	}// end switch-case fork 2
 
 	/* initialize and configure ncurses */
 	configureNcurses();
