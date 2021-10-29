@@ -33,7 +33,7 @@ static WINDOW * configureChatWindow(int y_start, int x_start)
 	width is COLS -2 */
 	chatWindow = newwin(LINES-y_start,COLS-2,y_start,x_start);
 	if(chatWindow == NULL)	/* there was an error */
-		exit(EXIT_FAILURE);
+		errExit("newwin [chatWindow]");
 
 	keypad(chatWindow, TRUE); /* Enable keypad and F-keys */
 
@@ -42,7 +42,7 @@ static WINDOW * configureChatWindow(int y_start, int x_start)
 	Otherwise, if it weren't non-blocking, we would not be able to 
 	print in the upper half of the chat window concurrently */
 	if(nodelay(chatWindow,TRUE)==ERR)
-		exit(EXIT_FAILURE);		/* nodelay() failed, catastrophic error */
+		errExit("nodelay[chatWindow]");		/* nodelay() failed, catastrophic error */
 
 	return chatWindow;
 }
@@ -68,7 +68,7 @@ int main(int argc, char *argv[])
 	mvprintw(0,COLS/2-strlen("papayaChat")/2,"papayaChat\n");
 	
 	if(hline('_',COLS)==ERR)
-		exit(EXIT_FAILURE);
+		errExit("hline1");
 
 	refresh();
 
@@ -87,7 +87,7 @@ int main(int argc, char *argv[])
 
 	/* Draw horizontal line */
 	if(hline('_',COLS)==ERR)
-		exit(EXIT_FAILURE);
+		errExit("hline2");
 	/* refresh() is needed to depict horizontal line */
 	refresh();
 
@@ -109,8 +109,7 @@ int main(int argc, char *argv[])
 				int errorString = mvwinnstr(chatWindow,0,0,message,200);
 				if(errorString == ERR){
 					endwin();
-					fprintf(stderr,"mvwinnstr failed.\n");
-					exit(EXIT_FAILURE);
+					errExit("mvwinnstr [chatWindow]");
 					}
 				/* TODO: after storing contents of line, delete line and pipe
 				the contents to the process dealing with sending the messages
