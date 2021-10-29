@@ -73,7 +73,7 @@ $(EXECUTABLE_CLIENT) : $(OBJECTS_CLIENT)
 
 client.o : inet_sockets.h basics.h error_handling.o inet_sockets.o
 
-# Remove object files and linked program
+# Remove object files, executables and error names file (system dependant)
 .PHONY : clean
 clean :
 	rm $(EXECUTABLES) *.o error_names.c.inc 
