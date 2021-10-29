@@ -58,6 +58,8 @@ int main(int argc, char *argv[])
 	int pipe_fds_send_server[2];
 	if(pipe(pipe_fds_send_server)==-1)
 		errExit("pipe send to server");
+
+	/* 1. Child creation -- handles receiving data from server */
 	switch(fork()) {
 		/* error on fork() call  */
 		case -1:
@@ -81,6 +83,7 @@ int main(int argc, char *argv[])
 			break;
 	}// end switch-case fork 1
 
+	/* 2. Child creation -- handles receiving data from server */
 	int pipe_fds_receive_server[2];
 	if(pipe(pipe_fds_receive_server)==-1)
 		errExit("pipe receive from server");
