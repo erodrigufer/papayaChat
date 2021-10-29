@@ -6,6 +6,9 @@ CC_FLAGS = -Wall -Werror
 OBJECTS_CLIENT = client.o error_handling.o inet_sockets.o
 EXECUTABLE_CLIENT = papayaChat_client
 
+OBJECTS_FRONTEND = frontEnd.o
+EXECUTABLE_FRONTEND = frontEnd
+
 # Objects and executable for daemonLogger
 OBJECTS1 = daemonCreation.o daemonLogger.o
 EXECUTABLE1 = daemonLogger
@@ -14,8 +17,8 @@ EXECUTABLE1 = daemonLogger
 OBJECTS2 = concurrent_server.o error_handling.o inet_sockets.o daemonCreation.o configure_syslog.o 
 EXECUTABLE2 = concurrent_server 
 
-OBJECTS = $(OBJECTS1) $(OBJECTS2) termHandlerAsyncSafe.o $(OBJECTS_CLIENT)
-EXECUTABLES = $(EXECUTABLE1) $(EXECUTABLE2) termHandlerAsyncSafe $(EXECUTABLE_CLIENT)
+OBJECTS = $(OBJECTS1) $(OBJECTS2) termHandlerAsyncSafe.o $(OBJECTS_CLIENT) $(OBJECTS_FRONTEND)
+EXECUTABLES = $(EXECUTABLE1) $(EXECUTABLE2) termHandlerAsyncSafe $(EXECUTABLE_CLIENT) $(EXECUTABLE_FRONTEND)
 
 all : $(EXECUTABLES)
 
@@ -28,6 +31,10 @@ $(EXECUTABLE1) : $(OBJECTS1)
 # concurrent_server
 $(EXECUTABLE2) : $(OBJECTS2)
 	cc $(CC_FLAGS) -o $(EXECUTABLE2) $(OBJECTS2)
+
+# frontEnd with ncurses
+$(EXECUTABLE_FRONTEND) : $(OBJECTS_FRONTEND)
+	cc $(CC_FLAGS) -o $(EXECUTABLE_FRONTEND) $(OBJECTS_FRONTEND) -lncurses
 
 termHandlerAsyncSafe : termHandlerAsyncSafe.o configure_syslog.o
 	cc $(CC_FLAGS) -o termHandlerAsyncSafe termHandlerAsyncSafe.o configure_syslog.o
@@ -50,7 +57,13 @@ error_names.c.inc :
 
 inet_sockets.o : inet_sockets.h basics.h
 
-configure_syslog.o : 
+configure_syslog.o :
+
+.PHONY : run frontend
+run frontend : $(EXECUTABLE_FRONTEND)
+	./$(EXECUTABLE_FRONTEND)
+
+frontEnd.o :
 
 .PHONY : client
 client: $(EXECUTABLE_CLIENT)
