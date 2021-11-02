@@ -251,6 +251,7 @@ main(int argc, char *argv[])
 			close(pipe_fds_send_server[1]);
 			/*TODO: add actions of 1. Child process 
 			temporarily just make child exit*/
+			sleep(2000);
 			_exit(EXIT_SUCCESS);
 			break;
 
@@ -281,6 +282,7 @@ main(int argc, char *argv[])
 			/* Close pipe from 1. Child inherited through parent */
 			close(pipe_fds_send_server[1]);
 			handleReadSocket(server_fd, pipe_fds_receive_server[1]);
+			sleep(2000);
 			_exit(EXIT_SUCCESS);
 			break;
 
