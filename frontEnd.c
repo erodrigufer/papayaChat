@@ -44,13 +44,16 @@ catchSIGCHLD(int sig)
 static void
 killChildProcesses(void)
 {
+	/* IMPORTANT: I should not use errExit with these functions
+	since they are already being run atexit(), so only display 
+	diagnostic error messages */
 	/* kill 1. Child */
 	if(kill(child1_pid,SIGTERM)==-1)
-		fprintf(stderr,"Failed to kill 1. Child!");
+		errMsg(stderr,"Failed to kill 1. Child!");
 	
 	/* kill 2. Child */
 	if(kill(child2_pid,SIGTERM)==-1)
-		fprintf(stderr,"Failed to kill 2. Child!");
+		errMsg(stderr,"Failed to kill 2. Child!");
 
 /* TODO: debugging purpouses, remove fprintf later */
 	fprintf(stderr,"Successfully killed child processes!");
