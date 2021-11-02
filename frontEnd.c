@@ -166,12 +166,9 @@ handleReadSocket(int server_fd, int pipe_fd)
 //	}
 //}
 
-int 
-main(int argc, char *argv[])
+void
+configureSignalDisposition(void)
 {
-	/* establish connection with server, get fd to be shared with child processes */
-	int server_fd;
-	server_fd = establishConnection();
 
     struct sigaction sa_sigchild;			/* struc is necessary to define signals mask
 											to be blocked during signal handler, needed 
@@ -203,9 +200,17 @@ main(int argc, char *argv[])
     if (sigaction(SIGCHLD, &sa_sigchild, NULL) == -1)
 		errExit("sigaction for SIGCHLD");
 
+}
 
+int 
+main(int argc, char *argv[])
+{
+	/* establish connection with server, get fd to be shared with child processes */
+	int server_fd;
+	server_fd = establishConnection();
 
-
+	/* configure catching SIGCHLD of child processes */
+	configureSignalDisposition();
 
 	/* Create child processes which will handle the communication with the server
 	1. Child process will send messages to the server
