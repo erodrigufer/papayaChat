@@ -303,6 +303,7 @@ main(int argc, char *argv[])
 	middle of the screen */
 	mvprintw(0,COLS/2-strlen("papayaChat")/2,"papayaChat\n");
 
+	/* HLINE not printing */
 	if(hline('_',COLS)==ERR)
 		errExit("hline1");
 	
