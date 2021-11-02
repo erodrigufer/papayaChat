@@ -66,7 +66,7 @@ static WINDOW * configureChatWindow(int y_start, int x_start)
 
 /* read from server socket and pass data through pipe to frontEnd parent process */
 static void
-handleReadSocket(int server_fd){
+handleReadSocket(int server_fd, int pipe_fd){
 
 	ssize_t bytesRead;
 	char string_buf[BUF_SIZE];
@@ -77,9 +77,12 @@ handleReadSocket(int server_fd){
 	until some bytes can be read from the socket */
 	for(;;){
 		while((bytesRead = read(server_fd, string_buf, BUF_SIZE)) > 0){
-			printf("%s",string_buf); /* later implement this with write
-									 directly to stdout */
+			if(write(pipe_fd, string_buf, bytesRead) != bytesRead){
+				/* the amount of bytes written is not equal to the amount of bytes read */
+				errExit("write to pipe [handleReadSocket]");
+			}
 		}
+		/* read() failed, exit programm with error */
 		if(bytesRead == -1)
 			errExit("read from server");
 	}
