@@ -13,7 +13,28 @@
 #define HOST "kah" /* server address (found, e.g. on /etc/hosts file) */
 #define BUF_SIZE 4096 /* bytes transmission size */
 
-/* run this function to catch SIGCHLD signal of child processes exiting */
+/* run this function to catch SIGCHLD of child processes exiting */
+static void
+catchSIGCHLD(int sig)
+{
+	int savedErrno;             /* Save 'errno' in case changed here, errno
+									can be changed by waitpid() if no more children exist
+									then 'errno'= ECHILD */
+		savedErrno = errno;
+		while (waitpid(-1, NULL, WNOHANG) > 0)	/* 'man 2 waitpid' -1 means that it waits 
+		for any of its child processes, the option WNOHANG makes the syscall waitpid()
+		to return inmediately if no children has exited, if children exist but none has changed 
+		status, then waitpid returns 0, so it exits the while-loop (on error, it returns -1 and
+		also exits the while-loop). In any other case, multiple children have exited, so waitpid()
+		will return their pids (which are larger than 0). After the last children which has changed
+		status, waitpid will return either 0 or -1 and the while-loop will come to an end
+		If there are no more children, then waitpid will return -1 and set errno to ECHILD */
+			continue;
+		errno = savedErrno;			/* restore errno to value before signal handler */
+
+}
+
+/* run this function to kill child processes */
 static void
 killChildProcesses(int child1_pid, int child2_pid)
 {
