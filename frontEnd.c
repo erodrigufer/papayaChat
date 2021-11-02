@@ -4,6 +4,7 @@
 #include <signal.h>				/* check 'man 2 sigaction' signal.h is needed
 								to change the disposition of signals with
 								the sigaction() syscall */	
+#include <sys/wait.h>	/* wait on child processes */
 
 #include "basics.h" /* includes library to handle errors */
 #include "inet_sockets.h" /* include library to handle TCP sockets */
