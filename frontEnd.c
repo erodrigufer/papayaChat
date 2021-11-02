@@ -10,7 +10,8 @@
 #define BUF_SIZE 4096 /* bytes transmission size */
 
 /* establish TCP connection with server, return fd of server socket */
-static int establishConnection(void){
+static int 
+establishConnection(void){
 	int server_fd; /* fd for server connection */
 
 	/* SOCK_STREAM for TCP connection */
@@ -22,7 +23,8 @@ static int establishConnection(void){
 }
 
 /* function to configure and initialize the ncurses environment */
-static void configureNcurses(void)
+static void 
+configureNcurses(void)
 {
 
 	initscr();			/* Start curses mode 		  */
@@ -41,7 +43,8 @@ static void configureNcurses(void)
 half of screen)
 y_start and x_start are the y,x-coordinates where the window should 
 be initialized */
-static WINDOW * configureChatWindow(int y_start, int x_start)
+static WINDOW * 
+configureChatWindow(int y_start, int x_start)
 {
 
 	/* create separate window for chat input */
@@ -89,7 +92,6 @@ handleReadSocket(int server_fd, int pipe_fd){
 	every time a whole message is read, then read() returns 0
 	and the while-loop will then re-start with a blocking read()
 	until some bytes can be read from the socket */
-	for(;;){
 		while((bytesRead = read(server_fd, string_buf, BUF_SIZE)) > 0){
 			if(write(pipe_fd, string_buf, bytesRead) != bytesRead){
 				/* the amount of bytes written is not equal to the amount of bytes read */
@@ -99,7 +101,6 @@ handleReadSocket(int server_fd, int pipe_fd){
 		/* read() failed, exit programm with error */
 		if(bytesRead == -1)
 			errExit("read from server");
-	}
 }
 /* read from server socket and pass data through pipe to frontEnd parent process */
 //static void
@@ -125,7 +126,8 @@ handleReadSocket(int server_fd, int pipe_fd){
 //	}
 //}
 
-int main(int argc, char *argv[])
+int 
+main(int argc, char *argv[])
 {
 	/* establish connection with server, get fd to be shared with child processes */
 	int server_fd;
