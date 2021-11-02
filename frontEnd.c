@@ -14,6 +14,11 @@
 #define HOST "kah" /* server address (found, e.g. on /etc/hosts file) */
 #define BUF_SIZE 4096 /* bytes transmission size */
 
+/* Define this values as global to be able to call them from the atexit() function */
+int child1_pid;
+int child2_pid;
+
+
 /* run this function to catch SIGCHLD of child processes exiting */
 static void
 catchSIGCHLD(int sig)
@@ -37,7 +42,7 @@ catchSIGCHLD(int sig)
 
 /* run this function to kill child processes */
 static void
-killChildProcesses(int child1_pid, int child2_pid)
+killChildProcesses(void)
 {
 	/* kill 1. Child */
 	if(kill(child1_pid,SIGTERM)==-1)
@@ -228,9 +233,9 @@ main(int argc, char *argv[])
 	if(pipe(pipe_fds_send_server)==-1)
 		errExit("pipe send to server");
 
-	int sendServer_pid = fork();
+	child1_pid = fork();
 	/* 1. Child creation -- handles receiving data from server */
-	switch(sendServer_pid) {
+	switch(child1_pid) {
 		/* error on fork() call  */
 		case -1:
 			/* exit with an error message */
@@ -258,8 +263,8 @@ main(int argc, char *argv[])
 	if(pipe(pipe_fds_receive_server)==-1)
 		errExit("pipe receive from server");
 
-	int receiveServer_pid = fork();
-	switch(receiveServer_pid) {
+	child2_pid = fork();
+	switch(child2_pid) {
 		/* error on fork() call  */
 		case -1:
 			/* exit with an error message */
@@ -284,7 +289,7 @@ main(int argc, char *argv[])
 	}// end switch-case fork 2
 
 	/* configure the parent process to kill all children when invoking exit(3) */
-	if(atexit(killChildProcesses(sendServer_pid, receiveServer_pid))== -1)
+	if(atexit(killChildProcesses)== -1)
 		errExit("atexit");
 
 	/* initialize and configure ncurses */
