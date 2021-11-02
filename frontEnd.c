@@ -56,7 +56,7 @@ killChildProcesses(void)
 		errMsg("Failed to kill 2. Child!");
 
 /* TODO: debugging purpouses, remove fprintf later */
-	fprintf(stderr,"Successfully killed child processes!");
+	fprintf(stderr,"Successfully killed child processes!\n");
 
 }
 
