@@ -45,6 +45,10 @@ killChildProcesses(int child1_pid, int child2_pid)
 	/* kill 2. Child */
 	if(kill(child2_pid,SIGTERM)==-1)
 		fprintf(stderr,"Failed to kill 2. Child!");
+
+/* TODO: debugging purpouses, remove fprintf later */
+	fprintf(stderr,"Successfully killed child processes!");
+
 }
 
 /* establish TCP connection with server, return fd of server socket */
@@ -277,6 +281,9 @@ main(int argc, char *argv[])
 			close(pipe_fds_receive_server[1]);
 			break;
 	}// end switch-case fork 2
+
+
+	killChildProcesses(int child1_pid, int child2_pid);
 
 	/* initialize and configure ncurses */
 	configureNcurses();
