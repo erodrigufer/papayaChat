@@ -64,6 +64,21 @@ static WINDOW * configureChatWindow(int y_start, int x_start)
 	return chatWindow;
 }
 
+/* Get the standard greetings message from the pipe */
+static void
+getGreetingsMessage(int pipe_fd, char *string_buf)
+{
+	ssize_t bytesRead;
+//	char string_buf[BUF_SIZE];
+
+	while((bytesRead = read(pipe_fd, string_buf, BUF_SIZE)) > 0){
+	}
+	/* reading from pipe failed */
+	if(bytesRead == -1)
+		errExit("read greetings message");
+
+}
+
 /* read from server socket and pass data through pipe to frontEnd parent process */
 static void
 handleReadSocket(int server_fd, int pipe_fd){
@@ -146,9 +161,7 @@ int main(int argc, char *argv[])
 			close(pipe_fds_receive_server[0]);
 			/* Close pipe from 1. Child inherited through parent */
 			close(pipe_fds_send_server[1]);
-			/*TODO: add actions of 2. Child process 
-			temporarily just make child exit*/
-			_exit(EXIT_SUCCESS);
+			handleReadSocket(server_fd, pipe_fds_receive_server[1]);
 			break;
 
 		/* Parent: fork() returns PID of newly created child */
@@ -165,9 +178,13 @@ int main(int argc, char *argv[])
 	subtract half of the length of 'papayaChat' from the x position in the
 	middle of the screen */
 	mvprintw(0,COLS/2-strlen("papayaChat")/2,"papayaChat\n");
-	
+
 	if(hline('_',COLS)==ERR)
 		errExit("hline1");
+	
+	char string_buf[BUF_SIZE];
+	getGreetingsMessage(pipe_fds_receive_server,string_buf);
+	printw("%s",srting_buf);
 
 	refresh();
 
