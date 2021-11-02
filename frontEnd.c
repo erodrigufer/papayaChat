@@ -282,8 +282,9 @@ main(int argc, char *argv[])
 			break;
 	}// end switch-case fork 2
 
-
-	killChildProcesses(int child1_pid, int child2_pid);
+	/* configure the parent process to kill all children when invoking exit(3) */
+	if(atexit(killChildProcesses(sendServer_pid, receiveServer_pid))== -1)
+		errExit("atexit");
 
 	/* initialize and configure ncurses */
 	configureNcurses();
