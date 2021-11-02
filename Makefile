@@ -10,27 +10,27 @@ OBJECTS_FRONTEND = frontEnd.o error_handling.o inet_sockets.o
 EXECUTABLE_FRONTEND = frontEnd
 
 # Objects and executable for daemonLogger
-OBJECTS1 = daemonCreation.o daemonLogger.o
-EXECUTABLE1 = daemonLogger
+OBJECTS_DAEMON_LOGGER = daemonCreation.o daemonLogger.o
+EXECUTABLE_DAEMON_LOGGER = daemonLogger
 
 # Objects and executable for concurrent_server
-OBJECTS2 = concurrent_server.o error_handling.o inet_sockets.o daemonCreation.o configure_syslog.o 
-EXECUTABLE2 = concurrent_server 
+OBJECTS_SERVER = concurrent_server.o error_handling.o inet_sockets.o daemonCreation.o configure_syslog.o 
+EXECUTABLE_SERVER = concurrent_server 
 
-OBJECTS = $(OBJECTS1) $(OBJECTS2) termHandlerAsyncSafe.o $(OBJECTS_CLIENT) $(OBJECTS_FRONTEND)
-EXECUTABLES = $(EXECUTABLE1) $(EXECUTABLE2) termHandlerAsyncSafe $(EXECUTABLE_CLIENT) $(EXECUTABLE_FRONTEND)
+OBJECTS = $(OBJECTS_DAEMON_LOGGER) $(OBJECTS_SERVER) termHandlerAsyncSafe.o $(OBJECTS_CLIENT) $(OBJECTS_FRONTEND)
+EXECUTABLES = $(EXECUTABLE_DAEMON_LOGGER) $(EXECUTABLE_SERVER) termHandlerAsyncSafe $(EXECUTABLE_CLIENT) $(EXECUTABLE_FRONTEND)
 
 all : $(EXECUTABLES)
 
 # Link the object files to the compiled program
 # using all Warning
 # daemonLogger
-$(EXECUTABLE1) : $(OBJECTS1)
-	cc $(CC_FLAGS) -o $(EXECUTABLE1) $(OBJECTS1)
+$(EXECUTABLE_DAEMON_LOGGER) : $(OBJECTS_DAEMON_LOGGER)
+	cc $(CC_FLAGS) -o $(EXECUTABLE_DAEMON_LOGGER) $(OBJECTS_DAEMON_LOGGER)
 
 # concurrent_server
-$(EXECUTABLE2) : $(OBJECTS2)
-	cc $(CC_FLAGS) -o $(EXECUTABLE2) $(OBJECTS2)
+$(EXECUTABLE_SERVER) : $(OBJECTS_SERVER)
+	cc $(CC_FLAGS) -o $(EXECUTABLE_SERVER) $(OBJECTS_SERVER)
 
 #termHandlerAsyncSafe
 termHandlerAsyncSafe : termHandlerAsyncSafe.o configure_syslog.o
