@@ -173,6 +173,40 @@ main(int argc, char *argv[])
 	int server_fd;
 	server_fd = establishConnection();
 
+    struct sigaction sa_sigchild;			/* struc is necessary to define signals mask
+											to be blocked during signal handler, needed 
+											for syscall sigaction*/
+    /* Establish SIGCHLD handler to reap terminated child processes,
+	if SIGCHLD is gathered with waitpid() or wait() by parent, then child
+	process becomes a zombie and resources (PIDs) are not used efficiently.
+	SIGCHLD is sent by the kernel to a parent process when one of its childern terminates
+	(either by calling exit() or as a result of being killed by a signal).
+
+	sa_mask is the signal set of signals that would be blocked during the
+	invocation of the handler
+	-> create an empyte signal set, no signal blocked during invocation of handler */
+    sigemptyset(&sa_sigchild.sa_mask);			
+
+	/* if a syscall is interrupted by the SIGCHLD, the kernel should
+	restart the syscall after handling the signal,
+	for that the SA_RESTART flag is used. Not all syscalls can be
+	properly restarted by the kernel, check 21.5 of 'The Linux 
+	Programming Interface' 
+	for the SIGTERM handler this is not required, since all kernel syscalls
+	interrupted will not matter since the process should exit ASAP */
+    sa_sigchild.sa_flags = SA_RESTART;
+	/* catchSIGCHLD is the function handler for a SIGCHLD signal */
+    sa_sigchild.sa_handler = catchSIGCHLD;	
+
+	/* the new disposition for SIGCHLD signal is the grimReaper function, the old
+	signal disposition is not stored anywhere (NULL) */
+    if (sigaction(SIGCHLD, &sa_sigchild, NULL) == -1)
+		errExit("sigaction for SIGCHLD");
+
+
+
+
+
 	/* Create child processes which will handle the communication with the server
 	1. Child process will send messages to the server
 	2. Child process will receive messages from the server
