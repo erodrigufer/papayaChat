@@ -132,30 +132,30 @@ getGreetingsMessage(int pipe_fd, char *string_buf)
 
 }
 
-//static void
-//handleReadSocket(int server_fd, int pipe_fd)
-//{
-//
-//	ssize_t bytesRead;
-//	char string_buf[BUF_SIZE];
-//
-//	/* endless for-loop reading from the TCP-socket
-//	every time a whole message is read, then read() returns 0
-//	and the while-loop will then re-start with a blocking read()
-//	until some bytes can be read from the socket */
-//		while((bytesRead = read(server_fd, string_buf, BUF_SIZE)) > 0){
-//			if(write(pipe_fd, string_buf, bytesRead) != bytesRead){
-//				/* the amount of bytes written is not equal to the amount of bytes read */
-//				errExit("write to pipe [handleReadSocket]");
-//			}
-//		}
-//		/* read() failed, exit programm with error */
-//		if(bytesRead == -1)
-//			errExit("read from server");
-//}
-/* read from server socket and pass data through pipe to frontEnd parent process */
 static void
 handleReadSocket(int server_fd, int pipe_fd)
+{
+
+	ssize_t bytesRead;
+	char string_buf[BUF_SIZE];
+
+	/* endless for-loop reading from the TCP-socket
+	every time a whole message is read, then read() returns 0
+	and the while-loop will then re-start with a blocking read()
+	until some bytes can be read from the socket */
+		while((bytesRead = read(server_fd, string_buf, BUF_SIZE)) > 0){
+			if(write(pipe_fd, string_buf, bytesRead) != bytesRead){
+				/* the amount of bytes written is not equal to the amount of bytes read */
+				errExit("write to pipe [handleReadSocket]");
+			}
+		}
+		/* read() failed, exit programm with error */
+		if(bytesRead == -1)
+			errExit("read from server");
+}
+/* read from server socket and pass data through pipe to frontEnd parent process */
+static void
+handleReadSocket2(int server_fd, int pipe_fd)
 {
 
 	ssize_t bytesRead;
@@ -217,6 +217,10 @@ configureSignalDisposition(void)
 int 
 main(int argc, char *argv[])
 {
+	
+	/* initialize and configure ncurses */
+	configureNcurses();
+
 	/* establish connection with server, get fd to be shared with child processes */
 	int server_fd;
 	server_fd = establishConnection();
@@ -294,8 +298,6 @@ main(int argc, char *argv[])
 	if(atexit(killChildProcesses)== -1)
 		errExit("atexit");
 
-	/* initialize and configure ncurses */
-	configureNcurses();
 
 	/* Print 'papayaChat' in the first 0, right in the middle of the screen 
 	subtract half of the length of 'papayaChat' from the x position in the
