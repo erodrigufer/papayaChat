@@ -64,8 +64,33 @@ static WINDOW * configureChatWindow(int y_start, int x_start)
 	return chatWindow;
 }
 
+/* read from server socket and pass data through pipe to frontEnd parent process */
+static void
+handleReadSocket(int server_fd){
+
+	ssize_t bytesRead;
+	char string_buf[BUF_SIZE];
+
+	/* endless for-loop reading from the TCP-socket
+	every time a whole message is read, then read() returns 0
+	and the while-loop will then re-start with a blocking read()
+	until some bytes can be read from the socket */
+	for(;;){
+		while((bytesRead = read(server_fd, string_buf, BUF_SIZE)) > 0){
+			printf("%s",string_buf); /* later implement this with write
+									 directly to stdout */
+		}
+		if(bytesRead == -1)
+			errExit("read from server");
+	}
+}
+
 int main(int argc, char *argv[])
 {
+	/* establish connection with server, get fd to be shared with child processes */
+	int server_fd;
+	server_fd = establishConnection();
+
 	/* Create child processes which will handle the communication with the server
 	1. Child process will send messages to the server
 	2. Child process will receive messages from the server
