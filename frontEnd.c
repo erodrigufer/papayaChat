@@ -191,9 +191,9 @@ main(int argc, char *argv[])
 	/* 2. Child creation -- handles receiving data from server */
 	int pipe_fds_receive_server[2];
 	if(pipe(pipe_fds_receive_server)==-1)
-	
-	int receiveServer_pid = fork();
 		errExit("pipe receive from server");
+
+	int receiveServer_pid = fork();
 	switch(receiveServer_pid) {
 		/* error on fork() call  */
 		case -1:
