@@ -9,6 +9,18 @@
 #define HOST "kah" /* server address (found, e.g. on /etc/hosts file) */
 #define BUF_SIZE 4096 /* bytes transmission size */
 
+/* establish TCP connection with server, return fd of server socket */
+static int establishConnection(void){
+	int server_fd; /* fd for server connection */
+
+	/* SOCK_STREAM for TCP connection */
+	server_fd = clientConnect(HOST,SERVICE,SOCK_STREAM);
+	if(server_fd == -1)
+		errExit("clientConnect"); /* connection failed, exit */
+
+	return server_fd;
+}
+
 /* function to configure and initialize the ncurses environment */
 static void configureNcurses(void)
 {
