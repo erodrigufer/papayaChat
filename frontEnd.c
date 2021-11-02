@@ -4,6 +4,11 @@
 #include "basics.h" /* includes library to handle errors */
 #include "inet_sockets.h" /* include libraray to handle TCP sockets */
 
+/* Define TCP/IP services */
+#define SERVICE "51000" /* Port to connect to with server */
+#define HOST "kah" /* server address (found, e.g. on /etc/hosts file) */
+#define BUF_SIZE 4096 /* bytes transmission size */
+
 /* function to configure and initialize the ncurses environment */
 static void configureNcurses(void)
 {
