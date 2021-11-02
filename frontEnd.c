@@ -2,6 +2,7 @@
 #include <string.h>	/* required for string manipulation */
 
 #include "basics.h" /* includes library to handle errors */
+#include "inet_sockets.h" /* include libraray to handle TCP sockets */
 
 /* function to configure and initialize the ncurses environment */
 static void configureNcurses(void)
