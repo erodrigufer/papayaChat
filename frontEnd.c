@@ -1,5 +1,8 @@
 #include <ncurses.h> /* required to create terminal UI */
 #include <string.h>	/* required for string manipulation */
+#include <signal.h>				/* check 'man 2 sigaction' signal.h is needed
+								to change the disposition of signals with
+								the sigaction() syscall */	
 
 #include "basics.h" /* includes library to handle errors */
 #include "inet_sockets.h" /* include libraray to handle TCP sockets */
