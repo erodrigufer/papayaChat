@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include <ncurses.h> /* required to create terminal UI */
 #include <string.h>	/* required for string manipulation */
 #include <signal.h>				/* check 'man 2 sigaction' signal.h is needed
@@ -5,12 +6,25 @@
 								the sigaction() syscall */	
 
 #include "basics.h" /* includes library to handle errors */
-#include "inet_sockets.h" /* include libraray to handle TCP sockets */
+#include "inet_sockets.h" /* include library to handle TCP sockets */
 
 /* Define TCP/IP services */
 #define SERVICE "51000" /* Port to connect to with server */
 #define HOST "kah" /* server address (found, e.g. on /etc/hosts file) */
 #define BUF_SIZE 4096 /* bytes transmission size */
+
+/* run this function to catch SIGCHLD signal of child processes exiting */
+static void
+killChildProcesses(int child1_pid, int child2_pid)
+{
+	/* kill 1. Child */
+	if(kill(child1_pid,SIGTERM)==-1)
+		fprintf(stderr,"Failed to kill 1. Child!");
+	
+	/* kill 2. Child */
+	if(kill(child2_pid,SIGTERM)==-1)
+		fprintf(stderr,"Failed to kill 2. Child!");
+}
 
 /* establish TCP connection with server, return fd of server socket */
 static int 
@@ -86,7 +100,8 @@ getGreetingsMessage(int pipe_fd, char *string_buf)
 }
 
 static void
-handleReadSocket(int server_fd, int pipe_fd){
+handleReadSocket(int server_fd, int pipe_fd)
+{
 
 	ssize_t bytesRead;
 	char string_buf[BUF_SIZE];
@@ -107,7 +122,8 @@ handleReadSocket(int server_fd, int pipe_fd){
 }
 /* read from server socket and pass data through pipe to frontEnd parent process */
 //static void
-//handleReadSocket(int server_fd, int pipe_fd){
+//handleReadSocket(int server_fd, int pipe_fd)
+//{
 //
 //	ssize_t bytesRead;
 //	char string_buf[BUF_SIZE];
@@ -147,8 +163,9 @@ main(int argc, char *argv[])
 	if(pipe(pipe_fds_send_server)==-1)
 		errExit("pipe send to server");
 
+	int sendServer_pid = fork();
 	/* 1. Child creation -- handles receiving data from server */
-	switch(fork()) {
+	switch(sendServer_pid) {
 		/* error on fork() call  */
 		case -1:
 			/* exit with an error message */
@@ -174,8 +191,10 @@ main(int argc, char *argv[])
 	/* 2. Child creation -- handles receiving data from server */
 	int pipe_fds_receive_server[2];
 	if(pipe(pipe_fds_receive_server)==-1)
+	
+	int receiveServer_pid = fork();
 		errExit("pipe receive from server");
-	switch(fork()) {
+	switch(receiveServer_pid) {
 		/* error on fork() call  */
 		case -1:
 			/* exit with an error message */
