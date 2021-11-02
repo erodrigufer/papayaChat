@@ -184,7 +184,7 @@ int main(int argc, char *argv[])
 	
 	char string_buf[BUF_SIZE];
 	getGreetingsMessage(pipe_fds_receive_server[0],string_buf);
-	printw("%s",srting_buf);
+	printw("%s",string_buf);
 
 	refresh();
 
