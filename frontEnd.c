@@ -186,6 +186,7 @@ main(int argc, char *argv[])
 			/* Close pipe from 1. Child inherited through parent */
 			close(pipe_fds_send_server[1]);
 			handleReadSocket(server_fd, pipe_fds_receive_server[1]);
+			_exit(EXIT_SUCCESS);
 			break;
 
 		/* Parent: fork() returns PID of newly created child */
