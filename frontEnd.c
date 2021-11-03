@@ -324,10 +324,6 @@ main(int argc, char *argv[])
 		errExit("hline1");
 	
 	printw("\n");
-
-	char string_buf[BUF_SIZE];
-	printw("%s",string_buf);
-
 	refresh();
 
 	int a = 0;			/* TODO: uninitialized ERROR found here fix that*/
@@ -399,7 +395,13 @@ main(int argc, char *argv[])
 			wrefresh(chatWindow);
 		}
 	/* fetch new possible greetings messages */
+	
+	char string_buf[BUF_SIZE];
+
 	getGreetingsMessage(pipe_fds_receive_server[0],string_buf);
+
+	mvprintw(7,0,"%s",string_buf);
+	refresh();
     }
 
 	endwin();			/* End ncurses */
