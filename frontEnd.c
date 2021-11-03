@@ -270,10 +270,13 @@ main(int argc, char *argv[])
 		errExit("pipe receive from server");
 	/* transform fd to non-blocking */	
 	int flags;
-	flags = fcntl(pipe_fds_receive_server[0], F_GETFL); /* get currently used flags on pipe */
+	/* get currently used flags on pipe */
+	flags = fcntl(pipe_fds_receive_server[0], F_GETFL); 
 	if(flags==-1)
 		errExit("fcntl F_GETFL");
-	flags |= O_NONBLOCK;	/* activate O_NONBLOCK flag */
+	/* activate O_NONBLOCK flag */
+	flags |= O_NONBLOCK;	
+	/* configure pipe fd to be O_NONBLOCK */
 	if(fcntl(pipe_fds_receive_server[0],F_SETFL,flags)==-1)
 		errExit("fcntl O_NONBLOCK");
 
