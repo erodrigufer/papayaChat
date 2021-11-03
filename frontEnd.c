@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <fcntl.h>   /* change fds to O_NONBLOCK */
 #include <ncurses.h> /* required to create terminal UI */
 #include <string.h>	/* required for string manipulation */
 #include <signal.h>				/* check 'man 2 sigaction' signal.h is needed
@@ -11,7 +12,7 @@
 
 /* Define TCP/IP services */
 #define SERVICE "51000" /* Port to connect to with server */
-#define HOST "kah" /* server address (found, e.g. on /etc/hosts file) */
+#define HOST "localhost" /* server address (found, e.g. on /etc/hosts file) */
 #define BUF_SIZE 4096 /* bytes transmission size */
 
 /* Define this values as global to be able to call them from the atexit() function */
@@ -128,7 +129,7 @@ getGreetingsMessage(int pipe_fd, char *string_buf)
 	}
 	/* reading from pipe failed */
 	if(bytesRead == -1)
-		errExit("read greetings message");
+		fprintf(stderr,"read greetings message\n");
 
 }
 
@@ -217,10 +218,6 @@ configureSignalDisposition(void)
 int 
 main(int argc, char *argv[])
 {
-	
-	/* initialize and configure ncurses */
-	configureNcurses();
-
 	/* establish connection with server, get fd to be shared with child processes */
 	int server_fd;
 	server_fd = establishConnection();
@@ -268,6 +265,14 @@ main(int argc, char *argv[])
 	int pipe_fds_receive_server[2];
 	if(pipe(pipe_fds_receive_server)==-1)
 		errExit("pipe receive from server");
+	/* transform fd to non-blocking */	
+	int flags;
+	flags = fcntl(pipe_fds_receive_server[0], F_GETFL); /* get currently used flags on pipe */
+	if(flags==-1)
+		errExit("fcntl F_GETFL");
+	flags |= O_NONBLOCK;	/* activate O_NONBLOCK flag */
+	if(fcntl(pipe_fds_receive_server[0],F_SETFL,flags)==-1)
+		errExit("fcntl O_NONBLOCK");
 
 	child2_pid = fork();
 	switch(child2_pid) {
@@ -293,6 +298,10 @@ main(int argc, char *argv[])
 			close(pipe_fds_receive_server[1]);
 			break;
 	}// end switch-case fork 2
+
+	
+	/* initialize and configure ncurses */
+	configureNcurses();
 
 	/* configure the parent process to kill all children when invoking exit(3) */
 	if(atexit(killChildProcesses)== -1)
