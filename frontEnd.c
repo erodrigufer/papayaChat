@@ -129,7 +129,7 @@ getGreetingsMessage(int pipe_fd, char *string_buf)
 	}
 	/* reading from pipe failed */
 	if(bytesRead == -1)
-		fprintf(stderr,"read greetings message\n");
+		errMsg("read greetings message");
 
 }
 
@@ -176,6 +176,8 @@ handleReadSocket2(int server_fd, int pipe_fd)
 		/* read() failed, exit programm with error */
 		if(bytesRead == -1)
 			errExit("read from server");
+		if(bytesRead == 0)
+			errExit("Connection to server closed");
 	}
 }
 
@@ -318,7 +320,7 @@ main(int argc, char *argv[])
 		errExit("hline1");
 	
 	printw("\n");
-	
+
 	char string_buf[BUF_SIZE];
 	getGreetingsMessage(pipe_fds_receive_server[0],string_buf);
 	printw("%s",string_buf);
