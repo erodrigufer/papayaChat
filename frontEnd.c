@@ -176,8 +176,8 @@ handleReadSocket2(int server_fd, int pipe_fd)
 		/* read() failed, exit programm with error */
 		if(bytesRead == -1)
 			errExit("read from server");
-		if(bytesRead == 0)
-			errExit("Connection to server closed");
+		//if(bytesRead == 0)
+		//	errExit("Connection to server closed");
 	}
 }
 
