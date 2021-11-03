@@ -128,7 +128,7 @@ getGreetingsMessage(int pipe_fd, char *string_buf)
 	while((bytesRead = read(pipe_fd, string_buf, BUF_SIZE)) > 0){
 	}
 	/* reading from pipe failed */
-	if(bytesRead == -1)
+//	if(bytesRead == -1)
 		//errMsg("read greetings message");
 
 }
