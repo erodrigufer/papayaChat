@@ -326,7 +326,6 @@ main(int argc, char *argv[])
 	printw("\n");
 
 	char string_buf[BUF_SIZE];
-	getGreetingsMessage(pipe_fds_receive_server[0],string_buf);
 	printw("%s",string_buf);
 
 	refresh();
@@ -399,6 +398,8 @@ main(int argc, char *argv[])
 
 			wrefresh(chatWindow);
 		}
+	/* fetch new possible greetings messages */
+	getGreetingsMessage(pipe_fds_receive_server[0],string_buf);
     }
 
 	endwin();			/* End ncurses */
