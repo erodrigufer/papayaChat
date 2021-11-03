@@ -12,10 +12,12 @@ To build and run the back-end executable:
 
 ## Debugging with strace
 Useful debugging commands for syscall profilling with **strace**
-`
+```
 strace -f -T -o <output_file> <process_to_run>
+
 -f : Trace child processes as well
 -T : Show relative time of syscalls
 -o : Output file
-`
+
+```
 
