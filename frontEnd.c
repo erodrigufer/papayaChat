@@ -188,6 +188,7 @@ configureSignalDisposition(void)
     struct sigaction sa_sigchild;			/* struc is necessary to define signals mask
 											to be blocked during signal handler, needed 
 											for syscall sigaction*/
+
     /* Establish SIGCHLD handler to reap terminated child processes,
 	if SIGCHLD is gathered with waitpid() or wait() by parent, then child
 	process becomes a zombie and resources (PIDs) are not used efficiently.
