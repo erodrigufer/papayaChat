@@ -199,7 +199,9 @@ handleReadSocket2(int server_fd, int pipe_fd)
 
 	ssize_t bytesRead;
 	char string_buf[BUF_SIZE];
-
+/* TODO: instead of doing an endless loop here. Call the function handleReadSocket2()
+After the fork inside an infinite loop, so that each  time that the function gets 
+called, it allocates memory for the string it reads() through either malloc or something else */
 	/* endless for-loop reading from the TCP-socket
 	every time a whole message is read, then read() returns 0
 	and the while-loop will then re-start with a blocking read()
