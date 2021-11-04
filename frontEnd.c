@@ -122,6 +122,10 @@ static void
 sendMessageToPipe(int pipe_fd, char *message)
 {
 
+	ssize_t bytesWritten;
+	if(write(pipe_fd,message,strlen(message)!=strlen(message))
+		errExit("write sendMessageToPipe");
+
 }
 
 /* send a message to the server_fd
