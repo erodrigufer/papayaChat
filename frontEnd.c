@@ -133,7 +133,7 @@ sendMessageToPipe(int pipe_fd, char *message)
 the message is received through a pipe from the 
 parent process */
 static void
-handleSendSocket(int server_fd, int pipe_fd, char *message)
+handleSendSocket(int server_fd, int pipe_fd)
 {
 
 	ssize_t bytesRead;
