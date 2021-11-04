@@ -148,6 +148,7 @@ handleSendSocket(int server_fd, int pipe_fd)
 		if(write(server_fd,string_buf,bytesRead)!=bytesRead)
 			errExit("write handleSendSocket()");
 	}
+	/* handle read() errors */
 	if(bytesRead == -1) /* read error */
 		errExit("read - handleSendSocket()");
 	if(bytesRead == 0) /* connection to server down */
@@ -288,8 +289,7 @@ main(int argc, char *argv[])
 		case 0: 
 			/* Close stdin of pipe shared with parent */
 			close(pipe_fds_send_server[1]);
-			/*TODO: add actions of 1. Child process 
-			temporarily just make child exit*/
+			handleSendSocket(server_fd, pipe_fds_send_server[0]);
 			_exit(EXIT_SUCCESS);
 			break;
 
