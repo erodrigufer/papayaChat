@@ -150,7 +150,7 @@ handleSendSocket(int server_fd, int pipe_fd, char *message)
 	}
 	if(bytesRead == -1) /* read error */
 		errExit("read handleSendSocket()");
-	if(bytesRead == 0)
+	if(bytesRead == 0) /* connection to server down */
 		errExit("socket connection closed - handleSendSocket()");
 
 }
@@ -212,8 +212,8 @@ handleReadSocket2(int server_fd, int pipe_fd)
 		/* read() failed, exit programm with error */
 		if(bytesRead == -1)
 			errExit("read from server");
-		//if(bytesRead == 0)
-		//	errExit("Connection to server closed");
+		if(bytesRead == 0) /* connection to server down */
+			errExit("Connection to server lost! - handleReadSocket()");
 	}
 }
 
