@@ -125,7 +125,7 @@ sendMessageToPipe(int pipe_fd, char *message)
 /* TODO: Execute strlen outside the write(), since it demands
 Run time resources each time */
 	ssize_t bytesWritten;
-	if(write(pipe_fd,message,strlen(message)!=strlen(message)))
+	if(write(pipe_fd,message,strlen(message))!=strlen(message))
 		errExit("write sendMessageToPipe()");
 
 }
