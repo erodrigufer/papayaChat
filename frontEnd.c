@@ -149,7 +149,7 @@ handleSendSocket(int server_fd, int pipe_fd)
 			errExit("write handleSendSocket()");
 	}
 	if(bytesRead == -1) /* read error */
-		errExit("read handleSendSocket()");
+		errExit("read - handleSendSocket()");
 	if(bytesRead == 0) /* connection to server down */
 		errExit("socket connection closed - handleSendSocket()");
 
