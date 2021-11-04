@@ -118,12 +118,38 @@ configureChatWindow(int y_start, int x_start)
 	return chatWindow;
 }
 
+static void
+sendMessageToPipe(int pipe_fd, char *message)
+{
+
+}
+
+/* send a message to the server_fd
+the message is received through a pipe from the 
+parent process */
+static void
+handleSendSocket(int server_fd, int pipe_fd, char *message)
+{
+
+	ssize_t bytesRead;
+	char string_buf[BUF_SIZE];
+	/* TODO: allocate memory with malloc,
+	since otherwise always writing on top of string buf 
+	is that permitted ? pipe will block when not receiving data 
+	it will not return 
+	then maybe create non-blocking pipe, return and re-allocate
+	memory with malloc and free() */
+	while((bytesRead = read(pipe_fd, string_buf, BUF_SIZE)) > 0){
+	}
+
+
+}
+
 /* Get the standard greetings message from the pipe */
 static void
 getGreetingsMessage(int pipe_fd, char *string_buf)
 {
 	ssize_t bytesRead;
-//	char string_buf[BUF_SIZE];
 
 	while((bytesRead = read(pipe_fd, string_buf, BUF_SIZE)) > 0){
 	}
