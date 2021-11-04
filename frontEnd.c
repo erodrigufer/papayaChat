@@ -124,7 +124,7 @@ sendMessageToPipe(int pipe_fd, char *message)
 {
 
 	ssize_t bytesWritten;
-	if(write(pipe_fd,message,strlen(message)!=strlen(message))
+	if(write(pipe_fd,message,strlen(message)!=strlen(message)))
 		errExit("write sendMessageToPipe");
 
 }
@@ -145,6 +145,7 @@ handleSendSocket(int server_fd, int pipe_fd, char *message)
 	then maybe create non-blocking pipe, return and re-allocate
 	memory with malloc and free() */
 	while((bytesRead = read(pipe_fd, string_buf, BUF_SIZE)) > 0){
+		if(write(string_buf,
 	}
 
 
