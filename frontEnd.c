@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <fcntl.h>   /* change fds to O_NONBLOCK */
 #include <ncurses.h> /* required to create terminal UI */
-#include <string.h>	/* required for string manipulation */
+#include <string.h>	/* required for string manipulation, e.g. strlen() */
 #include <signal.h>				/* check 'man 2 sigaction' signal.h is needed
 								to change the disposition of signals with
 								the sigaction() syscall */	
@@ -367,6 +367,7 @@ main(int argc, char *argv[])
 	int x_position = 0;
 	int y_position = 0;
 
+	/* TODO: implement memory allocation for strings appropriately */
 	/* string for message */
 	char message[200];
 
@@ -432,6 +433,7 @@ main(int argc, char *argv[])
 		}
 	/* fetch new possible greetings messages */
 	
+	/* implement this with malloc and free */
 	char string_buf[BUF_SIZE];
 
 	getGreetingsMessage(pipe_fds_receive_server[0],string_buf);
