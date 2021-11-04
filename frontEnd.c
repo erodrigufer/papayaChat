@@ -118,6 +118,7 @@ configureChatWindow(int y_start, int x_start)
 	return chatWindow;
 }
 
+/* send a message to a pipe */
 static void
 sendMessageToPipe(int pipe_fd, char *message)
 {
