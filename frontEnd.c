@@ -131,7 +131,7 @@ sendMessageToPipe(int pipe_fd, char *message)
 
 }
 
-/* send a message to the server_fd the message is received through 
+/* send a message to the server_fd, the message is received through 
 a pipe from the parent process */
 static void
 handleSendSocket(int server_fd, int pipe_fd)
