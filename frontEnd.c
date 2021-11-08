@@ -418,11 +418,13 @@ main(int argc, char *argv[])
 					endwin();
 					errExit("mvwinnstr [chatWindow]");
 					}
-				/* TODO: continue here! */
+				/* send message just written to pipe, to child process which
+				sending message to server */
+				sendMessageToPipe(pipe_fds_send_server[1], message)
 				/* TODO: after storing contents of line, delete line and pipe
 				the contents to the process dealing with sending the messages
 				to the back-end server */
-				break;
+				continue;
 			}
 
 			/* BACKSPACE was pressed, delete characters */
