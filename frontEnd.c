@@ -179,6 +179,9 @@ handleReadSocket(int server_fd, int pipe_fd)
 
 	ssize_t bytesRead;
 
+/* the right way to handle strings is by allocating new memory each time
+a string is received through a read() call from the server, since 
+char * should be immutable objects in C */
 	for(;;){
 
 		/* TODO: check if the size allocated is correct */
@@ -208,7 +211,7 @@ handleReadSocket(int server_fd, int pipe_fd)
 			/* the amount of bytes written is not equal to the amount of bytes read */
 			errExit("write to pipe @handleReadSocket()");
 		}
-			/* free resources, char * buffer to read message from server */
+		/* free resources, char * buffer to read message from server */
 		free(string_buf);
 	}
 }
