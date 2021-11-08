@@ -26,7 +26,8 @@ jobs:
   ncurses_Frontend:
     strategy:
       matrix:
-        os: [ubuntu-latest, macos-11, macos-10.15]
+        #os: [ubuntu-latest, macos-11, macos-10.15]
+        os: [ubuntu-latest, macos-10.15]
     runs-on: ${{ matrix.os }}
     steps:
     - uses: actions/checkout@v2
