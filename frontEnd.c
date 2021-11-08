@@ -178,27 +178,32 @@ handleReadSocket(int server_fd, int pipe_fd)
 {
 
 	ssize_t bytesRead;
-	char string_buf[BUF_SIZE];
-/* TODO: instead of doing an endless loop here. Call the function handleReadSocket()
-After the fork inside an infinite loop, so that each  time that the function gets 
-called, it allocates memory for the string it reads() through either malloc or something else */
-	/* endless for-loop reading from the TCP-socket
-	every time a whole message is read, then read() returns 0
-	and the while-loop will then re-start with a blocking read()
-	until some bytes can be read from the socket */
-	for(;;){
-		while((bytesRead = read(server_fd, string_buf, BUF_SIZE)) > 0){
-			if(write(pipe_fd, string_buf, bytesRead) != bytesRead){
-				/* the amount of bytes written is not equal to the amount of bytes read */
-				errExit("write to pipe [handleReadSocket]");
-			}
+	/* allocate memory at each function call to read message from server, into
+	newly allocated char* buffer */
+/* TODO: check if the size allocated is correct */
+	char * string_buf = (char *) malloc(BUF_SIZE);
+	/* if malloc fails, it returns a NULL pointer */
+	if(string_buf == NULL)
+		errExit("malloc() failed. @handleReadSocket()");
+
+	
+	while((bytesRead = read(server_fd, string_buf, BUF_SIZE)) > 0){
+		if(write(pipe_fd, string_buf, bytesRead) != bytesRead){
+			/* the amount of bytes written is not equal to the amount of bytes read */
+			errExit("write to pipe [handleReadSocket]");
 		}
+	}
 		/* read() failed, exit programm with error */
 		if(bytesRead == -1)
+			free(string_buf);
 			errExit("read from server");
-		if(bytesRead == 0) /* connection to server down */
+		/* connection to server down */
+		if(bytesRead == 0) 
+			free(string_buf);
 			errExit("connection to server lost! read() from socket return 0 == EOF :@handleReadSocket()");
-	}
+	
+	/* free resources, char * buffer to read message from server */
+	free(string_buf);
 }
 
 void
@@ -313,7 +318,9 @@ main(int argc, char *argv[])
 			close(pipe_fds_receive_server[0]);
 			/* Close pipe from 1. Child inherited through parent */
 			close(pipe_fds_send_server[1]);
-			handleReadSocket(server_fd, pipe_fds_receive_server[1]);
+			for(;;){
+				handleReadSocket(server_fd, pipe_fds_receive_server[1]);
+			}
 			_exit(EXIT_SUCCESS);
 			break;
 
