@@ -185,7 +185,6 @@ handleReadSocket(int server_fd, int pipe_fd)
 	/* if malloc fails, it returns a NULL pointer */
 	if(string_buf == NULL)
 		errExit("malloc() failed. @handleReadSocket()");
-
 	
 	while((bytesRead = read(server_fd, string_buf, BUF_SIZE)) > 0){
 		if(write(pipe_fd, string_buf, bytesRead) != bytesRead){
@@ -318,9 +317,10 @@ main(int argc, char *argv[])
 			close(pipe_fds_receive_server[0]);
 			/* Close pipe from 1. Child inherited through parent */
 			close(pipe_fds_send_server[1]);
-			for(;;){
-				handleReadSocket(server_fd, pipe_fds_receive_server[1]);
-			}
+			/* this function call will continously read from server socket
+			if no messages are being received, it will block, if server 
+			disconnects then it will exit with an error */
+			handleReadSocket(server_fd, pipe_fds_receive_server[1]);
 			_exit(EXIT_SUCCESS);
 			break;
 
