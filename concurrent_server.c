@@ -120,7 +120,7 @@ The code is hosted at: www.github.com/erodrigufer/papayaChat\n\
             _exit(EXIT_FAILURE);
         }
 		/* add debug syslog to see amount of bytes received from client */
-		syslog(LOG_DEBUG, "%d Bytes received from client.", numRead);
+		syslog(LOG_DEBUG, "%ld Bytes received from client.", numRead);
     }
 
     if (numRead == -1) {
