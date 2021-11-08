@@ -178,31 +178,39 @@ handleReadSocket(int server_fd, int pipe_fd)
 {
 
 	ssize_t bytesRead;
-	/* allocate memory at each function call to read message from server, into
-	newly allocated char* buffer */
-/* TODO: check if the size allocated is correct */
-	char * string_buf = (char *) malloc(BUF_SIZE);
-	/* if malloc fails, it returns a NULL pointer */
-	if(string_buf == NULL)
-		errExit("malloc() failed. @handleReadSocket()");
-	
-	while((bytesRead = read(server_fd, string_buf, BUF_SIZE)) > 0){
+
+	for(;;){
+
+		/* TODO: check if the size allocated is correct */
+		/* allocate memory at each function call to read message from server, into
+		newly allocated char* buffer */
+		char * string_buf = (char *) malloc(BUF_SIZE);
+		/* if malloc fails, it returns a NULL pointer */
+		if(string_buf == NULL)
+			errExit("malloc() failed. @handleReadSocket()");
+		
+		bytesRead = read(server_fd, string_buf, BUF_SIZE);
+/*----------- error handling for read()----------------------------------- */
+		/* read() failed, exit programm with error, always free malloc resources
+		before exit()*/
+		if(bytesRead == -1){
+			free(string_buf);
+			errExit("read from server");
+		}
+		/* connection to server down */
+		if(bytesRead == 0){
+			free(string_buf);
+			errExit("connection to server lost! read() from socket return 0 == EOF :@handleReadSocket()");
+		}
+/*----------- error handling for read()----------------------------------- */
+
 		if(write(pipe_fd, string_buf, bytesRead) != bytesRead){
 			/* the amount of bytes written is not equal to the amount of bytes read */
 			errExit("write to pipe [handleReadSocket]");
 		}
+			/* free resources, char * buffer to read message from server */
+		free(string_buf);
 	}
-		/* read() failed, exit programm with error */
-		if(bytesRead == -1)
-			free(string_buf);
-			errExit("read from server");
-		/* connection to server down */
-		if(bytesRead == 0) 
-			free(string_buf);
-			errExit("connection to server lost! read() from socket return 0 == EOF :@handleReadSocket()");
-	
-	/* free resources, char * buffer to read message from server */
-	free(string_buf);
 }
 
 void
