@@ -195,7 +195,7 @@ handleReadSocket(int server_fd, int pipe_fd)
 		before exit()*/
 		if(bytesRead == -1){
 			free(string_buf);
-			errExit("read from server");
+			errExit("read from server @handleReadSocket()");
 		}
 		/* connection to server down */
 		if(bytesRead == 0){
