@@ -418,6 +418,7 @@ main(int argc, char *argv[])
 					endwin();
 					errExit("mvwinnstr [chatWindow]");
 					}
+				/* TODO: continue here! */
 				/* TODO: after storing contents of line, delete line and pipe
 				the contents to the process dealing with sending the messages
 				to the back-end server */
