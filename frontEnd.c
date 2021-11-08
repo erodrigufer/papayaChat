@@ -383,10 +383,6 @@ main(int argc, char *argv[])
 	int x_position = 0;
 	int y_position = 0;
 
-	/* TODO: implement memory allocation for strings appropriately */
-	/* string for message */
-	char message[200];
-
 	/* starting position for messages */
 	int x_start = 1;
 	int y_start = (int) LINES*3/4;
@@ -409,18 +405,25 @@ main(int argc, char *argv[])
 		if(a != ERR){
 			/* carriage return was pressed, go to next line and move cursor */
 			if(a == '\n'){
+				/* allocate memory locally, and free memory after \n if statement */
+				char * message = (char *) malloc(200);
+				/* malloc failed if message == NULL */
+				if(message == NULL)
+					errExit("malloc failed. Newline message send");
 				/* copy 200 characters at position, into message char array,
 				the coordinates to start copying strings, should be the relative
 				coordinates inside chatWindow, so 0,0 actually equals 
 				y_start,x_start */
 				int errorString = mvwinnstr(chatWindow,0,0,message,200);
 				if(errorString == ERR){
+					free(message);
 					endwin();
 					errExit("mvwinnstr [chatWindow]");
 					}
 				/* send message just written to pipe, to child process which
 				sending message to server */
 				sendMessageToPipe(pipe_fds_send_server[1], message);
+				free(message);
 				/* TODO: after storing contents of line, delete line and pipe
 				the contents to the process dealing with sending the messages
 				to the back-end server */
