@@ -203,10 +203,10 @@ handleReadSocket(int server_fd, int pipe_fd)
 			errExit("connection to server lost! read() from socket return 0 == EOF :@handleReadSocket()");
 		}
 /*----------- error handling for read()----------------------------------- */
-
+		/* send data received from server to parent process through pipe */
 		if(write(pipe_fd, string_buf, bytesRead) != bytesRead){
 			/* the amount of bytes written is not equal to the amount of bytes read */
-			errExit("write to pipe [handleReadSocket]");
+			errExit("write to pipe @handleReadSocket()");
 		}
 			/* free resources, char * buffer to read message from server */
 		free(string_buf);
