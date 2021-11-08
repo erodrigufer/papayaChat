@@ -281,7 +281,7 @@ main(int argc, char *argv[])
 		errExit("pipe send to server");
 
 	child1_pid = fork();
-	/* 1. Child creation -- handles receiving data from server */
+	/* 1. Child creation -- handles sending data from server */
 	switch(child1_pid) {
 		/* error on fork() call  */
 		case -1:
