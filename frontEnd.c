@@ -131,30 +131,45 @@ sendMessageToPipe(int pipe_fd, char *message)
 
 }
 
-/* send a message to the server_fd
-the message is received through a pipe from the 
-parent process */
+/* send a message to the server_fd the message is received through 
+a pipe from the parent process */
 static void
 handleSendSocket(int server_fd, int pipe_fd)
 {
-
+	/* size of info read from pipe */
 	ssize_t bytesRead;
-	char string_buf[BUF_SIZE];
-	/* TODO: allocate memory with malloc,
-	since otherwise always writing on top of string buf 
-	is that permitted ? pipe will block when not receiving data 
-	it will not return 
-	then maybe create non-blocking pipe, return and re-allocate
-	memory with malloc and free() */
-	while((bytesRead = read(pipe_fd, string_buf, BUF_SIZE)) > 0){
+
+	for(;;){
+
+		/* allocate memory on each for-loop to read message
+		from pipe */
+		char * string_buf = (char *) malloc(BUF_SIZE);
+		/* if malloc fails, it returns a NULL pointer */
+		if(string_buf == NULL)
+			errExit("malloc failed. @handleSendSocket()");
+
+		/* read from pipe info to send to server */
+		bytesRead = read(pipe_fd, string_buf, BUF_SIZE);
+/*----------- error handling for read()----------------------------------- */
+		/* read() failed, exit programm with error, always free malloc resources
+		before exit()*/
+		if(bytesRead == -1){
+			free(string_buf);
+			errExit("read - handleSendSocket()");
+		}
+		/* connection to pipe closed */
+		if(bytesRead == 0){
+			free(string_buf);
+			errExit("pipe closed - handleSendSocket()");
+		}
+/*----------- error handling for read()----------------------------------- */
+		/* send data received from pipe to server socket */
 		if(write(server_fd,string_buf,bytesRead)!=bytesRead)
 			errExit("write handleSendSocket()");
-	}
-	/* handle read() errors */
-	if(bytesRead == -1) /* read error */
-		errExit("read - handleSendSocket()");
-	if(bytesRead == 0) /* connection to server down */
-		errExit("socket connection closed - handleSendSocket()");
+
+		/* free resources, char * buffer to read message from pipe */
+		free(string_buf);
+	} // end for-loop
 
 }
 
@@ -185,7 +200,7 @@ char * should be immutable objects in C */
 	for(;;){
 
 		/* TODO: check if the size allocated is correct */
-		/* allocate memory at each function call to read message from server, into
+		/* allocate memory on each for-loop to read from server, into
 		newly allocated char* buffer */
 		char * string_buf = (char *) malloc(BUF_SIZE);
 		/* if malloc fails, it returns a NULL pointer */
