@@ -24,7 +24,10 @@ jobs:
     #  run: make distcheck
 
   ncurses_Frontend:
-    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
     steps:
     - uses: actions/checkout@v2
     - name: make frontEnd
