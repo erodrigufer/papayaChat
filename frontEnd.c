@@ -172,30 +172,9 @@ getGreetingsMessage(int pipe_fd, char *string_buf)
 
 }
 
-static void
-handleReadSocket(int server_fd, int pipe_fd)
-{
-
-	ssize_t bytesRead;
-	char string_buf[BUF_SIZE];
-
-	/* endless for-loop reading from the TCP-socket
-	every time a whole message is read, then read() returns 0
-	and the while-loop will then re-start with a blocking read()
-	until some bytes can be read from the socket */
-		while((bytesRead = read(server_fd, string_buf, BUF_SIZE)) > 0){
-			if(write(pipe_fd, string_buf, bytesRead) != bytesRead){
-				/* the amount of bytes written is not equal to the amount of bytes read */
-				errExit("write to pipe [handleReadSocket]");
-			}
-		}
-		/* read() failed, exit programm with error */
-		if(bytesRead == -1)
-			errExit("read from server");
-}
 /* read from server socket and pass data through pipe to frontEnd parent process */
 static void
-handleReadSocket2(int server_fd, int pipe_fd)
+handleReadSocket(int server_fd, int pipe_fd)
 {
 
 	ssize_t bytesRead;
@@ -218,7 +197,7 @@ called, it allocates memory for the string it reads() through either malloc or s
 		if(bytesRead == -1)
 			errExit("read from server");
 		if(bytesRead == 0) /* connection to server down */
-			errExit("Connection to server lost! - handleReadSocket()");
+			errExit("connection to server lost! read() from socket return 0 == EOF :@handleReadSocket()");
 	}
 }
 
@@ -451,5 +430,11 @@ main(int argc, char *argv[])
 	printf("%s\n",message);
 	exit(EXIT_SUCCESS);
 }
+
+//static void
+//getMessage(pipe_fds_receive_server[0], string_buf)
+//{
+//
+//}
 
 /* Eduardo Rodriguez 2021 (c) (@erodrigufer). Licensed under GNU AGPLv3 */
