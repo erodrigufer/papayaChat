@@ -424,11 +424,18 @@ main(int argc, char *argv[])
 				sending message to server */
 				sendMessageToPipe(pipe_fds_send_server[1], message);
 				free(message);
-				/* TODO: after storing contents of line, delete line and pipe
-				the contents to the process dealing with sending the messages
-				to the back-end server */
+				/* delete line which was just sent */
+				if(wdeleteln(chatWindow)==ERR){
+					endwin();
+					errExit("delete line failed, after newline.");
+				}
+				/* after deleting line, move cursor back to origin */
+				if(wmove(chatWindow,0,0)==ERR){
+					endwin();
+					errExit("move cursor to origin failed, after newline.");
+				}
 				continue;
-			}
+			} // if-statement \n (newline)
 
 			/* BACKSPACE was pressed, delete characters */
 			if(a == KEY_BACKSPACE || a == KEY_LEFT){
