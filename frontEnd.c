@@ -466,7 +466,6 @@ main(int argc, char *argv[])
 
 	endwin();			/* End ncurses */
 
-	printf("%s\n",message);
 	exit(EXIT_SUCCESS);
 }
 
