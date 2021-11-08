@@ -122,10 +122,11 @@ configureChatWindow(int y_start, int x_start)
 static void
 sendMessageToPipe(int pipe_fd, char *message)
 {
-/* TODO: Execute strlen outside the write(), since it demands
-Run time resources each time */
 	ssize_t bytesWritten;
-	if(write(pipe_fd,message,strlen(message))!=strlen(message))
+	/* Execute strlen outside of write(), since it demands run time resources
+	and it would be run twice inside write() call*/
+	size_t sizeOfMessage = strlen(message);
+	if(write(pipe_fd,message,sizeOfMessage)!=sizeOfMessage)
 		errExit("write sendMessageToPipe()");
 
 }
