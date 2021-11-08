@@ -179,7 +179,7 @@ handleReadSocket(int server_fd, int pipe_fd)
 
 	ssize_t bytesRead;
 	char string_buf[BUF_SIZE];
-/* TODO: instead of doing an endless loop here. Call the function handleReadSocket2()
+/* TODO: instead of doing an endless loop here. Call the function handleReadSocket()
 After the fork inside an infinite loop, so that each  time that the function gets 
 called, it allocates memory for the string it reads() through either malloc or something else */
 	/* endless for-loop reading from the TCP-socket
@@ -313,7 +313,7 @@ main(int argc, char *argv[])
 			close(pipe_fds_receive_server[0]);
 			/* Close pipe from 1. Child inherited through parent */
 			close(pipe_fds_send_server[1]);
-			handleReadSocket2(server_fd, pipe_fds_receive_server[1]);
+			handleReadSocket(server_fd, pipe_fds_receive_server[1]);
 			_exit(EXIT_SUCCESS);
 			break;
 
