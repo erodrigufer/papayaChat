@@ -231,7 +231,7 @@ char * should be immutable objects in C */
 	}
 }
 
-void
+static void
 configureSignalDisposition(void)
 {
 
