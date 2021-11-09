@@ -302,6 +302,27 @@ handleNewline(WINDOW * chatWindow, int pipe_fd)
 	}
 }
 
+void static
+handleBackspace(WINDOW * chatWindow)
+{
+
+	/* get current x position (relative to chatWindow coordinates, so
+	x=0, actually equals to x_start) */
+	int x_position=getcurx(chatWindow);
+	/* if cursor position is x=0, then do not do anything 
+	(edge case). the coordinates are relative to chatWindow */
+	if(x_position==0)
+		return; /* do not continue deleting characters, since the 
+					cursor is at the border of the window */
+	/* move cursor to the left to delete last pressed character */
+	x_position--;
+	int y_position=getcury(chatWindow);
+	wmove(chatWindow,y_position,x_position); /* move cursor to new position */
+	/* delete character under cursor */
+	wdelch(chatWindow);
+
+}
+
 int 
 main(int argc, char *argv[])
 {
@@ -414,9 +435,6 @@ main(int argc, char *argv[])
 
 	int a = 0;			/* TODO: uninitialized ERROR found here fix that*/
 
-	int x_position = 0;
-	int y_position = 0;
-
 	/* starting position for messages */
 	int x_start = 1;
 	int y_start = (int) LINES*3/4;
@@ -445,22 +463,10 @@ main(int argc, char *argv[])
 				continue;
 			} // if-statement \n (newline)
 
-			/* BACKSPACE was pressed, delete characters */
+			/* BACKSPACE was pressed, delete last character */
 			if(a == KEY_BACKSPACE || a == KEY_LEFT){
-				/* get current x position (relative to chatWindow coordinates, so
-				x=0, actually equals to x_start) */
-				x_position=getcurx(chatWindow);
-				/* if cursor position is x=0, then do not do anything 
-				(edge case). the coordinates are relative to chatWindow */
-				if(x_position==0)
-					continue; /* do not continue deleting characters, since the 
-								cursor is at the border of the window */
-				/* move cursor to the left to delete last pressed character */
-				x_position--;
-				y_position=getcury(chatWindow);
-				wmove(chatWindow,y_position,x_position); /* move cursor to new position */
-				/* delete character under cursor */
-				wdelch(chatWindow);
+				handleBackspace(chatWindow);
+				/* backspace was handled, continue trying to read input from keyboard */
 				continue;
 			}
 			/* add new read character to chatWindow */
