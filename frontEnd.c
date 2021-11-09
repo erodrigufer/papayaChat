@@ -268,6 +268,40 @@ configureSignalDisposition(void)
 
 }
 
+static void 
+handleNewline(*WINDOW chatWindow, int pipe_fd)
+{
+	/* allocate memory locally, and free memory after \n if statement */
+	char * message = (char *) malloc(200);
+	/* malloc failed if message == NULL */
+	if(message == NULL)
+		errExit("malloc failed. Newline message send");
+	/* copy 200 characters at position, into message char array,
+	the coordinates to start copying strings, should be the relative
+	coordinates inside chatWindow, so 0,0 actually equals 
+	y_start,x_start */
+	int errorString = mvwinnstr(chatWindow,0,0,message,200);
+	if(errorString == ERR){
+		free(message);
+		endwin();
+		errExit("mvwinnstr [chatWindow]");
+		}
+	/* send message just written to pipe, to child process which
+	sending message to server */
+	sendMessageToPipe(pipe_fd, message);
+	free(message);
+	/* delete line which was just sent */
+	if(wdeleteln(chatWindow)==ERR){
+		endwin();
+		errExit("delete line failed, after newline.");
+	}
+	/* after deleting line, move cursor back to origin */
+	if(wmove(chatWindow,0,0)==ERR){
+		endwin();
+		errExit("move cursor to origin failed, after newline.");
+	}
+}
+
 int 
 main(int argc, char *argv[])
 {
@@ -403,37 +437,10 @@ main(int argc, char *argv[])
 		/* if getch returns ERR then no character was typed,
 		getch was configured as non-blocking with the nodelay() function */
 		if(a != ERR){
-			/* carriage return was pressed, go to next line and move cursor */
+			/* carriage return was pressed, send line to server, delete
+			line and move cursor to origin */
 			if(a == '\n'){
-				/* allocate memory locally, and free memory after \n if statement */
-				char * message = (char *) malloc(200);
-				/* malloc failed if message == NULL */
-				if(message == NULL)
-					errExit("malloc failed. Newline message send");
-				/* copy 200 characters at position, into message char array,
-				the coordinates to start copying strings, should be the relative
-				coordinates inside chatWindow, so 0,0 actually equals 
-				y_start,x_start */
-				int errorString = mvwinnstr(chatWindow,0,0,message,200);
-				if(errorString == ERR){
-					free(message);
-					endwin();
-					errExit("mvwinnstr [chatWindow]");
-					}
-				/* send message just written to pipe, to child process which
-				sending message to server */
-				sendMessageToPipe(pipe_fds_send_server[1], message);
-				free(message);
-				/* delete line which was just sent */
-				if(wdeleteln(chatWindow)==ERR){
-					endwin();
-					errExit("delete line failed, after newline.");
-				}
-				/* after deleting line, move cursor back to origin */
-				if(wmove(chatWindow,0,0)==ERR){
-					endwin();
-					errExit("move cursor to origin failed, after newline.");
-				}
+				handleNewline(chatWindow,pipe_fds_send_server[1]);	
 				continue;
 			} // if-statement \n (newline)
 
