@@ -175,7 +175,7 @@ handleSendSocket(int server_fd, int pipe_fd)
 
 }
 
-/* fetch messages from pipe
+/* fetch messages from pipe (fetch, but do not print message yet)
 the pipe should be configured as O_NONBLOCK
 since if the read() on the pipe blocks, all the CLI stalls */
 static void
