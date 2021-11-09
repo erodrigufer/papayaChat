@@ -61,7 +61,7 @@ configure_syslog.o :
 run : $(EXECUTABLE_FRONTEND)
 	./$(EXECUTABLE_FRONTEND)
 
-frontEnd.o : basics.h error_handling.o inet_sockets.o
+frontEnd.o : basics.h error_handling.o inet_sockets.o CONFIG.h
 
 # frontEnd with ncurses
 $(EXECUTABLE_FRONTEND) : $(OBJECTS_FRONTEND)
