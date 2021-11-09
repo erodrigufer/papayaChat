@@ -175,6 +175,26 @@ handleSendSocket(int server_fd, int pipe_fd)
 
 }
 
+/* fetch messages from pipe (fetch, but do not print message yet)
+the pipe should be configured as O_NONBLOCK
+since if the read() on the pipe blocks, all the CLI stalls */
+static int
+fetchMessage(int pipe_fd, char *string_buf)
+{
+	ssize_t bytesRead;
+
+	bytesRead = read(pipe_fd, string_buf, BUF_SIZE);
+
+/* TODO: handle errors from read() */
+
+	/* reading from pipe failed */
+//	if(bytesRead == -1)
+		//errMsg("read greetings message");
+
+	return bytesRead;
+
+}
+
 /* print messages received from server */
 static void
 printMessagesFromServer(WINDOW * window, int pipe_fd)
@@ -199,28 +219,6 @@ printMessagesFromServer(WINDOW * window, int pipe_fd)
 	/* free resources */
 	free(string_buf);
 }
-
-
-/* fetch messages from pipe (fetch, but do not print message yet)
-the pipe should be configured as O_NONBLOCK
-since if the read() on the pipe blocks, all the CLI stalls */
-static int
-fetchMessage(int pipe_fd, char *string_buf)
-{
-	ssize_t bytesRead;
-
-	bytesRead = read(pipe_fd, string_buf, BUF_SIZE);
-
-/* TODO: handle errors from read() */
-
-	/* reading from pipe failed */
-//	if(bytesRead == -1)
-		//errMsg("read greetings message");
-
-	return bytesRead;
-
-}
-
 
 /* Get the standard greetings message from the pipe */
 static void
