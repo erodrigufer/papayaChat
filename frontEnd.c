@@ -496,6 +496,8 @@ main(int argc, char *argv[])
 	WINDOW * chatWindow;
 	chatWindow=configureChatWindow(y_start,x_start);
 
+	wmove(stdscr,3,0);
+
 	/* Stop ncurses when 'KEY_DOWN' is pressed */
 	while(a!= KEY_DOWN){
 		a = wgetch(chatWindow);
