@@ -441,6 +441,7 @@ main(int argc, char *argv[])
 			line and move cursor to origin */
 			if(a == '\n'){
 				handleNewline(chatWindow,pipe_fds_send_server[1]);	
+				/* newline was handled, continue trying to read input from keyboard */
 				continue;
 			} // if-statement \n (newline)
 
