@@ -1,4 +1,10 @@
-/* File defines IP and port of chat service server */
+/* CONFIG.h
+
+File defines IP and port of chat service server 
+SERVICE is the PORT number
+HOST is the server's IP
+
+*/
 
 #ifndef CONFIG_H /* add header guard */
 #define CONFIG_H
