@@ -11,8 +11,10 @@
 #include "inet_sockets.h" /* include library to handle TCP sockets */
 
 /* Define TCP/IP services */
-#define SERVICE "51000" /* Port to connect to with server */
-#define HOST "localhost" /* server address (found, e.g. on /etc/hosts file) */
+//#define SERVICE "51000" /* Port to connect to with server */
+//#define HOST "localhost" /* server address (found, e.g. on /etc/hosts file) */
+#include "CONFIG.h" /* file defines IP and port of chat service server */
+
 #define BUF_SIZE 4096 /* bytes transmission size */
 
 /* Define this values as global to be able to call them from the atexit() function */
