@@ -302,7 +302,7 @@ handleNewline(WINDOW * chatWindow, int pipe_fd)
 	}
 }
 
-void static
+static void 
 handleBackspace(WINDOW * chatWindow)
 {
 
