@@ -476,10 +476,4 @@ main(int argc, char *argv[])
 	exit(EXIT_SUCCESS);
 }
 
-//static void
-//getMessage(pipe_fds_receive_server[0], string_buf)
-//{
-//
-//}
-
 /* Eduardo Rodriguez 2021 (c) (@erodrigufer). Licensed under GNU AGPLv3 */
