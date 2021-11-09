@@ -269,7 +269,7 @@ configureSignalDisposition(void)
 }
 
 static void 
-handleNewline(*WINDOW chatWindow, int pipe_fd)
+handleNewline(WINDOW * chatWindow, int pipe_fd)
 {
 	/* allocate memory locally, and free memory after \n if statement */
 	char * message = (char *) malloc(200);
