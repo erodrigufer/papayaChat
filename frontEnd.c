@@ -175,6 +175,23 @@ handleSendSocket(int server_fd, int pipe_fd)
 
 }
 
+/* fetch messages from pipe
+the pipe should be configured as O_NONBLOCK
+since if the read() on the pipe blocks, all the CLI stalls */
+static void
+fetchMessage(int pipe_fd, char *string_buf)
+{
+	ssize_t bytesRead;
+
+	while((bytesRead = read(pipe_fd, string_buf, BUF_SIZE)) > 0){
+	}
+	/* reading from pipe failed */
+//	if(bytesRead == -1)
+		//errMsg("read greetings message");
+
+}
+
+
 /* Get the standard greetings message from the pipe */
 static void
 getGreetingsMessage(int pipe_fd, char *string_buf)
