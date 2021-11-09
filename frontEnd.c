@@ -521,16 +521,10 @@ main(int argc, char *argv[])
 
 			wrefresh(chatWindow);
 		}
-	/* fetch new possible greetings messages */
-	
-	/* implement this with malloc and free */
-	char string_buf[BUF_SIZE];
+	/* fetch new messages (if available, otherwise nothing happens) */
+	printMessagesFromServer(stdscr,pipe_fds_receive_server[0]);
 
-	getGreetingsMessage(pipe_fds_receive_server[0],string_buf);
-
-	mvwprintw(stdscr,7,0,"%s",string_buf);
-	refresh();
-    }
+	}
 
 	endwin();			/* End ncurses */
 
