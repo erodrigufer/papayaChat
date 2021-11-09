@@ -175,19 +175,47 @@ handleSendSocket(int server_fd, int pipe_fd)
 
 }
 
+/* print messages received from server */
+static void
+printMessagesFromServer(WINDOW * window, int pipe_fd)
+{
+	
+	ssize_t bytesReceived;
+
+	char * string_buf = (char *) malloc(BUF_SIZE);
+	/* malloc failed */
+	if(string_buf == NULL)
+		errExit("malloc failed. @printMessagesFromServer");
+
+	/* fetch messages into allocated string buffer from server */
+	bytesReceived = fetchMessage(pipe_fd, string_buf);
+
+	/* print messages, if received */
+	if(bytesReceived > 0){
+		wprintw(stdscr,"%s",string_buf);
+		refresh();
+	}
+
+	/* free resources */
+	free(string_buf);
+}
+
+
 /* fetch messages from pipe (fetch, but do not print message yet)
 the pipe should be configured as O_NONBLOCK
 since if the read() on the pipe blocks, all the CLI stalls */
-static void
+static int
 fetchMessage(int pipe_fd, char *string_buf)
 {
 	ssize_t bytesRead;
 
-	while((bytesRead = read(pipe_fd, string_buf, BUF_SIZE)) > 0){
-	}
+	bytesRead = read(pipe_fd, string_buf, BUF_SIZE);
+
 	/* reading from pipe failed */
 //	if(bytesRead == -1)
 		//errMsg("read greetings message");
+
+	return bytesRead;
 
 }
 
@@ -500,7 +528,7 @@ main(int argc, char *argv[])
 
 	getGreetingsMessage(pipe_fds_receive_server[0],string_buf);
 
-	mvprintw(7,0,"%s",string_buf);
+	mvwprintw(stdscr,7,0,"%s",string_buf);
 	refresh();
     }
 
