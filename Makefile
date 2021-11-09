@@ -64,6 +64,7 @@ run : $(EXECUTABLE_FRONTEND)
 frontEnd.o : basics.h error_handling.o inet_sockets.o CONFIG.h
 
 # frontEnd with ncurses
+# link to ncurses library with '-lncurses'
 $(EXECUTABLE_FRONTEND) : $(OBJECTS_FRONTEND)
 	cc $(CC_FLAGS) -o $(EXECUTABLE_FRONTEND) $(OBJECTS_FRONTEND) -lncurses
 
