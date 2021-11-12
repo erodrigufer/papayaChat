@@ -357,7 +357,7 @@ handleNewline(WINDOW * chatWindow, int pipe_fd)
 	/* copy 200 characters at position, into message char array,
 	the coordinates to start copying strings, should be the relative
 	coordinates inside chatWindow, so 0,0 actually equals 
-	y_start,x_start */
+	y_start_chatWindow,x_start_chatWindow */
 	int errorString = mvwinnstr(chatWindow,0,0,message,200);
 	if(errorString == ERR){
 		free(message);
@@ -385,7 +385,7 @@ handleBackspace(WINDOW * chatWindow)
 {
 
 	/* get current x position (relative to chatWindow coordinates, so
-	x=0, actually equals to x_start) */
+	x=0, actually equals to x_start_chatWindow) */
 	int x_position=getcurx(chatWindow);
 	/* if cursor position is x=0, then do not do anything 
 	(edge case). the coordinates are relative to chatWindow */
@@ -514,9 +514,9 @@ main(int argc, char *argv[])
 	int a = 0;			/* TODO: uninitialized ERROR found here fix that*/
 
 	/* starting position for messages */
-	int x_start = 1;
-	int y_start = (int) LINES*3/4;
-	move(y_start-1,0); /* move cursor to start position */
+	int x_start_chatWindow = 1;
+	int y_start_chatWindow = (int) LINES*3/4;
+	move(y_start_chatWindow-1,0); /* move cursor to start position */
 
 	/* Draw horizontal line */
 	if(hline('_',COLS)==ERR)
@@ -526,7 +526,7 @@ main(int argc, char *argv[])
 
 	/* create chatWindow */
 	WINDOW * chatWindow;
-	chatWindow=configureChatWindow(y_start,x_start);
+	chatWindow=configureChatWindow(y_start_chatWindow,x_start_chatWindow);
 
 	/* move the cursor on stdscr to the position (3,0) */
 	wmove(stdscr,3,0);
