@@ -241,10 +241,12 @@ printMessagesFromServer(WINDOW * window, int pipe_fd)
 	/* fetch messages from server into allocated string buffer */
 	bytesReceived = fetchMessage(pipe_fd, string_buf);
 
+	/* TODO: handle errors from fetchMessage */
+
 	/* print messages, if received */
 	if(bytesReceived > 0){
-		wprintw(stdscr,"%s",string_buf);
-		refresh();
+		wprintw(window,"%s\n",string_buf);
+		wrefresh(window);
 	}
 
 	/* free resources */
@@ -511,25 +513,33 @@ main(int argc, char *argv[])
 	printw("\n");
 	refresh();
 
+/* TODO: To solve the problem of not displaying UTF, probably change a to int64_u */
 	int a = 0;			/* TODO: uninitialized ERROR found here fix that*/
 
-	/* starting position for messages */
+	/* starting position for chatWindow */
 	int x_start_chatWindow = 1;
 	int y_start_chatWindow = (int) LINES*3/4;
-	move(y_start_chatWindow-1,0); /* move cursor to start position */
+	/* starting position for textWindow */
+	int x_start_textWindow = 1;
+	int y_start_textWindow = 5;
+	
+	//move(y_start_chatWindow-1,0); /* move cursor to start position */
 
 	/* Draw horizontal line */
-	if(hline('_',COLS)==ERR)
-		errExit("hline2");
+	//if(hline('_',COLS)==ERR)
+	//	errExit("hline2");
 	/* refresh() is needed to depict horizontal line */
-	refresh();
+	//refresh();
 
 	/* create chatWindow */
 	WINDOW * chatWindow;
 	chatWindow=configureChatWindow(y_start_chatWindow,x_start_chatWindow);
 
-	/* move the cursor on stdscr to the position (3,0) */
-	wmove(stdscr,3,0);
+	/* create textWindow */
+	textWindow=configureTextWindow(y_start_textWindow,x_start_textWindow,y_start_chatWindow);
+
+	/* move the cursor on textWindow to the position (0,0) */
+	wmove(textWindow,0,0);
 
 	/* Stop ncurses when 'KEY_DOWN' is pressed */
 	while(a!= KEY_DOWN){
@@ -557,7 +567,7 @@ main(int argc, char *argv[])
 
 		}
 	/* fetch new messages from server (if available, otherwise nothing happens) */
-	printMessagesFromServer(stdscr,pipe_fds_receive_server[0]);
+	printMessagesFromServer(textWindow,pipe_fds_receive_server[0]);
 
 	}
 
