@@ -92,7 +92,38 @@ configureNcurses(void)
 
 }
 
-/* function to configure and create a window for the chat (lower
+/* function to configure and create a window for the chat (upper
+half of screen)
+y_start and x_start are the y,x-coordinates where the window should 
+be initialized 
+y_start_chatWindow is the y-coordinate where the other window starts,
+it is needed to calculate the height of the upper half of the screen */
+static WINDOW * 
+configureTextWindow(int y_start, int x_start, int y_start_chatWindow)
+{
+
+	/* create separate window for chat input */
+	WINDOW * textWindow;
+	/* height is (y_start_chatWindow -1)
+	width is COLS -2 */
+	textWindow = newwin(y_start_chatWindow-1,COLS-2,y_start,x_start);
+	if(textWindow == NULL)	/* there was an error */
+		errExit("newwin [textWindow]");
+
+	/* TODO: remove this comments if the window partitioning works out */
+	//keypad(chatWindow, TRUE); /* Enable keypad and F-keys */
+
+	/* stdin reading should be non-blocking, if no character is read from
+	stdin, then getch returns ERR 
+	Otherwise, if it weren't non-blocking, we would not be able to 
+	print in the upper half of the chat window concurrently */
+	//if(nodelay(chatWindow,TRUE)==ERR)
+		//errExit("nodelay[chatWindow]");		/* nodelay() failed, catastrophic error */
+
+	return textWindow;
+}
+
+/* function to configure and create a window for the chat input (lower
 half of screen)
 y_start and x_start are the y,x-coordinates where the window should 
 be initialized */
