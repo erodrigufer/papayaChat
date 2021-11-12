@@ -493,9 +493,11 @@ main(int argc, char *argv[])
 	/* refresh() is needed to depict horizontal line */
 	refresh();
 
+	/* create chatWindow */
 	WINDOW * chatWindow;
 	chatWindow=configureChatWindow(y_start,x_start);
 
+	/* move the cursor on stdscr to the position (3,0) */
 	wmove(stdscr,3,0);
 
 	/* Stop ncurses when 'KEY_DOWN' is pressed */
@@ -518,17 +520,18 @@ main(int argc, char *argv[])
 				/* backspace was handled, continue trying to read input from keyboard */
 				continue;
 			}
-			/* add new read character to chatWindow */
+			/* add new read character to chatWindow and refresh view of chatWindow */
 			waddch(chatWindow,a);
-
 			wrefresh(chatWindow);
+
 		}
-	/* fetch new messages (if available, otherwise nothing happens) */
+	/* fetch new messages from server (if available, otherwise nothing happens) */
 	printMessagesFromServer(stdscr,pipe_fds_receive_server[0]);
 
 	}
 
-	endwin();			/* End ncurses */
+	/* End ncurses, KEY_DOWN was pressed */
+	endwin();			
 
 	exit(EXIT_SUCCESS);
 }
