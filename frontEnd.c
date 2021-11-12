@@ -147,6 +147,10 @@ configureChatWindow(int y_start, int x_start)
 	print in the upper half of the chat window concurrently */
 	if(nodelay(chatWindow,TRUE)==ERR)
 		errExit("nodelay[chatWindow]");		/* nodelay() failed, catastrophic error */
+	
+	/* draw a horizontal line to delimit the windows */
+	if(whline(chatWindow,'_',COLS-2)==ERR)
+		errExit("hline chatWindow");
 
 	return chatWindow;
 }
