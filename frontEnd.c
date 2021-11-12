@@ -14,6 +14,7 @@
 #include "CONFIG.h" /* file defines IP and port of chat service server */
 
 #define BUF_SIZE 4096 /* bytes transmission size */
+#define MAX_MESSAGE_SENT COLS/2 /* max message size of message to be sent */
 
 /* Define this values as global to be able to call them from the atexit() function */
 int child1_pid;
@@ -244,7 +245,7 @@ fetchMessage(int pipe_fd, char *string_buf)
 
 /* print messages received from server */
 static void
-printMessagesFromServer(WINDOW * window, int pipe_fd)
+printMessagesFromServer(WINDOW * window, int pipe_fd, int max_y_position)
 {
 	
 	ssize_t bytesReceived;
@@ -261,7 +262,20 @@ printMessagesFromServer(WINDOW * window, int pipe_fd)
 
 	/* print messages, if received */
 	if(bytesReceived > 0){
-		wprintw(window,"%s\n",string_buf);
+		/* check if the cursor is after the last line of the
+		textWindow, in that case clear the window and move cursor
+		to the origin to start printing messages from the top again */
+		int y_cursor = getcury(window);
+		if(y_cursor==ERR)
+			errExit("y_cursor @printMessagesFromServer");
+		if(y_cursor > max_y_position){
+			/* clear screen and move back to origin */
+			if(wclear(window)==ERR)
+				errExit("wclear");
+			if(wmove(window,0,0)==ERR)
+				errExit("wmove");
+		}
+		wprintw(window,"%s",string_buf);
 		wrefresh(window);
 	}
 
@@ -557,8 +571,9 @@ main(int argc, char *argv[])
 	/* starting position for delimiting line */
 	int x_start_delimiter = 0;
 	int height_delimiter = 3;
-	int y_start_delimiter = y_start_chatWindow - height_delimiter;
-	
+	int y_start_delimiter = y_start_chatWindow - height_delimiter;	
+	int max_y_textWindow = y_start_delimiter - 1;
+
 	//move(y_start_chatWindow-1,0); /* move cursor to start position */
 
 	/* Draw horizontal line */
@@ -604,7 +619,7 @@ main(int argc, char *argv[])
 			}
 			/* if the current cursor position is smaller than the max. message length,
 			add new read character to chatWindow and refresh view of chatWindow */
-			int messageMaxLength = COLS/2;
+			int messageMaxLength = MAX_MESSAGE_SENT;
 			if(checkMaxMessageLength(chatWindow,messageMaxLength)!=-1){
 				waddch(chatWindow,a);
 				wrefresh(chatWindow);
@@ -612,7 +627,7 @@ main(int argc, char *argv[])
 
 		} // end a!=ERR
 	/* fetch new messages from server (if available, otherwise nothing happens) */
-	printMessagesFromServer(textWindow,pipe_fds_receive_server[0]);
+	printMessagesFromServer(textWindow,pipe_fds_receive_server[0],max_y_textWindow);
 
 	} // while-loop
 
