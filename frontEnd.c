@@ -572,7 +572,7 @@ main(int argc, char *argv[])
 	int x_start_delimiter = 0;
 	int height_delimiter = 3;
 	int y_start_delimiter = y_start_chatWindow - height_delimiter;	
-	int max_y_textWindow = y_start_delimiter - 1;
+	int max_y_textWindow = LINES/2;
 
 	//move(y_start_chatWindow-1,0); /* move cursor to start position */
 
