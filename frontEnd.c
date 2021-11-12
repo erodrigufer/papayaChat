@@ -604,7 +604,8 @@ main(int argc, char *argv[])
 			}
 			/* if the current cursor position is smaller than the max. message length,
 			add new read character to chatWindow and refresh view of chatWindow */
-			if(checkMaxMessageLength(chatWindow,COLS/2)!=-1){
+			int messageMaxLength = COLS/2;
+			if(checkMaxMessageLength(chatWindow,messageMaxLength)!=-1){
 				waddch(chatWindow,a);
 				wrefresh(chatWindow);
 			}
