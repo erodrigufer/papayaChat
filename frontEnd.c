@@ -269,19 +269,6 @@ printMessagesFromServer(WINDOW * window, int pipe_fd)
 	free(string_buf);
 }
 
-/* Get the standard greetings message from the pipe */
-static void
-getGreetingsMessage(int pipe_fd, char *string_buf)
-{
-	ssize_t bytesRead;
-
-	while((bytesRead = read(pipe_fd, string_buf, BUF_SIZE)) > 0){
-	}
-	/* reading from pipe failed */
-//	if(bytesRead == -1)
-		//errMsg("read greetings message");
-
-}
 
 /* read from server socket and pass data through pipe to frontEnd parent process */
 static void
