@@ -10,9 +10,7 @@
 #include "basics.h" /* includes library to handle errors */
 #include "inet_sockets.h" /* include library to handle TCP sockets */
 
-/* Define TCP/IP services */
-//#define SERVICE "51000" /* Port to connect to with server */
-//#define HOST "localhost" /* server address (found, e.g. on /etc/hosts file) */
+/* Load TCP/IP services from CONFIG.h header */
 #include "CONFIG.h" /* file defines IP and port of chat service server */
 
 #define BUF_SIZE 4096 /* bytes transmission size */
@@ -148,13 +146,27 @@ configureChatWindow(int y_start, int x_start)
 	if(nodelay(chatWindow,TRUE)==ERR)
 		errExit("nodelay[chatWindow]");		/* nodelay() failed, catastrophic error */
 	
-	/* draw a horizontal line to delimit the windows */
-	if(whline(chatWindow,'_',COLS-2)==ERR)
-		errExit("hline chatWindow");
-
 	return chatWindow;
 }
 
+/* this window will print a line separating the chat and text windows */
+static WINDOW *
+configureDelimiterWindow(int y_start, int x_start, int height)
+{
+	/* create separate window for delimiter */
+	WINDOW * delimiterWindow;
+	delimiterWindow = newwin(height,COLS,y_start,x_start);
+	if(delimiterWindow == NULL) /* there was an error */
+		errExit("newwin [delimiterWindow]");
+	
+	/* draw a horizontal line to delimit the windows */
+	if(whline(delimiterWindow,'_',COLS-2)!=OK)
+		errExit("hline chatWindow");
+	wrefresh(delimiterWindow);
+
+	return delimiterWindow;
+
+}
 /* send a message to a pipe */
 static void
 sendMessageToPipe(int pipe_fd, char *message)
@@ -522,10 +534,14 @@ main(int argc, char *argv[])
 
 	/* starting position for chatWindow */
 	int x_start_chatWindow = 1;
-	int y_start_chatWindow = (int) LINES*3/4;
+	int y_start_chatWindow = (int) LINES*4/5;
 	/* starting position for textWindow */
 	int x_start_textWindow = 1;
 	int y_start_textWindow = 5;
+	/* starting position for delimiting line */
+	int x_start_delimiter = 0;
+	int height_delimiter = 3;
+	int y_start_delimiter = y_start_chatWindow - height_delimiter;
 	
 	//move(y_start_chatWindow-1,0); /* move cursor to start position */
 
@@ -541,7 +557,11 @@ main(int argc, char *argv[])
 
 	/* create textWindow */
 	WINDOW * textWindow;
-	textWindow=configureTextWindow(y_start_textWindow,x_start_textWindow,y_start_chatWindow);
+	textWindow=configureTextWindow(y_start_textWindow,x_start_textWindow,y_start_delimiter);
+
+	/* create delimiterWindow */
+	WINDOW * delimiterWindow;
+	delimiterWindow=configureDelimiterWindow(y_start_delimiter,x_start_delimiter,height_delimiter);
 
 	/* move the cursor on textWindow to the position (0,0) */
 	wmove(textWindow,0,0);
