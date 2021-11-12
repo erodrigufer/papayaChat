@@ -97,14 +97,14 @@ be initialized
 y_start_chatWindow is the y-coordinate where the other window starts,
 it is needed to calculate the height of the upper half of the screen */
 static WINDOW * 
-configureTextWindow(int y_start, int x_start, int y_start_chatWindow)
+configureTextWindow(int y_start, int x_start, int y_start_delimiter)
 {
 
 	/* create separate window for chat input */
 	WINDOW * textWindow;
 	/* height is (y_start_chatWindow -1)
 	width is COLS -2 */
-	textWindow = newwin(y_start_chatWindow-1,COLS-2,y_start,x_start);
+	textWindow = newwin(y_start_delimiter-1,COLS-2,y_start,x_start);
 	if(textWindow == NULL)	/* there was an error */
 		errExit("newwin [textWindow]");
 
@@ -403,6 +403,27 @@ handleBackspace(WINDOW * chatWindow)
 	wmove(chatWindow,y_position,x_position); /* move cursor to new position */
 	/* delete character under cursor */
 	wdelch(chatWindow);
+
+}
+
+/* this function checks if the un-sent message has achieved
+the maximum size that can be handled, if not it returns the current
+x position of the cursor (relative to the frame of reference of chatWindow)
+if it has achieved the max size, then it returns -1 */
+static int
+checkMaxMessageLength(WINDOW * chatWindow, int maxMessageSize)
+{
+	/* variables to store current cursor position inside chatWindow */
+	int y_cursor;
+	int x_cursor;
+	/* get the current cursor position */
+	getyx(chatWindow,y_cursor,x_cursor);
+
+	/* subtract 1 from maxMessageSize, since the first character start at x_cursor position 0 */
+	if(x_cursor > (maxMessageSize -1)
+		return x_cursor;
+
+	return -1;
 
 }
 
