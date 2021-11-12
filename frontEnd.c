@@ -536,6 +536,7 @@ main(int argc, char *argv[])
 	chatWindow=configureChatWindow(y_start_chatWindow,x_start_chatWindow);
 
 	/* create textWindow */
+	WINDOW * textWindow;
 	textWindow=configureTextWindow(y_start_textWindow,x_start_textWindow,y_start_chatWindow);
 
 	/* move the cursor on textWindow to the position (0,0) */
