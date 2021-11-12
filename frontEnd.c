@@ -355,15 +355,22 @@ static void
 handleNewline(WINDOW * chatWindow, int pipe_fd)
 {
 	/* allocate memory locally, and free memory after \n if statement */
-	char * message = (char *) malloc(200);
+	char * message = (char *) malloc(BUF_SIZE);
 	/* malloc failed if message == NULL */
 	if(message == NULL)
 		errExit("malloc failed. Newline message send");
-	/* copy 200 characters at position, into message char array,
+
+	/* get current x-cursor position, to get number of characters to be
+	sent (the current implementations only reads characters from
+	one single line */
+	int x_cursor = getcurx(chatWindow);
+	if(x_cursor==ERR)
+		errExit("getting x cursor position @handleNewline");
+	/* copy up to max. characters at position, into message char array,
 	the coordinates to start copying strings, should be the relative
 	coordinates inside chatWindow, so 0,0 actually equals 
 	y_start_chatWindow,x_start_chatWindow */
-	int errorString = mvwinnstr(chatWindow,0,0,message,200);
+	int errorString = mvwinnstr(chatWindow,0,0,message,x_cursor+1);
 	if(errorString == ERR){
 		free(message);
 		endwin();
