@@ -207,7 +207,7 @@ printMessagesFromServer(WINDOW * window, int pipe_fd)
 	if(string_buf == NULL)
 		errExit("malloc failed. @printMessagesFromServer");
 
-	/* fetch messages into allocated string buffer from server */
+	/* fetch messages from server into allocated string buffer */
 	bytesReceived = fetchMessage(pipe_fd, string_buf);
 
 	/* print messages, if received */
