@@ -10,8 +10,10 @@ HOST is the server's IP
 #define CONFIG_H
 
 /* Define TCP/IP services */
-#define SERVICE "51000" /* Port to connect to with server */
+//#define SERVICE "51000" /* Port to connect to with server */
+#define SERVICE "50000" /* Port to connect to with server */
 //#define HOST "localhost" /* server address (found, e.g. on /etc/hosts file) */
-#define HOST "kah" /* server address (found, e.g. on /etc/hosts file) */
+#define HOST "payaserver" /* server address (found, e.g. on /etc/hosts file) */
+//#define HOST "kah" /* server address (found, e.g. on /etc/hosts file) */
 
 #endif
