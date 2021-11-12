@@ -594,15 +594,18 @@ main(int argc, char *argv[])
 				/* backspace was handled, continue trying to read input from keyboard */
 				continue;
 			}
-			/* add new read character to chatWindow and refresh view of chatWindow */
-			waddch(chatWindow,a);
-			wrefresh(chatWindow);
+			/* if the current cursor position is smaller than the max. message length,
+			add new read character to chatWindow and refresh view of chatWindow */
+			if(checkMaxMessageLength(chatWindow,COLS/2)!=-1){
+				waddch(chatWindow,a);
+				wrefresh(chatWindow);
+			}
 
-		}
+		} // end a!=ERR
 	/* fetch new messages from server (if available, otherwise nothing happens) */
 	printMessagesFromServer(textWindow,pipe_fds_receive_server[0]);
 
-	}
+	} // while-loop
 
 	/* End ncurses, KEY_DOWN was pressed */
 	endwin();			
