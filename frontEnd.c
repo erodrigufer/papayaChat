@@ -427,9 +427,10 @@ checkMaxMessageLength(WINDOW * chatWindow, int maxMessageSize)
 	getyx(chatWindow,y_cursor,x_cursor);
 
 	/* subtract 1 from maxMessageSize, since the first character start at x_cursor position 0 */
-	if(x_cursor > (maxMessageSize -1))
+	if(x_cursor < (maxMessageSize -1))
 		return x_cursor;
 
+	/* return -1, since max capacity of message was achieved */
 	return -1;
 
 }
