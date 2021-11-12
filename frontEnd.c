@@ -564,7 +564,7 @@ main(int argc, char *argv[])
 
 	/* starting position for chatWindow */
 	int x_start_chatWindow = 1;
-	int y_start_chatWindow = (int) LINES*4/5;
+	int y_start_chatWindow = LINES-4;
 	/* starting position for textWindow */
 	int x_start_textWindow = 1;
 	int y_start_textWindow = 5;
