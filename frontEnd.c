@@ -134,6 +134,8 @@ configureChatWindow(int y_start, int x_start)
 	WINDOW * chatWindow;
 	/* height is LINES-y_start
 	width is COLS -2 */
+	/* TODO: it is probably not that secure to use LINES and COLS here, since they are only initialized after 
+	initializing ncurses*/
 	chatWindow = newwin(LINES-y_start,COLS-2,y_start,x_start);
 	if(chatWindow == NULL)	/* there was an error */
 		errExit("newwin [chatWindow]");
