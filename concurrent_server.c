@@ -201,6 +201,11 @@ main(int argc, char *argv[])
         exit(EXIT_FAILURE);
     }
 
+	/* open (or create) the central chat log file */
+	int chatLog_fd = openChatLogFile();
+	if(chatLog_fd == -1)
+		errExit("openChatLogFile()");
+
 	/* server listens on port 'SERVICE', with a certain BACKLOG_QUEUE, and does not want to 
 	receive information about the address of the client socket (NULL) */
     listen_fd = serverListen(SERVICE, BACKLOG_QUEUE, NULL);
