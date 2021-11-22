@@ -14,7 +14,7 @@ OBJECTS_DAEMON_LOGGER = daemonCreation.o daemonLogger.o
 EXECUTABLE_DAEMON_LOGGER = daemonLogger
 
 # Objects and executable for concurrent_server
-OBJECTS_SERVER = concurrent_server.o error_handling.o inet_sockets.o daemonCreation.o configure_syslog.o 
+OBJECTS_SERVER = concurrent_server.o error_handling.o inet_sockets.o daemonCreation.o configure_syslog.o file_locking.o
 EXECUTABLE_SERVER = concurrent_server 
 
 OBJECTS = $(OBJECTS_DAEMON_LOGGER) $(OBJECTS_SERVER) termHandlerAsyncSafe.o $(OBJECTS_CLIENT) $(OBJECTS_FRONTEND)
@@ -43,7 +43,7 @@ daemonCreation.o : basics.h daemonCreation.h
 
 daemonLogger.o : basics.h daemonCreation.h
 
-concurrent_server.o : inet_sockets.o inet_sockets.h basics.h daemonCreation.o daemonCreation.h error_handling.o configure_syslog.o
+concurrent_server.o : inet_sockets.o inet_sockets.h basics.h daemonCreation.o daemonCreation.h error_handling.o configure_syslog.o file_locking.o
 
 error_handling.o : error_handling.h basics.h error_names.c.inc
 
@@ -55,6 +55,8 @@ error_names.c.inc :
 inet_sockets.o : inet_sockets.h basics.h
 
 configure_syslog.o :
+
+file_locking.o : CONFIG.h
 
 # run front-end executable
 .PHONY : run 
