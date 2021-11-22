@@ -22,6 +22,7 @@ so it is found on (2)])
 #include "inet_sockets.h"       /* Declarations of inet*() socket functions */
 #include "basics.h"
 #include "configure_syslog.h"	/* handle configuration of syslog */
+#include "file_locking.h"		/* handle file locking (avoid race conditions) */
 
 #define SERVICE "51000"          /* Name of TCP service */
 #define BACKLOG_QUEUE 10		/* max number of clients in listening backlog queue */
