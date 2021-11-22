@@ -3,3 +3,6 @@
 
 # Ignore plattform-specific file with error codes
 *.c.inc
+
+# Ignore strace output files
+*.strace
