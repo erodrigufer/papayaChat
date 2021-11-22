@@ -1,2 +1,5 @@
 # Ignore all C-Object files, since they are architecture specific
 *.o
+
+# Ignore plattform-specific file with error codes
+*.c.inc
