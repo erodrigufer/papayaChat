@@ -1,4 +1,5 @@
 /* concurrent_tcp_server.c
+Run as back-end server handling clients of papayaChat
 
 */
 #include <signal.h>				/* check 'man 2 sigaction' signal.h is needed
