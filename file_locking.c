@@ -41,3 +41,6 @@ openChatLogFile(void)
 	return open(CHAT_LOG_PATH,flags,createPermissions);
 
 }
+
+
+/* Eduardo Rodriguez 2021 (c) (@erodrigufer). Licensed under GNU AGPLv3 */
