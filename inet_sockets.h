@@ -16,6 +16,9 @@ address specified by 'host' and 'service'. It can handle both TCP and
 UDP clients, that connect their sockets to a server 
 Returns a file descriptor on success, or a -1 on error */
 
+/* Wrapper function, call clientConnect, check for errors, and return
+fd of socket */
+int establishConnection(void);
 /* -----------------------------------------------------------------
 Server-side function: */
 int serverListen(const char *service, int backlog, socklen_t *addrlen);
