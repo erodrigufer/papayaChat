@@ -10,8 +10,10 @@ Function to handle signals
 zombie processes */
 void catchSIGCHLD(int sig);
 
-
 /* kill all child processes from within parent process */
 void killChildProcesses(void);
+
+/* configure the signal disposition to catch SIGCHLD signals */
+void configureSignalDisposition(void);
 
 #endif
