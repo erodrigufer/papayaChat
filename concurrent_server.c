@@ -24,19 +24,16 @@ so it is found on (2)])
 #include "configure_syslog.h"	/* handle configuration of syslog */
 #include "file_locking.h"		/* handle file locking (avoid race conditions) */
 
-#define SERVICE "51000"          /* Name of TCP service */
+#include "CONFIG.h"				/* add config file to define TCP port, and 
+								termAsync binary pathname */
+
 #define BACKLOG_QUEUE 10		/* max number of clients in listening backlog queue */
 #define BUF_SIZE 4096
-#define PATHNAME_TERM_ASYNC_SAFE "./bin/termHandlerAsyncSafe" /* pathname of program to 
-															 handle sigterm handler
-															 in async-safe way, execve to
-															 this program from inside signal
-															 handler */
 
 
 /* signal handler for SIGTERM signal 
 TODO: this signal handler should eventually differentiate between the parent process
-exitting and its children */
+exiting and its children */
 static void 
 termHandler(int sig)
 {
