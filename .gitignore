@@ -6,3 +6,6 @@
 
 # Ignore strace output files
 *.strace
+
+# Ignore this directory (it contains 'inspirational' souce code on a local machine)
+unfinished/
