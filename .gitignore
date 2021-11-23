@@ -20,3 +20,6 @@ unfinished/
 # This file should not be uploaded to a public git repo, since it might
 # contain sensitive IP addresses, ports, and so on
 userConfig.h
+
+# Ignore any files created by server to handle chat (*.chat file extension)
+*.chat
