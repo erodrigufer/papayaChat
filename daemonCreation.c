@@ -6,7 +6,8 @@
 
 */
 
-
+/* the next two headers are needed for umask(2) */
+#include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
 #include "daemonCreation.h" 			/* local header for this file */
@@ -52,9 +53,15 @@ daemonCreation(int flags)
  Compare the flags passed to the function call of daemonCreation() with the flags
  stored in the header daemonCreation.h. If the flags are equal then the commands in the if-statement
  are not executed, since the comparison is being negated. */
-    if (!(flags & DAEMON_FLAG_NO_UMASK0))
-        umask(0);                       /* Clear file mode creation mask */
-
+    if (!(flags & DAEMON_FLAG_NO_UMASK0)){
+		/* files created will not be executable for any user, and others will not be able to read/write them */		
+		mode_t umaskFlags = S_IXUSR | S_IXGRP | S_IRWXO;	
+        umask(umaskFlags);                       /* Clear file mode creation mask */
+		/* the permission flags used in open, be it permFlags,
+		are ANDed with the NEGATION of the umask, when a file is openned
+		permFlags & ~umaskFlags
+		so any flags activated by the umask, cannot be then activated by an open call */
+	}
     if (!(flags & DAEMON_FLAG_NO_CHDIR))
         chdir("/");                     /* Change to root directory */
 
