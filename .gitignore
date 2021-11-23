@@ -9,3 +9,6 @@
 
 # Ignore this directory (it contains 'inspirational' souce code on a local machine)
 unfinished/
+
+# Ignore binary (executable) files
+*.bin
