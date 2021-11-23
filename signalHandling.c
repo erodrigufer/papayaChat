@@ -2,7 +2,7 @@
 								to change the disposition of signals with
 								the sigaction() syscall */	
 #include <sys/wait.h>	/* wait on child processes */
-
+#include "basics.h" /* include library to handle errors */
 
 /* run this function to catch SIGCHLD of child processes exiting */
 void
