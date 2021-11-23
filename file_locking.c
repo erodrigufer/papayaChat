@@ -38,6 +38,7 @@ openChatLogFile(void)
 	/* File permissions (when file is created) */
 	mode_t createPermissions = S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP;
 
+	/* return fd of openned file, or -1 if error */
 	return open(CHAT_LOG_PATH,flags,createPermissions);
 
 }
