@@ -1,9 +1,5 @@
 # Makefile 
 
-# Create bin directory if it does not exist
-# -p is needed to exit successfully even if directory exists
-mkdir -p ./bin/
-
 # Enable most warnings, and make warnings behave as errors
 CC_FLAGS = -Wall -Werror
 
@@ -24,7 +20,13 @@ EXECUTABLE_SERVER = ./bin/concurrent_server.bin
 OBJECTS = $(OBJECTS_DAEMON_LOGGER) $(OBJECTS_SERVER) termHandlerAsyncSafe.o $(OBJECTS_CLIENT) $(OBJECTS_FRONTEND)
 EXECUTABLES = $(EXECUTABLE_DAEMON_LOGGER) $(EXECUTABLE_SERVER) termHandlerAsyncSafe.bin $(EXECUTABLE_CLIENT) $(EXECUTABLE_FRONTEND)
 
+.PHONY : all
+
 all : $(EXECUTABLES)
+# Create bin directory if it does not exist
+# -p is needed to exit successfully even if directory exists
+	mkdir -p ./bin/
+
 
 # Link the object files to the compiled program
 # using all Warning
