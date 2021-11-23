@@ -38,7 +38,7 @@ config file outside this #ifndef part
 #define HOST "localhost" /* server address (found, e.g. on /etc/hosts file) */
 
 /* Define path of chat log file */
-#define CHAT_LOG_PATH "./chat_log"
+#define CHAT_LOG_PATH "./chat_log.chat"
 #endif /* endif for USERCONFIG_H */
 /* ------------------------------------------------------------------------ */
 
