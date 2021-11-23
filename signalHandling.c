@@ -37,9 +37,6 @@ killChildProcesses(void)
 	if(kill(0,SIGTERM)==-1)
 		errMsg("Failed to kill processes in Process Group!");
 
-/* TODO: debugging purpouses, remove fprintf later */
-	fprintf(stderr,"Successfully killed child processes!\n");
-
 }
 
 
