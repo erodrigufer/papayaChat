@@ -13,7 +13,7 @@ CHAT_LOG_PATH
 #ifndef CONFIG_H /* add header guard */
 #define CONFIG_H
 
-#define PATHNAME_TERM_ASYNC_SAFE "./bin/termHandlerAsyncSafe" 
+#define PATHNAME_TERM_ASYNC_SAFE "./bin/termHandlerAsyncSafe.bin" 
 /* pathname of program to handle sigterm handler in async-safe way, 
 execve to this program from inside signal handler */
 
