@@ -18,7 +18,7 @@ Returns a file descriptor on success, or a -1 on error */
 
 /* Wrapper function, call clientConnect, check for errors, and return
 fd of socket */
-int establishConnection(void);
+int establishConnection(const char *host, const char *service);
 /* -----------------------------------------------------------------
 Server-side function: */
 int serverListen(const char *service, int backlog, socklen_t *addrlen);
