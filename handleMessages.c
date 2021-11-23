@@ -2,6 +2,9 @@
 
 */
 
+#include "CONFIG.h" /* BUF_SIZE is defined here */
+#include "basics.h" /* to use read() write() */
+
 /* send a message to a pipe */
 void
 sendMessageToPipe(int pipe_fd, char *message)
