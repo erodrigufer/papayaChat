@@ -12,3 +12,11 @@ unfinished/
 
 # Ignore binary (executable) files
 *.bin
+
+# Ignore .swp files for open files in vim
+*.swp
+
+# Ignore the sensitive data stored in the user-defined config file
+# This file should not be uploaded to a public git repo, since it might
+# contain sensitive IP addresses, ports, and so on
+userConfig.h
