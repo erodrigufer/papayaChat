@@ -23,3 +23,6 @@ userConfig.h
 
 # Ignore any files created by server to handle chat (*.chat file extension)
 *.chat
+
+# Ignore log files
+*.log
