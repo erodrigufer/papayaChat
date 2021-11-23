@@ -1,24 +1,28 @@
 # Makefile 
 
+# Create bin directory if it does not exist
+# -p is needed to exit successfully even if directory exists
+mkdir -p ./bin/
+
 # Enable most warnings, and make warnings behave as errors
 CC_FLAGS = -Wall -Werror
 
 OBJECTS_CLIENT = client.o error_handling.o inet_sockets.o
-EXECUTABLE_CLIENT = papayaChat_client
+EXECUTABLE_CLIENT = ./bin/papayaChat_client.bin
 
 OBJECTS_FRONTEND = frontEnd.o error_handling.o inet_sockets.o
-EXECUTABLE_FRONTEND = frontEnd
+EXECUTABLE_FRONTEND = ./bin/frontEnd.bin
 
 # Objects and executable for daemonLogger
 OBJECTS_DAEMON_LOGGER = daemonCreation.o daemonLogger.o
-EXECUTABLE_DAEMON_LOGGER = daemonLogger
+EXECUTABLE_DAEMON_LOGGER = ./bin/daemonLogger.bin
 
 # Objects and executable for concurrent_server
 OBJECTS_SERVER = concurrent_server.o error_handling.o inet_sockets.o daemonCreation.o configure_syslog.o file_locking.o
-EXECUTABLE_SERVER = concurrent_server 
+EXECUTABLE_SERVER = ./bin/concurrent_server.bin
 
 OBJECTS = $(OBJECTS_DAEMON_LOGGER) $(OBJECTS_SERVER) termHandlerAsyncSafe.o $(OBJECTS_CLIENT) $(OBJECTS_FRONTEND)
-EXECUTABLES = $(EXECUTABLE_DAEMON_LOGGER) $(EXECUTABLE_SERVER) termHandlerAsyncSafe $(EXECUTABLE_CLIENT) $(EXECUTABLE_FRONTEND)
+EXECUTABLES = $(EXECUTABLE_DAEMON_LOGGER) $(EXECUTABLE_SERVER) termHandlerAsyncSafe.bin $(EXECUTABLE_CLIENT) $(EXECUTABLE_FRONTEND)
 
 all : $(EXECUTABLES)
 
@@ -34,7 +38,7 @@ $(EXECUTABLE_SERVER) : $(OBJECTS_SERVER)
 
 #termHandlerAsyncSafe
 termHandlerAsyncSafe : termHandlerAsyncSafe.o configure_syslog.o
-	cc $(CC_FLAGS) -o termHandlerAsyncSafe termHandlerAsyncSafe.o configure_syslog.o
+	cc $(CC_FLAGS) -o ./bin/termHandlerAsyncSafe.bin termHandlerAsyncSafe.o configure_syslog.o
 
 termHandlerAsyncSafe.o : basics.h configure_syslog.o configure_syslog.h
 # Implicit rules, daemonCreation.c is missing
