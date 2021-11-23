@@ -16,8 +16,8 @@ jobs:
     - uses: actions/checkout@v2
     #- name: configure
     #  run: ./configure
-    - name: make concurrent_server
-      run: make concurrent_server
+    - name: make server
+      run: make server
     #- name: make check
     #  run: make check
     #- name: make distcheck
@@ -31,5 +31,5 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
     - uses: actions/checkout@v2
-    - name: make frontEnd
-      run: make frontEnd
+    - name: make client
+      run: make client
