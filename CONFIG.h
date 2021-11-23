@@ -24,7 +24,7 @@ to share the value between multiple files */
 
 /* if personalized specific user-defined config file
 exists include it */
-#include "userConfig.h"
+//#include "userConfig.h"
 
 /* if userConfig.h exists, then USERCONFIG_H will be
 defined, and the user-defined macros will be used, not the default
