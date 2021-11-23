@@ -9,6 +9,7 @@
 
 #include "basics.h" /* includes library to handle errors */
 #include "inet_sockets.h" /* include library to handle TCP sockets */
+#include "signalHandling.h" /* functions to handle signals */
 
 /* Load TCP/IP services from CONFIG.h header */
 #include "CONFIG.h" /* file defines IP and port of chat service server */
