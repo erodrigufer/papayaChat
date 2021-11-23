@@ -30,6 +30,9 @@ all : $(EXECUTABLES)
 # -p is needed to exit successfully even if directory exists
 #	mkdir -p ./bin/
 
+# Compile only server
+.PHONY : server
+server : $(EXECUTABLE_SERVER)
 
 # Link the object files to the compiled program
 # using all Warning
