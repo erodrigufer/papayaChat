@@ -125,18 +125,7 @@ configureDelimiterWindow(int y_start, int x_start, int height)
 	return delimiterWindow;
 
 }
-/* send a message to a pipe */
-static void
-sendMessageToPipe(int pipe_fd, char *message)
-{
-	ssize_t bytesWritten;
-	/* Execute strlen outside of write(), since it demands run time resources
-	and it would be run twice inside write() call*/
-	size_t sizeOfMessage = strlen(message);
-	if(write(pipe_fd,message,sizeOfMessage)!=sizeOfMessage)
-		errExit("write sendMessageToPipe()");
 
-}
 
 /* send a message to the server_fd, the message is received through 
 a pipe from the parent process */
