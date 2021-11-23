@@ -98,11 +98,11 @@ clientConnect(const char *host, const char *service, int type)
 
 /* establish TCP connection with server, return fd of server socket */
 int 
-establishConnection(void){
+establishConnection(const char *host, const char *service){
 	int server_fd; /* fd for server connection */
 
 	/* SOCK_STREAM for TCP connection */
-	server_fd = clientConnect(HOST,SERVICE,SOCK_STREAM);
+	server_fd = clientConnect(host,service,SOCK_STREAM);
 	if(server_fd == -1)
 		errExit("clientConnect"); /* connection failed, exit */
 
