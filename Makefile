@@ -6,18 +6,14 @@ CC_FLAGS = -Wall -Werror
 OBJECTS_FRONTEND = frontEnd.o error_handling.o inet_sockets.o
 EXECUTABLE_FRONTEND = ./bin/frontEnd.bin
 
-# Objects and executable for daemonLogger
-OBJECTS_DAEMON_LOGGER = daemonCreation.o daemonLogger.o
-EXECUTABLE_DAEMON_LOGGER = ./bin/daemonLogger.bin
-
 # Objects and executable for concurrent_server
 OBJECTS_SERVER = concurrent_server.o error_handling.o inet_sockets.o daemonCreation.o configure_syslog.o file_locking.o
 EXECUTABLE_SERVER = ./bin/concurrent_server.bin
 
 EXECUTABLE_TERMHANDLER = ./bin/termHandlerAsyncSafe.bin
 
-OBJECTS = $(OBJECTS_DAEMON_LOGGER) $(OBJECTS_SERVER) termHandlerAsyncSafe.o $(OBJECTS_FRONTEND)
-EXECUTABLES = $(EXECUTABLE_DAEMON_LOGGER) $(EXECUTABLE_SERVER) $(EXECUTABLE_TERMHANDLER) $(EXECUTABLE_FRONTEND)
+OBJECTS = $(OBJECTS_SERVER) termHandlerAsyncSafe.o $(OBJECTS_FRONTEND)
+EXECUTABLES = $(EXECUTABLE_SERVER) $(EXECUTABLE_TERMHANDLER) $(EXECUTABLE_FRONTEND)
 
 .PHONY : all
 
@@ -33,9 +29,6 @@ server : $(EXECUTABLE_SERVER)
 
 # Link the object files to the compiled program
 # using all Warning
-# daemonLogger
-$(EXECUTABLE_DAEMON_LOGGER) : $(OBJECTS_DAEMON_LOGGER)
-	cc $(CC_FLAGS) -o $(EXECUTABLE_DAEMON_LOGGER) $(OBJECTS_DAEMON_LOGGER)
 
 # concurrent_server
 $(EXECUTABLE_SERVER) : $(OBJECTS_SERVER)
@@ -49,8 +42,6 @@ termHandlerAsyncSafe.o : basics.h configure_syslog.o configure_syslog.h
 # Implicit rules, daemonCreation.c is missing
 # cc -c daemonCreation.c is also not required
 daemonCreation.o : basics.h daemonCreation.h
-
-daemonLogger.o : basics.h daemonCreation.h
 
 concurrent_server.o : inet_sockets.o inet_sockets.h basics.h daemonCreation.o daemonCreation.h error_handling.o configure_syslog.o file_locking.o
 
