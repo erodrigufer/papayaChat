@@ -3,7 +3,7 @@
 # Enable most warnings, and make warnings behave as errors
 CC_FLAGS = -Wall -Werror
 
-OBJECTS_FRONTEND = frontEnd.o error_handling.o inet_sockets.o
+OBJECTS_FRONTEND = frontEnd.o error_handling.o inet_sockets.o signalHandling.o
 EXECUTABLE_FRONTEND = ./bin/frontEnd.bin
 
 # Objects and executable for concurrent_server
@@ -58,6 +58,8 @@ configure_syslog.o :
 
 file_locking.o : CONFIG.h
 
+signalHandling.o :
+
 # run front-end executable
 .PHONY : run 
 run : $(EXECUTABLE_FRONTEND)
@@ -66,7 +68,7 @@ run : $(EXECUTABLE_FRONTEND)
 .PHONY : client
 client: $(EXECUTABLE_FRONTEND)
 
-frontEnd.o : basics.h error_handling.o inet_sockets.o CONFIG.h
+frontEnd.o : basics.h error_handling.o inet_sockets.o signalHandling.o CONFIG.h
 
 # frontEnd with ncurses
 # link to ncurses library with '-lncurses'
