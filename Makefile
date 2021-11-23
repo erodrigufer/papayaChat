@@ -31,7 +31,7 @@ server : $(EXECUTABLE_SERVER)
 # using all Warning
 
 # concurrent_server
-$(EXECUTABLE_SERVER) : $(OBJECTS_SERVER)
+$(EXECUTABLE_SERVER) : $(OBJECTS_SERVER) $(EXECUTABLE_TERMHANDLER)
 	cc $(CC_FLAGS) -o $(EXECUTABLE_SERVER) $(OBJECTS_SERVER)
 
 #termHandlerAsyncSafe
