@@ -17,14 +17,17 @@ daemonCreation(int flags)
 {
     int maxfd, fd;
 
-    switch (fork()) {                   /* Become background process */
-    	case -1: return -1;								/* Problem with fork() syscall */
+    switch (fork()) {				/* Become background process */
+    	case -1: 
+			return -1;				/* Problem with fork() syscall */
     	
-			case 0:  break;                     /* Child falls through... */
+		case 0:  
+			break;                  /* Child falls through... */
 			/* break call exits from switch cases, so that no other switch case 
 			could theoretically be executed */
 
-    	default: _exit(EXIT_SUCCESS);       /* parent process terminates */
+    	default: 
+			_exit(EXIT_SUCCESS);       /* parent process terminates */
 			/* Parent process has to terminate so that the process that will become the daemon,
 			will never get to be the Process Group Leader. If the process is not the PGL, then it
 			is not possible for it to have a controlling terminal (exactly this behaviour is 
@@ -32,14 +35,17 @@ daemonCreation(int flags)
     } // end switch case fork
 
     if (setsid() == -1)                 /* Become leader of new session */
-        return -1;
+        return -1;						/* Error with setsid() */
 
     switch (fork()) {                   /* Ensure we are not session leader */
-    	case -1: return -1; /* There was a problem with the syscall */
+    	case -1: 
+			return -1; /* There was a problem with the syscall */
     	
-			case 0:  break; /* This child process will be our daemon, which cannot be the session leader */
+		case 0:  
+			break; /* This child process will be our daemon, which cannot be the session leader */
     	
-			default: _exit(EXIT_SUCCESS); /* session leader exits */
+		default: 
+			_exit(EXIT_SUCCESS); 		/* session leader exits */
     }
 
  /* Only the child of the leader of the new session has come this far.
@@ -86,5 +92,5 @@ daemonCreation(int flags)
 /*
 License and copyright notice
 Originally taken from Michael Kerrisk, extensive modifications and comments by Eduardo Rodriguez (@erodrigufer)
-Licensed under GNU GPLv3
+Licensed under GNU AGPLv3
 */
