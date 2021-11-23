@@ -96,6 +96,19 @@ clientConnect(const char *host, const char *service, int type)
     return (possible_addr == NULL) ? -1 : socket_fd;
 }
 
+/* establish TCP connection with server, return fd of server socket */
+int 
+establishConnection(void){
+	int server_fd; /* fd for server connection */
+
+	/* SOCK_STREAM for TCP connection */
+	server_fd = clientConnect(HOST,SERVICE,SOCK_STREAM);
+	if(server_fd == -1)
+		errExit("clientConnect"); /* connection failed, exit */
+
+	return server_fd;
+}
+
 /* Create an Internet domain socket and bind it to the address
    { wildcard-IP-address + 'service'/'type' }.
    If 'doListen' is TRUE, then make this a listening socket (by
