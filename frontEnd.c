@@ -426,7 +426,7 @@ main(int argc, char *argv[])
 	if(pipe(pipe_fds_send_server)==-1)
 		errExit("pipe send to server");
 
-	child1_pid = fork();
+	int child1_pid = fork();
 	/* 1. Child creation -- handles sending data from server */
 	switch(child1_pid) {
 		/* error on fork() call  */
@@ -466,7 +466,7 @@ main(int argc, char *argv[])
 	if(fcntl(pipe_fds_receive_server[0],F_SETFL,flags)==-1)
 		errExit("fcntl O_NONBLOCK");
 
-	child2_pid = fork();
+	int child2_pid = fork();
 	switch(child2_pid) {
 		/* error on fork() call  */
 		case -1:
@@ -498,7 +498,7 @@ main(int argc, char *argv[])
 	/* initialize and configure ncurses */
 	configureNcurses();
 
-	/* configure the parent process to kill all children when invoking exit(3) */
+	/* configure only the parent process to kill all children when invoking exit(3) */
 	if(atexit(killChildProcesses)== -1)
 		errExit("atexit");
 
