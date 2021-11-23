@@ -13,7 +13,6 @@
 /* Load TCP/IP services from CONFIG.h header */
 #include "CONFIG.h" /* file defines IP and port of chat service server */
 
-#define BUF_SIZE 4096 /* bytes transmission size */
 #define MAX_MESSAGE_SENT COLS/2 /* max message size of message to be sent */
 
 /* Define this values as global to be able to call them from the atexit() function */
