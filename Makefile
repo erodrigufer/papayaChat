@@ -3,9 +3,6 @@
 # Enable most warnings, and make warnings behave as errors
 CC_FLAGS = -Wall -Werror
 
-OBJECTS_CLIENT = client.o error_handling.o inet_sockets.o
-EXECUTABLE_CLIENT = ./bin/papayaChat_client.bin
-
 OBJECTS_FRONTEND = frontEnd.o error_handling.o inet_sockets.o
 EXECUTABLE_FRONTEND = ./bin/frontEnd.bin
 
@@ -19,8 +16,8 @@ EXECUTABLE_SERVER = ./bin/concurrent_server.bin
 
 EXECUTABLE_TERMHANDLER = ./bin/termHandlerAsyncSafe.bin
 
-OBJECTS = $(OBJECTS_DAEMON_LOGGER) $(OBJECTS_SERVER) termHandlerAsyncSafe.o $(OBJECTS_CLIENT) $(OBJECTS_FRONTEND)
-EXECUTABLES = $(EXECUTABLE_DAEMON_LOGGER) $(EXECUTABLE_SERVER) $(EXECUTABLE_TERMHANDLER) $(EXECUTABLE_CLIENT) $(EXECUTABLE_FRONTEND)
+OBJECTS = $(OBJECTS_DAEMON_LOGGER) $(OBJECTS_SERVER) termHandlerAsyncSafe.o $(OBJECTS_FRONTEND)
+EXECUTABLES = $(EXECUTABLE_DAEMON_LOGGER) $(EXECUTABLE_SERVER) $(EXECUTABLE_TERMHANDLER) $(EXECUTABLE_FRONTEND)
 
 .PHONY : all
 
@@ -73,7 +70,10 @@ file_locking.o : CONFIG.h
 # run front-end executable
 .PHONY : run 
 run : $(EXECUTABLE_FRONTEND)
-	./$(EXECUTABLE_FRONTEND)
+	$(EXECUTABLE_FRONTEND)
+
+.PHONY : client
+client: $(EXECUTABLE_FRONTEND)
 
 frontEnd.o : basics.h error_handling.o inet_sockets.o CONFIG.h
 
@@ -81,14 +81,6 @@ frontEnd.o : basics.h error_handling.o inet_sockets.o CONFIG.h
 # link to ncurses library with '-lncurses'
 $(EXECUTABLE_FRONTEND) : $(OBJECTS_FRONTEND)
 	cc $(CC_FLAGS) -o $(EXECUTABLE_FRONTEND) $(OBJECTS_FRONTEND) -lncurses
-
-.PHONY : client
-client: $(EXECUTABLE_CLIENT)
-
-$(EXECUTABLE_CLIENT) : $(OBJECTS_CLIENT)
-	cc $(CC_FLAGS) -o $(EXECUTABLE_CLIENT) $(OBJECTS_CLIENT)
-
-client.o : inet_sockets.h basics.h error_handling.o inet_sockets.o
 
 # Remove object files, executables and error names file (system dependant)
 .PHONY : clean
