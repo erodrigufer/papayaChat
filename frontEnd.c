@@ -17,18 +17,7 @@
 
 #define MAX_MESSAGE_SENT COLS/2 /* max message size of message to be sent */
 
-/* establish TCP connection with server, return fd of server socket */
-static int 
-establishConnection(void){
-	int server_fd; /* fd for server connection */
 
-	/* SOCK_STREAM for TCP connection */
-	server_fd = clientConnect(HOST,SERVICE,SOCK_STREAM);
-	if(server_fd == -1)
-		errExit("clientConnect"); /* connection failed, exit */
-
-	return server_fd;
-}
 
 /* function to configure and initialize the ncurses environment */
 static void 
@@ -167,8 +156,6 @@ printMessagesFromServer(WINDOW * window, int pipe_fd, int max_y_position)
 	free(string_buf);
 }
 
-
-
 static void 
 handleNewline(WINDOW * chatWindow, int pipe_fd)
 {
@@ -257,8 +244,7 @@ int
 main(int argc, char *argv[])
 {
 	/* establish connection with server, get fd to be shared with child processes */
-	int server_fd;
-	server_fd = establishConnection();
+	int server_fd = establishConnection(HOST,SERVICE);
 
 	/* configure catching SIGCHLD of child processes */
 	configureSignalDisposition();
