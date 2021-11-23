@@ -17,15 +17,18 @@ EXECUTABLE_DAEMON_LOGGER = ./bin/daemonLogger.bin
 OBJECTS_SERVER = concurrent_server.o error_handling.o inet_sockets.o daemonCreation.o configure_syslog.o file_locking.o
 EXECUTABLE_SERVER = ./bin/concurrent_server.bin
 
+EXECUTABLE_TERMHANDLER = ./bin/termHandlerAsyncSafe.bin
+
 OBJECTS = $(OBJECTS_DAEMON_LOGGER) $(OBJECTS_SERVER) termHandlerAsyncSafe.o $(OBJECTS_CLIENT) $(OBJECTS_FRONTEND)
-EXECUTABLES = $(EXECUTABLE_DAEMON_LOGGER) $(EXECUTABLE_SERVER) termHandlerAsyncSafe.bin $(EXECUTABLE_CLIENT) $(EXECUTABLE_FRONTEND)
+EXECUTABLES = $(EXECUTABLE_DAEMON_LOGGER) $(EXECUTABLE_SERVER) $(EXECUTABLE_TERMHANDLER) $(EXECUTABLE_CLIENT) $(EXECUTABLE_FRONTEND)
 
 .PHONY : all
 
 all : $(EXECUTABLES)
+# TODO: I still have not been able to implement the pre-requisite of creating the bin directory
 # Create bin directory if it does not exist
 # -p is needed to exit successfully even if directory exists
-	mkdir -p ./bin/
+#	mkdir -p ./bin/
 
 
 # Link the object files to the compiled program
@@ -39,8 +42,8 @@ $(EXECUTABLE_SERVER) : $(OBJECTS_SERVER)
 	cc $(CC_FLAGS) -o $(EXECUTABLE_SERVER) $(OBJECTS_SERVER)
 
 #termHandlerAsyncSafe
-termHandlerAsyncSafe : termHandlerAsyncSafe.o configure_syslog.o
-	cc $(CC_FLAGS) -o ./bin/termHandlerAsyncSafe.bin termHandlerAsyncSafe.o configure_syslog.o
+$(EXECUTABLE_TERMHANDLER) : termHandlerAsyncSafe.o configure_syslog.o
+	cc $(CC_FLAGS) -o $(EXECUTABLE_TERMHANDLER) termHandlerAsyncSafe.o configure_syslog.o
 
 termHandlerAsyncSafe.o : basics.h configure_syslog.o configure_syslog.h
 # Implicit rules, daemonCreation.c is missing
