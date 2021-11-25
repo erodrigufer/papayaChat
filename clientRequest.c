@@ -1,6 +1,6 @@
 #include <syslog.h>		/* server runs as daemon, pipe errors messages to syslog */
-/* TODO: check if daemon posts still with the configuration of 
-concurrent_server.c, or if I have to add the configure_syslog.h functions */
+/* daemon posts still with the configuration of concurrent_server.c, 
+configure_syslog.h functions are unnecessary */
 #include "clientRequest.h"
 #include "basics.h"
 #include "file_locking.h"
@@ -39,11 +39,17 @@ introMessage(int client_fd)
 good coding practices, function is static, because it should only
 be available in this local script */
 void
-handleRequest(int client_fd)
+handleRequest(int client_fd, int chatlog_fd)
 {
     char buf[BUF_SIZE];
     ssize_t numRead;
-   
+
+	/* send intro message to client */
+	introMessage(client_fd);
+ 
+	/* if the client closes its connection, the previous read() syscall will get an
+	EOF, and it will return 0, in that case, the while-loop ends, and there is no 
+	syslog error appended to the log, since read() did not return an error */  
 	while ((numRead = read(client_fd, buf, BUF_SIZE)) > 0) {
         if (write(client_fd, buf, numRead) != numRead) {
             syslog(LOG_ERR, "write() failed: %s", strerror(errno));
@@ -58,8 +64,5 @@ handleRequest(int client_fd)
         _exit(EXIT_FAILURE);
     }
 
-	/* if the client closes its connection, the previous read() syscall will get an
-	EOF, and it will return 0, in that case, the while-loop ends, and there is no 
-	syslog error appended to the log, since read() did not return an error */
 }
 
