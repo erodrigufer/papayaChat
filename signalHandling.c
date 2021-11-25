@@ -39,7 +39,6 @@ killChildProcesses(void)
 
 }
 
-
 void
 configureSignalDisposition(void)
 {
