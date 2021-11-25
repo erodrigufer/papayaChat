@@ -13,14 +13,17 @@ CHAT_LOG_PATH
 #ifndef CONFIG_H /* add header guard */
 #define CONFIG_H
 
-#define PATHNAME_TERM_ASYNC_SAFE "./termHandlerAsyncSafe.bin" 
 /* pathname of program to handle sigterm handler in async-safe way, 
 execve to this program from inside signal handler 
 [used in concurrent_server.c] */
+#define PATHNAME_TERM_ASYNC_SAFE "./termHandlerAsyncSafe.bin" 
 
-/* bytes transmission size, define in CONFIG.h
+/* bytes transmission size, defined in CONFIG.h
 to share the value between multiple files */
 #define BUF_SIZE 4096 
+
+/* [back-end] max number of clients in listening backlog queue */
+#define BACKLOG_QUEUE 10		
 
 /* if personalized specific user-defined config file
 exists include it */
