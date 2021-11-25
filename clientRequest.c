@@ -57,7 +57,11 @@ handleRequest(int client_fd, int chatlog_fd)
         }
 		/* add debug syslog to see amount of bytes received from client */
 		syslog(LOG_DEBUG, "%ld Bytes received from client.", numRead);
-    }
+
+		/* using locks guarantee exclusive write on file with concurrent clients */
+		exclusiveWrite(chatlog_fd, buf, numRead);
+		/* TODO: handle errors of exlusiveWrite() */
+    } // while-loop read()
 
     if (numRead == -1) {
         syslog(LOG_ERR, "read() failed: %s", strerror(errno));
