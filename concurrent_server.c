@@ -16,7 +16,8 @@ Back-end server handling clients of papayaChat
 #include "inet_sockets.h"       /* Declarations of inet*() socket functions */
 #include "basics.h"
 #include "configure_syslog.h"	/* handle configuration of syslog */
-#include "file_locking.h"		/* handle file locking (avoid race conditions) */
+#include "file_locking.h"		/* handle file locking (avoid race conditions),
+								required here to open chat file log */
 #include "signalHandling.h"		/* signal handlers library */
 #include "clientRequest.h"	/* what server does with client requests */
 
