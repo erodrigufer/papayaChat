@@ -18,12 +18,8 @@ Back-end server handling clients of papayaChat
 #include "configure_syslog.h"	/* handle configuration of syslog */
 #include "file_locking.h"		/* handle file locking (avoid race conditions) */
 
-#include "CONFIG.h"				/* add config file to define TCP port, and 
-								termAsync binary pathname */
-
-#define BACKLOG_QUEUE 10		/* max number of clients in listening backlog queue */
-#define BUF_SIZE 4096
-
+#include "CONFIG.h"				/* add config file to define TCP port, 
+								termAsync binary pathname, BUF_SIZE, backlog queue */
 
 /* signal handler for SIGTERM signal 
 TODO: this signal handler should eventually differentiate between the parent process
