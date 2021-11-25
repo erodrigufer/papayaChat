@@ -7,7 +7,7 @@ OBJECTS_FRONTEND = frontEnd.o error_handling.o inet_sockets.o signalHandling.o h
 EXECUTABLE_FRONTEND = ./bin/frontEnd.bin
 
 # Objects and executable for concurrent_server
-OBJECTS_SERVER = concurrent_server.o error_handling.o inet_sockets.o daemonCreation.o configure_syslog.o file_locking.o
+OBJECTS_SERVER = concurrent_server.o error_handling.o inet_sockets.o daemonCreation.o configure_syslog.o file_locking.o signalHandling.o
 EXECUTABLE_SERVER = ./bin/concurrent_server.bin
 
 EXECUTABLE_TERMHANDLER = ./bin/termHandlerAsyncSafe.bin
@@ -43,7 +43,7 @@ termHandlerAsyncSafe.o : basics.h configure_syslog.o configure_syslog.h
 # cc -c daemonCreation.c is also not required
 daemonCreation.o : basics.h daemonCreation.h
 
-concurrent_server.o : inet_sockets.o inet_sockets.h basics.h daemonCreation.o daemonCreation.h error_handling.o configure_syslog.o file_locking.o
+concurrent_server.o : inet_sockets.o inet_sockets.h basics.h daemonCreation.o daemonCreation.h error_handling.o configure_syslog.o file_locking.o signalHandling.o
 
 error_handling.o : error_handling.h basics.h error_names.c.inc
 
