@@ -14,7 +14,7 @@ void catchSIGCHLD(int sig);
 void killChildProcesses(void);
 
 /* configure the signal disposition to catch SIGCHLD signals */
-void configureSignalDisposition(void);
+int configureSignalDisposition(void);
 
 #endif
 
