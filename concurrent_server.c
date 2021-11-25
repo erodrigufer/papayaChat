@@ -22,6 +22,24 @@ Back-end server handling clients of papayaChat
 #include "CONFIG.h"				/* add config file to define TCP port, 
 								termAsync binary pathname, BUF_SIZE, backlog queue */
 
+/* signal handler for SIGTERM signal */
+static void 
+termHandler(int sig)
+{
+	/* the first argument is always per convention the filename being executed,
+	see execv(2), always finish the strings array with 'NULL' */
+	char *termargv[] = { PATHNAME_TERM_ASYNC_SAFE, NULL };
+	/* if execv fails, there is no way of safely knowing about the error, since syslog
+	is not an async-safe function that can be used inside a signal handler */
+	execv(PATHNAME_TERM_ASYNC_SAFE, termargv);
+
+	/* we should not get to this point, if it so happens, execv produced an error,
+	in that case exit with failure, _exit() is async-safe, exit(3) is not, since it
+	calls at_exit() */
+	_exit(EXIT_FAILURE);
+
+}
+
 /* configure SIGTERM signal handler, if sigaction() fails it returns -1 */
 static int
 configureTermHandler(void)
@@ -44,24 +62,6 @@ configureTermHandler(void)
 
 	return 0;	/* error handling outside the function
 				because a daemon can only log errors with syslog */ 
-}
-
-/* signal handler for SIGTERM signal */
-static void 
-termHandler(int sig)
-{
-	/* the first argument is always per convention the filename being executed,
-	see execv(2), always finish the strings array with 'NULL' */
-	char *termargv[] = { PATHNAME_TERM_ASYNC_SAFE, NULL };
-	/* if execv fails, there is no way of safely knowing about the error, since syslog
-	is not an async-safe function that can be used inside a signal handler */
-	execv(PATHNAME_TERM_ASYNC_SAFE, termargv);
-
-	/* we should not get to this point, if it so happens, execv produced an error,
-	in that case exit with failure, _exit() is async-safe, exit(3) is not, since it
-	calls at_exit() */
-	_exit(EXIT_FAILURE);
-
 }
 
 /* Handle a client request: copy socket input back to socket,
