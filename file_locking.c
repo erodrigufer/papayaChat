@@ -55,7 +55,7 @@ TODAY I LEARNED: size_t is for non-negative numbers, so the actual size
 of a file; ssize_t also supports negative numbers, for example in a call
 to read(2), since if the call fails it will return -1 */
 int
-exclusiveWrite(int file_fd, size_t sizeString)
+exclusiveWrite(int file_fd, char* string, size_t sizeString)
 {
 
 	/* place an exclusive lock, if the file has any other lock
@@ -67,14 +67,11 @@ exclusiveWrite(int file_fd, size_t sizeString)
 		return -1;
 		//errExit("flock failed @ exclusiveWrite()");
 
-
-    char buf[BUF_SIZE];
-
-	while ((numRead = read(client_fd, buf, BUF_SIZE)) > 0) 
-        if (write(client_fd, buf, sizeString) != sizeString) {
-            syslog(LOG_ERR, "write() failed: %s", strerror(errno));
-            _exit(EXIT_FAILURE);
-        }
+	if (write(file_fd, string, sizeString) != sizeString) {
+		//syslog(LOG_ERR, "write() failed: %s", strerror(errno));
+		//_exit(EXIT_FAILURE);
+		return -1;
+	}
 
 	return 0;
 
