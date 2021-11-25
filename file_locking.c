@@ -71,7 +71,11 @@ exclusiveWrite(int file_fd, char* string, size_t sizeString)
 		//syslog(LOG_ERR, "write() failed: %s", strerror(errno));
 		//_exit(EXIT_FAILURE);
 		return -1;
-	}
+	}// write()
+	
+	/* unlock file */
+	if(flock(file_fd,LOCK_UN)==-1)
+		return -1;
 
 	return 0;
 
