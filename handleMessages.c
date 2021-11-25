@@ -9,7 +9,6 @@
 void
 sendMessageToPipe(int pipe_fd, char *message)
 {
-	ssize_t bytesWritten;
 	/* Execute strlen outside of write(), since it demands run time resources
 	and it would be run twice inside write() call*/
 	size_t sizeOfMessage = strlen(message);
