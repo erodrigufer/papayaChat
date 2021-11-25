@@ -247,7 +247,8 @@ main(int argc, char *argv[])
 	int server_fd = establishConnection(HOST,SERVICE);
 
 	/* configure catching SIGCHLD of child processes */
-	configureSignalDisposition();
+	if(configureSignalDisposition()==-1)
+		errExit("sigaction failed, at configureSignalDisposition");
 
 	/* Create child processes which will handle the communication with the server
 	1. Child process will send messages to the server
