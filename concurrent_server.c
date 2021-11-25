@@ -99,8 +99,8 @@ main(int argc, char *argv[])
     }
 
 	/* open (or create) the central chat log file */
-	int chatLog_fd = openChatLogFile();
-	if(chatLog_fd == -1)
+	int chatlog_fd = openChatLogFile();
+	if(chatlog_fd == -1)
 		errExit("openChatLogFile()");
 
 	/* server listens on port 'SERVICE', with a certain BACKLOG_QUEUE, and does not want to 
@@ -142,7 +142,7 @@ main(int argc, char *argv[])
 			configure_syslog("papayaChat(child)");
             syslog(LOG_DEBUG, "Child process initialized (handling client connection)");
             close(listen_fd);           /* Unneeded copy of listening socket */
-            handleRequest(client_fd);	/* handleRequest() needs to have the client_fd as
+            handleRequest(client_fd, chatlog_fd);	/* handleRequest() needs to have the client_fd as
 										an input parameter, because it would otherwise not know
 										to which and from which file descriptor to perform
 										write and read calls */
