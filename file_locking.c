@@ -19,6 +19,8 @@ POSIX/fcntl file locking. */
 /* Required for flock(2) */
 #include <sys/file.h>
 
+#include "basics.h"
+
 /* CONFIG.h header file includes the path where the central chat log file
 will be stored; defined under CHAT_LOG_PATH as a string */
 #include "CONFIG.h"
@@ -48,9 +50,12 @@ openChatLogFile(void)
 }
 
 /* place an exclusive lock and write to the file 
-ssize_t size is the size of the string to write to the file */
+size_t sizeString is the size of the string to write to the file 
+TODAY I LEARNED: size_t is for non-negative numbers, so the actual size
+of a file; ssize_t also supports negative numbers, for example in a call
+to read(2), since if the call fails it will return -1 */
 int
-exclusiveWrite(int file_fd, ssize_t size)
+exclusiveWrite(int file_fd, size_t sizeString)
 {
 
 	/* place an exclusive lock, if the file has any other lock
@@ -62,16 +67,16 @@ exclusiveWrite(int file_fd, ssize_t size)
 		return -1;
 		//errExit("flock failed @ exclusiveWrite()");
 
-	  /* 
+
     char buf[BUF_SIZE];
 
-	while ((numRead = read(client_fd, buf, BUF_SIZE)) > 0) {
-        if (write(client_fd, buf, numRead) != numRead) {
+	while ((numRead = read(client_fd, buf, BUF_SIZE)) > 0) 
+        if (write(client_fd, buf, sizeString) != sizeString) {
             syslog(LOG_ERR, "write() failed: %s", strerror(errno));
             _exit(EXIT_FAILURE);
         }
 
-*/
+	return 0;
 
 }
 
