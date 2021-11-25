@@ -22,9 +22,31 @@ Back-end server handling clients of papayaChat
 #include "CONFIG.h"				/* add config file to define TCP port, 
 								termAsync binary pathname, BUF_SIZE, backlog queue */
 
-/* signal handler for SIGTERM signal 
-TODO: this signal handler should eventually differentiate between the parent process
-exiting and its children */
+/* configure SIGTERM signal handler, if sigaction() fails it returns -1 */
+static int
+configureTermHandler(void)
+{
+	struct sigaction sa_sigterm;			/* struc is necessary to define signals mask
+											to be blocked during signal handler, needed 
+											for syscall sigaction*/
+	
+	/* during the SIGTERM handler all other signals are blocked, since the 
+	process should terminate immediately */
+	sigfillset(&sa_sigterm.sa_mask);
+
+	/* termHandler is the function handler for a SIGTERM signal */
+    sa_sigterm.sa_handler = termHandler;
+	
+	/* the new disposition for SIGTERM signal is termHandler(), the old
+	signal disposition is not stored anywhere (NULL) */
+    if (sigaction(SIGTERM, &sa_sigterm, NULL) == -1) 
+		return -1;	/* sigaction() failed */
+
+	return 0;	/* error handling outside the function
+				because a daemon can only log errors with syslog */ 
+}
+
+/* signal handler for SIGTERM signal */
 static void 
 termHandler(int sig)
 {
@@ -95,13 +117,8 @@ The code is hosted at: www.github.com/erodrigufer/papayaChat\n\
 int
 main(int argc, char *argv[])
 {
-	/* TODO: block all signal handling before the daemon is created */
     int listen_fd, client_fd;               /* server listening socket and client socket */
-	struct sigaction sa_sigterm;			/* struc is necessary to define signals mask
-											to be blocked during signal handler, needed 
-											for syscall sigaction*/
-
-
+	
 	/* server should run as a daemon, 
 	DAEMON_FLAH_NO_CHDIR -> daemon should initially stay in the same 
 	working directory to have access to other executables required */
@@ -114,13 +131,7 @@ main(int argc, char *argv[])
 	error messages to a log */
 	configure_syslog("papayaChat(parent)");
 
-	/* during the SIGTERM handler all other signals are blocked, since the 
-	process should terminate immediately */
-	sigfillset(&sa_sigterm.sa_mask);
-
-	/* termHandler is the function handler for a SIGTERM signal */
-    sa_sigterm.sa_handler = termHandler;
-
+	/* configure signal handling for SIGCHLD */
 	if(configureSignalDisposition()==-1){
 		/* the server runs as a daemon, so no errors can be output to stderr, since
 		there is no controlling terminal. All errors are going to be logged into the 
@@ -129,12 +140,8 @@ main(int argc, char *argv[])
         exit(EXIT_FAILURE);
 	}
 
-	/* the new disposition for SIGTERM signal is the termHandler function, the old
-	signal disposition is not stored anywhere (NULL) */
-    if (sigaction(SIGTERM, &sa_sigterm, NULL) == -1) {
-		/* the server runs as a daemon, so no errors can be output to stderr, since
-		there is no controlling terminal. All errors are going to be logged into the 
-		syslog using the syslog API */
+	/* configure signal handling for SIGTERM */
+    if (configureTermHandler() == -1) {
         syslog(LOG_ERR, "Error: sigaction(SIGTERM): %s", strerror(errno));
         exit(EXIT_FAILURE);
     }
@@ -170,7 +177,8 @@ main(int argc, char *argv[])
         /* Multi-process server back-end architecture:
 		Handle each client request in a new child process */
         switch (fork()) {
-		/* an error occured with fork() syscall, no children were created, this error is still handled by the parent process */
+		/* an error occured with fork() syscall, no children were created, this error is still handled 
+		by the parent process */
         case -1:
             syslog(LOG_ERR, "Error fork() call. Can't create child (%s)", strerror(errno));
             close(client_fd);         /* Give up on this client */
