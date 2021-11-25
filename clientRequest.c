@@ -1,4 +1,6 @@
 #include "clientRequest.h"
+#include "basics.h"
+#include "CONFIG.h"	/* declaration of BUF_SIZE */
 
 /* Handle a client request: copy socket input back to socket,
 good coding practices, function is static, because it should only
@@ -27,21 +29,21 @@ The code is hosted at: www.github.com/erodrigufer/papayaChat\n\
 	/* the write() call should write exactly greetingSize bytes, otherwise
 	it has failed */
 	if(write(client_fd,greetingMessage,greetingSize)!=greetingSize){
-		syslog(LOG_ERR, "write() failed: %s", strerror(errno));
+		//syslog(LOG_ERR, "write() failed: %s", strerror(errno));
 		_exit(EXIT_FAILURE);
 	}
     
 	while ((numRead = read(client_fd, buf, BUF_SIZE)) > 0) {
         if (write(client_fd, buf, numRead) != numRead) {
-            syslog(LOG_ERR, "write() failed: %s", strerror(errno));
+            //syslog(LOG_ERR, "write() failed: %s", strerror(errno));
             _exit(EXIT_FAILURE);
         }
 		/* add debug syslog to see amount of bytes received from client */
-		syslog(LOG_DEBUG, "%ld Bytes received from client.", numRead);
+		//syslog(LOG_DEBUG, "%ld Bytes received from client.", numRead);
     }
 
     if (numRead == -1) {
-        syslog(LOG_ERR, "Error from read(): %s", strerror(errno));
+        //syslog(LOG_ERR, "Error from read(): %s", strerror(errno));
         _exit(EXIT_FAILURE);
     }
 
