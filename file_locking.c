@@ -59,6 +59,32 @@ openChatLogFile(void)
 
 }
 
-/* place  */
+/* place an exclusive lock and write to the file 
+ssize_t size is the size of the string to write to the file */
+int
+exclusiveWrite(int file_fd, ssize_t size)
+{
+
+	/* place an exclusive lock, if the file has any other lock
+	(either exclusive or shared lock) then this call is going to block
+	only when all other locks are liberated, this call will go through
+	and we can be sure that this process is the only one writing to the file
+	and no other file is reading at the same time (shared lock) */	
+	if(flock(file_fd,LOCK_EX)==-1)
+		return -1;
+		//errExit("flock failed @ exclusiveWrite()");
+
+	  /* 
+    char buf[BUF_SIZE];
+
+	while ((numRead = read(client_fd, buf, BUF_SIZE)) > 0) {
+        if (write(client_fd, buf, numRead) != numRead) {
+            syslog(LOG_ERR, "write() failed: %s", strerror(errno));
+            _exit(EXIT_FAILURE);
+        }
+
+*/
+
+}
 
 /* Eduardo Rodriguez 2021 (c) (@erodrigufer). Licensed under GNU AGPLv3 */
