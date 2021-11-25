@@ -1,5 +1,6 @@
 #include "clientRequest.h"
 #include "basics.h"
+#include "file_locking.h"
 #include "CONFIG.h"	/* declaration of BUF_SIZE */
 
 /* Handle a client request: copy socket input back to socket,
