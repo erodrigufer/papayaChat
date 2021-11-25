@@ -17,6 +17,7 @@ Back-end server handling clients of papayaChat
 #include "basics.h"
 #include "configure_syslog.h"	/* handle configuration of syslog */
 #include "file_locking.h"		/* handle file locking (avoid race conditions) */
+#include "signalHandling.h"		/* signal handlers library */
 
 #include "CONFIG.h"				/* add config file to define TCP port, 
 								termAsync binary pathname, BUF_SIZE, backlog queue */
