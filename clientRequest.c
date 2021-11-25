@@ -16,14 +16,10 @@ The code is hosted at: www.github.com/erodrigufer/papayaChat\n\
 \n\
 ";
 
-/* Handle a client request: copy socket input back to socket,
-good coding practices, function is static, because it should only
-be available in this local script */
+/* send greetings to client when initializing information exchange */
 void
-handleRequest(int client_fd)
+introMessage(int client_fd)
 {
-    char buf[BUF_SIZE];
-    ssize_t numRead;
 
 	/* the size of the string is calculated statically at compile time,
 	check 'Effective C' page 133 */
@@ -35,7 +31,19 @@ handleRequest(int client_fd)
 		syslog(LOG_ERR, "write() failed: %s", strerror(errno));
 		_exit(EXIT_FAILURE);
 	}
-    
+ 
+}
+
+
+/* Handle a client request: copy socket input back to socket,
+good coding practices, function is static, because it should only
+be available in this local script */
+void
+handleRequest(int client_fd)
+{
+    char buf[BUF_SIZE];
+    ssize_t numRead;
+   
 	while ((numRead = read(client_fd, buf, BUF_SIZE)) > 0) {
         if (write(client_fd, buf, numRead) != numRead) {
             syslog(LOG_ERR, "write() failed: %s", strerror(errno));
@@ -46,7 +54,7 @@ handleRequest(int client_fd)
     }
 
     if (numRead == -1) {
-        syslog(LOG_ERR, "Error from read(): %s", strerror(errno));
+        syslog(LOG_ERR, "read() failed: %s", strerror(errno));
         _exit(EXIT_FAILURE);
     }
 

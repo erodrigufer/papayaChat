@@ -7,4 +7,6 @@
 
 void handleRequest(int);
 
+void introMessage(int);
+
 #endif
