@@ -39,7 +39,7 @@ killChildProcesses(void)
 
 }
 
-void
+int
 configureSignalDisposition(void)
 {
 
@@ -72,7 +72,9 @@ configureSignalDisposition(void)
 	/* the new disposition for SIGCHLD signal is the grimReaper function, the old
 	signal disposition is not stored anywhere (NULL) */
     if (sigaction(SIGCHLD, &sa_sigchild, NULL) == -1)
-		errExit("sigaction for SIGCHLD");
+		return -1;	/* sigaction failed */
+	
+	return 0; /* exit successful */
 
 }
 
