@@ -14,6 +14,22 @@ imperative to avoid race conditions when handling that chat log file.
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
+/* In some UNIX implementations (those based on BSD) flock is done through
+POSIX/fcntl file locking. */
+/* Required for flock(2) */
+#include <sys/file.h>
+
+/* see man flock(2) on Mac OS X
+these definitions are required there,
+the other plattforms do not require this */
+#ifdef __APPLE__
+
+#define   LOCK_SH   1    /* shared lock */
+#define   LOCK_EX   2    /* exclusive lock */
+#define   LOCK_NB   4    /* don't block when locking */
+#define   LOCK_UN   8    /* unlock */
+
+#endif
 
 /* CONFIG.h header file includes the path where the central chat log file
 will be stored; defined under CHAT_LOG_PATH as a string */
@@ -43,5 +59,6 @@ openChatLogFile(void)
 
 }
 
+/* place  */
 
 /* Eduardo Rodriguez 2021 (c) (@erodrigufer). Licensed under GNU AGPLv3 */
