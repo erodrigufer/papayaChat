@@ -5,6 +5,6 @@
 
 /* open (or if non-existent, create) central chat log file */
 int openChatLogFile(void);
-int exclusiveWrite(int,size_t);
+int exclusiveWrite(int, char *, size_t);
 #endif
 /* Eduardo Rodriguez 2021 (c) (@erodrigufer). Licensed under GNU AGPLv3 */
