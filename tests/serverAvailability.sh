@@ -3,7 +3,7 @@
 # Install dependencies
 # ss (instead of netstat)
 echo "Check dependencies..."
-which ss || { echo "ss is missing"; sudo apt-get install ss; }
+which -s ss || { echo "ss is missing"; sudo apt-get install ss; }
 
 PORT=51000
 # sleep after starting daemon, because daemon needs some time to be up and running
