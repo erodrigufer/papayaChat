@@ -17,7 +17,14 @@
 
 #define MAX_MESSAGE_SENT COLS/2 /* max message size of message to be sent */
 
-
+/* handle backspace portably, Mac OS presents some problems with recognizing
+BACKSPACE
+And in other Unix systems, only use KEY_BACKSPACE */
+#ifdef __APPLE__
+#define PORTABLE_BACKSPACE 127 // recognized as BACKSPACE on Mac OS
+#else
+#define PORTABLE_BACKSPACE KEY_BACKSPACE
+#endif
 
 /* function to configure and initialize the ncurses environment */
 static void 
@@ -403,7 +410,7 @@ main(int argc, char *argv[])
 			} // if-statement \n (newline)
 
 			/* BACKSPACE was pressed, delete last character */
-			if(a == KEY_BACKSPACE || a == KEY_LEFT){
+			if(a == PORTABLE_BACKSPACE){
 				handleBackspace(chatWindow);
 				/* backspace was handled, continue trying to read input from keyboard */
 				continue;

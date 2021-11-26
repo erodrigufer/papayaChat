@@ -59,8 +59,10 @@ handleRequest(int client_fd, int chatlog_fd)
 		syslog(LOG_DEBUG, "%ld Bytes received from client.", numRead);
 
 		/* using locks guarantee exclusive write on file with concurrent clients */
-		exclusiveWrite(chatlog_fd, buf, numRead);
-		/* TODO: handle errors of exlusiveWrite() */
+		if(exclusiveWrite(chatlog_fd, buf, numRead)==-1){
+			syslog(LOG_ERR, "exclusiveWrite() failed: %s", strerror(errno));
+			_exit(EXIT_FAILURE);
+		}
     } // while-loop read()
 
     if (numRead == -1) {
