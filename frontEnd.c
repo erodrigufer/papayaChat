@@ -18,10 +18,10 @@
 #define MAX_MESSAGE_SENT COLS/2 /* max message size of message to be sent */
 
 /* handle backspace portably, Mac OS presents some problems with recognizing
-BACKSPACE, so use KEY_LEFT in Mac OS
+BACKSPACE
 And in other Unix systems, only use KEY_BACKSPACE */
 #ifdef __APPLE__
-#define PORTABLE_BACKSPACE KEY_LEFT
+#define PORTABLE_BACKSPACE 127 // recognized as BACKSPACE on Mac OS
 #else
 #define PORTABLE_BACKSPACE KEY_BACKSPACE
 #endif
