@@ -23,3 +23,5 @@ ss -at | grep ${PORT}
 printf "[${COLOR_GREEN}SUCCESS${NO_COLOR}] Server availability test passed!\n"
 exit 0
 
+
+# Eduardo Rodriguez 2021 (c) (@erodrigufer). Licensed under GNU AGPLv3
