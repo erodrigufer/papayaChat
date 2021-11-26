@@ -8,7 +8,7 @@ echo "[test] Test server availability..."
 # Install dependencies
 # ss (instead of netstat)
 echo "Check dependencies..."
-which ss || echo "ss is missing"
+which ss || { echo "ss is missing"; printf "[${COLOR_RED}MISSING DEPENDENCY${NO_COLOR}] Server availability test failed!\n"; exit -1; }
 
 PORT=51000
 # sleep after starting daemon, because daemon needs some time to be up and running
