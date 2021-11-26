@@ -113,51 +113,50 @@ main(int argc, char *argv[])
 		the program is not run with sudo rights */
         exit(EXIT_FAILURE);
     }
-	exit(0);
 
-//	/* send message to syslog, server is listening */
-//	syslog(LOG_DEBUG, "Server is listening on incomming connections.");
-//    for (;;) {
-//        client_fd = accept(listen_fd, NULL, NULL);  /* Wait for connection from client */
-//        if (client_fd == -1) {
-//            syslog(LOG_ERR, "Failure in accept(): %s", strerror(errno));
-//            exit(EXIT_FAILURE);				/* TODO: if accept() fails, should it try again?
-//											and not exit inmediately ?? Check man page of accept()
-//											for all possible errors, one error is probably if the
-//											internet is down! */
-//        }
-//
-//        /* Multi-process server back-end architecture:
-//		Handle each client request in a new child process */
-//        switch (fork()) {
-//		/* an error occured with fork() syscall, no children were created, this error is still handled 
-//		by the parent process */
-//        case -1:
-//            syslog(LOG_ERR, "Error fork() call. Can't create child (%s)", strerror(errno));
-//            close(client_fd);         	/* Give up on this client */
-//            break;                      /* May be temporary; try next client */
-//
-//		/* Child process (returns 0) */
-//        case 0:                       			
-//		/* write debug to syslog with child's PID, new configuration of syslog */
-//			configure_syslog("papayaChat(child)");
-//            syslog(LOG_DEBUG, "Child process initialized (handling client connection)");
-//            close(listen_fd);           /* Unneeded copy of listening socket */
-//            handleRequest(client_fd, chatlog_fd);	/* handleRequest() needs to have the client_fd as
-//										an input parameter, because it would otherwise not know
-//										to which and from which file descriptor to perform
-//										write and read calls */
-//			syslog(LOG_INFO, "Child process terminated.");
-//            _exit(EXIT_SUCCESS);		/* child processes should generally only call _exit();
-//										for a more general discussion about the topic check
-//										25.4 'The Linux Programming Interface' */
-//
-//	 	/* Parent: fork() actually returns the PID of the newly created child process */
-//        default:                       
-//            close(client_fd);           /* Unneeded copy of connected socket */
-//            break;                      /* Loop to accept next connection */
-//        } // end switch-case after fork()
-//    } // end for-loop accept() clients
+	/* send message to syslog, server is listening */
+	syslog(LOG_DEBUG, "Server is listening on incomming connections.");
+    for (;;) {
+        client_fd = accept(listen_fd, NULL, NULL);  /* Wait for connection from client */
+        if (client_fd == -1) {
+            syslog(LOG_ERR, "Failure in accept(): %s", strerror(errno));
+            exit(EXIT_FAILURE);				/* TODO: if accept() fails, should it try again?
+											and not exit inmediately ?? Check man page of accept()
+											for all possible errors, one error is probably if the
+											internet is down! */
+        }
+
+        /* Multi-process server back-end architecture:
+		Handle each client request in a new child process */
+        switch (fork()) {
+		/* an error occured with fork() syscall, no children were created, this error is still handled 
+		by the parent process */
+        case -1:
+            syslog(LOG_ERR, "Error fork() call. Can't create child (%s)", strerror(errno));
+            close(client_fd);         	/* Give up on this client */
+            break;                      /* May be temporary; try next client */
+
+		/* Child process (returns 0) */
+        case 0:                       			
+		/* write debug to syslog with child's PID, new configuration of syslog */
+			configure_syslog("papayaChat(child)");
+            syslog(LOG_DEBUG, "Child process initialized (handling client connection)");
+            close(listen_fd);           /* Unneeded copy of listening socket */
+            handleRequest(client_fd, chatlog_fd);	/* handleRequest() needs to have the client_fd as
+										an input parameter, because it would otherwise not know
+										to which and from which file descriptor to perform
+										write and read calls */
+			syslog(LOG_INFO, "Child process terminated.");
+            _exit(EXIT_SUCCESS);		/* child processes should generally only call _exit();
+										for a more general discussion about the topic check
+										25.4 'The Linux Programming Interface' */
+
+	 	/* Parent: fork() actually returns the PID of the newly created child process */
+        default:                       
+            close(client_fd);           /* Unneeded copy of connected socket */
+            break;                      /* Loop to accept next connection */
+        } // end switch-case after fork()
+    } // end for-loop accept() clients
 }
 
 /* Eduardo Rodriguez 2021 (c) (@erodrigufer) with some code taken and modified from Michael Kerrisk. Licensed under GNU AGPLv3 */
