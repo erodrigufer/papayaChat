@@ -19,5 +19,5 @@ jobs:
     - name: make server
       run: make server
     - name: test server availability
-      run: ./serverAvailability
+      run: ./serverAvailability.sh
       working-directory: ./tests
