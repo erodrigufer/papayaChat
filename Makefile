@@ -86,13 +86,13 @@ $(EXECUTABLE_FRONTEND) : $(OBJECTS_FRONTEND)
 	$(CC) $(CC_FLAGS) -o $(EXECUTABLE_FRONTEND) $(OBJECTS_FRONTEND) -lncurses
 
 .PHONY : test
-test:
+test: server
 	@for file in $(shell ls ${TEST_DIR}); do echo $${file}: ; sh ${TEST_DIR}/$${file}; done
 # @ at the beginning supresses output
 
 # Remove object files, executables and error names file (system dependant)
 .PHONY : clean
 clean :
-	rm $(EXECUTABLES) *.o error_names.c.inc 
+	@rm -f $(EXECUTABLES) *.o error_names.c.inc 
 
 # Eduardo Rodriguez 2021 (c) @erodrigufer. Licensed under GNU AGPLv3
