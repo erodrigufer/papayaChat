@@ -1,5 +1,11 @@
 # Makefile 
 
+# Directory to find test scripts
+TEST_DIR = ./tests
+
+# Define compiler
+CC = gcc
+
 # Enable most warnings, and make warnings behave as errors
 CC_FLAGS = -Wall -Werror
 
@@ -32,15 +38,15 @@ server : $(EXECUTABLE_SERVER)
 
 # concurrent_server
 $(EXECUTABLE_SERVER) : $(OBJECTS_SERVER) $(EXECUTABLE_TERMHANDLER)
-	cc $(CC_FLAGS) -o $(EXECUTABLE_SERVER) $(OBJECTS_SERVER)
+	$(CC) $(CC_FLAGS) -o $(EXECUTABLE_SERVER) $(OBJECTS_SERVER)
 
 #termHandlerAsyncSafe
 $(EXECUTABLE_TERMHANDLER) : termHandlerAsyncSafe.o configure_syslog.o
-	cc $(CC_FLAGS) -o $(EXECUTABLE_TERMHANDLER) termHandlerAsyncSafe.o configure_syslog.o
+	$(CC) $(CC_FLAGS) -o $(EXECUTABLE_TERMHANDLER) termHandlerAsyncSafe.o configure_syslog.o
 
 termHandlerAsyncSafe.o : basics.h configure_syslog.o configure_syslog.h
 # Implicit rules, daemonCreation.c is missing
-# cc -c daemonCreation.c is also not required
+# $(CC) -c daemonCreation.c is also not required
 daemonCreation.o : basics.h daemonCreation.h
 
 concurrent_server.o : inet_sockets.o inet_sockets.h basics.h daemonCreation.o daemonCreation.h error_handling.o configure_syslog.o file_locking.o signalHandling.o clientRequest.o
@@ -77,7 +83,12 @@ frontEnd.o : basics.h error_handling.o inet_sockets.o signalHandling.o handleMes
 # frontEnd with ncurses
 # link to ncurses library with '-lncurses'
 $(EXECUTABLE_FRONTEND) : $(OBJECTS_FRONTEND)
-	cc $(CC_FLAGS) -o $(EXECUTABLE_FRONTEND) $(OBJECTS_FRONTEND) -lncurses
+	$(CC) $(CC_FLAGS) -o $(EXECUTABLE_FRONTEND) $(OBJECTS_FRONTEND) -lncurses
+
+.PHONY : test
+test:
+	@for file in $(shell ls ${TEST_DIR}); do echo $${file}: ; sh ${TEST_DIR}/$${file}; done
+# @ at the beginning supresses output
 
 # Remove object files, executables and error names file (system dependant)
 .PHONY : clean
