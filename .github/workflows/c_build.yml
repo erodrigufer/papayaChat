@@ -18,8 +18,9 @@ jobs:
     #  run: ./configure
     - name: make server
       run: make server
-    #- name: make check
-    #  run: make check
+    - name: test server availability
+      run: ./serverAvailability
+      working-directory: ./tests
     #- name: make distcheck
     #  run: make distcheck
 
