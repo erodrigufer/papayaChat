@@ -26,7 +26,6 @@ And in other Unix systems, only use KEY_BACKSPACE */
 #define PORTABLE_BACKSPACE KEY_BACKSPACE
 #endif
 
-
 /* function to configure and initialize the ncurses environment */
 static void 
 configureNcurses(void)
