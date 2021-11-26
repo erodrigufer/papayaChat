@@ -1,0 +1,23 @@
+name: Networking (CI)
+
+on:
+  push:
+    branches: [ '**' ]
+  pull_request:
+    branches: [ '**' ]
+    # '**' stands for all possible characters, check
+    # wildcards and patterns cheat sheet:
+    # https://docs.github.com/en/actions/learn-github-actions/workflow-syntax-for-github-actions#filter-pattern-cheat-sheet
+
+jobs:
+  Networking:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    #- name: configure
+    #  run: ./configure
+    - name: make server
+      run: make server
+    - name: test server availability
+      run: ./serverAvailability
+      working-directory: ./tests
