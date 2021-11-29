@@ -16,7 +16,8 @@ imperative to avoid race conditions when handling that chat log file.
 #include <fcntl.h>
 /* In some UNIX implementations (those based on BSD) flock is done through
 POSIX/fcntl file locking. */
-/* Required for flock(2) */
+
+/* Required for flock(2) (not BSD Linux distros) */
 #include <sys/file.h>
 
 #include "basics.h"
