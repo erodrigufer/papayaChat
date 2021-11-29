@@ -190,7 +190,7 @@ handleNewline(WINDOW * chatWindow, int pipe_fd)
 		endwin();
 		errExit("mvwinnstr [chatWindow]");
 	}
-	message[x_cursor+1]='\n'
+	message[x_cursor+1]='\n';
 	/* send message just written to pipe, to child process which
 	sending message to server */
 	sendMessageToPipe(pipe_fd, message);
