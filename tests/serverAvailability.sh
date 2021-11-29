@@ -15,7 +15,7 @@ echo "Check dependencies..."
 # ss (instead of netstat)
 which ss || { echo "ss is missing"; printf "[${COLOR_RED}MISSING DEPENDENCY${NO_COLOR}] Server availability test failed!\n"; exit -1; }
 # Check if PORT is already in use
-ss -at | grep ${PORT} && { printf "[${COLOR_RED}FAILED${NO_COLOR}] Port ${PORT} already in use. A server instance is probably already running. Exit test!"; exit -1; }
+ss -at | grep ${PORT} && { printf "[${COLOR_RED}FAILED${NO_COLOR}] Port ${PORT} already in use. A server instance is probably already running. Exit test!\n"; exit -1; }
 
 cd ../bin
 # netcat -zv Verbose output -z check for connection
