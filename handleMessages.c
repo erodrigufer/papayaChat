@@ -12,7 +12,8 @@ sendMessageToPipe(int pipe_fd, char *message)
 	/* Execute strlen outside of write(), since it demands run time resources
 	and it would be run twice inside write() call*/
 	size_t sizeOfMessage = strlen(message);
-	if(write(pipe_fd,message,sizeOfMessage)!=sizeOfMessage)
+	/* it writes sizeOfMessage + 1, in order to also send a '0' after the message */
+	if(write(pipe_fd,message,sizeOfMessage+1)!=sizeOfMessage+1)
 		errExit("write sendMessageToPipe()");
 
 }
