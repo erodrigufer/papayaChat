@@ -172,6 +172,7 @@ handleNewline(WINDOW * chatWindow, int pipe_fd)
 	if(message == NULL)
 		errExit("malloc failed. handleNewline()");
 
+	/* newline to append to message */
 	char * nl = "\n";
 
 	/* get current x-cursor position, to get number of characters to be
@@ -192,10 +193,12 @@ handleNewline(WINDOW * chatWindow, int pipe_fd)
 		endwin();
 		errExit("mvwinnstr [chatWindow]");
 	}
-	strcat(message, nl);
-	//message[x_cursor+1]='\n';
+	/* append newline to message, before sending the message to the server */
+	if(strcat(message, nl)!=message)
+		errExit("strcat");
+	
 	/* send message just written to pipe, to child process which
-	sending message to server */
+	sends message to server */
 	sendMessageToPipe(pipe_fd, message);
 	free(message);
 	/* delete line which was just sent */
