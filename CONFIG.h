@@ -25,9 +25,11 @@ to share the value between multiple files */
 /* [back-end] max number of clients in listening backlog queue */
 #define BACKLOG_QUEUE 10		
 
-/* if personalized specific user-defined config file
-exists include it */
-//#include "userConfig.h"
+/* if compiled with gcc _D NON_DEFAULT_CONFIG option, then only userConfig.h
+will be used */
+#ifdef NON_DEFAULT_CONFIG
+#include "userConfig.h"
+#endif
 
 /* if userConfig.h exists, then USERCONFIG_H will be
 defined, and the user-defined macros will be used, not the default

@@ -6,11 +6,18 @@ TEST_DIR = ./tests
 # Define compiler
 CC = gcc
 
+# Macro definition for non-default user configuration
+USER_CONFIGURATION = NON_DEFAULT_CONFIG
+
 # Enable most warnings, and make warnings behave as errors
 CC_FLAGS = -Wall -Werror
 
+# ------------------------------------------------------------------------------------------------
+
 OBJECTS_FRONTEND = frontEnd.o error_handling.o inet_sockets.o signalHandling.o handleMessages.o
 EXECUTABLE_FRONTEND = ./bin/frontEnd.bin
+
+EXECUTABLE_FRONTEND_NON_DEFAULT = ./bin/frontEnd_non_default.bin
 
 # Objects and executable for concurrent_server
 OBJECTS_SERVER = concurrent_server.o error_handling.o inet_sockets.o daemonCreation.o configure_syslog.o file_locking.o signalHandling.o clientRequest.o
@@ -19,7 +26,7 @@ EXECUTABLE_SERVER = ./bin/concurrent_server.bin
 EXECUTABLE_TERMHANDLER = ./bin/termHandlerAsyncSafe.bin
 
 OBJECTS = $(OBJECTS_SERVER) termHandlerAsyncSafe.o $(OBJECTS_FRONTEND)
-EXECUTABLES = $(EXECUTABLE_SERVER) $(EXECUTABLE_TERMHANDLER) $(EXECUTABLE_FRONTEND)
+EXECUTABLES = $(EXECUTABLE_SERVER) $(EXECUTABLE_TERMHANDLER) $(EXECUTABLE_FRONTEND) $(EXECUTABLE_FRONTEND_NON_DEFAULT)
 
 .PHONY : all
 
@@ -78,12 +85,20 @@ run : $(EXECUTABLE_FRONTEND)
 .PHONY : client
 client: $(EXECUTABLE_FRONTEND)
 
-frontEnd.o : basics.h error_handling.o inet_sockets.o signalHandling.o handleMessages.o CONFIG.h 
+frontEnd.o : basics.h error_handling.o inet_sockets.o signalHandling.o handleMessages.o CONFIG.h
 
 # frontEnd with ncurses
 # link to ncurses library with '-lncurses'
 $(EXECUTABLE_FRONTEND) : $(OBJECTS_FRONTEND)
-	$(CC) $(CC_FLAGS) -o $(EXECUTABLE_FRONTEND) $(OBJECTS_FRONTEND) -lncurses
+	$(CC) $(CC_FLAGS) -lncurses -o $(EXECUTABLE_FRONTEND) $(OBJECTS_FRONTEND) 
+
+
+# compile client with non-default config file
+.PHONY : non-default
+non-default: $(EXECUTABLE_FRONTEND_NON_DEFAULT) userConfig.h
+
+$(EXECUTABLE_FRONTEND_NON_DEFAULT) : $(OBJECTS_FRONTEND)
+	$(CC) $(CC-FLAGS) -lncurses -D $(USER_CONFIGURATION) -o $(EXECUTABLE_FRONTEND_NON_DEFAULT) $(OBJECTS_FRONTEND) 
 
 .PHONY : test
 test: server
@@ -93,6 +108,6 @@ test: server
 # Remove object files, executables and error names file (system dependant)
 .PHONY : clean
 clean :
-	@rm -f $(EXECUTABLES) *.o error_names.c.inc 
+	@rm -f ./bin/*.bin *.o error_names.c.inc 
 
 # Eduardo Rodriguez 2021 (c) @erodrigufer. Licensed under GNU AGPLv3
