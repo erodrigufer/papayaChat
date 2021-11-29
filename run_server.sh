@@ -1,11 +1,22 @@
 #!/bin/sh
 # Reference:
-# The filesystem:
+# 1) The filesystem:
 # https://www.pathname.com/fhs/pub/fhs-2.3.html
+# 2) /bin, /sbin, /usr/bin, /usr/local/bin, ...
+# https://askubuntu.com/questions/308045/differences-between-bin-sbin-usr-bin-usr-sbin-usr-local-bin-usr-local
 
 SYSTEM_USER=papayachat
 
-SERVER_BIN=concurrent_server.bin
+SERVER_BIN_PATH=./bin/concurrent_server.bin
+
+DAEMON_EXECUTABLE_NAME=papayachatd
+
+# Check:
+# https://askubuntu.com/questions/308045/differences-between-bin-sbin-usr-bin-usr-sbin-usr-local-bin-usr-local
+# Path to copy executable (binary) of daemon
+INSTALLATION_PATH=/usr/local/bin/
+
+CHATLOG_PATH=/var/local
 
 # Some commands are debian-based (even probably BSD compliant)
 # so if the distro is not debian-based exit
@@ -22,8 +33,13 @@ check_distribution(){
 }
 
 create_system_user(){
+	 
+	#TODO: redirect output of id to make it silent later
+	
+	# if the system_user does not exist, it is created
+	id ${SYSTEM_USER} && return 0
 
-	echo "Creating system user..."
+	echo "Creating system user (UID=papayachat) ..."
 	# add a new system user, without login, without a home directory
 	# and with its own group
 	sudo adduser --system --no-create-home --group ${SYSTEM_USER} || exit -1
@@ -36,23 +52,41 @@ create_system_user(){
 
 }
 
-main(){
+# check if daemon is already installed in the system,
+# otherwise install binary on installation path
+# and create file to store chat log
+install_daemon(){
+	
+	# check if daemon is already istalled
+	which ${DAEMON_EXECUTABLE_NAME} && return 0
+
+	echo "Installing daemon at ${INSTALLATION_PATH}..."
+
+	# if it is not installed, then compile and test
+	make clean	
+	make test || { echo "[ERROR] Server compilation/test failed!"; exit -1 }
+
+	# Copy daemon to installation path
+	sudo cp ${SERVER_BIN_PATH} ${INSTALLATION_PATH}${DAEMON_EXECUTABLE_NAME} || { echo "[ERROR] Binary installation failed!"; exit -1 }
+
+	echo "daemon ${DAEMON_EXECUTABLE_NAME} installed properly!"
+		
+}
+
+main_installation(){
 	check_distribution
-	 
-	#TODO: redirect output of id to make it silent later
-	# if the system_user does not exist, it is created
-	id ${SYSTEM_USER} || create_system_user
 
-	# compile and test the server
-	make test || exit -1
+	create_system_user
 
-	# Change working directory to ./bin
-	cd ./bin
+	# copy daemon executable to installation path
+	install_daemon
 
+	# create chat log
+	
 	echo "sudo -u ${SYSTEM_USER} ./${SERVER_BIN}"
 	#./${SERVER_BIN}
 
 }
 
 
-main
+main_installation
