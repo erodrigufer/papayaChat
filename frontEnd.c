@@ -155,9 +155,9 @@ printMessagesFromServer(WINDOW * window, int pipe_fd, int max_y_position)
 			if(wmove(window,0,0)==ERR)
 				errExit("wmove");
 		}
-		wprintw(window,"%s\n",string_buf);
+		wprintw(window,"%s",string_buf);
 		wrefresh(window);
-	}
+	}// end bytesReceived > 0
 
 	/* free resources */
 	free(string_buf);
@@ -171,6 +171,17 @@ handleNewline(WINDOW * chatWindow, int pipe_fd)
 	/* malloc failed if message == NULL */
 	if(message == NULL)
 		errExit("malloc failed. handleNewline()");
+
+
+	/* use memset to guarantee that all values of message
+	are initialized with a 0,
+	the 0 is important, since we are handling strings here, and some functions
+	like strcat, expect a 0 to end a string, otherwise they are going to never 
+	finish */
+    memset(message, 0, BUF_SIZE);
+
+	/* newline to append to message */
+	char * nl = "\n";
 
 	/* get current x-cursor position, to get number of characters to be
 	sent (the current implementations only reads characters from
@@ -190,9 +201,12 @@ handleNewline(WINDOW * chatWindow, int pipe_fd)
 		endwin();
 		errExit("mvwinnstr [chatWindow]");
 	}
-	message[x_cursor+1]='\n';
+	/* append newline to message, before sending the message to the server */
+	if(strcat(message, nl)!=message)
+		errExit("strcat");
+	
 	/* send message just written to pipe, to child process which
-	sending message to server */
+	sends message to server */
 	sendMessageToPipe(pipe_fd, message);
 	free(message);
 	/* delete line which was just sent */
