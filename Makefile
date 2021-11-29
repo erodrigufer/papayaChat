@@ -65,7 +65,7 @@ clientRequest.o : file_locking.o
 
 error_names.c.inc :
 	sh Build_error_names.sh > error_names.c.inc
-	# 1>&2 means redirect stdout to stderr
+	@# 1>&2 means redirect stdout to stderr
 	echo 1>&2 "error_names.c.inc built"
 
 inet_sockets.o : inet_sockets.h basics.h
