@@ -94,7 +94,7 @@ frontEnd.o : basics.h error_handling.o inet_sockets.o signalHandling.o handleMes
 # frontEnd with ncurses
 # link to ncurses library with '-lncurses'
 $(EXECUTABLE_FRONTEND) : $(OBJECTS_FRONTEND)
-	$(CC) $(CC_FLAGS) -lncurses -o $(EXECUTABLE_FRONTEND) $(OBJECTS_FRONTEND) 
+	$(CC) $(CC_FLAGS) -o $(EXECUTABLE_FRONTEND) $(OBJECTS_FRONTEND) -lncurses 
 
 
 # compile client with non-default config file
@@ -102,7 +102,7 @@ $(EXECUTABLE_FRONTEND) : $(OBJECTS_FRONTEND)
 non-default-configuration: $(EXECUTABLE_FRONTEND_NON_DEFAULT)
 
 $(EXECUTABLE_FRONTEND_NON_DEFAULT) : $(OBJECTS_FRONTEND_NON_DEFAULT)
-	$(CC) $(CC-FLAGS) -lncurses -o $(EXECUTABLE_FRONTEND_NON_DEFAULT) $(OBJECTS_FRONTEND_NON_DEFAULT) 
+	$(CC) $(CC-FLAGS) -o $(EXECUTABLE_FRONTEND_NON_DEFAULT) $(OBJECTS_FRONTEND_NON_DEFAULT) -lncurses 
 
 .PHONY : test
 test: server
