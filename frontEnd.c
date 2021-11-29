@@ -170,7 +170,7 @@ handleNewline(WINDOW * chatWindow, int pipe_fd)
 	char * message = (char *) malloc(BUF_SIZE);
 	/* malloc failed if message == NULL */
 	if(message == NULL)
-		errExit("malloc failed. Newline message send");
+		errExit("malloc failed. handleNewline()");
 
 	/* get current x-cursor position, to get number of characters to be
 	sent (the current implementations only reads characters from
