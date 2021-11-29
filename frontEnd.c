@@ -172,6 +172,14 @@ handleNewline(WINDOW * chatWindow, int pipe_fd)
 	if(message == NULL)
 		errExit("malloc failed. handleNewline()");
 
+
+	/* use memset to guarantee that all values of message
+	are initialized with a 0,
+	the 0 is important, since we are handling strings here, and some functions
+	like strcat, expect a 0 to end a string, otherwise they are going to never 
+	finish */
+    memset(message, 0, BUF_SIZE);
+
 	/* newline to append to message */
 	char * nl = "\n";
 
