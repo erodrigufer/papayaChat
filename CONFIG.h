@@ -25,7 +25,7 @@ to share the value between multiple files */
 /* [back-end] max number of clients in listening backlog queue */
 #define BACKLOG_QUEUE 10		
 
-/* if compiled with gcc _D NON_DEFAULT_CONFIG option, then only userConfig.h
+/* if compiled with gcc -D NON_DEFAULT_CONFIG option, then only userConfig.h
 will be used */
 #ifdef NON_DEFAULT_CONFIG
 #include "userConfig.h"
@@ -36,7 +36,7 @@ defined, and the user-defined macros will be used, not the default
 ones from CONFIG.h */
 
 /* ------------------------------------------------------------------------ */
-#ifndef USERCONFIG_H
+#ifndef NON_DEFAULT_CONFIG
 /* IMPORTANT:
 These are the values, that are also represented in userConfig.h if the 
 file exists, append any other values only present in the general (default)

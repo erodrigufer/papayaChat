@@ -17,6 +17,7 @@ CC_FLAGS = -Wall -Werror
 OBJECTS_FRONTEND = frontEnd.o error_handling.o inet_sockets.o signalHandling.o handleMessages.o
 EXECUTABLE_FRONTEND = ./bin/frontEnd.bin
 
+OBJECTS_FRONTEND_NON_DEFAULT = frontEnd_non_default.o error_handling.o inet_sockets.o signalHandling.o handleMessages.o
 EXECUTABLE_FRONTEND_NON_DEFAULT = ./bin/frontEnd_non_default.bin
 
 # Objects and executable for concurrent_server
@@ -77,6 +78,9 @@ signalHandling.o :
 
 handleMessages.o :
 
+frontEnd_non_default.o : frontEnd.c userConfig.h CONFIG.h
+	$(CC) -D $(USER_CONFIGURATION) -c -o frontEnd_non_default.o frontEnd.c
+
 # run front-end executable
 .PHONY : run 
 run : $(EXECUTABLE_FRONTEND)
@@ -94,11 +98,11 @@ $(EXECUTABLE_FRONTEND) : $(OBJECTS_FRONTEND)
 
 
 # compile client with non-default config file
-.PHONY : non-default
-non-default: $(EXECUTABLE_FRONTEND_NON_DEFAULT) userConfig.h
+.PHONY : non-default-configuration
+non-default-configuration: $(EXECUTABLE_FRONTEND_NON_DEFAULT)
 
-$(EXECUTABLE_FRONTEND_NON_DEFAULT) : $(OBJECTS_FRONTEND)
-	$(CC) $(CC-FLAGS) -lncurses -D $(USER_CONFIGURATION) -o $(EXECUTABLE_FRONTEND_NON_DEFAULT) $(OBJECTS_FRONTEND) 
+$(EXECUTABLE_FRONTEND_NON_DEFAULT) : $(OBJECTS_FRONTEND_NON_DEFAULT)
+	$(CC) $(CC-FLAGS) -lncurses -o $(EXECUTABLE_FRONTEND_NON_DEFAULT) $(OBJECTS_FRONTEND_NON_DEFAULT) 
 
 .PHONY : test
 test: server
