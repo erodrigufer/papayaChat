@@ -17,6 +17,7 @@ DAEMON_EXECUTABLE_NAME=papayachatd
 INSTALLATION_PATH=/usr/local/bin/
 
 CHATLOG_PATH=/var/local
+CHATLOG_FILENAME=papayachat.chat
 
 # Some commands are debian-based (even probably BSD compliant)
 # so if the distro is not debian-based exit
