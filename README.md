@@ -28,3 +28,14 @@ strace -f -T -o <output_file> <process_to_run>
 
 ```
 
+## Debugging with tshark
+Capture packages with **tshark**
+```
+sudo tshark -i 1 -P -x -f "tcp port 51000" > ${OUTPUT_FILE}
+
+-i : Capture on interface 1 (runs smoothly in Linode)
+-P : (not sure) print summary
+-x : Display content of packages in hex
+-f : Filter, e.g. only tcp packets on port 51000
+
+```
