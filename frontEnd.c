@@ -183,11 +183,13 @@ handleNewline(WINDOW * chatWindow, int pipe_fd)
 	coordinates inside chatWindow, so 0,0 actually equals 
 	y_start_chatWindow,x_start_chatWindow */
 	int errorString = mvwinnstr(chatWindow,0,0,message,x_cursor+1);
-	if(errorString == ERR){
+		/* if error happens, close ncurses environment, to get a normal
+		terminal and free memory */
+		if(errorString == ERR){
 		free(message);
 		endwin();
 		errExit("mvwinnstr [chatWindow]");
-		}
+	}
 	/* send message just written to pipe, to child process which
 	sending message to server */
 	sendMessageToPipe(pipe_fd, message);
