@@ -155,9 +155,9 @@ printMessagesFromServer(WINDOW * window, int pipe_fd, int max_y_position)
 			if(wmove(window,0,0)==ERR)
 				errExit("wmove");
 		}
-		wprintw(window,"%s\n",string_buf);
+		//wprintw(window,"%s\n",string_buf);
 		wrefresh(window);
-	}
+	}// end bytesReceived > 0
 
 	/* free resources */
 	free(string_buf);
