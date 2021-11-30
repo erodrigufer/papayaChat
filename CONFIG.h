@@ -16,7 +16,11 @@ CHAT_LOG_PATH
 /* pathname of program to handle sigterm handler in async-safe way, 
 execve to this program from inside signal handler 
 [used in concurrent_server.c] */
+#ifndef TEST
 #define PATHNAME_TERM_ASYNC_SAFE "/usr/local/bin/papayachat/termHandlerAsyncSafe.bin" 
+#else
+#define PATHNAME_TERM_ASYNC_SAFE "./termHandlerAsyncSafe.bin" 
+#endif
 
 /* bytes transmission size, defined in CONFIG.h
 to share the value between multiple files */
