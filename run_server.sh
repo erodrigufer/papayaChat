@@ -62,9 +62,10 @@ create_system_user(){
 }
 
 uninstall(){
+	echo "Uninstalling ${DAEMON_EXECUTABLE_NAME}..."
 	sudo rm -rf ${INSTALLATION_PATH}
 	sudo rm -rf ${CHATLOG_PATH}
-
+	echo "All files removed. Done!"
 	exit 0
 
 }
@@ -153,5 +154,9 @@ main_run_server(){
 	which ${DAEMON_EXECUTABLE_NAME} && sudo -u ${SYSTEM_USER} ${DAEMON_EXECUTABLE_NAME}
 
 }
+
+# -u flag, run uninstall
+[ "$1" = '-u' ] && uninstall 
+[ "$1" = '--uninstall' ] && uninstall 
 
 main_installation
