@@ -14,11 +14,11 @@ DAEMON_EXECUTABLE_NAME=papayachatd
 # Check:
 # https://askubuntu.com/questions/308045/differences-between-bin-sbin-usr-bin-usr-sbin-usr-local-bin-usr-local
 # Path to copy executable (binary) of daemon
-INSTALLATION_PATH=/usr/local/bin/
+INSTALLATION_PATH=/usr/local/bin/papayachat/
 
 INSTALLATION_FILE=${INSTALLATION_PATH}${DAEMON_EXECUTABLE_NAME}
 
-CHATLOG_PATH=/var/lib/
+CHATLOG_PATH=/var/lib/papayachat/
 CHATLOG_FILENAME=papayachat.chat
 
 CHATLOG_FILE=${CHATLOG_PATH}${CHATLOG_FILENAME}
@@ -60,8 +60,8 @@ create_system_user(){
 # execute this function if installation fails,
 # functions removes all installation files 
 defer_installation(){
-	sudo rm -f ${INSTALLATION_FILE}
-	sudo rm -f ${CHATLOG_FILE}
+	sudo rm -rf ${INSTALLATION_PATH}
+	sudo rm -rf ${CHATLOG_PATH}
 
 	exit -1
 }
@@ -74,12 +74,14 @@ install_daemon(){
 	# check if daemon is already istalled
 	which ${DAEMON_EXECUTABLE_NAME} && return 0
 
-	echo "Installing daemon at ${INSTALLATION_PATH}..."
-
+	echo "Compilling and testing..."
 	# if it is not installed, then compile and test
 	make clean	
 	make test || { echo "[ERROR] Server compilation/test failed!"; exit -1 ; }
-
+	
+	echo "Installing daemon at ${INSTALLATION_FILE}..."
+	sudo mkdir -p ${INSTALLATION_PATH} || { echo "[ERROR] directory creation at ${INSTALLATION_PATH}"; exit -1 ; }
+	
 	# Copy daemon to installation path
 	sudo cp ${SERVER_BIN_PATH} ${INSTALLATION_FILE} || { echo "[ERROR] Binary installation failed!"; exit -1 ; }
 
@@ -102,6 +104,8 @@ create_chat_log(){
 	
 	echo "Creating chat log file at ${CHATLOG_FILE}..."
 
+	sudo mkdir -p ${CHATLOG_PATH} || { echo "[ERROR] directory creation at ${CHATLOG_PATH}"; exit -1 ; }
+	
 	sudo touch ${CHATLOG_FILE} || { echo "[ERROR] file creation failed!"; exit -1 ; }
 
 	# Change file ownership
