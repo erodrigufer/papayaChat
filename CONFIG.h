@@ -16,6 +16,8 @@ CHAT_LOG_PATH
 /* pathname of program to handle sigterm handler in async-safe way, 
 execve to this program from inside signal handler 
 [used in concurrent_server.c] */
+/* the binaries to test network connectivity are compiled with different paths
+than the binaries used in the installation of the actual daemon */
 #ifndef TEST
 #define PATHNAME_TERM_ASYNC_SAFE "/usr/local/bin/papayachat/termHandlerAsyncSafe.bin" 
 #else
@@ -51,6 +53,8 @@ config file outside this #ifndef part
 #define SERVICE "51000" /* Port to connect to with server */
 #define HOST "localhost" /* server address (found, e.g. on /etc/hosts file) */
 
+/* the binaries to test network connectivity are compiled with different paths
+than the binaries used in the installation of the actual daemon */
 #ifndef TEST
 /* Define path of chat log file */
 #define CHAT_LOG_PATH "/var/lib/papayachat/papayachat.chat"
