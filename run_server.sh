@@ -91,6 +91,8 @@ install_daemon(){
 	# if it is not installed, then compile and test
 	make clean	
 	make test || { echo "[ERROR] Server compilation/test failed!"; exit -1 ; }
+
+	make server
 	
 	echo "Installing daemon at ${INSTALLATION_FILE}..."
 	sudo mkdir -p ${INSTALLATION_PATH} || { echo "[ERROR] directory creation at ${INSTALLATION_PATH}"; exit -1 ; }
@@ -146,18 +148,22 @@ main_installation(){
 
 	# create chat log
 	create_chat_log
+
+	exit 0
 	
 }
 
-main_run_server(){
+run_server(){
 
-	# TODO: change that which, it wont work
-	which ${DAEMON_EXECUTABLE_NAME} && sudo -u ${SYSTEM_USER} ${DAEMON_EXECUTABLE_NAME}
+	# check if daemon is already istalled, if so, run papayachat as system user
+	[ -f ${INSTALLATION_FILE} ] && sudo -u ${SYSTEM_USER} ${INSTALLATION_FILE} && echo "Executing papayachatd"
+
+	exit 0
 
 }
 
 # -u flag, run uninstall
 [ "$1" = '-u' ] && uninstall 
 [ "$1" = '--uninstall' ] && uninstall 
-
+[ "$1" = '-r' ] && run_server
 main_installation
