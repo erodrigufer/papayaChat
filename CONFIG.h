@@ -47,9 +47,13 @@ config file outside this #ifndef part
 #define SERVICE "51000" /* Port to connect to with server */
 #define HOST "localhost" /* server address (found, e.g. on /etc/hosts file) */
 
+#ifndef TEST
 /* Define path of chat log file */
-//#define CHAT_LOG_PATH "/var/lib/papayachat/papayachat.chat"
+#define CHAT_LOG_PATH "/var/lib/papayachat/papayachat.chat"
+#else
 #define CHAT_LOG_PATH "./chat_log.chat"
+#endif
+
 #endif /* endif for USERCONFIG_H */
 /* ------------------------------------------------------------------------ */
 

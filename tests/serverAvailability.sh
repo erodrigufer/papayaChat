@@ -2,8 +2,13 @@
 # Change path so that relative path works when running script from makefile
 cd $(dirname $0)
 
+pwd
+
 # Daemon executable
-EXECUTABLE=./concurrent_server.bin
+EXECUTABLE=./concurrent_server_test.bin
+TERM_FILE=./termHandlerAsyncSafe.bin
+
+EXECUTABLE_FILES=${EXECUTABLE} ${TERM_FILE}
 
 COLOR_GREEN='\e[0;32m'
 NO_COLOR='\033[0m'
@@ -20,7 +25,6 @@ which ss || { echo "ss is missing"; printf "[${COLOR_RED}MISSING DEPENDENCY${NO_
 # Check if PORT is already in use
 ss -at | grep ${PORT} && { printf "[${COLOR_RED}FAILED${NO_COLOR}] Port ${PORT} already in use. A server instance is probably already running. Exit test!\n"; exit -1; }
 
-cd ../bin
 # netcat -zv Verbose output -z check for connection
 ${EXECUTABLE} && { echo "Starting server..."; sleep ${SLEEP_TIME}; echo "Server daemon is now running..."; ss -at | grep ${PORT}; } && netcat -zv localhost ${PORT} || { printf "[${COLOR_RED}FAILED${NO_COLOR}] Server availability test failed!\n"; exit -1; }
 
@@ -28,6 +32,10 @@ kill $(pidof ${EXECUTABLE}) && echo "Killed daemon..."
 # ss -a (listening and active ports) -t (TCP connections)
 ss -at | grep ${PORT}
 printf "[${COLOR_GREEN}SUCCESS${NO_COLOR}] Server availability test passed!\n"
+
+# TODO: remove executables also when exit -1 (something fails)
+rm ${EXECUTABLE_FILES}
+
 exit 0
 
 # Eduardo Rodriguez 2021 (c) (@erodrigufer). Licensed under GNU AGPLv3

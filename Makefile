@@ -29,6 +29,10 @@ EXECUTABLE_TERMHANDLER = ./bin/termHandlerAsyncSafe.bin
 OBJECTS = $(OBJECTS_SERVER) termHandlerAsyncSafe.o $(OBJECTS_FRONTEND)
 EXECUTABLES = $(EXECUTABLE_SERVER) $(EXECUTABLE_TERMHANDLER) $(EXECUTABLE_FRONTEND) $(EXECUTABLE_FRONTEND_NON_DEFAULT)
 
+OBJECTS_SERVER_TEST = concurrent_server_test.o error_handling.o inet_sockets.o daemonCreation.o configure_syslog.o file_locking_test.o signalHandling.o clientRequest.o
+EXECUTABLE_SERVER_TEST=./tests/concurrent_server_test.bin 
+EXECUTABLE_TERM_TEST=./tests/termHandlerAsyncSafe.bin
+
 .PHONY : all
 
 all : $(EXECUTABLES)
@@ -81,6 +85,12 @@ handleMessages.o :
 frontEnd_non_default.o : frontEnd.c userConfig.h CONFIG.h
 	$(CC) -D $(USER_CONFIGURATION) -c -o frontEnd_non_default.o frontEnd.c
 
+concurrent_server_test.o : inet_sockets.o inet_sockets.h basics.h daemonCreation.o daemonCreation.h error_handling.o configure_syslog.o file_locking_test.o signalHandling.o clientRequest.o concurrent_server.c
+	$(CC) -D TEST -c -o concurrent_server_test.o concurrent_server.c
+
+file_locking_test.o : CONFIG.h
+	$(CC) -D TEST -c -o file_locking_test.o file_locking.c
+
 # run front-end executable
 .PHONY : run 
 run : $(EXECUTABLE_FRONTEND)
@@ -104,14 +114,28 @@ non-default-configuration: $(EXECUTABLE_FRONTEND_NON_DEFAULT)
 $(EXECUTABLE_FRONTEND_NON_DEFAULT) : $(OBJECTS_FRONTEND_NON_DEFAULT)
 	$(CC) $(CC-FLAGS) -o $(EXECUTABLE_FRONTEND_NON_DEFAULT) $(OBJECTS_FRONTEND_NON_DEFAULT) -lncurses 
 
+.PHONY : server-test
+server-test: $(EXECUTABLE_SERVER_TEST) $(EXECUTABLE_TERM_TEST)
+
+# concurrent_server test
+$(EXECUTABLE_SERVER_TEST) : $(OBJECTS_SERVER_TEST) $(EXECUTABLE_TERM_TEST)
+	$(CC) $(CC_FLAGS) -o $(EXECUTABLE_SERVER_TEST) $(OBJECTS_SERVER_TEST)
+
+#termHandlerAsyncSafe test
+$(EXECUTABLE_TERM_TEST) : termHandlerAsyncSafe.o configure_syslog.o
+	$(CC) $(CC_FLAGS) -o $(EXECUTABLE_TERM_TEST) termHandlerAsyncSafe.o configure_syslog.o
+
+
 .PHONY : test
-test: server
-	@for file in $(shell ls ${TEST_DIR}); do echo $${file}: ; sh ${TEST_DIR}/$${file}; done
+test: server-test
+	./tests/serverAvailability.sh
+	
+# @for file in $(shell ls ${TEST_DIR} *.sh); do echo $${file}: ; sh ${TEST_DIR}/$${file}; done
 # @ at the beginning supresses output
 
 # Remove object files, executables and error names file (system dependant)
 .PHONY : clean
 clean :
-	@rm -f ./bin/*.bin *.o error_names.c.inc 
+	@rm -f ./bin/*.bin *.o error_names.c.inc ./tests/*.bin ./bin/*.chat ./tests/*.chat
 
 # Eduardo Rodriguez 2021 (c) @erodrigufer. Licensed under GNU AGPLv3
