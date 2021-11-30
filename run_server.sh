@@ -151,6 +151,7 @@ main_installation(){
 
 main_run_server(){
 
+	# TODO: change that which, it wont work
 	which ${DAEMON_EXECUTABLE_NAME} && sudo -u ${SYSTEM_USER} ${DAEMON_EXECUTABLE_NAME}
 
 }
