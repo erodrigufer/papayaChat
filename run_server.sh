@@ -18,8 +18,10 @@ INSTALLATION_PATH=/usr/local/bin/
 
 INSTALLATION_FILE=${INSTALLATION_PATH}${DAEMON_EXECUTABLE_NAME}
 
-CHATLOG_PATH=/var/local
+CHATLOG_PATH=/var/lib/
 CHATLOG_FILENAME=papayachat.chat
+
+CHATLOG_FILE=${CHATLOG_PATH}${CHATLOG_FILENAME}
 
 # Some commands are debian-based (even probably BSD compliant)
 # so if the distro is not debian-based exit
@@ -55,6 +57,15 @@ create_system_user(){
 
 }
 
+# execute this function if installation fails,
+# functions removes all installation files 
+defer_installation(){
+	sudo rm -f ${INSTALLATION_FILE}
+	sudo rm -f ${CHATLOG_FILE}
+
+	exit -1
+}
+
 # check if daemon is already installed in the system,
 # otherwise install binary on installation path
 # and create file to store chat log
@@ -75,13 +86,30 @@ install_daemon(){
 	# Change file ownership to root, only root can modify executable
 	# root and papayachat con execute file
 	# If any of this commands fails, remove binary (security risk!)
-	sudo chown root:papayachat ${INSTALLATION_FILE} || { echo "[ERROR] chown failed!"; sudo rm -f ${INSTALLATION_FILE}; exit -1 ; } 
+	sudo chown root:${SYSTEM_USER} ${INSTALLATION_FILE} || { echo "[ERROR] chown failed!"; defer_installation ; } 
 
 	# Change file permission, so that only root and papayachat con execute
-	sudo chmod 750 ${INSTALLATION_FILE} || { echo "[ERROR] chmod failed!"; sudo rm -f ${INSTALLATION_FILE}; exit -1 ; } 
+	sudo chmod 750 ${INSTALLATION_FILE} || { echo "[ERROR] chmod failed!"; defer_installation ; } 
 	
 	echo "daemon ${DAEMON_EXECUTABLE_NAME} installed properly!"
 		
+}
+
+create_chat_log(){
+
+	# check if chatlog already exists and is a regular file
+	[ -f ${CHATLOG_FILE} ] && return 0
+	
+	echo "Creating chat log file at ${CHATLOG_FILE}..."
+
+	sudo touch ${CHATLOG_FILE} || { echo "[ERROR] file creation failed!"; exit -1 ; }
+
+	# Change file ownership
+	sudo chown root:${SYSTEM_USER} ${CHATLOG_FILE} || { echo "[ERROR] chatlog chown failed!"; defer_installation ; } 
+	
+	# only read/write permissions for root and group
+	sudo chmod 660 ${CHATLOG_FILE} || { echo "[ERROR] chatlog chmod failed!"; defer_installation ; } 
+
 }
 
 main_installation(){
@@ -93,11 +121,14 @@ main_installation(){
 	install_daemon
 
 	# create chat log
+	create_chat_log
 	
-	echo "sudo -u ${SYSTEM_USER} ./${SERVER_BIN}"
-	#./${SERVER_BIN}
-
 }
 
+main_run_server(){
+
+	which ${DAEMON_EXECUTABLE_NAME} && sudo -u ${SYSTEM_USER} ${DAEMON_EXECUTABLE_NAME}
+
+}
 
 main_installation
