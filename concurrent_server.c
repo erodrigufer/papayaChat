@@ -100,8 +100,10 @@ main(int argc, char *argv[])
 
 	/* open (or create) the central chat log file */
 	int chatlog_fd = openChatLogFile();
-	if(chatlog_fd == -1)
+	if(chatlog_fd == -1){
+		syslog(LOG_ERR, "Error: open (create) chat log file: %s", strerror(errno));
 		errExit("openChatLogFile()");
+	}
 
 	/* server listens on port 'SERVICE', with a certain BACKLOG_QUEUE, and does not want to 
 	receive information about the address of the client socket (NULL) */
