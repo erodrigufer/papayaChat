@@ -21,16 +21,17 @@ To build and run the front-end executable:
 ## Debugging with strace
 Useful debugging commands for syscall profilling with **strace**
 ```
-strace -f -T -o <output_file> <process_to_run>
+strace -f -T -o <output_file> <process_to_profile>
 
 -f : Trace child processes as well
 -T : Show relative time of syscalls
 -o : Output file
 
 ```
+`-f` option is necessary in all executables that use `fork()` to create child processes.
 
 ## Debugging with tshark
-Capture packages with **tshark**
+Capture packages with **tshark**. See traffic flow between server and client.
 ```
 sudo tshark -i 1 -P -x -f "tcp port 51000" > ${OUTPUT_FILE}
 
