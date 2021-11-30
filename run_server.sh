@@ -16,6 +16,8 @@ DAEMON_EXECUTABLE_NAME=papayachatd
 # Path to copy executable (binary) of daemon
 INSTALLATION_PATH=/usr/local/bin/
 
+INSTALLATION_FILE=${INSTALLATION_PATH}${DAEMON_EXECUTABLE_NAME}
+
 CHATLOG_PATH=/var/local
 CHATLOG_FILENAME=papayachat.chat
 
@@ -65,11 +67,19 @@ install_daemon(){
 
 	# if it is not installed, then compile and test
 	make clean	
-	make test || { echo "[ERROR] Server compilation/test failed!"; exit -1 }
+	make test || { echo "[ERROR] Server compilation/test failed!"; exit -1 ; }
 
 	# Copy daemon to installation path
-	sudo cp ${SERVER_BIN_PATH} ${INSTALLATION_PATH}${DAEMON_EXECUTABLE_NAME} || { echo "[ERROR] Binary installation failed!"; exit -1 }
+	sudo cp ${SERVER_BIN_PATH} ${INSTALLATION_FILE} || { echo "[ERROR] Binary installation failed!"; exit -1 ; }
 
+	# Change file ownership to root, only root can modify executable
+	# root and papayachat con execute file
+	# If any of this commands fails, remove binary (security risk!)
+	sudo chown root:papayachat ${INSTALLATION_FILE} || { echo "[ERROR] chown failed!"; sudo rm -f ${INSTALLATION_FILE}; exit -1 ; } 
+
+	# Change file permission, so that only root and papayachat con execute
+	sudo chmod 750 ${INSTALLATION_FILE} || { echo "[ERROR] chmod failed!"; sudo rm -f ${INSTALLATION_FILE}; exit -1 ; } 
+	
 	echo "daemon ${DAEMON_EXECUTABLE_NAME} installed properly!"
 		
 }
