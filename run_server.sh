@@ -11,12 +11,16 @@ SERVER_BIN_PATH=./bin/concurrent_server.bin
 
 DAEMON_EXECUTABLE_NAME=papayachatd
 
+TERM_BIN_PATH=./bin/termHandlerAsyncSafe.bin
+TERM_EXECUTABLE_NAME=$(basename ${TERM_BIN_PATH})
+
 # Check:
 # https://askubuntu.com/questions/308045/differences-between-bin-sbin-usr-bin-usr-sbin-usr-local-bin-usr-local
 # Path to copy executable (binary) of daemon
 INSTALLATION_PATH=/usr/local/bin/papayachat/
 
 INSTALLATION_FILE=${INSTALLATION_PATH}${DAEMON_EXECUTABLE_NAME}
+INSTALLATION_TERM=${INSTALLATION_PATH}${TERM_EXECUTABLE_NAME}
 
 CHATLOG_PATH=/var/lib/papayachat/
 CHATLOG_FILENAME=papayachat.chat
@@ -57,6 +61,14 @@ create_system_user(){
 
 }
 
+uninstall(){
+	sudo rm -rf ${INSTALLATION_PATH}
+	sudo rm -rf ${CHATLOG_PATH}
+
+	exit 0
+
+}
+
 # execute this function if installation fails,
 # functions removes all installation files 
 defer_installation(){
@@ -72,7 +84,7 @@ defer_installation(){
 install_daemon(){
 	
 	# check if daemon is already istalled
-	which ${DAEMON_EXECUTABLE_NAME} && return 0
+	[ -f ${INSTALLATION_FILE} ] && return 0
 
 	echo "Compilling and testing..."
 	# if it is not installed, then compile and test
@@ -85,13 +97,20 @@ install_daemon(){
 	# Copy daemon to installation path
 	sudo cp ${SERVER_BIN_PATH} ${INSTALLATION_FILE} || { echo "[ERROR] Binary installation failed!"; exit -1 ; }
 
+	# Copy other necessary binary files to installation path
+	sudo cp ${TERM_BIN_PATH} ${INSTALLATION_TERM} || { echo "[ERROR] Binary installation failed!"; exit -1 ; }
+
 	# Change file ownership to root, only root can modify executable
 	# root and papayachat con execute file
 	# If any of this commands fails, remove binary (security risk!)
 	sudo chown root:${SYSTEM_USER} ${INSTALLATION_FILE} || { echo "[ERROR] chown failed!"; defer_installation ; } 
 
+	sudo chown root:${SYSTEM_USER} ${INSTALLATION_TERM} || { echo "[ERROR] chown failed!"; defer_installation ; } 
+
 	# Change file permission, so that only root and papayachat con execute
 	sudo chmod 750 ${INSTALLATION_FILE} || { echo "[ERROR] chmod failed!"; defer_installation ; } 
+
+	sudo chmod 750 ${INSTALLATION_TERM} || { echo "[ERROR] chmod failed!"; defer_installation ; } 
 	
 	echo "daemon ${DAEMON_EXECUTABLE_NAME} installed properly!"
 		
