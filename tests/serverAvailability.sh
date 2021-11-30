@@ -1,6 +1,9 @@
 #!/bin/sh
-# Change path so that relative path work when running script from makefile
+# Change path so that relative path works when running script from makefile
 cd $(dirname $0)
+
+# Daemon executable
+EXECUTABLE=./concurrent_server.bin
 
 COLOR_GREEN='\e[0;32m'
 NO_COLOR='\033[0m'
@@ -19,9 +22,9 @@ ss -at | grep ${PORT} && { printf "[${COLOR_RED}FAILED${NO_COLOR}] Port ${PORT} 
 
 cd ../bin
 # netcat -zv Verbose output -z check for connection
-./concurrent_server.bin && { echo "Starting server..."; sleep ${SLEEP_TIME}; echo "Server daemon is now running..."; ss -at | grep ${PORT}; } && netcat -zv localhost ${PORT} || { printf "[${COLOR_RED}FAILED${NO_COLOR}] Server availability test failed!\n"; exit -1; }
+${EXECUTABLE} && { echo "Starting server..."; sleep ${SLEEP_TIME}; echo "Server daemon is now running..."; ss -at | grep ${PORT}; } && netcat -zv localhost ${PORT} || { printf "[${COLOR_RED}FAILED${NO_COLOR}] Server availability test failed!\n"; exit -1; }
 
-kill $(pidof concurrent_server.bin) && echo "Killed daemon..."
+kill $(pidof ${EXECUTABLE}) && echo "Killed daemon..."
 # ss -a (listening and active ports) -t (TCP connections)
 ss -at | grep ${PORT}
 printf "[${COLOR_GREEN}SUCCESS${NO_COLOR}] Server availability test passed!\n"
