@@ -42,6 +42,7 @@ handleRequest(int client_fd, int chatlog_fd)
     char buf[BUF_SIZE];
     ssize_t numRead;
 
+	/* TODO: in theory this should be handled more properly with malloc() */
 	/* send intro message to client */
 	introMessage(client_fd);
  
