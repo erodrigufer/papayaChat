@@ -35,9 +35,7 @@ introMessage(int client_fd)
 }
 
 
-/* Handle a client request: copy socket input back to socket,
-good coding practices, function is static, because it should only
-be available in this local script */
+/* Handle a client request: copy socket input back to socket */
 void
 handleRequest(int client_fd, int chatlog_fd)
 {
