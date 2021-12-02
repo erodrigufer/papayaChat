@@ -95,7 +95,7 @@ main(int argc, char *argv[])
 
 	/* configure signal handling for SIGTERM */
     if (configureTermHandler() == -1) {
-        syslog(LOG_ERR, "Error: sigaction(SIGTERM): %s", strerror(errno));
+        syslog(LOG_ERR, "Error: sigaction(SIGTERM) or sigfillset(): %s", strerror(errno));
         exit(EXIT_FAILURE);
     }
 
