@@ -71,3 +71,5 @@ handleRequest(int client_fd, int chatlog_fd)
 
 }
 
+
+/* Eduardo Rodriguez 2021 (c) (@erodrigufer). Licensed under GNU AGPLv3 */
