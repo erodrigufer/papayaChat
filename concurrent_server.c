@@ -42,7 +42,7 @@ termHandler(int sig)
 
 }
 
-/* configure SIGTERM signal handler, if sigaction() fails it returns -1 */
+/* configure SIGTERM signal handler, if sigaction() or sigfillset() fail it returns -1 */
 static int
 configureTermHandler(void)
 {
@@ -52,7 +52,8 @@ configureTermHandler(void)
 	
 	/* during the SIGTERM handler all other signals are blocked, since the 
 	process should terminate immediately */
-	sigfillset(&sa_sigterm.sa_mask);
+	if(sigfillset(&sa_sigterm.sa_mask)==-1)
+		return -1;
 
 	/* termHandler is the function handler for a SIGTERM signal */
     sa_sigterm.sa_handler = termHandler;
