@@ -8,7 +8,7 @@ Function to handle signals
 
 /* grimReaper/catch SIGCHLD in parent process and avoid
 zombie processes */
-void catchSIGCHLD(int sig);
+void catchSIGCHLD(int);
 
 /* kill all child processes from within parent process */
 void killChildProcesses(void);
