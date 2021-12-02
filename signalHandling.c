@@ -1,27 +1,32 @@
+/* signalHandling.c  */
+
 #include <signal.h>				/* check 'man 2 sigaction' signal.h is needed
 								to change the disposition of signals with
 								the sigaction() syscall */	
 #include <sys/wait.h>	/* wait on child processes */
 #include "basics.h" /* include library to handle errors */
+#include "signalHandling.h"
 
 /* run this function to catch SIGCHLD of child processes exiting */
 void
 catchSIGCHLD(int sig)
 {
 	int savedErrno;             /* Save 'errno' in case changed here, errno
-									can be changed by waitpid() if no more children exist
-									then 'errno'= ECHILD */
-		savedErrno = errno;
-		while (waitpid(-1, NULL, WNOHANG) > 0)	/* 'man 2 waitpid' -1 means that it waits 
-		for any of its child processes, the option WNOHANG makes the syscall waitpid()
-		to return inmediately if no children has exited, if children exist but none has changed 
-		status, then waitpid returns 0, so it exits the while-loop (on error, it returns -1 and
-		also exits the while-loop). In any other case, multiple children have exited, so waitpid()
-		will return their pids (which are larger than 0). After the last children which has changed
-		status, waitpid will return either 0 or -1 and the while-loop will come to an end
-		If there are no more children, then waitpid will return -1 and set errno to ECHILD */
-			continue;
-		errno = savedErrno;			/* restore errno to value before signal handler */
+								can be changed by waitpid() if no more children exist
+								then 'errno'= ECHILD */
+	savedErrno = errno;
+	while (waitpid(-1, NULL, WNOHANG) > 0)	/* 'man 2 waitpid' -1 means that it waits 
+	for any of its child processes, the option WNOHANG makes the syscall waitpid()
+	to return inmediately if no children has exited, if children exist but none has changed 
+	status, then waitpid returns 0, so it exits the while-loop (on error, it returns -1 and
+	also exits the while-loop). In any other case, multiple children have exited, so waitpid()
+	will return their pids (which are larger than 0). After the last children which has changed
+	status, waitpid will return either 0 or -1 and the while-loop will come to an end
+	If there are no more children, then waitpid will return -1 and set errno to ECHILD */
+		continue;
+	
+	/* outside of while-loop */
+	errno = savedErrno;			/* restore errno to value before signal handler */
 
 }
 
@@ -39,6 +44,9 @@ killChildProcesses(void)
 
 }
 
+/* if configuration successful it returns 0, if any syscall fails
+it returns -1, so that the caller-function can handle the error,
+logging it and exiting */
 int
 configureSignalDisposition(void)
 {
@@ -56,7 +64,8 @@ configureSignalDisposition(void)
 	sa_mask is the signal set of signals that would be blocked during the
 	invocation of the handler
 	-> create an empyte signal set, no signal blocked during invocation of handler */
-    sigemptyset(&sa_sigchild.sa_mask);			
+    if(sigemptyset(&sa_sigchild.sa_mask)==-1)
+		return 1;
 
 	/* if a syscall is interrupted by the SIGCHLD, the kernel should
 	restart the syscall after handling the signal,
