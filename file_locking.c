@@ -9,6 +9,9 @@ imperative to avoid race conditions when handling that chat log file.
 
 */
 
+/* Required to send SIGUSR1 signal, after finishing exclusive write() */
+#include <signal.h>
+
 /* Required for open(2) 
 (next three headers) */
 #include <sys/types.h>
@@ -73,7 +76,14 @@ exclusiveWrite(int file_fd, char* string, size_t sizeString)
 		//_exit(EXIT_FAILURE);
 		return -1;
 	}// write()
-	
+
+	/* send SIGUSR1 signal to process group, to signal in a MULTICAST way that 
+	there are new messages in the chat log file
+	the first argument is 0, so that the signal is sent to all members of the 
+	process group */
+    if(kill(0,SIGUSR1)==-1)
+		return -1;
+
 	/* unlock file */
 	if(flock(file_fd,LOCK_UN)==-1)
 		return -1;
