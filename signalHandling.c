@@ -9,7 +9,7 @@
 
 
 /* in order to test the functionality, we are just going to change the state of a global variable */
-extern volatile sig_atomic_t flag_activated = 0;
+extern volatile sig_atomic_t flag_activated;
 
 /* run this function to catch SIGCHLD of child processes exiting */
 void
@@ -129,7 +129,8 @@ return 0 when successful, and -1 on error */
 int 
 activateSIGUSR1(void)
 {
-	
+	/* initial value */
+	flag_activated = 0;
 	struct sigaction sa_sigusr1;
 
 	/* do not block any signals while inside signal handler for SIGUSR1, since e.g. a SIGTERM could take place
