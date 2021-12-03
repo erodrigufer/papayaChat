@@ -2,6 +2,9 @@
 
 */
 
+/* in order to define pid_t */
+#include "basics.h"
+
 #ifndef CLIENTREQUEST_H	/* header guard */
 #define CLIENTREQUEST_H
 
@@ -12,5 +15,7 @@ static void introMessage(int);
 static void sendNewMessages(int, int);
 
 static void receiveMessages(int, int);
+
+static void closeConnectionParent(pid_t);
 
 #endif
