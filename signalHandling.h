@@ -20,6 +20,9 @@ int configureSignalDisposition(void);
 in the child processes that send messages back to the clients */
 int activateSIGUSR1(void);
 
+/* function handler for SIGUSR1 signal */
+void handlerSIGUSR1(int);
+
 #endif
 
 /* Eduardo Rodriguez 2021 (c) (@erodrigufer). Licensed under GNU AGPLv3 */
