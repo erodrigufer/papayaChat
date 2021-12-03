@@ -16,7 +16,8 @@ configure_syslog.h functions are unnecessary */
 #include "file_locking.h"
 #include "CONFIG.h"	/* declaration of BUF_SIZE */
 
-/* global (extern) variable from signalHandling.c */
+/* global (extern) variable from signalHandling.c 
+this variable is 0 before SIGUSR1 is received, and it changes to 1, when SIGUSR1 is received */
 extern volatile sig_atomic_t flag_activated;
 
 /* define greetingMessage string, the compiler allocates enough memory for the string */
@@ -61,11 +62,29 @@ sendNewMessages(int client_fd, int chatlog_fd)
 		_exit(EXIT_FAILURE);
 	}// end activateSIGUSR1()
 
+	/* start reading from beginning of file */
+	off_t offset = 0;
 
 	for(;;){
 		pause();			
+
+		char buffer[BUF_SIZE];
+
 		/* just a debug run, it should not exit here */
 		syslog(LOG_DEBUG, "value of flag_activated= %d", flag_activated);
+	
+		ssize_t bytesRead = sharedRead(chatlog_fd, buffer, BUF_SIZE, offset);
+		if(bytesRead==-1){
+			syslog(LOG_ERR, "sharedRead() failed: %s", strerror(errno));
+			_exit(EXIT_FAILURE);
+			}
+
+		/* update offset value after read */
+		offset = offset + bytesRead;
+
+		/* DEBUG: print to syslog the contents of the chat log */
+		syslog(LOG_DEBUG, "Contents of chat log: %s", buffer);
+
 		_exit(EXIT_SUCCESS);
 	}// end for-loop
 }
