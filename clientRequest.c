@@ -8,7 +8,7 @@ Functions to handle sending and receiving data from clients.
 #include <syslog.h>		/* server runs as daemon, pipe errors messages to syslog */
 /* daemon posts still with the configuration of concurrent_server.c, 
 configure_syslog.h functions are unnecessary */
-#include "signalHandlingh."
+#include "signalHandling.h"
 #include "clientRequest.h"
 #include "basics.h"
 #include "file_locking.h"
