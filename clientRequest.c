@@ -68,6 +68,7 @@ sendNewMessages(int client_fd, int chatlog_fd)
 	for(;;){
 		pause();			
 
+		/* TODO: handle more properly with malloc() */
 		char buffer[BUF_SIZE];
 
 		/* just a debug run, it should not exit here */
@@ -83,16 +84,27 @@ sendNewMessages(int client_fd, int chatlog_fd)
 		offset = offset + bytesRead;
 
 		/* DEBUG: print to syslog the contents of the chat log */
-		syslog(LOG_DEBUG, "Contents of chat log: %s", buffer);
+		syslog(LOG_DEBUG, "---> Contents of chat log: %s<---", buffer);
 
-		_exit(EXIT_SUCCESS);
 	}// end for-loop
+}
+
+/* send a SIGTERM signal when closing connection or crashing with error to child process
+(the process sending the messages back to the client) */
+static void
+killChild(pid_t child_pid)
+{
+	/* TODO: in theory this system call could fail, and it would return -1
+	in that case we weould have to do something more aggresive, like kill
+	all processes in the process group */
+	kill(child_pid, SIGTERM);
+
 }
 
 /* receive messages from client and write them exclusively (using file locks)
 into the chat log file */
 static void 
-receiveMessages(int client_fd, int chatlog_fd)
+receiveMessages(int client_fd, int chatlog_fd, pid_t child_pid)
 {
 
 	/* TODO: in theory this should be handled more properly with malloc() */
@@ -105,6 +117,7 @@ receiveMessages(int client_fd, int chatlog_fd)
 	while ((numRead = read(client_fd, buf, BUF_SIZE)) > 0) {
         if (write(client_fd, buf, numRead) != numRead) {
             syslog(LOG_ERR, "write() failed: %s", strerror(errno));
+			killChild(child_pid);
             _exit(EXIT_FAILURE);
         }
 		/* add debug syslog to see amount of bytes received from client */
@@ -113,12 +126,14 @@ receiveMessages(int client_fd, int chatlog_fd)
 		/* using locks guarantee exclusive write on file with concurrent clients */
 		if(exclusiveWrite(chatlog_fd, buf, numRead)==-1){
 			syslog(LOG_ERR, "exclusiveWrite() failed: %s", strerror(errno));
+			killChild(child_pid);
 			_exit(EXIT_FAILURE);
 		}
     } // while-loop read()
 
     if (numRead == -1) {
         syslog(LOG_ERR, "read() failed: %s", strerror(errno));
+		killChild(child_pid);
         _exit(EXIT_FAILURE);
     }
 
@@ -131,8 +146,10 @@ handleRequest(int client_fd, int chatlog_fd)
 	/* send intro message to client */
 	introMessage(client_fd);
 
+	/* store the pid of the child process in order to send kill signal when connection is closed */
+	pid_t sendingChild_pid = fork();
 	/* create a new child process to solely handle sending new messages back to client */
-	switch(fork()) {
+	switch(sendingChild_pid) {
 		/* error */
 		case -1:
 			syslog(LOG_ERR, "Error fork() call. Can't create child (%s)", strerror(errno));
@@ -144,11 +161,10 @@ handleRequest(int client_fd, int chatlog_fd)
 
 		/* Parent process */
 		default:
-			receiveMessages(client_fd, chatlog_fd);
+			receiveMessages(client_fd, chatlog_fd, sendingChild_pid);
 		
 	} // end switch-statement
 
 }
-
 
 /* Eduardo Rodriguez 2021 (c) (@erodrigufer). Licensed under GNU AGPLv3 */
