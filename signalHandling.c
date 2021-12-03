@@ -9,7 +9,7 @@
 
 
 /* in order to test the functionality, we are just going to change the state of a global variable */
-extern volatile sig_atomic_t flag_activated;
+volatile sig_atomic_t flag_activated;
 
 /* run this function to catch SIGCHLD of child processes exiting */
 void
