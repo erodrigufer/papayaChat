@@ -65,7 +65,7 @@ concurrent_server.o : inet_sockets.o inet_sockets.h basics.h daemonCreation.o da
 
 error_handling.o : error_handling.h basics.h error_names.c.inc
 
-clientRequest.o : file_locking.o
+clientRequest.o : file_locking.o signalHandling.o
 
 error_names.c.inc :
 	sh Build_error_names.sh > error_names.c.inc
