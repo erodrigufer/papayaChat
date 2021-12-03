@@ -46,7 +46,8 @@ killChildProcesses(void)
 
 /* if configuration successful it returns 0, if any syscall fails
 it returns -1, so that the caller-function can handle the error,
-logging it and exiting */
+logging it and exiting 
+configures the SIGCHLD and SIGUSR1 signals for the parent process */
 int
 configureSignalDisposition(void)
 {
