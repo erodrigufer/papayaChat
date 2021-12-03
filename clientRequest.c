@@ -1,5 +1,8 @@
 /* clientRequest.c 
 
+[Server-side functions]
+Functions to handle sending and receiving data from clients.
+
 */
 
 #include <syslog.h>		/* server runs as daemon, pipe errors messages to syslog */
