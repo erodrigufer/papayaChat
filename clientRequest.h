@@ -7,10 +7,10 @@
 
 void handleRequest(int,int);
 
-void introMessage(int);
+static void introMessage(int);
 
-void sendNewMessages(int, int);
+static void sendNewMessages(int, int);
 
-void receiveMessages(int, int);
+static void receiveMessages(int, int);
 
 #endif
