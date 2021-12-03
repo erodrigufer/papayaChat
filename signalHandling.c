@@ -52,6 +52,23 @@ int
 configureSignalDisposition(void)
 {
 
+
+	struct sigaction sa_sigusr1;		/* configure the system to ignore the SIGUSR1 signal used
+										by the child processes to communicate that a message was written
+										in the chatlog and should now be sent to all clients */
+	/* EXPLANATION: the parent process which is listening for new clients should completely ignore
+	the SIGUSR1 signal used by some of its child processes, because it would otherwise terminate immediately if 
+	it receives this signal without a user-defined signal disposition */
+
+	/* use the SIG_IGN constant as signal handler to simply ignore this signal
+	the process will not even get notified by the kernel, when the signal is sent to a process group
+	it is then not necessary to define flags or a signals mask */
+	sa_sigusr1.sa_handler = SIG_IGN;
+	if (sigaction(SIGUSR1, &sa_sigusr1, NULL) == -1)
+		return -1;	/* sigaction failed */ 
+
+
+
     struct sigaction sa_sigchild;			/* struc is necessary to define signals mask
 											to be blocked during signal handler, needed 
 											for syscall sigaction*/
@@ -66,6 +83,12 @@ configureSignalDisposition(void)
 	invocation of the handler
 	-> create an empyte signal set, no signal blocked during invocation of handler */
     if(sigemptyset(&sa_sigchild.sa_mask)==-1)
+		return 1;
+
+	/* block signal SIGUSR1, while inside the signal handler for SIGCHLD
+	this call is maybe unnecessary, since SIGUSR1 is already being ignored 
+	but the documentation is not clear if signals keep being ignored inside a signal handler */
+	if(sigaddset(&sa_sigchild.sa_mask, SIGUSR1)==-1)
 		return 1;
 
 	/* if a syscall is interrupted by the SIGCHLD, the kernel should
@@ -83,21 +106,21 @@ configureSignalDisposition(void)
 	signal disposition is not stored anywhere (NULL) */
     if (sigaction(SIGCHLD, &sa_sigchild, NULL) == -1)
 		return -1;	/* sigaction failed */
-
-	struct sigaction sa_sigusr1;		/* configure the system to ignore the SIGUSR1 signal used
-										by the child processes to communicate that a message was written
-										in the chatlog and should now be sent to all clients */
-	/* EXPLANATION: the parent process which is listening for new clients should completely ignore
-	the SIGUSR1 signal used by some of its child processes, because it would otherwise terminate immediately if 
-	it receives this signal without a user-defined signal disposition */
-
-	/* use the SIG_IGN constant as signal handler to simply ignore this signal
-	the process will not even get notified by the kernel, when the signal is sent to a process group
-	it is then not necessary to define flags or a signals mask */
-	sa_sigusr1.sa_handler = SIG_IGN;
-	if (sigaction(SIGUSR1, &sa_sigusr1, NULL) == -1)
-		return -1;	/* sigaction failed */ 
 	
+	return 0; /* exit successful */
+
+}
+
+/* the processes that send messages from the chatlog to the clients must activate SIGUSR1 to be notified
+by the processes that receive messages from the clients, when they have successfully performed an exlusive
+write in the chatlog file */
+int 
+activateSIGUSR1(void)
+{
+	
+	struct sigaction sa_sigusr1;
+
+
 	return 0; /* exit successful */
 
 }
