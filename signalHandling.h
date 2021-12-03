@@ -16,6 +16,10 @@ void killChildProcesses(void);
 /* configure the signal disposition to catch SIGCHLD signals */
 int configureSignalDisposition(void);
 
+/* configure the signal disposition to catch SIGUSR1 signals 
+in the child processes that send messages back to the clients */
+int activateSIGUSR1(void);
+
 #endif
 
 /* Eduardo Rodriguez 2021 (c) (@erodrigufer). Licensed under GNU AGPLv3 */
