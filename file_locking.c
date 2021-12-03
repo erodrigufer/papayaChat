@@ -111,6 +111,10 @@ sharedRead(int file_fd, char* string, size_t sizeString, off_t offset)
 	if(bytesRead < 0)
 		return -1;
 
+	/* unlock file */	
+	if(flock(file_fd,LOCK_UN)==-1)
+		return -1;
+
 	/* return the amount of bytesRead to move the offset further */
 	return bytesRead;
 
