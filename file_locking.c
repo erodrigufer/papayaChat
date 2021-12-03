@@ -69,13 +69,9 @@ exclusiveWrite(int file_fd, char* string, size_t sizeString)
 	and no other file is reading at the same time (shared lock) */	
 	if(flock(file_fd,LOCK_EX)==-1)
 		return -1;
-		//errExit("flock failed @ exclusiveWrite()");
 
-	if (write(file_fd, string, sizeString) != sizeString) {
-		//syslog(LOG_ERR, "write() failed: %s", strerror(errno));
-		//_exit(EXIT_FAILURE);
+	if (write(file_fd, string, sizeString) != sizeString)
 		return -1;
-	}// write()
 
 	/* send SIGUSR1 signal to process group, to signal in a MULTICAST way that 
 	there are new messages in the chat log file
@@ -92,4 +88,31 @@ exclusiveWrite(int file_fd, char* string, size_t sizeString)
 
 }
 
+/* place a shared lock, read from chat log file, store messages in string, which
+will be sent to client */
+int 
+sharedRead(int file_fd, char* string, size_t sizeString, off_t offset)
+{
+
+	/* place a shared lock on chat log file, multiple process will be able to read
+	concurrently from the file, but no writes are permitted (LOCK_EX) exclusive locks */
+	if(flock(file_fd,LOCK_SH)==-1)
+		return -1;
+
+	ssize_t bytesRead;	/* bytes read from chat log file */
+
+	int whence = SEEK_SET;	/* SEEK_SET= set the offset in relationship to the beginning of the file */ 
+
+	/* set file offset in relationship to beginning of file */
+	if(lseek(file_fd,offset,whence)==-1)
+		return -1;
+
+	bytesRead = read(file_fd,string,sizeString);
+	if(bytesRead < 0)
+		return -1;
+
+	/* return the amount of bytesRead to move the offset further */
+	return bytesRead;
+
+}
 /* Eduardo Rodriguez 2021 (c) (@erodrigufer). Licensed under GNU AGPLv3 */
