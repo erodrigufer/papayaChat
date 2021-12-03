@@ -52,6 +52,9 @@ introMessage(int client_fd)
 static void
 sendNewMessages(int client_fd, int chatlog_fd)
 {
+	/* TODO: sendMessages as soon as a new client connects, otherwise it receives the messages later,
+	just in case another client accesses later than the first client in the chat room */
+
 	syslog(LOG_DEBUG, "value of flag_activated before SIGUSR1= %d", flag_activated);
 	/* activate SIGUSR1 only for this child process */
 	if(activateSIGUSR1()==-1){
