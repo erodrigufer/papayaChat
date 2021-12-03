@@ -138,7 +138,8 @@ receiveMessages(int client_fd, int chatlog_fd, pid_t child_pid)
     }
 
 	/* when the connection is closed EOF is received, the while-loop stops, and the functions 
-	just returns with no value (void) */
+	just returns with no value (void), therefore we should also kill the child processes here */
+	killChild(child_pid);
 
 }
 
