@@ -137,6 +137,9 @@ receiveMessages(int client_fd, int chatlog_fd, pid_t child_pid)
         _exit(EXIT_FAILURE);
     }
 
+	/* when the connection is closed EOF is received, the while-loop stops, and the functions 
+	just returns with no value (void) */
+
 }
 
 /* Handle a client request: copy socket input back to socket */
