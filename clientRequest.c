@@ -1,3 +1,7 @@
+/* clientRequest.c 
+
+*/
+
 #include <syslog.h>		/* server runs as daemon, pipe errors messages to syslog */
 /* daemon posts still with the configuration of concurrent_server.c, 
 configure_syslog.h functions are unnecessary */
