@@ -5,6 +5,8 @@ Functions to handle sending and receiving data from clients.
 
 */
 
+#include <signal.h>		/* needed for sig_atomic_t variable */
+
 #include <syslog.h>		/* server runs as daemon, pipe errors messages to syslog */
 /* daemon posts still with the configuration of concurrent_server.c, 
 configure_syslog.h functions are unnecessary */
@@ -13,6 +15,9 @@ configure_syslog.h functions are unnecessary */
 #include "basics.h"
 #include "file_locking.h"
 #include "CONFIG.h"	/* declaration of BUF_SIZE */
+
+/* global (extern) variable from signalHandling.c */
+extern volatile sig_atomic_t flag_activated;
 
 /* define greetingMessage string, the compiler allocates enough memory for the string */
 const char greetingMessage [] = "\
