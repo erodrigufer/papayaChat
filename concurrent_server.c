@@ -89,7 +89,7 @@ main(int argc, char *argv[])
 		/* the server runs as a daemon, so no errors can be output to stderr, since
 		there is no controlling terminal. All errors are going to be logged into the 
 		syslog using the syslog API */
-        syslog(LOG_ERR, "Error: sigaction(SIGCHLD) or sigempytyset(): %s", strerror(errno));
+        syslog(LOG_ERR, "Error: configureSignalDisposition(): %s", strerror(errno));
         exit(EXIT_FAILURE);
 	}
 
