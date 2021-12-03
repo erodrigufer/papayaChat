@@ -111,9 +111,6 @@ configureSignalDisposition(void)
 
 }
 
-/* in order to test the functionality, we are just going to change the state of a global variable */
-volatile sig_atomic_t flag_activated = 0;
-
 void 
 handlerSIGUSR1(int sig)
 {
