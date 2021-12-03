@@ -14,8 +14,8 @@ static void introMessage(int);
 
 static void sendNewMessages(int, int);
 
-static void receiveMessages(int, int);
+static void receiveMessages(int, int, pid_t);
 
-static void closeConnectionParent(pid_t);
+static void killChild(pid_t);
 
 #endif
