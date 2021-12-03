@@ -21,7 +21,7 @@ The code is hosted at: www.github.com/erodrigufer/papayaChat\n\
 ";
 
 /* send greetings to client when initializing information exchange */
-void
+static void
 introMessage(int client_fd)
 {
 
@@ -43,10 +43,11 @@ introMessage(int client_fd)
 void
 handleRequest(int client_fd, int chatlog_fd)
 {
+
+	/* TODO: in theory this should be handled more properly with malloc() */
     char buf[BUF_SIZE];
     ssize_t numRead;
 
-	/* TODO: in theory this should be handled more properly with malloc() */
 	/* send intro message to client */
 	introMessage(client_fd);
  
