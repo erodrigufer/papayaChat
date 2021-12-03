@@ -111,15 +111,36 @@ configureSignalDisposition(void)
 
 }
 
+/* in order to test the functionality, we are just going to change the state of a global variable */
+volatile sig_atomic_t flag_activated = 0;
+
+void 
+handlerSIGUSR1(int sig)
+{
+	flag_activated = 1;	
+
+}
+
 /* the processes that send messages from the chatlog to the clients must activate SIGUSR1 to be notified
 by the processes that receive messages from the clients, when they have successfully performed an exlusive
-write in the chatlog file */
+write in the chatlog file 
+return 0 when successful, and -1 on error */
 int 
 activateSIGUSR1(void)
 {
 	
 	struct sigaction sa_sigusr1;
 
+	/* do not block any signals while inside signal handler for SIGUSR1, since e.g. a SIGTERM could take place
+	in that moment */
+	if(sigemptyset(&sa_sigusr1.sa_mask)==-1)
+		return -1;
+
+	/* define the signal handler */
+	sa_sigusr1.sa_handler = handlerSIGUSR1;
+
+	if(sigaction(SIGUSR1, &sa_sigusr1, NULL) == -1)
+		return -1;
 
 	return 0; /* exit successful */
 
