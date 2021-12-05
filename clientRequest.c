@@ -71,23 +71,37 @@ sendNewMessages(int client_fd, int chatlog_fd)
 	for(;;){
 		pause();			
 
-		/* TODO: handle more properly with malloc() */
-		char buffer[BUF_SIZE];
+		/* allocate memory on each for-loop to read message
+		from pipe */
+		char * string_buf = (char *) malloc(BUF_SIZE);
+		/* if malloc fails, it returns a NULL pointer */
+		if(string_buf == NULL){
+			syslog(LOG_ERR, "malloc failed: %s", strerror(errno));
+			_exit(EXIT_FAILURE);
+		}
 
 		/* just a debug run, it should not exit here */
 		syslog(LOG_DEBUG, "value of flag_activated= %d", flag_activated);
 	
-		ssize_t bytesRead = sharedRead(chatlog_fd, buffer, BUF_SIZE, offset);
+		ssize_t bytesRead = sharedRead(chatlog_fd, string_buf, BUF_SIZE, offset);
 		if(bytesRead==-1){
 			syslog(LOG_ERR, "sharedRead() failed: %s", strerror(errno));
+			/* read failed, free malloc resources before exiting */
+			free(string_buf);
 			_exit(EXIT_FAILURE);
-			}
+		}
+
+		/* TODO: consider that all of this is happening after UNLOCKING
+		shared read lock */
 
 		/* update offset value after read */
 		offset = offset + bytesRead;
 
 		/* DEBUG: print to syslog the contents of the chat log */
-		syslog(LOG_DEBUG, "---> Contents of chat log: %s<---", buffer);
+		syslog(LOG_DEBUG, "---> Contents of chat log: %s<---", string_buf);
+		
+		/* free malloc resources before end of loop */
+		free(string_buf);
 
 	}// end for-loop
 }
@@ -98,7 +112,7 @@ static void
 killChild(pid_t child_pid)
 {
 	/* TODO: in theory this system call could fail, and it would return -1
-	in that case we weould have to do something more aggresive, like kill
+	in that case we would have to do something more aggresive, like kill
 	all processes in the process group */
 	kill(child_pid, SIGTERM);
 
