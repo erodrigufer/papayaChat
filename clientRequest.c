@@ -108,7 +108,12 @@ sendNewMessages(int client_fd, int chatlog_fd)
 			_exit(EXIT_FAILURE);
 		}
 		/* copy only the bytesRead into stringClient */
-		snprintf(stringClient,bytesRead,"%s",string_buf);
+		if(snprintf(stringClient,bytesRead,"%s",string_buf)<0){
+			syslog(LOG_ERR, "snprintf() failed: %s", strerror(errno));
+			free(string_buf);
+			free(stringClient);
+			_exit(EXIT_FAILURE);
+		}
 
 		/* send message to client socket */
 		if(write(client_fd,stringClient,bytesRead)!=bytesRead){
