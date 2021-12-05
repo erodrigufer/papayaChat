@@ -80,6 +80,9 @@ sendNewMessages(int client_fd, int chatlog_fd)
 			_exit(EXIT_FAILURE);
 		}
 
+		/* guarantee that string_buf has 0 value */
+		memset(string_buf,0,BUF_SIZE);
+
 		/* just a debug run, it should not exit here */
 		syslog(LOG_DEBUG, "value of flag_activated= %d", flag_activated);
 	
@@ -97,11 +100,30 @@ sendNewMessages(int client_fd, int chatlog_fd)
 		/* update offset value after read */
 		offset = offset + bytesRead;
 
+		/* store only the characters read on a new string */
+		char * stringClient = (char *) malloc(bytesRead);
+		/* if malloc fails, it returns a NULL pointer */
+		if(stringClient == NULL){
+			syslog(LOG_ERR, "malloc failed: %s", strerror(errno));
+			_exit(EXIT_FAILURE);
+		}
+		/* copy only the bytesRead into stringClient */
+		snprintf(stringClient,bytesRead,"%s",string_buf);
+
+		/* send message to client socket */
+		if(write(client_fd,stringClient,bytesRead)!=bytesRead){
+			syslog(LOG_ERR, "write() failed: %s", strerror(errno));
+			free(string_buf);
+			free(stringClient);
+			_exit(EXIT_FAILURE);
+		}
+
 		/* DEBUG: print to syslog the contents of the chat log */
-		syslog(LOG_DEBUG, "---> Contents of chat log: %s<---", string_buf);
+		syslog(LOG_DEBUG, "---> Contents of chat log: %s<---", stringClient);
 		
 		/* free malloc resources before end of loop */
 		free(string_buf);
+		free(stringClient);
 
 	}// end for-loop
 }
