@@ -3,9 +3,14 @@
 [![C Build (CI)](https://github.com/erodrigufer/papayaChat/actions/workflows/build.yml/badge.svg)](https://github.com/erodrigufer/papayaChat/actions/workflows/build.yml)
 [![Networking (CI)](https://github.com/erodrigufer/papayaChat/actions/workflows/networking.yml/badge.svg)](https://github.com/erodrigufer/papayaChat/actions/workflows/networking.yml)
 
-Self hosted terminal chat service for the cloud written in C.
+Self-hosted CLI chat service for the cloud written in C.
+
+Host your own E2E encrypted chat service, and chat directly from the terminal.
+
+A goal of the proyect is to reliably run the chat client in any Unix system. Nonetheless, as of the current developments, it only runs flawlessly with Linux (Ubuntu-based) distributions. The code is partly portable to Mac OS X.
 
 ## Build and execution
+**Since the last development sessions, the following build and execution instructions might be outdated. I will update them as soon as I have time. Nonetheless, check the file _run_server.sh_ to see which commands to run for the automated installation, de-installation and execution of the programm.**
 ### Back-end
 To build and run the back-end executable:
 1. `make concurrent_server` 
