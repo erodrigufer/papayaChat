@@ -38,7 +38,7 @@ strace -f -T -o <output_file> <process_to_profile>
 ## Debugging with tshark
 Capture packages with **tshark**. See traffic flow between server and client.
 ```
-sudo tshark -i 1 -P -x -f "tcp port 51000" > ${OUTPUT_FILE}
+sudo tshark -i 1 -P -x -f "tcp port ${PORT_NUMBER}" > ${OUTPUT_FILE}
 
 -i : Capture on interface 1 (runs smoothly in Linode)
 -P : (not sure) print summary
