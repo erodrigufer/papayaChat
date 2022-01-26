@@ -70,13 +70,11 @@ fetchMessage(int pipe_fd, char *string_buf)
 
 	bytesRead = read(pipe_fd, string_buf, BUF_SIZE);
 
-/* TODO: handle errors from read() */
-
-	/* reading from pipe failed */
-//	if(bytesRead == -1)
-		//errMsg("read greetings message");
-
 	return bytesRead;
+
+/* if the read() syscall fails, the system quietly does nothing
+and tries to read again from the pipe, in the next iteration of 
+the front-end main loop */
 
 }
 
