@@ -71,23 +71,64 @@ sendNewMessages(int client_fd, int chatlog_fd)
 	for(;;){
 		pause();			
 
-		/* TODO: handle more properly with malloc() */
-		char buffer[BUF_SIZE];
+		/* allocate memory on each for-loop to read message
+		from pipe */
+		char * string_buf = (char *) malloc(BUF_SIZE);
+		/* if malloc fails, it returns a NULL pointer */
+		if(string_buf == NULL){
+			syslog(LOG_ERR, "malloc failed: %s", strerror(errno));
+			_exit(EXIT_FAILURE);
+		}
+
+		/* guarantee that string_buf has 0 value */
+		memset(string_buf,0,BUF_SIZE);
 
 		/* just a debug run, it should not exit here */
 		syslog(LOG_DEBUG, "value of flag_activated= %d", flag_activated);
 	
-		ssize_t bytesRead = sharedRead(chatlog_fd, buffer, BUF_SIZE, offset);
+		ssize_t bytesRead = sharedRead(chatlog_fd, string_buf, BUF_SIZE, offset);
 		if(bytesRead==-1){
 			syslog(LOG_ERR, "sharedRead() failed: %s", strerror(errno));
+			/* read failed, free malloc resources before exiting */
+			free(string_buf);
 			_exit(EXIT_FAILURE);
-			}
+		}
+
+		/* TODO: consider that all of this is happening after UNLOCKING
+		shared read lock */
 
 		/* update offset value after read */
 		offset = offset + bytesRead;
 
+		/* store only the characters read on a new string */
+		char * stringClient = (char *) malloc(bytesRead);
+		/* if malloc fails, it returns a NULL pointer */
+		if(stringClient == NULL){
+			syslog(LOG_ERR, "malloc failed: %s", strerror(errno));
+			_exit(EXIT_FAILURE);
+		}
+		/* copy only the bytesRead into stringClient */
+		if(snprintf(stringClient,bytesRead,"%s",string_buf)<0){
+			syslog(LOG_ERR, "snprintf() failed: %s", strerror(errno));
+			free(string_buf);
+			free(stringClient);
+			_exit(EXIT_FAILURE);
+		}
+
+		/* send message to client socket */
+		if(write(client_fd,stringClient,bytesRead)!=bytesRead){
+			syslog(LOG_ERR, "write() failed: %s", strerror(errno));
+			free(string_buf);
+			free(stringClient);
+			_exit(EXIT_FAILURE);
+		}
+
 		/* DEBUG: print to syslog the contents of the chat log */
-		syslog(LOG_DEBUG, "---> Contents of chat log: %s<---", buffer);
+		syslog(LOG_DEBUG, "---> Contents of chat log: %s<---", stringClient);
+		
+		/* free malloc resources before end of loop */
+		free(string_buf);
+		free(stringClient);
 
 	}// end for-loop
 }
@@ -98,7 +139,7 @@ static void
 killChild(pid_t child_pid)
 {
 	/* TODO: in theory this system call could fail, and it would return -1
-	in that case we weould have to do something more aggresive, like kill
+	in that case we would have to do something more aggresive, like kill
 	all processes in the process group */
 	kill(child_pid, SIGTERM);
 
@@ -110,29 +151,43 @@ static void
 receiveMessages(int client_fd, int chatlog_fd, pid_t child_pid)
 {
 
-	/* TODO: in theory this should be handled more properly with malloc() */
-    char buf[BUF_SIZE];
     ssize_t numRead;
+
+	/* allocate memory on each for-loop to read message
+	from pipe */
+	char * buf = (char *) malloc(BUF_SIZE);
+	/* if malloc fails, it returns a NULL pointer */
+	if(buf == NULL){
+		syslog(LOG_ERR, "malloc failed: %s", strerror(errno));
+		_exit(EXIT_FAILURE);
+	}
+
+	/* TODO: figure out how to free and allocate malloc, after every read() syscall */
 
 	/* if the client closes its connection, the previous read() syscall will get an
 	EOF, and it will return 0, in that case, the while-loop ends, and there is no 
 	syslog error appended to the log, since read() did not return an error */  
 	while ((numRead = read(client_fd, buf, BUF_SIZE)) > 0) {
-        if (write(client_fd, buf, numRead) != numRead) {
-            syslog(LOG_ERR, "write() failed: %s", strerror(errno));
-			killChild(child_pid);
-            _exit(EXIT_FAILURE);
-        }
+//        if (write(client_fd, buf, numRead) != numRead) {
+//            syslog(LOG_ERR, "write() failed: %s", strerror(errno));
+//			free(buf);
+//			killChild(child_pid);
+//            _exit(EXIT_FAILURE);
+//        }
 		/* add debug syslog to see amount of bytes received from client */
 		syslog(LOG_DEBUG, "%ld Bytes received from client.", numRead);
 
 		/* using locks guarantee exclusive write on file with concurrent clients */
 		if(exclusiveWrite(chatlog_fd, buf, numRead)==-1){
 			syslog(LOG_ERR, "exclusiveWrite() failed: %s", strerror(errno));
+			free(buf);
 			killChild(child_pid);
 			_exit(EXIT_FAILURE);
 		}
     } // while-loop read()
+
+	/* EOF or error on read, free resources */
+	free(buf);
 
     if (numRead == -1) {
         syslog(LOG_ERR, "read() failed: %s", strerror(errno));

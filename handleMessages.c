@@ -48,11 +48,12 @@ handleSendSocket(int server_fd, int pipe_fd)
 			free(string_buf);
 			errExit("pipe closed - handleSendSocket()");
 		}
-/*----------- error handling for read()----------------------------------- */
+/*----------- error handling for write()----------------------------------- */
 		/* send data received from pipe to server socket */
-		if(write(server_fd,string_buf,bytesRead)!=bytesRead)
+		if(write(server_fd,string_buf,bytesRead)!=bytesRead){
+			free(string_buf);
 			errExit("write handleSendSocket()");
-
+		}
 		/* free resources, char * buffer to read message from pipe */
 		free(string_buf);
 	} // end for-loop
