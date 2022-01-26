@@ -123,7 +123,8 @@ configureDelimiterWindow(int y_start, int x_start, int height)
 
 }
 
-/* print messages received from server */
+/* print messages received from server, all syscalls implemented inside this
+function are NON-BLOCKING */
 static void
 printMessagesFromServer(WINDOW * window, int pipe_fd, int max_y_position)
 {
