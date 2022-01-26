@@ -139,8 +139,6 @@ printMessagesFromServer(WINDOW * window, int pipe_fd, int max_y_position)
 	/* fetch messages from server into allocated string buffer */
 	bytesReceived = fetchMessage(pipe_fd, string_buf);
 
-	/* TODO: handle errors from fetchMessage */
-
 	/* print messages, if received */
 	if(bytesReceived > 0){
 		/* check if the cursor is after the last line of the
@@ -159,6 +157,10 @@ printMessagesFromServer(WINDOW * window, int pipe_fd, int max_y_position)
 		wprintw(window,"%s",string_buf);
 		wrefresh(window);
 	}// end bytesReceived > 0
+
+	/* if fetchMessage() failes, then bytesReceived < 0, it quietly
+	frees memory, and returns, in order to try to fetch messages again 
+	in the next iteration of the frontEnd main loop */
 
 	/* free resources */
 	free(string_buf);
