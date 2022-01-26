@@ -34,7 +34,7 @@ check_distribution(){
 	# use grep in egrep mode (-e), being 
 	# case-insensitive (-i) and check for either 
 	# ubuntu or debian
-	lsb_release -i | grep -i -E "(ubuntu|debian)" || { echo "[ERROR] System must be debian-based to run daemon."; exit -1 ; }
+	lsb_release -i | grep -i -E "(ubuntu|debian|kali)" || { echo "[ERROR] System must be debian-based to run daemon."; exit -1 ; }
 
 	# About egrep: with egrep it is easier to write the OR
 	# logic ( | ) otherwise all these characters must be escaped
