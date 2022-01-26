@@ -152,45 +152,50 @@ static void
 receiveMessages(int client_fd, int chatlog_fd, pid_t child_pid)
 {
 
-    ssize_t numRead;
 
-	/* allocate memory on each for-loop to read message
-	from pipe */
-	char * buf = (char *) malloc(BUF_SIZE);
-	/* if malloc fails, it returns a NULL pointer */
-	if(buf == NULL){
-		syslog(LOG_ERR, "malloc failed: %s", strerror(errno));
-		_exit(EXIT_FAILURE);
-	}
+	for(;;) {
+    	ssize_t numRead;
+		/* allocate memory on each for-loop to read message
+		from pipe */
+		char * buf = (char *) malloc(BUF_SIZE);
+		/* if malloc fails, it returns a NULL pointer */
+		if(buf == NULL){
+			syslog(LOG_ERR, "malloc failed: %s", strerror(errno));
+			_exit(EXIT_FAILURE);
+		}
 
-	/* TODO: figure out how to free and allocate malloc, after every read() syscall */
+		/* if the client closes its connection, the previous read() syscall will get an
+		EOF, and it will return 0, in that case, the while-loop ends, and there is no 
+		syslog error appended to the log, since read() did not return an error */  
+		if ((numRead = read(client_fd, buf, BUF_SIZE)) > 0) {
+			/* add debug syslog to see amount of bytes received from client */
+			syslog(LOG_DEBUG, "%ld Bytes received from client.", numRead);
 
-	/* if the client closes its connection, the previous read() syscall will get an
-	EOF, and it will return 0, in that case, the while-loop ends, and there is no 
-	syslog error appended to the log, since read() did not return an error */  
-	while ((numRead = read(client_fd, buf, BUF_SIZE)) > 0) {
-		/* add debug syslog to see amount of bytes received from client */
-		syslog(LOG_DEBUG, "%ld Bytes received from client.", numRead);
+			/* using locks guarantee exclusive write on file with concurrent clients */
+			if(exclusiveWrite(chatlog_fd, buf, numRead)==-1){
+				syslog(LOG_ERR, "exclusiveWrite() failed: %s", strerror(errno));
+				free(buf);
+				killChild(child_pid);
+				_exit(EXIT_FAILURE);
+			}
+		} // read()
 
-		/* using locks guarantee exclusive write on file with concurrent clients */
-		if(exclusiveWrite(chatlog_fd, buf, numRead)==-1){
-			syslog(LOG_ERR, "exclusiveWrite() failed: %s", strerror(errno));
-			free(buf);
+		/* free resources */
+		free(buf);
+
+		if (numRead == -1) {
+			syslog(LOG_ERR, "read() failed: %s", strerror(errno));
 			killChild(child_pid);
 			_exit(EXIT_FAILURE);
 		}
-    } // while-loop read()
 
-	/* EOF or error on read, free resources */
-	free(buf);
+		/* EOF - client closed socket */
+		if (numRead = 0){
+			break; /* break out of for-loop after EOF */
+		}
+	}//infinite for-loop
 
-    if (numRead == -1) {
-        syslog(LOG_ERR, "read() failed: %s", strerror(errno));
-		killChild(child_pid);
-        _exit(EXIT_FAILURE);
-    }
-
-	/* when the connection is closed EOF is received, the while-loop stops, and the functions 
+	/* when the connection is closed EOF is received, the for-loop stops, and the functions 
 	just returns with no value (void), therefore we should also kill the child processes here */
 	killChild(child_pid);
 
