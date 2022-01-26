@@ -168,12 +168,12 @@ receiveMessages(int client_fd, int chatlog_fd, pid_t child_pid)
 	EOF, and it will return 0, in that case, the while-loop ends, and there is no 
 	syslog error appended to the log, since read() did not return an error */  
 	while ((numRead = read(client_fd, buf, BUF_SIZE)) > 0) {
-        if (write(client_fd, buf, numRead) != numRead) {
-            syslog(LOG_ERR, "write() failed: %s", strerror(errno));
-			free(buf);
-			killChild(child_pid);
-            _exit(EXIT_FAILURE);
-        }
+//        if (write(client_fd, buf, numRead) != numRead) {
+//            syslog(LOG_ERR, "write() failed: %s", strerror(errno));
+//			free(buf);
+//			killChild(child_pid);
+//            _exit(EXIT_FAILURE);
+//        }
 		/* add debug syslog to see amount of bytes received from client */
 		syslog(LOG_DEBUG, "%ld Bytes received from client.", numRead);
 
