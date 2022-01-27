@@ -167,24 +167,19 @@ printMessagesFromServer(WINDOW * window, int pipe_fd, int max_y_position)
 }
 
 static void 
-handleNewline(WINDOW * chatWindow, int pipe_fd)
+handleNewline(WINDOW * chatWindow, int pipe_fd, const char * username_input)
 {
-	/* allocate memory locally, and free memory after \n if statement */
+	/* allocate memory locally to store text written in front-end */
 	char * message = (char *) malloc(BUF_SIZE);
 	/* malloc failed if message == NULL */
 	if(message == NULL)
 		errExit("malloc failed. handleNewline()");
-
-
 	/* use memset to guarantee that all values of message
 	are initialized with a 0,
 	the 0 is important, since we are handling strings here, and some functions
 	like strcat, expect a 0 to end a string, otherwise they are going to never 
 	finish */
     memset(message, 0, BUF_SIZE);
-
-	/* newline to append to message */
-	char * nl = "\n";
 
 	/* get current x-cursor position, to get number of characters to be
 	sent (the current implementations only reads characters from
@@ -204,14 +199,34 @@ handleNewline(WINDOW * chatWindow, int pipe_fd)
 		endwin();
 		errExit("mvwinnstr [chatWindow]");
 	}
+
+	/* store the username received as parameter in the heap, in order to append
+	to message sent back to server */
+	char * username = (char *) malloc(BUF_SIZE);
+	if(username == NULL)
+		errExit("malloc failed. handleNewline()");
+	/* guarantee that all values of username are initialized with 0 */
+	memset(username, 0, BUF_SIZE);
+	/* copy value of username in parameter into heap memory allocation */
+	if(strcpy(username,username_input)!=username)
+		errExit("strcpy");
+
+	/* append message to username */
+	if(strcat(username,message)!=username)
+		errExit("strcat");
+
+	/* append newline to username */
+	const char * nl = "\n";
 	/* append newline to message, before sending the message to the server */
-	if(strcat(message, nl)!=message)
+	if(strcat(username, nl)!=username)
 		errExit("strcat");
 	
 	/* send message just written to pipe, to child process which
 	sends message to server */
 	sendMessageToPipe(pipe_fd, message);
 	free(message);
+	free(username);
+
 	/* delete line which was just sent */
 	if(wdeleteln(chatWindow)==ERR){
 		endwin();
@@ -424,7 +439,7 @@ main(int argc, char *argv[])
 			/* carriage return was pressed, send line to server, delete
 			line and move cursor to origin */
 			if(a == '\n'){
-				handleNewline(chatWindow,pipe_fds_send_server[1]);	
+				handleNewline(chatWindow,pipe_fds_send_server[1], "erodrigufer");	
 				/* newline was handled, continue trying to read input from keyboard */
 				continue;
 			} // if-statement \n (newline)
