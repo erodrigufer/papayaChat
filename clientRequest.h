@@ -12,6 +12,8 @@ void handleRequest(int,int);
 
 static void introMessage(int);
 
+static off_t readChatlogSendClient(int, int, off_t);
+
 static void sendNewMessages(int, int);
 
 static void receiveMessages(int, int, pid_t);
