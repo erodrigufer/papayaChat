@@ -439,7 +439,7 @@ main(int argc, char *argv[])
 			/* carriage return was pressed, send line to server, delete
 			line and move cursor to origin */
 			if(a == '\n'){
-				handleNewline(chatWindow,pipe_fds_send_server[1], "erodrigufer");	
+				handleNewline(chatWindow,pipe_fds_send_server[1], "erodrigufer: ");	
 				/* newline was handled, continue trying to read input from keyboard */
 				continue;
 			} // if-statement \n (newline)
