@@ -221,9 +221,9 @@ handleNewline(WINDOW * chatWindow, int pipe_fd, const char * username_input)
 	if(strcat(username, nl)!=username)
 		errExit("strcat");
 	
-	/* send message just written to pipe, to child process which
-	sends message to server */
-	sendMessageToPipe(pipe_fd, message);
+	/* send concactenation of username, message and newline just written to pipe, 
+	to child process which sends message to server */
+	sendMessageToPipe(pipe_fd, username);
 	free(message);
 	free(username);
 
