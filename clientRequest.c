@@ -243,6 +243,8 @@ handleRequest(int client_fd, int chatlog_fd)
 		/* Child process */
 		case 0:
 			sendNewMessages(client_fd, chatlog_fd);
+			/* TODO: a problem is that there is no socket closure here, and the program also does not
+			exit after finishing with this function*/
 
 		/* Parent process */
 		default:
