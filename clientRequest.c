@@ -48,14 +48,94 @@ introMessage(int client_fd)
  
 }
 
+/* helper function used to read from chatlog file and to send its
+contents directly to the client */
+static off_t
+readChatlogSendClient(int client_fd, int chatlog_fd, off_t offset)
+{
+	/* allocate memory on each for-loop to read message
+	from pipe */
+	char * string_buf = (char *) malloc(BUF_SIZE);
+	/* if malloc fails, it returns a NULL pointer */
+	if(string_buf == NULL){
+		syslog(LOG_ERR, "malloc failed: %s", strerror(errno));
+		_exit(EXIT_FAILURE);
+	}
+	/* guarantee that string_buf has 0 value */
+	memset(string_buf,0,BUF_SIZE);
+
+	/* just a debug run, it should not exit here */
+	//syslog(LOG_DEBUG, "value of flag_activated= %d", flag_activated);
+
+	/* shared read (safe read) from chatlog file */	
+	ssize_t bytesRead = sharedRead(chatlog_fd, string_buf, BUF_SIZE, offset);
+	if(bytesRead==-1){
+		syslog(LOG_ERR, "sharedRead() failed: %s", strerror(errno));
+		/* read failed, free malloc resources before exiting */
+		free(string_buf);
+		_exit(EXIT_FAILURE);
+	}
+
+	/* the sharedRead delivered EOF, so there were no new messages to read
+	do not change the offset and return immediately */
+	if(bytesRead==0){
+		free(string_buf);
+		return offset;
+	}
+
+	/* TODO: consider that all of this is happening after UNLOCKING
+	shared read lock */
+
+	/* update offset value after read */
+	offset = offset + bytesRead;
+
+	/* store only the characters read on a new string */
+	char * stringClient = (char *) malloc(bytesRead);
+	/* if malloc fails, it returns a NULL pointer */
+	if(stringClient == NULL){
+		syslog(LOG_ERR, "malloc failed: %s", strerror(errno));
+		_exit(EXIT_FAILURE);
+	}
+	/* copy only the bytesRead into stringClient */
+	if(snprintf(stringClient,bytesRead,"%s",string_buf)<0){
+		syslog(LOG_ERR, "snprintf() failed: %s", strerror(errno));
+		free(string_buf);
+		free(stringClient);
+		_exit(EXIT_FAILURE);
+	}
+
+	/* send message to client socket */
+	if(write(client_fd,stringClient,bytesRead)!=bytesRead){
+		syslog(LOG_ERR, "write() failed: %s", strerror(errno));
+		free(string_buf);
+		free(stringClient);
+		_exit(EXIT_FAILURE);
+	}
+
+	/* DEBUG: print to syslog the contents of the chat log */
+	//syslog(LOG_DEBUG, "---> Contents of chat log: %s<---", stringClient);
+	
+	/* free malloc resources before end of loop */
+	free(string_buf);
+	free(stringClient);
+
+	return offset; /* value used in the next iteration */
+
+}
+
 /* function to send new messages to client after receiving SIGUSR1 signal */
 static void
 sendNewMessages(int client_fd, int chatlog_fd)
 {
-	/* TODO: sendMessages as soon as a new client connects, otherwise it receives the messages later,
-	just in case another client accesses later than the first client in the chat room */
+	/* start reading from beginning of file */
+	off_t offset = 0;
 
-	syslog(LOG_DEBUG, "value of flag_activated before SIGUSR1= %d", flag_activated);
+	/* read from chatlog as soon as the client connects, and send
+	new messages eventually right away*/
+	offset = readChatlogSendClient(client_fd, chatlog_fd, offset);
+
+	//syslog(LOG_DEBUG, "value of flag_activated before SIGUSR1= %d", flag_activated);
+
 	/* activate SIGUSR1 only for this child process, this means that this child process
 	can receive the SIGUSR1 signal, when a client sends a message to the server */
 	if(activateSIGUSR1()==-1){
@@ -65,72 +145,14 @@ sendNewMessages(int client_fd, int chatlog_fd)
 		all the processes handling the same client */
 		_exit(EXIT_FAILURE);
 	}// end activateSIGUSR1()
-
-	/* start reading from beginning of file */
-	off_t offset = 0;
-
+	
 	for(;;){
 		/* block until a signal is received, in this case the multicast SIGUSR1 */
 		pause();			
-
-		/* allocate memory on each for-loop to read message
-		from pipe */
-		char * string_buf = (char *) malloc(BUF_SIZE);
-		/* if malloc fails, it returns a NULL pointer */
-		if(string_buf == NULL){
-			syslog(LOG_ERR, "malloc failed: %s", strerror(errno));
-			_exit(EXIT_FAILURE);
-		}
-
-		/* guarantee that string_buf has 0 value */
-		memset(string_buf,0,BUF_SIZE);
-
-		/* just a debug run, it should not exit here */
-		syslog(LOG_DEBUG, "value of flag_activated= %d", flag_activated);
-	
-		ssize_t bytesRead = sharedRead(chatlog_fd, string_buf, BUF_SIZE, offset);
-		if(bytesRead==-1){
-			syslog(LOG_ERR, "sharedRead() failed: %s", strerror(errno));
-			/* read failed, free malloc resources before exiting */
-			free(string_buf);
-			_exit(EXIT_FAILURE);
-		}
-
-		/* TODO: consider that all of this is happening after UNLOCKING
-		shared read lock */
-
-		/* update offset value after read */
-		offset = offset + bytesRead;
-
-		/* store only the characters read on a new string */
-		char * stringClient = (char *) malloc(bytesRead);
-		/* if malloc fails, it returns a NULL pointer */
-		if(stringClient == NULL){
-			syslog(LOG_ERR, "malloc failed: %s", strerror(errno));
-			_exit(EXIT_FAILURE);
-		}
-		/* copy only the bytesRead into stringClient */
-		if(snprintf(stringClient,bytesRead,"%s",string_buf)<0){
-			syslog(LOG_ERR, "snprintf() failed: %s", strerror(errno));
-			free(string_buf);
-			free(stringClient);
-			_exit(EXIT_FAILURE);
-		}
-
-		/* send message to client socket */
-		if(write(client_fd,stringClient,bytesRead)!=bytesRead){
-			syslog(LOG_ERR, "write() failed: %s", strerror(errno));
-			free(string_buf);
-			free(stringClient);
-			_exit(EXIT_FAILURE);
-		}
-
-		/* DEBUG: print to syslog the contents of the chat log */
-		syslog(LOG_DEBUG, "---> Contents of chat log: %s<---", stringClient);
 		
-		/* free malloc resources before end of loop */
-		free(string_buf);
-		free(stringClient);
+		/* SIGUSR1 was received, so attempt to read from chatlog and send new messages to client */
+		offset = readChatlogSendClient(client_fd, chatlog_fd, offset);
+
 
 	}// end for-loop
 }
