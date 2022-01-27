@@ -56,7 +56,8 @@ sendNewMessages(int client_fd, int chatlog_fd)
 	just in case another client accesses later than the first client in the chat room */
 
 	syslog(LOG_DEBUG, "value of flag_activated before SIGUSR1= %d", flag_activated);
-	/* activate SIGUSR1 only for this child process */
+	/* activate SIGUSR1 only for this child process, this means that this child process
+	can receive the SIGUSR1 signal, when a client sends a message to the server */
 	if(activateSIGUSR1()==-1){
 		syslog(LOG_ERR, "activateSIGUSR1() failed: %s", strerror(errno));
 		/* TODO: actually if something fails, then there should be a defered function
