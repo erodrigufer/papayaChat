@@ -127,15 +127,6 @@ readChatlogSendClient(int client_fd, int chatlog_fd, off_t offset)
 static void
 sendNewMessages(int client_fd, int chatlog_fd)
 {
-	/* start reading from beginning of file */
-	off_t offset = 0;
-
-	/* read from chatlog as soon as the client connects, and send
-	new messages eventually right away*/
-	offset = readChatlogSendClient(client_fd, chatlog_fd, offset);
-
-	//syslog(LOG_DEBUG, "value of flag_activated before SIGUSR1= %d", flag_activated);
-
 	/* activate SIGUSR1 only for this child process, this means that this child process
 	can receive the SIGUSR1 signal, when a client sends a message to the server */
 	if(activateSIGUSR1()==-1){
@@ -145,6 +136,16 @@ sendNewMessages(int client_fd, int chatlog_fd)
 		all the processes handling the same client */
 		_exit(EXIT_FAILURE);
 	}// end activateSIGUSR1()
+
+	/* start reading from beginning of file */
+	off_t offset = 0;
+
+	/* read from chatlog as soon as the client connects, and send
+	new messages eventually right away*/
+	offset = readChatlogSendClient(client_fd, chatlog_fd, offset);
+
+	//syslog(LOG_DEBUG, "value of flag_activated before SIGUSR1= %d", flag_activated);
+
 	
 	for(;;){
 		/* block until a signal is received, in this case the multicast SIGUSR1 */
