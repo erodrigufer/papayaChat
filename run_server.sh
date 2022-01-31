@@ -34,6 +34,7 @@ check_distribution(){
 	# use grep in egrep mode (-e), being 
 	# case-insensitive (-i) and check for either 
 	# ubuntu or debian
+	echo "* Checking system distribution..."
 	lsb_release -i | grep -i -E "(ubuntu|debian|kali)" || { echo "[ERROR] System must be debian-based to run daemon."; exit -1 ; }
 
 	# About egrep: with egrep it is easier to write the OR
@@ -42,11 +43,10 @@ check_distribution(){
 }
 
 create_system_user(){
-	 
-	#TODO: redirect output of id to make it silent later
 	
+	echo "* Checking existance of correct system user for daemon..."
 	# if the system_user does not exist, it is created
-	id ${SYSTEM_USER} && return 0
+	id ${SYSTEM_USER} > /dev/null && return 0
 
 	echo "Creating system user (UID=papayachat) ..."
 	# add a new system user, without login, without a home directory
