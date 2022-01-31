@@ -46,7 +46,10 @@ In order to stop a, possibly, long-running instance of the back-end daemon:
 1. Find out the PID of the daemon with `ps -ed | grep papayachat`. If there is not an established connection with a client(s), there should be only a single running daemon process (every new client connection creates 2 processes).
 2. Kill all running processes owned by **papayachat** (you need sudo rights for this, since the daemon and its child processes are running as system user _papayachat_).
 
-## Debugging with strace
+## Debugging
+Some useful tips for debugging low level system calls and/or networking issues.
+
+### Debugging with strace
 Useful debugging commands for syscall profilling with **strace**
 ```
 strace -f -T -o <output_file> <process_to_profile>
@@ -58,7 +61,7 @@ strace -f -T -o <output_file> <process_to_profile>
 ```
 `-f` option is necessary in all executables that use `fork()` to create child processes.
 
-## Debugging with tshark
+### Debugging with tshark
 Capture packages with **tshark**. See traffic flow between server and client.
 ```
 sudo tshark -i 1 -P -x -f "tcp port ${PORT_NUMBER}" > ${OUTPUT_FILE}
