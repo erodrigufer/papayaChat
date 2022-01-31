@@ -12,7 +12,7 @@ A goal of the proyect is to reliably run the chat client in any Unix system. Non
 ## Installation guide
 
 ### Back-end
-To build and run the back-end executable:
+To build the back-end executable:
 * `make install` (you need sudo rights to install the chat daemon in your system).
 This will create a system user named `papayachat` which will run the papayachat daemon _papayachatd_ in the background. The daemon's executable will be compiled and tested before being placed at `/usr/local/bin/papayachat/`. Meanwhile, the chatlog's file can be found at `/var/lib/papayachat/`. If there is an error during the compilation or the build does not pass the _networking_ test, the daemon will not be installed on the system.
 
