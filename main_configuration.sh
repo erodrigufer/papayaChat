@@ -78,9 +78,6 @@ kill_daemon(){
 	sudo kill $(ps -ef | grep papayachat | awk '{ if ($3 == 1) print $2 }') 2>/dev/null && { printf "[${COLOR_GREEN}DOWN${NO_COLOR}] papayachatd daemon killed!\n"; return 0; }
 
 	printf "[${COLOR_RED}WARNING${NO_COLOR}] papayachatd daemon was NOT killed! daemon was NOT currently running in the system!\n"
-
-	return -1
-
 }
 
 uninstall(){
