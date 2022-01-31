@@ -125,6 +125,21 @@ $(EXECUTABLE_SERVER_TEST) : $(OBJECTS_SERVER_TEST) $(EXECUTABLE_TERM_TEST)
 $(EXECUTABLE_TERM_TEST) : termHandlerAsyncSafe.o configure_syslog.o
 	$(CC) $(CC_FLAGS) -o $(EXECUTABLE_TERM_TEST) termHandlerAsyncSafe.o configure_syslog.o
 
+.PHONY : install
+install :
+	./main_configuration.sh 
+
+.PHONY : uninstall
+uninstall:	
+	./main_configuration.sh -u
+
+.PHONY : upgrade
+upgrade:
+	./main_configuration.sh -g
+
+#.PHONY : run
+#run: 
+#	./main_configuration.sh -r
 
 .PHONY : test
 test: server-test
