@@ -188,6 +188,24 @@ run_server(){
 
 }
 
+print_usage(){
+	
+	local PROGNAME=$(basename $0)
+	echo "${PROGNAME} usage:  ${PROGNAME} [-h|--help] [-u|--uninstall] [g|--upgrade] [-k|--kill] [gr]
+	
+	-h Display usage/man page
+	-g Upgrade daemon by uninstalling current daemon and installing current version of daemon inside the repo
+	-r Run the daemon
+	-k Kill the daemon
+	-u Uninstall the daemon binary and chatlog file from the system
+	"
+
+	exit 0
+
+}
+
+[ "$1" = '-h' ] && print_usage
+[ "$1" = '--help' ] && print_usage
 # -u flag, run uninstall
 [ "$1" = '-u' ] && { uninstall; exit 0; }
 [ "$1" = '--uninstall' ] && { uninstall; exit 0; }
