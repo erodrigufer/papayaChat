@@ -218,7 +218,8 @@ receiveMessages(int client_fd, int chatlog_fd, pid_t child_pid)
 		}
 
 		/* EOF - client closed socket */
-		if (numRead = 0){
+		if (numRead == 0){
+			syslog(LOG_DEBUG, "Received EOF from client!");
 			break; /* break out of for-loop after EOF */
 		}
 	}//infinite for-loop
