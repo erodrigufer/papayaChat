@@ -18,7 +18,7 @@ This will create a system user named `papayachat` which will run the papayachat 
 
 After installing the back-end, to start running the daemon:
 * `make run`
-You can further check that the daemon is running with the command `ss -at`, it should show you a service _listenning_ at the port you specified for the **papayachatd**.
+You can further check that the daemon is running with the command `ss -at`, it should show you a service _listening_ at the port you specified for the **papayachatd**.
 
 To upgrade the current version of papayachat in the system:
 * `make upgrade`
