@@ -44,6 +44,7 @@ killChildProcesses(void)
 	By using pid=0 I send the SIGTERM signal to every process in the
 	Process Group (all children) */
 	if(kill(0,SIGTERM)==-1)
+/* errMsg is not going to be displayed if this is running as a terminalless daemon*/
 		errMsg("Failed to kill processes in Process Group!");
 
 }
