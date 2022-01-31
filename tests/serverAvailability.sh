@@ -18,17 +18,17 @@ PORT=51000
 # sleep after starting daemon, because daemon needs some time to be up and running
 SLEEP_TIME=2 # in seconds
 
-echo "[test] Test server availability..."
-echo "Check dependencies..."
+echo "[test] ...Starting server availability test..."
+echo "* Checking dependencies..."
 # ss (instead of netstat)
 which ss > /dev/null || { echo "ss is missing"; printf "[${COLOR_RED}MISSING DEPENDENCY${NO_COLOR}] Server availability test failed!\n"; exit -1; }
 # Check if PORT is already in use
 ss -at | grep ${PORT} && { printf "[${COLOR_RED}FAILED${NO_COLOR}] Port ${PORT} already in use. A server instance is probably already running. Exit test!\n"; exit -1; }
 
 # netcat -zv Verbose output -z check for connection
-${EXECUTABLE} && { echo "Starting server..."; sleep ${SLEEP_TIME}; echo "Server daemon is now running..."; ss -at | grep ${PORT}; } && netcat -zv localhost ${PORT} || { printf "[${COLOR_RED}FAILED${NO_COLOR}] Server availability test failed!\n"; exit -1; }
+${EXECUTABLE} && { echo "* Starting server..."; sleep ${SLEEP_TIME}; echo "* Server daemon is now running..."; ss -at | grep ${PORT}; } && netcat -zv localhost ${PORT} || { printf "[${COLOR_RED}FAILED${NO_COLOR}] Server availability test failed!\n"; exit -1; }
 
-kill $(pidof ${EXECUTABLE}) && echo "Killed daemon..."
+kill $(pidof ${EXECUTABLE}) && echo "* Killed daemon after test..."
 # ss -a (listening and active ports) -t (TCP connections)
 ss -at | grep ${PORT}
 printf "[${COLOR_GREEN}SUCCESS${NO_COLOR}] Server availability test passed!\n"
