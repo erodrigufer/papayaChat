@@ -142,6 +142,8 @@ create_chat_log(){
 	# only read/write permissions for root and group
 	sudo chmod 660 ${CHATLOG_FILE} || { printf "[${COLOR_RED}ERROR${NO_COLOR}] chatlog chmod failed!"; defer_installation ; } 
 
+	printf "${COLOR_GREEN}SUCCESS${NO_COLOR}: chatlog created properly!\n"
+
 }
 
 main_installation(){
@@ -179,8 +181,8 @@ run_server(){
 [ "$1" = '-u' ] && { uninstall; exit 0; }
 [ "$1" = '--uninstall' ] && { uninstall; exit 0; }
 [ "$1" = '-r' ] && run_server
-[ "$1" = '-g' ] && upgrade 
-[ "$1" = '--upgrade' ] && upgrade 
+[ "$1" = '-g' ] && { upgrade; exit 0; }
+[ "$1" = '--upgrade' ] && { upgrade; exit 0; }
 # First upgrade, then run newly upgraded server
 [ "$1" = '-gr' ] && upgrade && run_server
 [ "$1" = '-rg' ] && upgrade && run_server
