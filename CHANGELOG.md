@@ -1,4 +1,6 @@
 # Pre-releases
+## v0.2.1-alpha
+* Major changes on the Makefile UI, it is now possible to install, uninstall, run and upgrade the backend with just simple `make` commands.
 ## v0.2.0-alpha
 * [FIXED] All child processes created in the back-end to handle exery single child, properly exit as soon as one of the processes receives EOF from the client.
 ## v0.1.0-alpha
