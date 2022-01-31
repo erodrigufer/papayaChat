@@ -92,8 +92,8 @@ file_locking_test.o : CONFIG.h
 	$(CC) -D TEST -c -o file_locking_test.o file_locking.c
 
 # run front-end executable
-.PHONY : run 
-run : $(EXECUTABLE_FRONTEND)
+.PHONY : app
+app : $(EXECUTABLE_FRONTEND)
 	$(EXECUTABLE_FRONTEND)
 
 .PHONY : client
@@ -125,21 +125,31 @@ $(EXECUTABLE_SERVER_TEST) : $(OBJECTS_SERVER_TEST) $(EXECUTABLE_TERM_TEST)
 $(EXECUTABLE_TERM_TEST) : termHandlerAsyncSafe.o configure_syslog.o
 	$(CC) $(CC_FLAGS) -o $(EXECUTABLE_TERM_TEST) termHandlerAsyncSafe.o configure_syslog.o
 
+# Install daemon executable and chatlog file
 .PHONY : install
 install :
 	./main_configuration.sh 
 
+# Remove daemon executable and chatlog file from system
 .PHONY : uninstall
 uninstall:	
-	./main_configuration.sh -u
+	./main_configuration.sh --uninstall
 
+# Upgrade daemon to newer version, by first uninstalling present files
+# daemon executable and chatlog file
 .PHONY : upgrade
 upgrade:
-	./main_configuration.sh -g
+	./main_configuration.sh --upgrade
 
-#.PHONY : run
-#run: 
-#	./main_configuration.sh -r
+# Kill daemon
+.PHONY : kill
+kill:
+	./main_configuration.sh --kill
+
+# Run daemon
+.PHONY : run
+run: 
+	./main_configuration.sh --run
 
 .PHONY : test
 test: server-test
