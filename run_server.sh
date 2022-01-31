@@ -5,6 +5,11 @@
 # 2) /bin, /sbin, /usr/bin, /usr/local/bin, ...
 # https://askubuntu.com/questions/308045/differences-between-bin-sbin-usr-bin-usr-sbin-usr-local-bin-usr-local
 
+# Definition of colours
+COLOR_GREEN='\e[0;32m'
+NO_COLOR='\033[0m'
+COLOR_RED='\033[0;31m'
+
 SYSTEM_USER=papayachat
 
 SERVER_BIN_PATH=./bin/concurrent_server.bin
@@ -35,7 +40,7 @@ check_distribution(){
 	# case-insensitive (-i) and check for either 
 	# ubuntu or debian
 	echo "* Checking system distribution..."
-	lsb_release -i | grep -i -E "(ubuntu|debian|kali)" || { echo "[ERROR] System must be debian-based to run daemon."; exit -1 ; }
+	lsb_release -i | grep -i -E "(ubuntu|debian|kali)" || {printf "[${COLOR_RED}ERROR${NO_COLOR}] System must be debian-based to run daemon."; exit -1 ; }
 
 	# About egrep: with egrep it is easier to write the OR
 	# logic ( | ) otherwise all these characters must be escaped
@@ -48,7 +53,7 @@ create_system_user(){
 	# if the system_user does not exist, it is created
 	id ${SYSTEM_USER} > /dev/null && return 0
 
-	echo "Creating system user (UID=papayachat) ..."
+	echo "* Creating system user (UID=papayachat) ..."
 	# add a new system user, without login, without a home directory
 	# and with its own group
 	sudo adduser --system --no-create-home --group ${SYSTEM_USER} || exit -1
@@ -62,8 +67,9 @@ create_system_user(){
 }
 
 uninstall(){
-	echo "Uninstalling ${DAEMON_EXECUTABLE_NAME}..."
+	echo "* Uninstalling ${DAEMON_EXECUTABLE_NAME}..."
 	sudo rm -rf ${INSTALLATION_PATH}
+	echo "* Removing chat log file..."
 	sudo rm -rf ${CHATLOG_PATH}
 	echo "All files removed. Done!"
 	exit 0
@@ -87,35 +93,35 @@ install_daemon(){
 	# check if daemon is already istalled
 	[ -f ${INSTALLATION_FILE} ] && return 0
 
-	echo "Compilling and testing..."
+	echo "* Compilling and testing..."
 	# if it is not installed, then compile and test
 	make clean	
-	make test || { echo "[ERROR] Server compilation/test failed!"; exit -1 ; }
+	make test || { printf "[${COLOR_RED}ERROR${NO_COLOR}] Server compilation/test failed!"; exit -1 ; }
 
 	make server
 	
-	echo "Installing daemon at ${INSTALLATION_FILE}..."
-	sudo mkdir -p ${INSTALLATION_PATH} || { echo "[ERROR] directory creation at ${INSTALLATION_PATH}"; exit -1 ; }
+	echo "* Installing daemon at ${INSTALLATION_FILE}..."
+	sudo mkdir -p ${INSTALLATION_PATH} || { printf "[${COLOR_RED}ERROR${NO_COLOR}] directory creation at ${INSTALLATION_PATH}"; exit -1 ; }
 	
 	# Copy daemon to installation path
-	sudo cp ${SERVER_BIN_PATH} ${INSTALLATION_FILE} || { echo "[ERROR] Binary installation failed!"; exit -1 ; }
+	sudo cp ${SERVER_BIN_PATH} ${INSTALLATION_FILE} || {printf "[${COLOR_RED}ERROR${NO_COLOR}] Binary installation failed!"; exit -1 ; }
 
 	# Copy other necessary binary files to installation path
-	sudo cp ${TERM_BIN_PATH} ${INSTALLATION_TERM} || { echo "[ERROR] Binary installation failed!"; exit -1 ; }
+	sudo cp ${TERM_BIN_PATH} ${INSTALLATION_TERM} || {printf "[${COLOR_RED}ERROR${NO_COLOR}] Binary installation failed!"; exit -1 ; }
 
 	# Change file ownership to root, only root can modify executable
 	# root and papayachat con execute file
 	# If any of this commands fails, remove binary (security risk!)
-	sudo chown root:${SYSTEM_USER} ${INSTALLATION_FILE} || { echo "[ERROR] chown failed!"; defer_installation ; } 
+	sudo chown root:${SYSTEM_USER} ${INSTALLATION_FILE} || {printf "[${COLOR_RED}ERROR${NO_COLOR}] chown failed!"; defer_installation ; } 
 
-	sudo chown root:${SYSTEM_USER} ${INSTALLATION_TERM} || { echo "[ERROR] chown failed!"; defer_installation ; } 
+	sudo chown root:${SYSTEM_USER} ${INSTALLATION_TERM} || {printf "[${COLOR_RED}ERROR${NO_COLOR}] chown failed!"; defer_installation ; } 
 
 	# Change file permission, so that only root and papayachat con execute
-	sudo chmod 750 ${INSTALLATION_FILE} || { echo "[ERROR] chmod failed!"; defer_installation ; } 
+	sudo chmod 750 ${INSTALLATION_FILE} || {printf "[${COLOR_RED}ERROR${NO_COLOR}] chmod failed!"; defer_installation ; } 
 
-	sudo chmod 750 ${INSTALLATION_TERM} || { echo "[ERROR] chmod failed!"; defer_installation ; } 
+	sudo chmod 750 ${INSTALLATION_TERM} || {printf "[${COLOR_RED}ERROR${NO_COLOR}] chmod failed!"; defer_installation ; } 
 	
-	echo "daemon ${DAEMON_EXECUTABLE_NAME} installed properly!"
+	printf "${COLOR_GREEN}SUCCESS${NO_COLOR}: daemon ${DAEMON_EXECUTABLE_NAME} installed properly!"
 		
 }
 
@@ -124,17 +130,17 @@ create_chat_log(){
 	# check if chatlog already exists and is a regular file
 	[ -f ${CHATLOG_FILE} ] && return 0
 	
-	echo "Creating chat log file at ${CHATLOG_FILE}..."
+	echo "* Creating chat log file at ${CHATLOG_FILE}..."
 
-	sudo mkdir -p ${CHATLOG_PATH} || { echo "[ERROR] directory creation at ${CHATLOG_PATH}"; exit -1 ; }
+	sudo mkdir -p ${CHATLOG_PATH} || {printf "[${COLOR_RED}ERROR${NO_COLOR}] directory creation at ${CHATLOG_PATH}"; exit -1 ; }
 	
-	sudo touch ${CHATLOG_FILE} || { echo "[ERROR] file creation failed!"; exit -1 ; }
+	sudo touch ${CHATLOG_FILE} || {printf "[${COLOR_RED}ERROR${NO_COLOR}] file creation failed!"; exit -1 ; }
 
 	# Change file ownership
-	sudo chown root:${SYSTEM_USER} ${CHATLOG_FILE} || { echo "[ERROR] chatlog chown failed!"; defer_installation ; } 
+	sudo chown root:${SYSTEM_USER} ${CHATLOG_FILE} || {printf "[${COLOR_RED}ERROR${NO_COLOR}] chatlog chown failed!"; defer_installation ; } 
 	
 	# only read/write permissions for root and group
-	sudo chmod 660 ${CHATLOG_FILE} || { echo "[ERROR] chatlog chmod failed!"; defer_installation ; } 
+	sudo chmod 660 ${CHATLOG_FILE} || {printf "[${COLOR_RED}ERROR${NO_COLOR}] chatlog chmod failed!"; defer_installation ; } 
 
 }
 
@@ -153,10 +159,18 @@ main_installation(){
 	
 }
 
+# Remove previous daemon version from system and upgrade to new one
+upgrade(){
+
+	uninstall
+	main_installation
+
+}
+
 run_server(){
 
 	# check if daemon is already istalled, if so, run papayachat as system user
-	[ -f ${INSTALLATION_FILE} ] && sudo -u ${SYSTEM_USER} ${INSTALLATION_FILE} && echo "Executing papayachatd"
+	[ -f ${INSTALLATION_FILE} ] && sudo -u ${SYSTEM_USER} ${INSTALLATION_FILE} && echo "Executing papayachatd as UID=papayachat"
 
 	exit 0
 
@@ -166,4 +180,9 @@ run_server(){
 [ "$1" = '-u' ] && uninstall 
 [ "$1" = '--uninstall' ] && uninstall 
 [ "$1" = '-r' ] && run_server
+[ "$1" = '-g' ] && upgrade 
+[ "$1" = '--upgrade' ] && upgrade 
+# First upgrade, then run newly upgraded server
+[ "$1" = '-gr' ] && upgrade && run_server
+[ "$1" = '-rg' ] && upgrade && run_server
 main_installation
