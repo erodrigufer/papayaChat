@@ -166,7 +166,11 @@ killChild(pid_t child_pid)
 	/* TODO: in theory this system call could fail, and it would return -1
 	in that case we would have to do something more aggresive, like kill
 	all processes in the process group */
-	kill(child_pid, SIGTERM);
+	if(kill(child_pid, SIGTERM)==-1){
+		syslog(LOG_ERR, "kill child process failed: %s", strerror(errno));
+		_exit(EXIT_FAILURE);
+	}
+	syslog(LOG_DEBUG, "Killed child process PID: %d.", child_pid);
 
 }
 
