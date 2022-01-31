@@ -198,7 +198,7 @@ run_server(){
 print_usage(){
 	
 	local PROGNAME=$(basename $0)
-	echo "${PROGNAME} usage:  ${PROGNAME} [-h|--help] [-u|--uninstall] [g|--upgrade] [-k|--kill] [gr]
+	echo "${PROGNAME} usage:  ${PROGNAME} [-h|--help] [-u|--uninstall] [g|--upgrade] [-r|--run] [-k|--kill] [gr]
 	
 	-h Display usage/man page
 	-g Upgrade daemon by uninstalling current daemon and installing current version of daemon inside the repo
@@ -217,6 +217,7 @@ print_usage(){
 [ "$1" = '-u' ] && { uninstall; exit 0; }
 [ "$1" = '--uninstall' ] && { uninstall; exit 0; }
 [ "$1" = '-r' ] && run_server
+[ "$1" = '--run' ] && run_server
 [ "$1" = '-g' ] && { upgrade; exit 0; }
 [ "$1" = '--upgrade' ] && { upgrade; exit 0; }
 # First upgrade, then run newly upgraded server
