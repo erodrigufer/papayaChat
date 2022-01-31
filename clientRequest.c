@@ -228,6 +228,10 @@ receiveMessages(int client_fd, int chatlog_fd, pid_t child_pid)
 	just returns with no value (void), therefore we should also kill the child processes here */
 	killChild(child_pid);
 
+	/* kill  receiveMessages() child process, after this command, all child processes created for
+	a particular client should be gone!! this fixes the bug present in pre-release v0.1.0-alpha */
+	_exit(EXIT_SUCCESS);
+
 }
 
 /* Handle a client request: copy socket input back to socket */
@@ -249,8 +253,10 @@ handleRequest(int client_fd, int chatlog_fd)
 		/* Child process */
 		case 0:
 			sendNewMessages(client_fd, chatlog_fd);
-			/* TODO: a problem is that there is no socket closure here, and the program also does not
-			exit after finishing with this function*/
+			/* when the parent process receiveMessages() receives a EOF from the client, when the client
+			disconnects, then the parent process sends a SIGTERM signal to the child (sendNewMessages) 
+			and _exit() itself. Therefore finishing all processes of a particular client. The sockets used
+			are closed when the processes exit. */
 
 		/* Parent process */
 		default:
