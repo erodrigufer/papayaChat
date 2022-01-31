@@ -21,7 +21,7 @@ SLEEP_TIME=2 # in seconds
 echo "[test] Test server availability..."
 echo "Check dependencies..."
 # ss (instead of netstat)
-which ss || { echo "ss is missing"; printf "[${COLOR_RED}MISSING DEPENDENCY${NO_COLOR}] Server availability test failed!\n"; exit -1; }
+which ss > /dev/null || { echo "ss is missing"; printf "[${COLOR_RED}MISSING DEPENDENCY${NO_COLOR}] Server availability test failed!\n"; exit -1; }
 # Check if PORT is already in use
 ss -at | grep ${PORT} && { printf "[${COLOR_RED}FAILED${NO_COLOR}] Port ${PORT} already in use. A server instance is probably already running. Exit test!\n"; exit -1; }
 
