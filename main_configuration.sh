@@ -66,7 +66,25 @@ create_system_user(){
 
 }
 
+# Kill a running daemon of papayachatd
+kill_daemon(){
+
+	# ps -ef will show all processes with its PIDs in $2 and its PPIDs in $3
+	# so if the PPID of one of the papayachat instances equals 1, we know that
+	# it most be the daemon, since its parent is init
+	# in that case, print the second column $2, and use that value to kill the daemon
+	# in case that the daemon is not running, supress the error message of kill by redirecting to
+	# /dev/null
+	sudo kill $(ps -ef | grep papayachat | awk '{ if ($3 == 1) print $2 }') 2>/dev/null && { printf "[${COLOR_GREEN}DOWN${NO_COLOR}] papayachatd daemon killed!\n"; return 0; }
+
+	printf "[${COLOR_RED}WARNING${NO_COLOR}] papayachatd daemon was NOT killed! daemon was NOT currently running in the system!\n"
+
+	return -1
+
+}
+
 uninstall(){
+	kill_daemon
 	echo "* Uninstalling ${DAEMON_EXECUTABLE_NAME}..."
 	sudo rm -rf ${INSTALLATION_PATH} || { printf "[${COLOR_RED}ERROR${NO_COLOR}] daemon executable could not be removed!"; exit -1 ; }
 	echo "* Removing chat log file..."
@@ -168,21 +186,10 @@ upgrade(){
 
 }
 
-# Kill a running daemon of papayachat
-kill_daemon(){
-
-	# ps -ef will show all processes with its PIDs in $2 and its PPIDs in $3
-	# so if the PPID of one of the papayachat instances equals 1, we know that
-	# it most be the daemon, since its parent is init
-	# in that case, print the second column $2, and use that value to kill the daemon
-	sudo kill $(ps -ef | grep papayachat | awk '{ if ($3 == 1) print $2 }') && echo "papayachatd daemon killed!"
-
-}
-
 run_server(){
 
 	# check if daemon is already istalled, if so, run papayachat as system user
-	[ -f ${INSTALLATION_FILE} ] && sudo -u ${SYSTEM_USER} ${INSTALLATION_FILE} && printf "[${COLOR_GREEN}UP${NO_COLOR}]Executing papayachatd as UID=papayachat\n"
+	[ -f ${INSTALLATION_FILE} ] && sudo -u ${SYSTEM_USER} ${INSTALLATION_FILE} && printf "[${COLOR_GREEN}UP${NO_COLOR}] Executing papayachatd as UID=papayachat\n"
 
 	exit 0
 
