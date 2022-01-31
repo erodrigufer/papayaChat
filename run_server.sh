@@ -40,7 +40,7 @@ check_distribution(){
 	# case-insensitive (-i) and check for either 
 	# ubuntu or debian
 	echo "* Checking system distribution..."
-	lsb_release -i | grep -i -E "(ubuntu|debian|kali)" || {printf "[${COLOR_RED}ERROR${NO_COLOR}] System must be debian-based to run daemon."; exit -1 ; }
+	lsb_release -i | grep -i -E "(ubuntu|debian|kali)" || { printf "[${COLOR_RED}ERROR${NO_COLOR}] System must be debian-based to run daemon."; exit -1 ; }
 
 	# About egrep: with egrep it is easier to write the OR
 	# logic ( | ) otherwise all these characters must be escaped
@@ -68,11 +68,11 @@ create_system_user(){
 
 uninstall(){
 	echo "* Uninstalling ${DAEMON_EXECUTABLE_NAME}..."
-	sudo rm -rf ${INSTALLATION_PATH}
+	sudo rm -rf ${INSTALLATION_PATH} || { printf "[${COLOR_RED}ERROR${NO_COLOR}] daemon executable could not be removed!"; exit -1 ; }
 	echo "* Removing chat log file..."
-	sudo rm -rf ${CHATLOG_PATH}
+	sudo rm -rf ${CHATLOG_PATH} || { printf "[${COLOR_RED}ERROR${NO_COLOR}] chatlog file could not be removed!"; exit -1 ; }
 	echo "All files removed. Done!"
-	exit 0
+	return 0
 
 }
 
@@ -104,24 +104,24 @@ install_daemon(){
 	sudo mkdir -p ${INSTALLATION_PATH} || { printf "[${COLOR_RED}ERROR${NO_COLOR}] directory creation at ${INSTALLATION_PATH}"; exit -1 ; }
 	
 	# Copy daemon to installation path
-	sudo cp ${SERVER_BIN_PATH} ${INSTALLATION_FILE} || {printf "[${COLOR_RED}ERROR${NO_COLOR}] Binary installation failed!"; exit -1 ; }
+	sudo cp ${SERVER_BIN_PATH} ${INSTALLATION_FILE} || { printf "[${COLOR_RED}ERROR${NO_COLOR}] Binary installation failed!"; exit -1 ; }
 
 	# Copy other necessary binary files to installation path
-	sudo cp ${TERM_BIN_PATH} ${INSTALLATION_TERM} || {printf "[${COLOR_RED}ERROR${NO_COLOR}] Binary installation failed!"; exit -1 ; }
+	sudo cp ${TERM_BIN_PATH} ${INSTALLATION_TERM} || { printf "[${COLOR_RED}ERROR${NO_COLOR}] Binary installation failed!"; exit -1 ; }
 
 	# Change file ownership to root, only root can modify executable
 	# root and papayachat con execute file
 	# If any of this commands fails, remove binary (security risk!)
-	sudo chown root:${SYSTEM_USER} ${INSTALLATION_FILE} || {printf "[${COLOR_RED}ERROR${NO_COLOR}] chown failed!"; defer_installation ; } 
+	sudo chown root:${SYSTEM_USER} ${INSTALLATION_FILE} || { printf "[${COLOR_RED}ERROR${NO_COLOR}] chown failed!"; defer_installation ; } 
 
-	sudo chown root:${SYSTEM_USER} ${INSTALLATION_TERM} || {printf "[${COLOR_RED}ERROR${NO_COLOR}] chown failed!"; defer_installation ; } 
+	sudo chown root:${SYSTEM_USER} ${INSTALLATION_TERM} || { printf "[${COLOR_RED}ERROR${NO_COLOR}] chown failed!"; defer_installation ; } 
 
 	# Change file permission, so that only root and papayachat con execute
-	sudo chmod 750 ${INSTALLATION_FILE} || {printf "[${COLOR_RED}ERROR${NO_COLOR}] chmod failed!"; defer_installation ; } 
+	sudo chmod 750 ${INSTALLATION_FILE} || { printf "[${COLOR_RED}ERROR${NO_COLOR}] chmod failed!"; defer_installation ; } 
 
-	sudo chmod 750 ${INSTALLATION_TERM} || {printf "[${COLOR_RED}ERROR${NO_COLOR}] chmod failed!"; defer_installation ; } 
+	sudo chmod 750 ${INSTALLATION_TERM} || { printf "[${COLOR_RED}ERROR${NO_COLOR}] chmod failed!"; defer_installation ; } 
 	
-	printf "${COLOR_GREEN}SUCCESS${NO_COLOR}: daemon ${DAEMON_EXECUTABLE_NAME} installed properly!"
+	printf "${COLOR_GREEN}SUCCESS${NO_COLOR}: daemon ${DAEMON_EXECUTABLE_NAME} installed properly!\n"
 		
 }
 
@@ -132,15 +132,15 @@ create_chat_log(){
 	
 	echo "* Creating chat log file at ${CHATLOG_FILE}..."
 
-	sudo mkdir -p ${CHATLOG_PATH} || {printf "[${COLOR_RED}ERROR${NO_COLOR}] directory creation at ${CHATLOG_PATH}"; exit -1 ; }
+	sudo mkdir -p ${CHATLOG_PATH} || { printf "[${COLOR_RED}ERROR${NO_COLOR}] directory creation at ${CHATLOG_PATH}"; exit -1 ; }
 	
-	sudo touch ${CHATLOG_FILE} || {printf "[${COLOR_RED}ERROR${NO_COLOR}] file creation failed!"; exit -1 ; }
+	sudo touch ${CHATLOG_FILE} || { printf "[${COLOR_RED}ERROR${NO_COLOR}] file creation failed!"; exit -1 ; }
 
 	# Change file ownership
-	sudo chown root:${SYSTEM_USER} ${CHATLOG_FILE} || {printf "[${COLOR_RED}ERROR${NO_COLOR}] chatlog chown failed!"; defer_installation ; } 
+	sudo chown root:${SYSTEM_USER} ${CHATLOG_FILE} || { printf "[${COLOR_RED}ERROR${NO_COLOR}] chatlog chown failed!"; defer_installation ; } 
 	
 	# only read/write permissions for root and group
-	sudo chmod 660 ${CHATLOG_FILE} || {printf "[${COLOR_RED}ERROR${NO_COLOR}] chatlog chmod failed!"; defer_installation ; } 
+	sudo chmod 660 ${CHATLOG_FILE} || { printf "[${COLOR_RED}ERROR${NO_COLOR}] chatlog chmod failed!"; defer_installation ; } 
 
 }
 
@@ -155,30 +155,29 @@ main_installation(){
 	# create chat log
 	create_chat_log
 
-	exit 0
+	return 0
 	
 }
 
 # Remove previous daemon version from system and upgrade to new one
 upgrade(){
 
-	uninstall
-	main_installation
+	uninstall && main_installation && return 0
 
 }
 
 run_server(){
 
 	# check if daemon is already istalled, if so, run papayachat as system user
-	[ -f ${INSTALLATION_FILE} ] && sudo -u ${SYSTEM_USER} ${INSTALLATION_FILE} && echo "Executing papayachatd as UID=papayachat"
+	[ -f ${INSTALLATION_FILE} ] && sudo -u ${SYSTEM_USER} ${INSTALLATION_FILE} && printf "[${COLOR_GREEN}UP${NO_COLOR}]Executing papayachatd as UID=papayachat\n"
 
 	exit 0
 
 }
 
 # -u flag, run uninstall
-[ "$1" = '-u' ] && uninstall 
-[ "$1" = '--uninstall' ] && uninstall 
+[ "$1" = '-u' ] && { uninstall; exit 0; }
+[ "$1" = '--uninstall' ] && { uninstall; exit 0; }
 [ "$1" = '-r' ] && run_server
 [ "$1" = '-g' ] && upgrade 
 [ "$1" = '--upgrade' ] && upgrade 
