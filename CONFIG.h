@@ -37,10 +37,6 @@ will be used */
 #include "userConfig.h"
 #endif
 
-/* if userConfig.h exists, then USERCONFIG_H will be
-defined, and the user-defined macros will be used, not the default
-ones from CONFIG.h */
-
 /* ------------------------------------------------------------------------ */
 #ifndef NON_DEFAULT_CONFIG
 /* IMPORTANT:
