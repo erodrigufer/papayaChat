@@ -168,6 +168,17 @@ upgrade(){
 
 }
 
+# Kill a running daemon of papayachat
+kill_daemon(){
+
+	# ps -ef will show all processes with its PIDs in $2 and its PPIDs in $3
+	# so if the PPID of one of the papayachat instances equals 1, we know that
+	# it most be the daemon, since its parent is init
+	# in that case, print the second column $2, and use that value to kill the daemon
+	sudo kill $(ps -ef | grep papayachat | awk '{ if ($3 == 1) print $2 }') && echo "papayachatd daemon killed!"
+
+}
+
 run_server(){
 
 	# check if daemon is already istalled, if so, run papayachat as system user
@@ -186,4 +197,6 @@ run_server(){
 # First upgrade, then run newly upgraded server
 [ "$1" = '-gr' ] && upgrade && run_server
 [ "$1" = '-rg' ] && upgrade && run_server
+[ "$1" = '-k' ] && { kill_daemon; exit 0; }
+[ "$1" = '--kill' ] && { kill_daemon; exit 0; }
 main_installation
