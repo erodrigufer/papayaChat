@@ -11,7 +11,7 @@
 
 /* open the config file found at pathname, it returns fd of file if 
 file is opened correctly. If not, it returns -1 */
-int
+static int
 openConfigFile(const char * pathname)
 {
 
@@ -21,9 +21,18 @@ openConfigFile(const char * pathname)
 	*/
 	int flags = O_RDONLY | O_CLOEXEC ;
 
-	/* return fd of openned file, or -1 if error */
+	/* return fd of opened file, or -1 if error */
 	return open(pathname,flags);
 
+}
+
+/* main function to parse values out of config file */
+int parseConfigFile(const char * pathname)
+
+	if(openConfigFile(pathname)==-1)
+		return -1;
+
+	return 0;
 }
 
 
