@@ -57,7 +57,7 @@ parseLine(FILE * fs, char * buffer, const char * configParameter, char * returnV
 if successful it returns 0, and the value can be found in returnValue,
 if it fails, or there is an error, it returns -1 */
 int parseConfigFile(const char * pathname, const char * configParameter, char * returnValue)
-
+{
 	/* open config file */
 	FILE *fs = openConfigFile(pathname);
 	if(fs==NULL) /* error opening file */
