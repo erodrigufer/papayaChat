@@ -5,4 +5,6 @@
 
 static int openConfigFile(const char *);
 
+int parseConfigFile(const char *);
+
 #endif
