@@ -5,7 +5,7 @@
 #ifndef CONFIGPARSER_H	/* Header guard */
 #define CONFIGPARSER_H
 
-static FILE openConfigFile(const char *);
+static FILE * openConfigFile(const char *);
 
 static int parseLine(FILE *, char *, const char *, char *);
 
