@@ -10,12 +10,12 @@
 /* open the config file found at pathname, it returns FILE pointer,
 if file is opened correctly. If not, it returns NULL
 If the file does not exist fopen fails */
-static FILE
+static FILE *
 openConfigFile(const char * pathname)
 {
 
 	/* fopen fails if the config file does not exist */
-	FILE *fs = fopen(pathname, "r");
+	FILE * fs = fopen(pathname, "r");
 
 	if (fs==NULL)
 		return NULL; /* errno is set, so print error with strerror
