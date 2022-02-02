@@ -1,5 +1,7 @@
 /* configParser.h  */
 
+#include "basics.h"	/* otherwise the type FILE pointer is undefined */
+
 #ifndef CONFIGPARSER_H	/* Header guard */
 #define CONFIGPARSER_H
 
