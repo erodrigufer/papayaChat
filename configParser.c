@@ -2,6 +2,7 @@
 	Defines functions used to parse config files
 */
 #include "basics.h"
+#include "configParser.h"
 
 /* try to read at most MAX_LINE_LENGTH characters per line */
 #define MAX_LINE_LENGTH 512
