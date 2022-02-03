@@ -3,7 +3,7 @@
 * A config file parser _library_ was created (configParser.c)
 * General config files should be now handled from /etc/
 * Both server and client can now dynamically change their behaviour without needing to re-compile by parsing values from config files
-* Client parsers **USERNAME** from config file
+* Client parses **USERNAME** from config file
 * [TO-DO] Parse PORT, ADDRESS, AUTH_KEY, and so on...
 * [BUG] Handle the client's config file from within the home directory, otherwise all users of the client within the same computer would have the
   same username ('_max_mustermann_')
