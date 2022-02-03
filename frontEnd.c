@@ -11,6 +11,7 @@
 #include "inet_sockets.h" /* include library to handle TCP sockets */
 #include "signalHandling.h" /* functions to handle signals */
 #include "handleMessages.h" /* functions to send/receive messages from pipes and sockets */
+#include "configParser.h"	/* function to parse config files */
 
 /* Load TCP/IP services from CONFIG.h header */
 #include "CONFIG.h" /* file defines IP and port of chat service server */
@@ -221,7 +222,7 @@ handleNewline(WINDOW * chatWindow, int pipe_fd, const char * username_input)
 	if(strcat(username, nl)!=username)
 		errExit("strcat");
 	
-	/* send concactenation of username, message and newline just written to pipe, 
+	/* send concatenation of username, message and newline just written to pipe, 
 	to child process which sends message to server */
 	sendMessageToPipe(pipe_fd, username);
 	free(message);
@@ -285,6 +286,19 @@ checkMaxMessageLength(WINDOW * chatWindow, int maxMessageSize)
 int 
 main(int argc, char *argv[])
 {
+
+	/* allocate memory to store USERNAME value after being parsed,
+	MAX_LINE_LENGTH is the maximum amount of characters that will be parsed
+	per line */
+	char * username_parsed = (char *) malloc(MAX_LINE_LENGTH);
+	/* if malloc fails, it returns a NULL pointer */
+	if(username_parsed == NULL)
+		errExit("malloc username_parsed failed");
+
+	/* parse client's config file for username */
+	if(parseConfigFile(CLIENT_CONFIG_PATH, "USERNAME", char * username_parsed)==-1)
+		errExit("parseConfigFile for username failed");
+
 	/* establish connection with server, get fd to be shared with child processes */
 	int server_fd = establishConnection(HOST,SERVICE);
 
@@ -439,7 +453,7 @@ main(int argc, char *argv[])
 			/* carriage return was pressed, send line to server, delete
 			line and move cursor to origin */
 			if(a == '\n'){
-				handleNewline(chatWindow,pipe_fds_send_server[1], "fran: ");	
+				handleNewline(chatWindow,pipe_fds_send_server[1], username_parsed);	
 				/* newline was handled, continue trying to read input from keyboard */
 				continue;
 			} // if-statement \n (newline)
@@ -467,6 +481,7 @@ main(int argc, char *argv[])
 	/* End ncurses, KEY_DOWN was pressed */
 	endwin();			
 
+	free(username_parsed);
 	exit(EXIT_SUCCESS);
 }
 

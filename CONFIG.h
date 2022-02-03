@@ -31,6 +31,12 @@ to share the value between multiple files */
 /* [back-end] max number of clients in listening backlog queue */
 #define BACKLOG_QUEUE 10		
 
+/* try to read at most MAX_LINE_LENGTH characters per line when parsing a config file */
+#define MAX_LINE_LENGTH 512
+
+/* path of config file for client */
+#define CLIENT_CONFIG_PATH "/etc/papayachat/client.config"
+
 /* if compiled with gcc -D NON_DEFAULT_CONFIG option, then only userConfig.h
 will be used */
 #ifdef NON_DEFAULT_CONFIG
@@ -58,7 +64,7 @@ than the binaries used in the installation of the actual daemon */
 #define CHAT_LOG_PATH "./chat_log.chat"
 #endif
 
-#endif /* endif for USERCONFIG_H */
+#endif /* endif for NON_DEFAULT_CONFIG */
 /* ------------------------------------------------------------------------ */
 
 #endif /* endif for header guard */

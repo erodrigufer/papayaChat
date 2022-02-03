@@ -14,10 +14,10 @@ CC_FLAGS = -Wall -Werror
 
 # ------------------------------------------------------------------------------------------------
 
-OBJECTS_FRONTEND = frontEnd.o error_handling.o inet_sockets.o signalHandling.o handleMessages.o
+OBJECTS_FRONTEND = frontEnd.o error_handling.o inet_sockets.o signalHandling.o handleMessages.o configParser.o
 EXECUTABLE_FRONTEND = ./bin/frontEnd.bin
 
-OBJECTS_FRONTEND_NON_DEFAULT = frontEnd_non_default.o error_handling.o inet_sockets.o signalHandling.o handleMessages.o
+OBJECTS_FRONTEND_NON_DEFAULT = frontEnd_non_default.o error_handling.o inet_sockets.o signalHandling.o handleMessages.o configParser.o
 EXECUTABLE_FRONTEND_NON_DEFAULT = ./bin/frontEnd_non_default.bin
 
 # Objects and executable for concurrent_server
@@ -82,6 +82,8 @@ signalHandling.o :
 
 handleMessages.o :
 
+configParser.o : CONFIG.h basics.h
+
 frontEnd_non_default.o : frontEnd.c userConfig.h CONFIG.h
 	$(CC) -D $(USER_CONFIGURATION) -c -o frontEnd_non_default.o frontEnd.c
 
@@ -92,14 +94,14 @@ file_locking_test.o : CONFIG.h
 	$(CC) -D TEST -c -o file_locking_test.o file_locking.c
 
 # run front-end executable
-.PHONY : app
-app : $(EXECUTABLE_FRONTEND)
-	$(EXECUTABLE_FRONTEND)
+#.PHONY : app
+#app : $(EXECUTABLE_FRONTEND)
+#	$(EXECUTABLE_FRONTEND)
 
 .PHONY : client
 client: $(EXECUTABLE_FRONTEND)
 
-frontEnd.o : basics.h error_handling.o inet_sockets.o signalHandling.o handleMessages.o CONFIG.h
+frontEnd.o : basics.h error_handling.o inet_sockets.o signalHandling.o handleMessages.o CONFIG.h configParser.o
 
 # frontEnd with ncurses
 # link to ncurses library with '-lncurses'

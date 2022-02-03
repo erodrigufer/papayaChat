@@ -3,9 +3,7 @@
 */
 #include "basics.h"
 #include "configParser.h"
-
-/* try to read at most MAX_LINE_LENGTH characters per line */
-#define MAX_LINE_LENGTH 512
+#include "CONFIG.h"
 
 /* open the config file found at pathname, it returns FILE pointer,
 if file is opened correctly. If not, it returns NULL

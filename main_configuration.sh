@@ -32,6 +32,20 @@ CHATLOG_FILENAME=papayachat.chat
 
 CHATLOG_FILE=${CHATLOG_PATH}${CHATLOG_FILENAME}
 
+CONFIG_FILE_PATH=/etc/papayachat/
+CLIENT_CONFIG_NAME=client.config
+SERVER_CONFIG_NAME=server.config
+
+REPO_CONFIG_PATH=./etc/
+
+# Use these as pathnames for config files
+CLIENT_CONFIG=${CONFIG_FILE_PATH}${CLIENT_CONFIG_NAME}
+SERVER_CONFIG=${CONFIG_FILE_PATH}${SERVER_CONFIG_NAME}
+
+# Paths inside repo for default config files
+CLIENT_REPO_CONFIG=${REPO_CONFIG_PATH}${CLIENT_CONFIG_NAME}
+SERVER_REPO_CONFIG=${REPO_CONFIG_PATH}${SERVER_CONFIG_NAME}
+
 # Some commands are debian-based (even probably BSD compliant)
 # so if the distro is not debian-based exit
 check_distribution(){
@@ -86,6 +100,8 @@ uninstall(){
 	sudo rm -rf ${INSTALLATION_PATH} || { printf "[${COLOR_RED}ERROR${NO_COLOR}] daemon executable could not be removed!"; exit -1 ; }
 	echo "* Removing chat log file..."
 	sudo rm -rf ${CHATLOG_PATH} || { printf "[${COLOR_RED}ERROR${NO_COLOR}] chatlog file could not be removed!"; exit -1 ; }
+	echo "* Removing config files..."
+	sudo rm -rf ${CONFIG_FILE_PATH} || { printf "[${COLOR_RED}ERROR${NO_COLOR}] config files could not be removed!"; exit -1 ; }
 	echo "All files removed. Done!"
 	return 0
 
@@ -96,6 +112,7 @@ uninstall(){
 defer_installation(){
 	sudo rm -rf ${INSTALLATION_PATH}
 	sudo rm -rf ${CHATLOG_PATH}
+	sudo rm -rf ${CONFIG_FILE_PATH}
 
 	exit -1
 }
@@ -106,11 +123,20 @@ defer_installation(){
 install_daemon(){
 	
 	# check if daemon is already istalled
-	[ -f ${INSTALLATION_FILE} ] && return 0
+	[ -f ${INSTALLATION_FILE} ] && { echo "daemon is already installed in the system.";return 0; }
 
-	echo "* Compilling and testing..."
 	# if it is not installed, then compile and test
-	make clean	
+	echo "* Compilling and testing..."
+	make clean
+
+	# Config file installation for client program
+	echo "* Installing config files at ${CONFIG_FILE_PATH}..."
+	sudo mkdir -p ${CONFIG_FILE_PATH} || { printf "[${COLOR_RED}ERROR${NO_COLOR}] directory creation at ${CONFIG_FILE_PATH}"; exit -1 ; }
+	sudo cp ${CLIENT_REPO_CONFIG} ${CLIENT_CONFIG} || { printf "[${COLOR_RED}ERROR${NO_COLOR}] Client config installation failed!"; exit -1 ; }
+	# Config files should have rw-r--r-- permissions, and be owned by root:root
+	sudo chown root:root ${CLIENT_CONFIG} || { printf "[${COLOR_RED}ERROR${NO_COLOR}] chown failed!"; defer_installation ; } 
+	sudo chmod 644 ${CLIENT_CONFIG} || { printf "[${COLOR_RED}ERROR${NO_COLOR}] chmod failed!"; defer_installation ; } 
+
 	make test || { printf "[${COLOR_RED}ERROR${NO_COLOR}] Server compilation/test failed!"; exit -1 ; }
 
 	make server
