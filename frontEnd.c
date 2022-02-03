@@ -295,8 +295,8 @@ main(int argc, char *argv[])
 	if(username_parsed == NULL)
 		errExit("malloc username_parsed failed");
 
-	/* parse client's config file for username */
-	if(parseConfigFile(CLIENT_CONFIG_PATH, "USERNAME", char * username_parsed)==-1)
+	/* parse USERNAME in client's config file */
+	if(parseConfigFile(CLIENT_CONFIG_PATH, "USERNAME", username_parsed)==-1)
 		errExit("parseConfigFile for username failed");
 
 	/* establish connection with server, get fd to be shared with child processes */
