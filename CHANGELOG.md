@@ -5,7 +5,7 @@
 * Both server and client can now dynamically change their behaviour without needing to re-compile by parsing values from config files
 * Client parsers **USERNAME** from config file
 * [TO-DO] Parse PORT, ADDRESS, AUTH_KEY, and so on...
-* [BUG] Handle the client's config file from within the home directory, otherwise all users of the client within the same computer would habe the
+* [BUG] Handle the client's config file from within the home directory, otherwise all users of the client within the same computer would have the
   same username ('_max_mustermann_')
 ## v0.2.1-alpha
 * Major changes on the Makefile UI, it is now possible to install, uninstall, run and upgrade the backend with just simple `make` commands.
