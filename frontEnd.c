@@ -283,21 +283,37 @@ checkMaxMessageLength(WINDOW * chatWindow, int maxMessageSize)
 
 }
 
-int 
-main(int argc, char *argv[])
+/* parse USERNAME from config file and append semicolon to username,
+store username with suffix in same char * as parameter */
+static void
+parseUsername(char * username_parsed)
 {
-
-	/* allocate memory to store USERNAME value after being parsed,
-	MAX_LINE_LENGTH is the maximum amount of characters that will be parsed
-	per line */
-	char * username_parsed = (char *) malloc(MAX_LINE_LENGTH);
-	/* if malloc fails, it returns a NULL pointer */
-	if(username_parsed == NULL)
-		errExit("malloc username_parsed failed");
 
 	/* parse USERNAME in client's config file */
 	if(parseConfigFile(CLIENT_CONFIG_PATH, "USERNAME", username_parsed)==-1)
 		errExit("parseConfigFile for username failed");
+
+	/* append semicolon and white-space to username */
+	const char * username_suffix = ": ";
+	if(strcat(username_parsed, username_suffix)!=username_parsed)
+		errExit("strcat ': '");	
+
+}
+
+
+int 
+main(int argc, char *argv[])
+{
+	/* allocate memory to store USERNAME value after being parsed,
+	MAX_LINE_LENGTH is the maximum amount of characters that will be parsed
+	per line */
+	char * username_parsed = (char *) malloc(MAX_LINE_LENGTH+10);
+	/* if malloc fails, it returns a NULL pointer */
+	if(username_parsed == NULL)
+		errExit("malloc username_parsed failed");
+
+	/* parse username from config file */
+	parseUsername(username_parsed);
 
 	/* establish connection with server, get fd to be shared with child processes */
 	int server_fd = establishConnection(HOST,SERVICE);
