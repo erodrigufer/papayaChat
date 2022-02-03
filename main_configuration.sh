@@ -117,6 +117,20 @@ defer_installation(){
 	exit -1
 }
 
+create_config_files(){
+	# Config file installation for client program
+	echo "* Installing config files at ${CONFIG_FILE_PATH}..."
+	sudo mkdir -p ${CONFIG_FILE_PATH} || { printf "[${COLOR_RED}ERROR${NO_COLOR}] directory creation at ${CONFIG_FILE_PATH}"; exit -1 ; }
+	sudo cp ${CLIENT_REPO_CONFIG} ${CLIENT_CONFIG} || { printf "[${COLOR_RED}ERROR${NO_COLOR}] Client config installation failed!"; exit -1 ; }
+	# Config files should have rw-r--r-- permissions, and be owned by root:root
+	sudo chown root:root ${CLIENT_CONFIG} || { printf "[${COLOR_RED}ERROR${NO_COLOR}] chown failed!"; defer_installation ; } 
+	sudo chmod 644 ${CLIENT_CONFIG} || { printf "[${COLOR_RED}ERROR${NO_COLOR}] chmod failed!"; defer_installation ; } 
+
+	printf "${COLOR_GREEN}SUCCESS${NO_COLOR}: config files installed properly at ${CONFIG_FILE_PATH}!\n"
+
+}
+
+
 # check if daemon is already installed in the system,
 # otherwise install binary on installation path
 # and create file to store chat log
@@ -128,14 +142,6 @@ install_daemon(){
 	# if it is not installed, then compile and test
 	echo "* Compilling and testing..."
 	make clean
-
-	# Config file installation for client program
-	echo "* Installing config files at ${CONFIG_FILE_PATH}..."
-	sudo mkdir -p ${CONFIG_FILE_PATH} || { printf "[${COLOR_RED}ERROR${NO_COLOR}] directory creation at ${CONFIG_FILE_PATH}"; exit -1 ; }
-	sudo cp ${CLIENT_REPO_CONFIG} ${CLIENT_CONFIG} || { printf "[${COLOR_RED}ERROR${NO_COLOR}] Client config installation failed!"; exit -1 ; }
-	# Config files should have rw-r--r-- permissions, and be owned by root:root
-	sudo chown root:root ${CLIENT_CONFIG} || { printf "[${COLOR_RED}ERROR${NO_COLOR}] chown failed!"; defer_installation ; } 
-	sudo chmod 644 ${CLIENT_CONFIG} || { printf "[${COLOR_RED}ERROR${NO_COLOR}] chmod failed!"; defer_installation ; } 
 
 	make test || { printf "[${COLOR_RED}ERROR${NO_COLOR}] Server compilation/test failed!"; exit -1 ; }
 
@@ -191,6 +197,8 @@ main_installation(){
 	check_distribution
 
 	create_system_user
+
+	create_config_files
 
 	# copy daemon executable to installation path
 	install_daemon
