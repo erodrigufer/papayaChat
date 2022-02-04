@@ -32,19 +32,23 @@ CHATLOG_FILENAME=papayachat.chat
 
 CHATLOG_FILE=${CHATLOG_PATH}${CHATLOG_FILENAME}
 
-CONFIG_FILE_PATH=/etc/papayachat/
+# ----------- Config files --------------------------------------------
+CLIENT_CONFIG_FILE_PATH=~/.papayachat/ 
+SERVER_CONFIG_FILE_PATH=/etc/papayachat/
 CLIENT_CONFIG_NAME=client.config
 SERVER_CONFIG_NAME=server.config
 
 REPO_CONFIG_PATH=./etc/
 
 # Use these as pathnames for config files
-CLIENT_CONFIG=${CONFIG_FILE_PATH}${CLIENT_CONFIG_NAME}
-SERVER_CONFIG=${CONFIG_FILE_PATH}${SERVER_CONFIG_NAME}
+CLIENT_CONFIG=${CLIENT_CONFIG_FILE_PATH}${CLIENT_CONFIG_NAME}
+SERVER_CONFIG=${SERVER_CONFIG_FILE_PATH}${SERVER_CONFIG_NAME}
 
 # Paths inside repo for default config files
 CLIENT_REPO_CONFIG=${REPO_CONFIG_PATH}${CLIENT_CONFIG_NAME}
 SERVER_REPO_CONFIG=${REPO_CONFIG_PATH}${SERVER_CONFIG_NAME}
+
+# ---------------------------------------------------------------------
 
 # Some commands are debian-based (even probably BSD compliant)
 # so if the distro is not debian-based exit
@@ -100,8 +104,8 @@ uninstall(){
 	sudo rm -rf ${INSTALLATION_PATH} || { printf "[${COLOR_RED}ERROR${NO_COLOR}] daemon executable could not be removed!"; exit -1 ; }
 	echo "* Removing chat log file..."
 	sudo rm -rf ${CHATLOG_PATH} || { printf "[${COLOR_RED}ERROR${NO_COLOR}] chatlog file could not be removed!"; exit -1 ; }
-	echo "* Removing config files..."
-	sudo rm -rf ${CONFIG_FILE_PATH} || { printf "[${COLOR_RED}ERROR${NO_COLOR}] config files could not be removed!"; exit -1 ; }
+	echo "* Removing client config files..."
+	sudo rm -rf ${CLIENT_CONFIG_FILE_PATH} || { printf "[${COLOR_RED}ERROR${NO_COLOR}] client config files could not be removed!"; exit -1 ; }
 	echo "All files removed. Done!"
 	return 0
 
@@ -112,21 +116,34 @@ uninstall(){
 defer_installation(){
 	sudo rm -rf ${INSTALLATION_PATH}
 	sudo rm -rf ${CHATLOG_PATH}
-	sudo rm -rf ${CONFIG_FILE_PATH}
+	sudo rm -rf ${CLIENT_CONFIG_FILE_PATH}
 
 	exit -1
 }
 
-create_config_files(){
-	# Config file installation for client program
-	echo "* Installing config files at ${CONFIG_FILE_PATH}..."
-	sudo mkdir -p ${CONFIG_FILE_PATH} || { printf "[${COLOR_RED}ERROR${NO_COLOR}] directory creation at ${CONFIG_FILE_PATH}"; exit -1 ; }
+create_server_config_files(){
+	# Config file installation for server program
+	echo "* Installing config files for server at ${SERVER_CONFIG_FILE_PATH}..."
+	sudo mkdir -p ${CLIENT_CONFIG_FILE_PATH} || { printf "[${COLOR_RED}ERROR${NO_COLOR}] directory creation at ${CLIENT_CONFIG_FILE_PATH}"; exit -1 ; }
 	sudo cp ${CLIENT_REPO_CONFIG} ${CLIENT_CONFIG} || { printf "[${COLOR_RED}ERROR${NO_COLOR}] Client config installation failed!"; exit -1 ; }
 	# Config files should have rw-r--r-- permissions, and be owned by root:root
 	sudo chown root:root ${CLIENT_CONFIG} || { printf "[${COLOR_RED}ERROR${NO_COLOR}] chown failed!"; defer_installation ; } 
 	sudo chmod 644 ${CLIENT_CONFIG} || { printf "[${COLOR_RED}ERROR${NO_COLOR}] chmod failed!"; defer_installation ; } 
 
-	printf "${COLOR_GREEN}SUCCESS${NO_COLOR}: config files installed properly at ${CONFIG_FILE_PATH}!\n"
+	printf "${COLOR_GREEN}SUCCESS${NO_COLOR}: client config files installed properly at ${CLIENT_CONFIG_FILE_PATH}!\n"
+
+}
+
+create_client_config_files(){
+	# Config file installation for client program
+	echo "* Installing config files for client at ${CLIENT_CONFIG_FILE_PATH}..."
+	mkdir -p ${CLIENT_CONFIG_FILE_PATH} || { printf "[${COLOR_RED}ERROR${NO_COLOR}] directory creation at ${CLIENT_CONFIG_FILE_PATH}"; exit -1 ; }
+	cp ${CLIENT_REPO_CONFIG} ${CLIENT_CONFIG} || { printf "[${COLOR_RED}ERROR${NO_COLOR}] Client config installation failed!"; exit -1 ; }
+	# Config files should have rw-r----- permissions, and be owned by user:user
+	#sudo chown root:root ${CLIENT_CONFIG} || { printf "[${COLOR_RED}ERROR${NO_COLOR}] chown failed!"; defer_installation ; } 
+	sudo chmod 640 ${CLIENT_CONFIG} || { printf "[${COLOR_RED}ERROR${NO_COLOR}] chmod failed!"; defer_installation ; } 
+
+	printf "${COLOR_GREEN}SUCCESS${NO_COLOR}: client config files installed properly at ${CLIENT_CONFIG_FILE_PATH}!\n"
 
 }
 
@@ -198,7 +215,7 @@ main_installation(){
 
 	create_system_user
 
-	create_config_files
+	create_client_config_files
 
 	# copy daemon executable to installation path
 	install_daemon

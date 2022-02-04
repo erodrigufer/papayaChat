@@ -27,6 +27,7 @@ const char greetingMessage [] = "\
 papayaChat is licensed under GNU AGPLv3.\n\
 The code is hosted at: www.github.com/erodrigufer/papayaChat\n\
 --------------------------------------------------------------\n\
+* Press DOWN ARROW to leave the chat\n\
 \n\
 ";
 

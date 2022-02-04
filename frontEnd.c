@@ -289,9 +289,26 @@ static void
 parseUsername(char * username_parsed)
 {
 
+	/* allocate memory to store path of config file */
+	char * client_config_file = (char *) malloc(1024);
+	if(client_config_file==NULL)
+		errExit("malloc failed");
+
+	/* get HOME path of program's user */
+	char * home_path = getenv("HOME");
+
+	/* use strcpy and strcat to finish building path to client's config file */
+	if(strcpy(client_config_file,home_path)!=client_config_file)
+		errExit("strcpy");
+	const char * config_file_suffix = "/.papayachat/client.config";
+	if(strcat(client_config_file,config_file_suffix)!=client_config_file)
+		errExit("strcat config file suffix");
+
 	/* parse USERNAME in client's config file */
-	if(parseConfigFile(CLIENT_CONFIG_PATH, "USERNAME", username_parsed)==-1)
+	if(parseConfigFile(client_config_file, "USERNAME", username_parsed)==-1)
 		errExit("parseConfigFile for username failed");
+
+	free(client_config_file);
 
 	/* append semicolon and white-space to username */
 	const char * username_suffix = ": ";

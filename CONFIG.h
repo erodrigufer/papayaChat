@@ -34,9 +34,6 @@ to share the value between multiple files */
 /* try to read at most MAX_LINE_LENGTH characters per line when parsing a config file */
 #define MAX_LINE_LENGTH 512
 
-/* path of config file for client */
-#define CLIENT_CONFIG_PATH "/etc/papayachat/client.config"
-
 /* if compiled with gcc -D NON_DEFAULT_CONFIG option, then only userConfig.h
 will be used */
 #ifdef NON_DEFAULT_CONFIG
