@@ -286,7 +286,7 @@ checkMaxMessageLength(WINDOW * chatWindow, int maxMessageSize)
 /* parse USERNAME from config file and append semicolon to username,
 store username with suffix in same char * as parameter */
 static void
-parseUsername(char * username_parsed)
+getConfigValues(char * username_parsed, char * port_parsed, char * host_parsed)
 {
 
 	/* allocate memory to store path of config file */
@@ -308,6 +308,14 @@ parseUsername(char * username_parsed)
 	if(parseConfigFile(client_config_file, "USERNAME", username_parsed)==-1)
 		errExit("parseConfigFile for username failed");
 
+	/* parse PORT in client's config file */
+	if(parseConfigFile(client_config_file, "PORT", port_parsed)==-1)
+		errExit("parseConfigFile for port failed");
+	
+	/* parse HOST in client's config file */
+	if(parseConfigFile(client_config_file, "HOST", host_parsed)==-1)
+		errExit("parseConfigFile for host failed");
+
 	free(client_config_file);
 
 	/* append semicolon and white-space to username */
@@ -321,19 +329,31 @@ parseUsername(char * username_parsed)
 int 
 main(int argc, char *argv[])
 {
-	/* allocate memory to store USERNAME value after being parsed,
+	/* allocate memory to store USERNAME, PORT and HOST values after being parsed,
 	MAX_LINE_LENGTH is the maximum amount of characters that will be parsed
 	per line */
 	char * username_parsed = (char *) malloc(MAX_LINE_LENGTH+10);
 	/* if malloc fails, it returns a NULL pointer */
 	if(username_parsed == NULL)
 		errExit("malloc username_parsed failed");
+	char * port_parsed = (char *) malloc(MAX_LINE_LENGTH+10);
+	/* if malloc fails, it returns a NULL pointer */
+	if(port_parsed == NULL)
+		errExit("malloc port_parsed failed");
+	char * host_parsed = (char *) malloc(MAX_LINE_LENGTH+10);
+	/* if malloc fails, it returns a NULL pointer */
+	if(host_parsed == NULL)
+		errExit("malloc host_parsed failed");
 
 	/* parse username from config file */
-	parseUsername(username_parsed);
+	getConfigValues(username_parsed,port_parsed,host_parsed);
 
 	/* establish connection with server, get fd to be shared with child processes */
-	int server_fd = establishConnection(HOST,SERVICE);
+	int server_fd = establishConnection(host_parsed,port_parsed);
+	/* TODO: can this function fail? It probably calls errExit from within */
+
+	free(host_parsed);
+	free(port_parsed);
 
 	/* configure catching SIGCHLD of child processes */
 	if(configureSignalDisposition()==-1)
