@@ -1,4 +1,8 @@
 # Pre-releases
+## v0.3.1-alpha
+* [FIXED] client's config file is now handled within the home directory of the user
+* The greetings message delivered by the server after establishing a connection now,
+  tells the user how to close the chat window.
 ## v0.3.0-alpha
 * A config file parser _library_ was created (configParser.c)
 * General config files should be now handled from /etc/
