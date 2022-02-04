@@ -284,7 +284,8 @@ checkMaxMessageLength(WINDOW * chatWindow, int maxMessageSize)
 }
 
 /* parse USERNAME from config file and append semicolon to username,
-store username with suffix in same char * as parameter */
+store username with suffix in same char * as parameter,
+parse HOST and PORT as well */
 static void
 getConfigValues(char * username_parsed, char * port_parsed, char * host_parsed)
 {

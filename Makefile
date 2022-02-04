@@ -21,7 +21,7 @@ OBJECTS_FRONTEND_NON_DEFAULT = frontEnd_non_default.o error_handling.o inet_sock
 EXECUTABLE_FRONTEND_NON_DEFAULT = ./bin/frontEnd_non_default.bin
 
 # Objects and executable for concurrent_server
-OBJECTS_SERVER = concurrent_server.o error_handling.o inet_sockets.o daemonCreation.o configure_syslog.o file_locking.o signalHandling.o clientRequest.o
+OBJECTS_SERVER = concurrent_server.o error_handling.o inet_sockets.o daemonCreation.o configure_syslog.o file_locking.o signalHandling.o clientRequest.o configParser.o
 EXECUTABLE_SERVER = ./bin/concurrent_server.bin
 
 EXECUTABLE_TERMHANDLER = ./bin/termHandlerAsyncSafe.bin
@@ -29,7 +29,7 @@ EXECUTABLE_TERMHANDLER = ./bin/termHandlerAsyncSafe.bin
 OBJECTS = $(OBJECTS_SERVER) termHandlerAsyncSafe.o $(OBJECTS_FRONTEND)
 EXECUTABLES = $(EXECUTABLE_SERVER) $(EXECUTABLE_TERMHANDLER) $(EXECUTABLE_FRONTEND) $(EXECUTABLE_FRONTEND_NON_DEFAULT)
 
-OBJECTS_SERVER_TEST = concurrent_server_test.o error_handling.o inet_sockets.o daemonCreation.o configure_syslog.o file_locking_test.o signalHandling.o clientRequest.o
+OBJECTS_SERVER_TEST = concurrent_server_test.o error_handling.o inet_sockets.o daemonCreation.o configure_syslog.o file_locking_test.o signalHandling.o clientRequest.o configParser.o
 EXECUTABLE_SERVER_TEST=./tests/concurrent_server_test.bin 
 EXECUTABLE_TERM_TEST=./tests/termHandlerAsyncSafe.bin
 
@@ -87,7 +87,7 @@ configParser.o : CONFIG.h basics.h
 frontEnd_non_default.o : frontEnd.c userConfig.h CONFIG.h
 	$(CC) -D $(USER_CONFIGURATION) -c -o frontEnd_non_default.o frontEnd.c
 
-concurrent_server_test.o : inet_sockets.o inet_sockets.h basics.h daemonCreation.o daemonCreation.h error_handling.o configure_syslog.o file_locking_test.o signalHandling.o clientRequest.o concurrent_server.c
+concurrent_server_test.o : inet_sockets.o inet_sockets.h basics.h daemonCreation.o daemonCreation.h error_handling.o configure_syslog.o file_locking_test.o signalHandling.o clientRequest.o concurrent_server.c  configParser.o
 	$(CC) -D TEST -c -o concurrent_server_test.o concurrent_server.c
 
 file_locking_test.o : CONFIG.h

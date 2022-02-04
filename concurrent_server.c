@@ -20,6 +20,7 @@ Back-end server handling clients of papayaChat
 								required here to open chat file log */
 #include "signalHandling.h"		/* signal handlers library */
 #include "clientRequest.h"		/* what server does with client requests */
+#include "configParser.h"	/* function to parse config files */
 
 #include "CONFIG.h"				/* add config file to define TCP port, 
 								termAsync binary pathname, BUF_SIZE, backlog queue */
@@ -67,6 +68,19 @@ configureTermHandler(void)
 				because a daemon can only log errors with syslog */ 
 }
 
+/* parse HOST and PORT */
+static void
+getConfigValues(char * port_parsed)
+{
+	
+	const char * server_config_file = "/etc/papayachat/server.config";
+
+	/* parse PORT in server's config file */
+	if(parseConfigFile(server_config_file, "PORT", port_parsed)==-1)
+		errExit("parseConfigFile for port failed");
+
+}
+
 int
 main(int argc, char *argv[])
 {
@@ -106,9 +120,18 @@ main(int argc, char *argv[])
 		errExit("openChatLogFile()");
 	}
 
-	/* server listens on port 'SERVICE', with a certain BACKLOG_QUEUE, and does not want to 
+	/* allocate memory to parse port */
+	char * port_parsed = (char *) malloc(MAX_LINE_LENGTH+10);
+	if(port_parsed==NULL)
+		errExit("malloc port_parsed failed");
+
+	/* parse PORT from config file */
+	getConfigValues(port_parsed);
+
+	/* server listens on port, with a certain BACKLOG_QUEUE, and does not want to 
 	receive information about the address of the client socket (NULL) */
-    listen_fd = serverListen(SERVICE, BACKLOG_QUEUE, NULL);
+    listen_fd = serverListen(port_parsed, BACKLOG_QUEUE, NULL);
+	free(port_parsed);
     if (listen_fd == -1) {
 		/* The listening socket could not be created. */
         syslog(LOG_ERR, "Could not create server listening socket (%s)", strerror(errno));

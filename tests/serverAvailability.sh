@@ -2,8 +2,6 @@
 # Change path so that relative path works when running script from makefile
 cd $(dirname $0)
 
-pwd
-
 # Daemon executable
 EXECUTABLE=./concurrent_server_test.bin
 TERM_FILE=./termHandlerAsyncSafe.bin
@@ -14,27 +12,42 @@ COLOR_GREEN='\e[0;32m'
 NO_COLOR='\033[0m'
 COLOR_RED='\033[0;31m'
 
-PORT=51000
+compile_parser(){
+	gcc -o parser.bin test_configParser.c ../configParser.o
+}
+
+parse_port(){
+	compile_parser 
+
+	./parser.bin ../etc/server.config PORT
+}
+
+PORT=$(parse_port)
 # sleep after starting daemon, because daemon needs some time to be up and running
 SLEEP_TIME=2 # in seconds
+
+# Remove executables and chatlog after test
+defer(){
+	rm -f *.bin *.chat
+}
 
 echo "[test] ...Starting server availability test..."
 echo "* Checking dependencies..."
 # ss (instead of netstat)
 which ss > /dev/null || { echo "ss is missing"; printf "[${COLOR_RED}MISSING DEPENDENCY${NO_COLOR}] Server availability test failed!\n"; exit -1; }
 # Check if PORT is already in use
+# ss -a (listening and active ports) -t (TCP connections)
 ss -at | grep ${PORT} && { printf "[${COLOR_RED}FAILED${NO_COLOR}] Port ${PORT} already in use. A server instance is probably already running. Exit test!\n"; exit -1; }
 
 # netcat -zv Verbose output -z check for connection
-${EXECUTABLE} && { echo "* Starting server..."; sleep ${SLEEP_TIME}; echo "* Server daemon is now running..."; ss -at | grep ${PORT}; } && netcat -zv localhost ${PORT} || { printf "[${COLOR_RED}FAILED${NO_COLOR}] Server availability test failed!\n"; exit -1; }
+${EXECUTABLE} && { echo "* Starting server..."; sleep ${SLEEP_TIME}; echo "* Server daemon is now running..."; ss -at | grep ${PORT}; } && netcat -zv localhost ${PORT} || { printf "[${COLOR_RED}FAILED${NO_COLOR}] Server availability test failed!\n"; defer; exit -1; }
 
 kill $(pidof ${EXECUTABLE}) && echo "* Killed daemon after test..."
-# ss -a (listening and active ports) -t (TCP connections)
 ss -at | grep ${PORT}
 printf "[${COLOR_GREEN}SUCCESS${NO_COLOR}] Server availability test passed!\n"
 
-# TODO: remove executables also when exit -1 (something fails)
-rm ${EXECUTABLE_FILES}
+# Remove executables and other files created for test
+defer
 
 exit 0
 

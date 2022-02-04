@@ -2,12 +2,6 @@
 
 Default config file
 
-This file defines IP and port of chat service server 
-- SERVICE is the PORT number
-- HOST is the server's IP
-
-It also defines the path to store the central chat log file
-CHAT_LOG_PATH
 */
 
 #ifndef CONFIG_H /* add header guard */
@@ -47,10 +41,6 @@ These are the values, that are also represented in userConfig.h if the
 file exists, append any other values only present in the general (default)
 config file outside this #ifndef part 
 */
-
-/* Define TCP/IP services */
-#define SERVICE "51000" /* Port to connect to with server */
-#define HOST "localhost" /* server address (found, e.g. on /etc/hosts file) */
 
 /* the binaries to test network connectivity are compiled with different paths
 than the binaries used in the installation of the actual daemon */

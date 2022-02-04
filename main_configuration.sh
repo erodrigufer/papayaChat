@@ -106,6 +106,8 @@ uninstall(){
 	sudo rm -rf ${CHATLOG_PATH} || { printf "[${COLOR_RED}ERROR${NO_COLOR}] chatlog file could not be removed!"; exit -1 ; }
 	echo "* Removing client config files..."
 	sudo rm -rf ${CLIENT_CONFIG_FILE_PATH} || { printf "[${COLOR_RED}ERROR${NO_COLOR}] client config files could not be removed!"; exit -1 ; }
+	echo "* Removing server config files..."
+	sudo rm -rf ${SERVER_CONFIG_FILE_PATH} || { printf "[${COLOR_RED}ERROR${NO_COLOR}] server config files could not be removed!"; exit -1 ; }
 	echo "All files removed. Done!"
 	return 0
 
@@ -117,6 +119,7 @@ defer_installation(){
 	sudo rm -rf ${INSTALLATION_PATH}
 	sudo rm -rf ${CHATLOG_PATH}
 	sudo rm -rf ${CLIENT_CONFIG_FILE_PATH}
+	sudo rm -rf ${SERVER_CONFIG_FILE_PATH}
 
 	exit -1
 }
@@ -124,13 +127,13 @@ defer_installation(){
 create_server_config_files(){
 	# Config file installation for server program
 	echo "* Installing config files for server at ${SERVER_CONFIG_FILE_PATH}..."
-	sudo mkdir -p ${CLIENT_CONFIG_FILE_PATH} || { printf "[${COLOR_RED}ERROR${NO_COLOR}] directory creation at ${CLIENT_CONFIG_FILE_PATH}"; exit -1 ; }
-	sudo cp ${CLIENT_REPO_CONFIG} ${CLIENT_CONFIG} || { printf "[${COLOR_RED}ERROR${NO_COLOR}] Client config installation failed!"; exit -1 ; }
+	sudo mkdir -p ${SERVER_CONFIG_FILE_PATH} || { printf "[${COLOR_RED}ERROR${NO_COLOR}] directory creation at ${SERVER_CONFIG_FILE_PATH}"; exit -1 ; }
+	sudo cp ${SERVER_REPO_CONFIG} ${SERVER_CONFIG} || { printf "[${COLOR_RED}ERROR${NO_COLOR}] Server config installation failed!"; exit -1 ; }
 	# Config files should have rw-r--r-- permissions, and be owned by root:root
-	sudo chown root:root ${CLIENT_CONFIG} || { printf "[${COLOR_RED}ERROR${NO_COLOR}] chown failed!"; defer_installation ; } 
-	sudo chmod 644 ${CLIENT_CONFIG} || { printf "[${COLOR_RED}ERROR${NO_COLOR}] chmod failed!"; defer_installation ; } 
+	sudo chown root:root ${SERVER_CONFIG} || { printf "[${COLOR_RED}ERROR${NO_COLOR}] chown failed!"; defer_installation ; } 
+	sudo chmod 644 ${SERVER_CONFIG} || { printf "[${COLOR_RED}ERROR${NO_COLOR}] chmod failed!"; defer_installation ; } 
 
-	printf "${COLOR_GREEN}SUCCESS${NO_COLOR}: client config files installed properly at ${CLIENT_CONFIG_FILE_PATH}!\n"
+	printf "${COLOR_GREEN}SUCCESS${NO_COLOR}: server config files installed properly at ${SERVER_CONFIG_FILE_PATH}\n"
 
 }
 
@@ -143,7 +146,7 @@ create_client_config_files(){
 	#sudo chown root:root ${CLIENT_CONFIG} || { printf "[${COLOR_RED}ERROR${NO_COLOR}] chown failed!"; defer_installation ; } 
 	sudo chmod 640 ${CLIENT_CONFIG} || { printf "[${COLOR_RED}ERROR${NO_COLOR}] chmod failed!"; defer_installation ; } 
 
-	printf "${COLOR_GREEN}SUCCESS${NO_COLOR}: client config files installed properly at ${CLIENT_CONFIG_FILE_PATH}!\n"
+	printf "${COLOR_GREEN}SUCCESS${NO_COLOR}: client config files installed properly at ${CLIENT_CONFIG_FILE_PATH}\n"
 
 }
 
@@ -216,6 +219,8 @@ main_installation(){
 	create_system_user
 
 	create_client_config_files
+
+	create_server_config_files
 
 	# copy daemon executable to installation path
 	install_daemon
