@@ -156,6 +156,10 @@ run:
 .PHONY : test
 test: server-test
 	./tests/serverAvailability.sh
+
+.PHONY : unit-test
+unit-test:
+	./tests/unit_test_configParser.sh
 	
 # @for file in $(shell ls ${TEST_DIR} *.sh); do echo $${file}: ; sh ${TEST_DIR}/$${file}; done
 # @ at the beginning supresses output
