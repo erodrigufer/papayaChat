@@ -1,2 +1,4 @@
-PORT 51000
-HOST papayachat
+PORT 7781
+HOST localhost
+USER max_mustermancito
+

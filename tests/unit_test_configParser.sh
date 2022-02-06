@@ -38,9 +38,10 @@ parse_test_unit(){
 
 compile_parser
 
-parse_test_unit PORT 51000
-parse_test_unit HOST papayachat
+parse_test_unit PORT 7781
+parse_test_unit HOST localhost
 parse_test_unit NON-EXISTANT
+parse_test_unit USERNAME max_mustermancito
 
 # remove executable compiled before
 clean
