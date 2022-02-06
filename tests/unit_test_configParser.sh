@@ -7,11 +7,13 @@ PARSER_EXECUTABLE=parser.bin
 FILE2PARSE=ut_configParser_golden_reference
 
 compile_parser(){
-	gcc -o ${PARSER_EXECUTABLE} test_configParser.c ../configParser.o
+	gcc -c ../configParser.c
+	gcc -o ${PARSER_EXECUTABLE} ./test_configParser.c ./configParser.o
 }
 
 clean(){
 	rm ./${PARSER_EXECUTABLE}
+	rm ./*.o
 }
 
 parse(){
