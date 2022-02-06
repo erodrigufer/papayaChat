@@ -57,3 +57,4 @@ END {
 }
 '
  
+# Eduardo Rodriguez 2021 (c) (@erodrigufer) most of the code was taken and slightly modified from Michael Kerrisk (c). Licensed under GNU AGPLv3 */
