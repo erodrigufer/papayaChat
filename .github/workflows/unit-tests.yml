@@ -16,6 +16,6 @@ jobs:
     - uses: actions/checkout@v2
     #- name: configure
     #  run: ./configure
-    - name: Run all unit tests
-      run: make unit-test
+    - name: Run unit test for configParser.c
+      run: ./unit_test_configParser.sh 
       working-directory: tests
