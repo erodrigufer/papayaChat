@@ -139,6 +139,11 @@ activateSIGUSR1(void)
 	if(sigemptyset(&sa_sigusr1.sa_mask)==-1)
 		return -1;
 
+	/* the flags are explicitedly set to 0, because, otherwise SA_RESETHAND was being used in an Ubuntu cloud server
+	which basically reset the handler for SIGUSR1, therefore killing the child process sending back the messages to the client
+	after receiving the second message */		
+	sa_sigusr1.sa_flags = 0;
+	
 	/* define the signal handler */
 	sa_sigusr1.sa_handler = handlerSIGUSR1;
 
