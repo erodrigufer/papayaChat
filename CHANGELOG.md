@@ -1,6 +1,6 @@
 # Pre-releases
 ## v0.3.3-alpha
-
+* [FIXED] Fix issue with flags of SIGUSR1 handler, handle would be reset in Linode server
 ## v0.3.2-alpha
 * Front-end now parses PORT and HOST from config file as well
 * Server parses PORT from /etc/papayachat/server.config file
