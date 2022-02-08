@@ -28,6 +28,12 @@ to share the value between multiple files */
 /* try to read at most MAX_LINE_LENGTH characters per line when parsing a config file */
 #define MAX_LINE_LENGTH 512
 
+/* number of characters needed to represent a SHA-512 bit hash in hex representation, e.g.
+sha512(frannie)="300f94f8f88dc7af5ef51295cc1bb6f212324c2f85721cafd9d7ea97f723ca38843b29c3a9ce7d6ae5684b428c5504bc28e499082097029b0ae363e058680051"
+the amount of characters is 128 */
+#define KEY_LENGTH 128
+
+
 /* if compiled with gcc -D NON_DEFAULT_CONFIG option, then only userConfig.h
 will be used */
 #ifdef NON_DEFAULT_CONFIG
