@@ -76,8 +76,10 @@ getConfigValues(char * port_parsed)
 	const char * server_config_file = "/etc/papayachat/server.config";
 
 	/* parse PORT in server's config file */
-	if(parseConfigFile(server_config_file, "PORT", port_parsed)==-1)
-		errExit("parseConfigFile for port failed");
+	if(parseConfigFile(server_config_file, "PORT", port_parsed)==-1){
+		syslog(LOG_ERR,"parseConfigFile for port failed: %s",strerror(errno));
+		exit(EXIT_FAILURE);
+	}
 
 }
 
@@ -89,8 +91,10 @@ getKey(char * key)
 	const char * key_file = "/etc/papayachat/key";
 
 	/* parse KEY in key file */
-	if(parseConfigFile(key_file, "KEY", key)==-1)
-		errExit("parseConfigFile for key failed");
+	if(parseConfigFile(key_file, "KEY", key)==-1){
+		syslog(LOG_ERR,"parseConfigFile for key failed: %s",strerror(errno));
+		exit(EXIT_FAILURE);
+	}
 
 }
 
@@ -103,7 +107,7 @@ authClient(int client_fd, char * key)
 	/* if malloc fails, it returns a NULL pointer */
 	if(buf == NULL){
 		syslog(LOG_ERR, "malloc failed: %s", strerror(errno));
-		_exit(EXIT_FAILURE);
+		exit(EXIT_FAILURE);
 	}
 
 	/* if the client closes its connection, the previous read() syscall will get an
@@ -183,21 +187,25 @@ main(int argc, char *argv[])
 	int chatlog_fd = openChatLogFile();
 	if(chatlog_fd == -1){
 		syslog(LOG_ERR, "Error: open (create) chat log file: %s", strerror(errno));
-		errExit("openChatLogFile()");
+		exit("EXIT_FAILURE");
 	}
 
 	/* allocate memory to parse port */
 	char * port_parsed = (char *) malloc(MAX_LINE_LENGTH+10);
-	if(port_parsed==NULL)
-		errExit("malloc port_parsed failed");
+	if(port_parsed==NULL){
+		syslog(LOG_ERR, "malloc port_parsed failed: %s", strerror(errno));
+		exit(EXIT_FAILURE);
+	}
 
 	/* parse PORT from config file */
 	getConfigValues(port_parsed);
 
 	/* open file with authentication key and parse key from file */
 	char * key = (char *) malloc(KEY_LENGTH);
-	if(key==NULL)
-		errExit("malloc key failed");
+	if(key==NULL){
+		syslog(LOG_ERR, "malloc key failed: %s", strerror(errno));
+		exit(EXIT_FAILURE);
+	}
 	getKey(key); /* auth key stored in key */
 
 	/* server listens on port, with a certain BACKLOG_QUEUE, and does not want to 
