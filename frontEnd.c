@@ -287,7 +287,7 @@ checkMaxMessageLength(WINDOW * chatWindow, int maxMessageSize)
 store username with suffix in same char * as parameter,
 parse HOST and PORT as well */
 static void
-getConfigValues(char * username_parsed, char * port_parsed, char * host_parsed)
+getConfigValues(char * username_parsed, char * port_parsed, char * host_parsed, char * key)
 {
 
 	/* allocate memory to store path of config file */
@@ -317,6 +317,11 @@ getConfigValues(char * username_parsed, char * port_parsed, char * host_parsed)
 	if(parseConfigFile(client_config_file, "HOST", host_parsed)==-1)
 		errExit("parseConfigFile for host failed");
 
+	/* parse KEY in client's config file */
+	if(parseConfigFile(client_config_file, "KEY", key)==-1)
+		errExit("parseConfigFile for key failed");
+
+
 	free(client_config_file);
 
 	/* append semicolon and white-space to username */
@@ -326,16 +331,22 @@ getConfigValues(char * username_parsed, char * port_parsed, char * host_parsed)
 
 }
 
+/* parse KEY */
+//static void
+//getKey(char * key)
+//{
+//
+//	const char * key_file = "/etc/papayachat/key";
+//	/* parse KEY in key file */
+//	if(parseConfigFile(key_file, "KEY", key)==-1)
+//	errExit("parseConfigFile for key failed");
+//	
+//}
+
 static void
-sendAuthKey(int server_fd)
+sendAuthKey(int server_fd, char * key)
 {
-
-	//const char key [] ="9dc44490ce458b82b21cbbfa2b0c5fd9c1e792a3916a4ad034e30196a46ec9d048ec0d6d99eba935d8bf644d2c0320d414dad0c2e728a622ab1c3d0d4a263917";
-
-	const char key [] ="9dc44490ce458b82b21cbbfa2b0c5fd9c1e792a3916a4ad034e30196a46ec9d048ec0d6d99eba935d8bf644d2c0320d414dad0c2e728a622ab1c3d0d4a263917";
-
-	//size_t key_size = sizeof key;
-
+	
 	/* the write() call should write exactly key_size bytes, otherwise
 	it has failed */
 	if(write(server_fd,key,KEY_LENGTH)!=KEY_LENGTH){
@@ -362,18 +373,26 @@ main(int argc, char *argv[])
 	/* if malloc fails, it returns a NULL pointer */
 	if(host_parsed == NULL)
 		errExit("malloc host_parsed failed");
+	/* get key from key file */
+	char * key = (char *) malloc(KEY_LENGTH);
+	if(key==NULL)
+		errExit("malloc key failed");
 
 	/* parse username from config file */
-	getConfigValues(username_parsed,port_parsed,host_parsed);
-
+	getConfigValues(username_parsed,port_parsed,host_parsed,key);
+	
 	/* establish connection with server, get fd to be shared with child processes */
 	int server_fd = establishConnection(host_parsed,port_parsed);
 	/* TODO: can this function fail? It probably calls errExit from within */
 
 	/* Send authentication key to server */
-	sendAuthKey(server_fd);
+	sendAuthKey(server_fd,key);
+
+	/* TODO: in theory to do it really safe, I should memset to 0 the memory blocks
+	where the key was*/
 
 	/* variables not needed any more */
+	free(key);
 	free(host_parsed);
 	free(port_parsed);
 

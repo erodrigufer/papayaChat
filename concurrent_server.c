@@ -236,6 +236,7 @@ main(int argc, char *argv[])
 		/* Authenticate client with key */
 		if(authClient(client_fd,key)==-1){
 			close(client_fd);
+			syslog(LOG_INFO,"Auth failed. Client dropped!");
 			continue; /* authentication failed, try next client */
 		}
 
