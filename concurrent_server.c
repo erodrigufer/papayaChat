@@ -94,6 +94,59 @@ getKey(char * key)
 
 }
 
+static int 
+authClient(int client_fd, char * key)
+{
+
+	ssize_t numRead;
+	char * buf = (char *) malloc(KEY_LENGTH);
+	/* if malloc fails, it returns a NULL pointer */
+	if(buf == NULL){
+		syslog(LOG_ERR, "malloc failed: %s", strerror(errno));
+		_exit(EXIT_FAILURE);
+	}
+
+	/* if the client closes its connection, the previous read() syscall will get an
+	EOF, and it will return 0, in that case, the while-loop ends, and there is no 
+	syslog error appended to the log, since read() did not return an error 
+	this call reads exactly the length of a KEY from the client */  
+	if ((numRead = read(client_fd, buf, KEY_LENGTH)) > 0) {
+		/* add debug syslog to see amount of bytes received from client */
+		//syslog(LOG_DEBUG, "Received auth key from client. %d Bytes ", numRead);
+		syslog(LOG_DEBUG, "Key received from client...");
+		/* compare key received with system key for validity */
+		if(strncmp(buf,key,KEY_LENGTH)==0){
+			syslog(LOG_DEBUG, "[OK] Key received is valid.");
+			free(buf);
+			return 0; /* Auth succeded */
+		}
+		else{
+			syslog(LOG_DEBUG, "[FAIL] Key received is NOT valid.");
+			free(buf);
+			return -1; /* Auth failed */
+		}
+
+	
+	} // read()
+	
+	if (numRead == -1) {
+		syslog(LOG_ERR, "key auth read() failed: %s", strerror(errno));
+		exit(EXIT_FAILURE);
+	}
+
+	/* EOF - client closed socket */
+	if (numRead == 0){
+		syslog(LOG_DEBUG, "Received EOF from client during authentication!");
+		exit(EXIT_FAILURE);
+	}
+
+	/* free resources */
+	free(buf);
+	/* the program control flow should actually never arrive here, so if it does it is an error */
+	exit(EXIT_FAILURE);
+
+}
+
 int
 main(int argc, char *argv[])
 {
@@ -145,9 +198,7 @@ main(int argc, char *argv[])
 	char * key = (char *) malloc(KEY_LENGTH);
 	if(key==NULL)
 		errExit("malloc key failed");
-
-	getKey(key);
-	syslog(LOG_DEBUG, "Auth key: %s", key);
+	getKey(key); /* auth key stored in key */
 
 	/* server listens on port, with a certain BACKLOG_QUEUE, and does not want to 
 	receive information about the address of the client socket (NULL) */
@@ -175,7 +226,10 @@ main(int argc, char *argv[])
         }
 
 		/* Authenticate client with key */
-
+		if(authClient(client_fd,key)==-1){
+			close(client_fd);
+			continue; /* authentication failed, try next client */
+		}
 
         /* Multi-process server back-end architecture:
 		Handle each client request in a new child process */
