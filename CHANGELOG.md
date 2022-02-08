@@ -3,6 +3,7 @@
 * Client-server key authentication implemented
 * [FEATURE] Implement a timeout on the server-side for the authentication process, otherwise DDoS vulnerable
 * This version is a MVP and can be realized as a beta
+* [BUG] close file stream on configParser.c
 ## v0.3.3-alpha
 * [FIXED] Fix issue with flags of SIGUSR1 handler, handle would be reset in Linode server
 ## v0.3.2-alpha
