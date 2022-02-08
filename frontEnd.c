@@ -326,6 +326,23 @@ getConfigValues(char * username_parsed, char * port_parsed, char * host_parsed)
 
 }
 
+static void
+sendAuthKey(int server_fd)
+{
+
+	//const char key [] ="9dc44490ce458b82b21cbbfa2b0c5fd9c1e792a3916a4ad034e30196a46ec9d048ec0d6d99eba935d8bf644d2c0320d414dad0c2e728a622ab1c3d0d4a263917";
+
+	const char key [] ="9dc44490ce458b82b21cbbfa2b0c5fd9c1e792a3916a4ad034e30196a46ec9d048ec0d6d99eba935d8bf644d2c0320d414dad0c2e728a622ab1c3d0d4a263917";
+
+	//size_t key_size = sizeof key;
+
+	/* the write() call should write exactly key_size bytes, otherwise
+	it has failed */
+	if(write(server_fd,key,KEY_LENGTH)!=KEY_LENGTH){
+		errExit("key auth write() failed: ");
+	}
+
+}
 
 int 
 main(int argc, char *argv[])
@@ -353,6 +370,10 @@ main(int argc, char *argv[])
 	int server_fd = establishConnection(host_parsed,port_parsed);
 	/* TODO: can this function fail? It probably calls errExit from within */
 
+	/* Send authentication key to server */
+	sendAuthKey(server_fd);
+
+	/* variables not needed any more */
 	free(host_parsed);
 	free(port_parsed);
 
