@@ -68,7 +68,7 @@ configureTermHandler(void)
 				because a daemon can only log errors with syslog */ 
 }
 
-/* parse HOST and PORT */
+/* parse PORT */
 static void
 getConfigValues(char * port_parsed)
 {
@@ -78,6 +78,19 @@ getConfigValues(char * port_parsed)
 	/* parse PORT in server's config file */
 	if(parseConfigFile(server_config_file, "PORT", port_parsed)==-1)
 		errExit("parseConfigFile for port failed");
+
+}
+
+/* parse KEY */
+static void
+getKey(char * key)
+{
+
+	const char * key_file = "/etc/papayachat/key";
+
+	/* parse KEY in key file */
+	if(parseConfigFile(key_file, "KEY", key)==-1)
+		errExit("parseConfigFile for key failed");
 
 }
 
@@ -128,6 +141,14 @@ main(int argc, char *argv[])
 	/* parse PORT from config file */
 	getConfigValues(port_parsed);
 
+	/* open file with authentication key and parse key from file */
+	char * key = (char *) malloc(KEY_LENGTH);
+	if(key==NULL)
+		errExit("malloc key failed");
+
+	getKey(key);
+	syslog(LOG_DEBUG, "Auth key: %s", key);
+
 	/* server listens on port, with a certain BACKLOG_QUEUE, and does not want to 
 	receive information about the address of the client socket (NULL) */
     listen_fd = serverListen(port_parsed, BACKLOG_QUEUE, NULL);
@@ -142,6 +163,7 @@ main(int argc, char *argv[])
 
 	/* send message to syslog, server is listening */
 	syslog(LOG_DEBUG, "Server is listening on incomming connections.");
+
     for (;;) {
         client_fd = accept(listen_fd, NULL, NULL);  /* Wait for connection from client */
         if (client_fd == -1) {
@@ -151,6 +173,9 @@ main(int argc, char *argv[])
 											for all possible errors, one error is probably if the
 											internet is down! */
         }
+
+		/* Authenticate client with key */
+
 
         /* Multi-process server back-end architecture:
 		Handle each client request in a new child process */
@@ -168,6 +193,7 @@ main(int argc, char *argv[])
 			configure_syslog("papayaChat(child)");
             syslog(LOG_DEBUG, "Child process initialized (handling client connection)");
             close(listen_fd);           /* Unneeded copy of listening socket */
+			free(key);					/* key not needed on child process anymore */
             handleRequest(client_fd, chatlog_fd);	/* handleRequest() needs to have the client_fd as
 										an input parameter, because it would otherwise not know
 										to which and from which file descriptor to perform

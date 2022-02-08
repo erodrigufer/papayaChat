@@ -37,16 +37,20 @@ CLIENT_CONFIG_FILE_PATH=~/.papayachat/
 SERVER_CONFIG_FILE_PATH=/etc/papayachat/
 CLIENT_CONFIG_NAME=client.config
 SERVER_CONFIG_NAME=server.config
+SERVER_DEFAULT_KEY=key # name of server key file
 
 REPO_CONFIG_PATH=./etc/
 
 # Use these as pathnames for config files
 CLIENT_CONFIG=${CLIENT_CONFIG_FILE_PATH}${CLIENT_CONFIG_NAME}
 SERVER_CONFIG=${SERVER_CONFIG_FILE_PATH}${SERVER_CONFIG_NAME}
+ETC_KEY_PATH=${SERVER_CONFIG_FILE_PATH}${SERVER_DEFAULT_KEY}
+CLIENT_KEY_PATH=${CLIENT_CONFIG_FILE_PATH}${SERVER_DEFAULT_KEY}
 
 # Paths inside repo for default config files
 CLIENT_REPO_CONFIG=${REPO_CONFIG_PATH}${CLIENT_CONFIG_NAME}
 SERVER_REPO_CONFIG=${REPO_CONFIG_PATH}${SERVER_CONFIG_NAME}
+REPO_KEY_FILE=${REPO_CONFIG_PATH}${SERVER_DEFAULT_KEY} # default key
 
 # ---------------------------------------------------------------------
 
@@ -133,6 +137,11 @@ create_server_config_files(){
 	sudo chown root:root ${SERVER_CONFIG} || { printf "[${COLOR_RED}ERROR${NO_COLOR}] chown failed!"; defer_installation ; } 
 	sudo chmod 644 ${SERVER_CONFIG} || { printf "[${COLOR_RED}ERROR${NO_COLOR}] chmod failed!"; defer_installation ; } 
 
+	# Create the default key file
+	sudo cp ${REPO_KEY_FILE} ${ETC_KEY_PATH} || { printf "[${COLOR_RED}ERROR${NO_COLOR}] Server key installation failed!"; exit -1 ; }
+	sudo chown root:${SYSTEM_USER} ${ETC_KEY_PATH} || { printf "[${COLOR_RED}ERROR${NO_COLOR}] chown failed!"; defer_installation ; } 
+	sudo chmod 640 ${ETC_KEY_PATH} || { printf "[${COLOR_RED}ERROR${NO_COLOR}] chmod failed!"; defer_installation ; } 
+
 	printf "${COLOR_GREEN}SUCCESS${NO_COLOR}: server config files installed properly at ${SERVER_CONFIG_FILE_PATH}\n"
 
 }
@@ -213,7 +222,9 @@ create_chat_log(){
 
 }
 
-main_installation(){
+# only create configuration files
+preconfiguration(){
+	
 	check_distribution
 
 	create_system_user
@@ -222,11 +233,17 @@ main_installation(){
 
 	create_server_config_files
 
-	# copy daemon executable to installation path
-	install_daemon
-
 	# create chat log
 	create_chat_log
+
+}
+
+main_installation(){
+
+	preconfiguration
+	
+	# copy daemon executable to installation path
+	install_daemon
 
 	return 0
 	
@@ -278,4 +295,5 @@ print_usage(){
 [ "$1" = '-rg' ] && upgrade && run_server
 [ "$1" = '-k' ] && { kill_daemon; exit 0; }
 [ "$1" = '--kill' ] && { kill_daemon; exit 0; }
+[ "$1" = --config ] && { preconfiguration; exit 0; } # only create config files and exit
 main_installation
