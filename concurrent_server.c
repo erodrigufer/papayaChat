@@ -187,7 +187,7 @@ main(int argc, char *argv[])
 	int chatlog_fd = openChatLogFile();
 	if(chatlog_fd == -1){
 		syslog(LOG_ERR, "Error: open (create) chat log file: %s", strerror(errno));
-		exit("EXIT_FAILURE");
+		exit(EXIT_FAILURE);
 	}
 
 	/* allocate memory to parse port */
