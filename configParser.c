@@ -73,9 +73,10 @@ int parseConfigFile(const char * pathname, const char * configParameter, char * 
 		int stop = parseLine(fs, buffer, configParameter, returnValue);
 		if(stop == 1)
 			continue; /* parse next line */
-		if(stop == -1)
+		if(stop == -1){
 			free(buffer);
 			return -1; 	/* error or EOF */
+		}
 
 		free(buffer);
 		return 0;	/* parsed correctly, parsed value can be found in returnValue */
