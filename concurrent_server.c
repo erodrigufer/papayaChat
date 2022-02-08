@@ -98,18 +98,29 @@ getKey(char * key)
 
 }
 
+/* a timeout during authentication is configured, if the client does not respond
+during the auth time, a SIGALRM is triggered and the child process is killed by the signal 
+if auth key is correct, returns 0, otherwise it fails with -1 */
 static int 
 authClient(int client_fd, char * key)
 {
+
+	/* setup timeout for authentication process */
+	if(configureTimeout()==-1){
+		syslog(LOG_ERR, "timeout configuration during auth failed: %s", strerror(errno));
+		_exit(EXIT_FAILURE);
+	}
 
 	ssize_t numRead;
 	char * buf = (char *) malloc(KEY_LENGTH);
 	/* if malloc fails, it returns a NULL pointer */
 	if(buf == NULL){
 		syslog(LOG_ERR, "malloc failed: %s", strerror(errno));
-		exit(EXIT_FAILURE);
+		_exit(EXIT_FAILURE);
 	}
 
+	/* timeout after only 1 second */
+	alarm(1);
 	/* if the client closes its connection, the previous read() syscall will get an
 	EOF, and it will return 0, in that case, the while-loop ends, and there is no 
 	syslog error appended to the log, since read() did not return an error 
@@ -117,6 +128,7 @@ authClient(int client_fd, char * key)
 	if ((numRead = read(client_fd, buf, KEY_LENGTH)) > 0) {
 		/* add debug syslog to see amount of bytes received from client */
 		//syslog(LOG_DEBUG, "Received auth key from client. %d Bytes ", numRead);
+		alarm(0); /* auth token read, turn off timeout */
 		syslog(LOG_DEBUG, "Key received from client...");
 		/* compare key received with system key for validity */
 		if(strncmp(buf,key,KEY_LENGTH)==0){
@@ -135,19 +147,19 @@ authClient(int client_fd, char * key)
 	
 	if (numRead == -1) {
 		syslog(LOG_ERR, "key auth read() failed: %s", strerror(errno));
-		exit(EXIT_FAILURE);
+		_exit(EXIT_FAILURE);
 	}
 
 	/* EOF - client closed socket */
 	if (numRead == 0){
 		syslog(LOG_DEBUG, "Received EOF from client during authentication!");
-		exit(EXIT_FAILURE);
+		_exit(EXIT_FAILURE);
 	}
 
 	/* free resources */
 	free(buf);
 	/* the program control flow should actually never arrive here, so if it does it is an error */
-	exit(EXIT_FAILURE);
+	_exit(EXIT_FAILURE);
 
 }
 
@@ -232,14 +244,7 @@ main(int argc, char *argv[])
 											for all possible errors, one error is probably if the
 											internet is down! */
         }
-
-		/* Authenticate client with key */
-		if(authClient(client_fd,key)==-1){
-			close(client_fd);
-			syslog(LOG_INFO,"Auth failed. Client dropped!");
-			continue; /* authentication failed, try next client */
-		}
-
+	
         /* Multi-process server back-end architecture:
 		Handle each client request in a new child process */
         switch (fork()) {
@@ -255,6 +260,12 @@ main(int argc, char *argv[])
 		/* write debug to syslog with child's PID, new configuration of syslog */
 			configure_syslog("papayaChat(child)");
             syslog(LOG_DEBUG, "Child process initialized (handling client connection)");
+			/* Authenticate client with key */
+			if(authClient(client_fd,key)==-1){
+				close(client_fd);
+				syslog(LOG_INFO,"Auth failed. Client dropped!");
+				break; /* authentication failed, try next client */
+			}
             close(listen_fd);           /* Unneeded copy of listening socket */
 			free(key);					/* key not needed on child process anymore */
             handleRequest(client_fd, chatlog_fd);	/* handleRequest() needs to have the client_fd as

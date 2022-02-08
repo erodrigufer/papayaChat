@@ -154,4 +154,27 @@ activateSIGUSR1(void)
 
 }
 
+/* nothing happens inside SIGALRM handler */
+void
+timeoutHandler(int sig)
+{
+}
+
+/* setup SIGALRM disposition for timeout during authentication,
+if function fails it returns -1, otherwise 0 */
+int 
+configureTimeout(void)
+{
+
+	struct sigaction timeout;
+	timeout.sa_flags = 0;	/* do not restart syscalls */
+	/* do not block any signals inside handler for SIGALRM */
+	sigemptyset(&timeout.sa_mask);
+	timeout.sa_handler = timeoutHandler;
+	if(sigaction(SIGALRM, &timeout, NULL)==-1)
+		return -1;
+
+
+}
+
 /* Eduardo Rodriguez 2021 (c) (@erodrigufer). Licensed under GNU AGPLv3 */

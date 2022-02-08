@@ -23,6 +23,10 @@ int activateSIGUSR1(void);
 /* function handler for SIGUSR1 signal */
 void handlerSIGUSR1(int);
 
+/* function to configure timeout during authentication */
+void timeoutHandler(int);
+int configureTimeout(void);
+
 #endif
 
 /* Eduardo Rodriguez 2021 (c) (@erodrigufer). Licensed under GNU AGPLv3 */

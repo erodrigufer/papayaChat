@@ -1,4 +1,6 @@
 # Pre-releases
+## v0.5.0-beta
+* Timeout of 1 second during authentication implemented
 ## v0.4.0-beta
 * Client-server key authentication implemented
 * [FEATURE] Implement a timeout on the server-side for the authentication process, otherwise DDoS vulnerable
