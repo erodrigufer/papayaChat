@@ -75,10 +75,12 @@ int parseConfigFile(const char * pathname, const char * configParameter, char * 
 			continue; /* parse next line */
 		if(stop == -1){
 			free(buffer);
+			fclose(fs);	/* close stream */
 			return -1; 	/* error or EOF */
 		}
 
 		free(buffer);
+		fclose(fs);	/* close stream */
 		return 0;	/* parsed correctly, parsed value can be found in returnValue */
 	}
 
