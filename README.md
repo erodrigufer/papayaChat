@@ -4,11 +4,7 @@
 [![Networking (CI)](https://github.com/erodrigufer/papayaChat/actions/workflows/networking.yml/badge.svg)](https://github.com/erodrigufer/papayaChat/actions/workflows/networking.yml)
 [![Unit-testing (CI)](https://github.com/erodrigufer/papayaChat/actions/workflows/unit-tests.yml/badge.svg)](https://github.com/erodrigufer/papayaChat/actions/workflows/unit-tests.yml)
 
-Self-hosted CLI chat service for the cloud written in C.
-
-Host your own E2E encrypted chat service, and chat directly from the terminal.
-
-A goal of the proyect is to reliably run the chat client in any Unix system. Nonetheless, as of the current developments, it only runs flawlessly with Linux (Ubuntu-based) distributions. The code is partly portable to Mac OS X.
+Self-hosted CLI chat service for the cloud written in C, the client terminal interface is portable accross Unix systems (Mac OS, Linux).
 
 ## Installation guide
 
@@ -33,12 +29,6 @@ To shutdown any running daemon:
 
 ### Front-end
 **This section is incomplete!**
-
-To build and run the front-end executable:
-
-0. Check that the file *frontEnd.c* connects to the same IP and Port that you defined for your server on the file *concurrent_server.c*
-1. `make client`
-2. [If necessary change file permissions of executable `chmod +x frontEnd`] Run executable `./bin/frontEnd.bin`
 
 ### Stopping the back end daemon
 In order to stop a, possibly, long-running instance of the back-end daemon:
