@@ -32,7 +32,7 @@ parse_test_unit(){
 	local PARSED_RESULT=$(parse ${WORD})
 
 	# test if parsed result equals expectation	
-	[ "${PARSED_RESULT}" = "${EXPECTATION}" ] && printf "[passed] ${WORD} parsed correctly...\n" || { printf "[FAILED] ${WORD} should result in ${PARSED_RESULT}, but result was ${EXPECTATION}...\n" ; ALL_TESTS_PASSED=false ; }
+	[ "${PARSED_RESULT}" = "${EXPECTATION}" ] && printf "[passed] ${WORD} parsed correctly...\n" || { printf "[FAILED] ${WORD} should result in ${EXPECTATION}, but result was ${PARSED_RESULT}...\n" ; ALL_TESTS_PASSED=false ; }
 
 }
 
