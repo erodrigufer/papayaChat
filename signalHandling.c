@@ -174,7 +174,7 @@ configureTimeout(void)
 	if(sigaction(SIGALRM, &timeout, NULL)==-1)
 		return -1;
 
-
+	return 0;
 }
 
 /* Eduardo Rodriguez 2021 (c) (@erodrigufer). Licensed under GNU AGPLv3 */
