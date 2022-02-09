@@ -34,7 +34,7 @@ To shutdown any running daemon:
 In order to stop a, possibly, long-running instance of the back-end daemon:
 
 0. You can either simply run `make kill`, or:
-1. Find out the PID of the daemon with `ps -ed | grep papayachat`. If there is not an established connection with a client(s), there should be only a single running daemon process (every new client connection creates 2 processes).
+1. Find out the PID of the daemon with `ps -ef | grep papayachat`. If there is not an established connection with a client(s), there should be only a single running daemon process (every new client connection creates 2 processes).
 2. Kill all running processes owned by **papayachat** (you need sudo rights for this, since the daemon and its child processes are running as system user _papayachat_).
 
 ## Debugging
