@@ -9,8 +9,11 @@ Self-hosted CLI chat service for the cloud written in C, the client terminal int
 ## Installation guide
 
 ### Back-end
-To build the back-end executable:
-* `make install` (you need sudo rights to install the chat daemon in your system).
+Step by step guide:
+1. `make install-server` 
+	You need sudo rights to install the daemon in your system. This command will copy the daemon executable
+To build and install the back-end executable:
+* `make install-server` (you need sudo rights to install the chat daemon in your system).
 This will create a system user named `papayachat` which will run the papayachat daemon _papayachatd_ in the background. The daemon's executable will be compiled and tested before being placed at `/usr/local/bin/papayachat/`. Meanwhile, the chatlog's file can be found at `/var/lib/papayachat/`. If there is an error during the compilation or the build does not pass the _networking_ test, the daemon will not be installed on the system.
 
 After installing the back-end, to start running the daemon:

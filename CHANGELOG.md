@@ -1,4 +1,6 @@
 # Pre-releases
+## v0.5.1-beta
+* Change installation/un-installation API
 ## v0.5.0-beta
 * Timeout of 1 second during authentication implemented
 ## v0.4.0-beta
