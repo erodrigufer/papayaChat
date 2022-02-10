@@ -29,13 +29,13 @@ Step by step guide to install the server/daemon that will handle the chat servic
 
 ### Further remarks
 * `make kill` will stop the papayachat daemon, if it is currently running.
-* `make uninstall` will shutdown any running papayachat daemon and un-install it and any files related to the client from the system
+* `make uninstall` will shutdown any running papayachat daemon and **un-install** it and any files related to both the client and the server
 * To **upgrade** to a newer version:
-	1. Get the release you want to upgrade to.
+	1. Get the release you want to upgrade
 	2. `make install-server` it will un-install you current server executables, chat logs and config files, and install the version from the local repo.
 
 ### Front-end
-**This section is incomplete!**
+Step by step guide to install 
 
 ### Stopping the back end daemon
 In order to stop a, possibly, long-running instance of the back-end daemon:
