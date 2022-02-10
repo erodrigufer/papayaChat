@@ -1,4 +1,6 @@
 # Pre-releases
+## v0.6.1-beta
+* Update the README section regarding installation of both client and server
 ## v0.6.0-beta
 * Change installation/un-installation API
 	- `make install-server`
