@@ -8,7 +8,7 @@ Self-hosted CLI chat service for the cloud written in C, the client terminal int
 
 ## Installation guide
 
-### Back-end
+### Back-end (server/daemon)
 Step by step guide to install the server/daemon that will handle the chat service:
 1. `make install-server` 
 	- You need sudo rights to install the daemon in your system. 
@@ -16,7 +16,7 @@ Step by step guide to install the server/daemon that will handle the chat servic
 	- The daemon's executable will be compiled and tested before being placed at `/usr/local/bin/papayachat/`. 
 	- The chatlog's file can be found at `/var/lib/papayachat/`. 
 	- If there is an error during the compilation or the build does not pass the _networking_ test, the daemon will not be installed on the system.
-2. Change the server's configuration file (`/etc/papayachat/server.config`) to your needs
+2. Change the server's configuration file (`/etc/papayachat/server.config`) to suit your needs
 	- You need sudo rights to modify the config files and server's key.
 	- Specify the `PORT` you would like to use for your chat service. _papayachatd_ daemon will be **listening** on this port for any clients wishing to connect to the service.
 3. Generate a new key and place it in the configuration folder for the server
@@ -32,10 +32,24 @@ Step by step guide to install the server/daemon that will handle the chat servic
 * `make uninstall` will shutdown any running papayachat daemon and **un-install** it and any files related to both the client and the server
 * To **upgrade** to a newer version:
 	1. Get the release you want to upgrade
-	2. `make install-server` it will un-install you current server executables, chat logs and config files, and install the version from the local repo.
+	2. `make install-server` will un-install you current server executables, chat logs and config files, and install the version from the local repo.
 
-### Front-end
-Step by step guide to install 
+### Client
+Step by step guide to install the client:
+1. `make install-client`
+	- This command installs the client executable at `~/bin/papayachat` so that afterwards by simply typing `papayachat` in your terminal, the chat client should be executed.
+	- A configuration file for the client is also installed at `~/.papayachat/client.config`.
+2. Change the client's configuration file (`~/.papayachat/client.config`) to suit your needs
+	- You should change the default **username** and **key**. And specify the **port** and **IP address** of the server running the service you want to connect to.
+	- You should get the key from the person administrating the papayachat server before trying to connect to the service. Otherwise, the authentication will fail (check [the section about installing the server](back-end-(server/daemon)) to learn more about how to create a key).
+
+### Further remarks
+* If you have done everything right so far, reboot your terminal to definitely be able to see the papayachat executable in your _path_. After that, you should be able to start the client simply by running the command `papayachat` in your terminal.
+* `make uninstall` will shutdown any running papayachat daemon and **un-install** it and any files related to both the client and the server
+* To **upgrade** to a newer version:
+	1. Get the release you want to upgrade
+	2. `make install-client` will un-install you current client executable and config file, and install the version from the local repo.
+
 
 ### Stopping the back end daemon
 In order to stop a, possibly, long-running instance of the back-end daemon:
