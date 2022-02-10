@@ -15,7 +15,7 @@ CC_FLAGS = -Wall -Werror
 # ------------------------------------------------------------------------------------------------
 
 OBJECTS_FRONTEND = frontEnd.o error_handling.o inet_sockets.o signalHandling.o handleMessages.o configParser.o
-EXECUTABLE_FRONTEND = ./bin/frontEnd.bin
+EXECUTABLE_FRONTEND = ./bin/client.bin
 
 OBJECTS_FRONTEND_NON_DEFAULT = frontEnd_non_default.o error_handling.o inet_sockets.o signalHandling.o handleMessages.o configParser.o
 EXECUTABLE_FRONTEND_NON_DEFAULT = ./bin/frontEnd_non_default.bin
@@ -127,21 +127,20 @@ $(EXECUTABLE_SERVER_TEST) : $(OBJECTS_SERVER_TEST) $(EXECUTABLE_TERM_TEST)
 $(EXECUTABLE_TERM_TEST) : termHandlerAsyncSafe.o configure_syslog.o
 	$(CC) $(CC_FLAGS) -o $(EXECUTABLE_TERM_TEST) termHandlerAsyncSafe.o configure_syslog.o
 
-# Install daemon executable and chatlog file
-.PHONY : install
-install :
-	./main_configuration.sh 
+# Install server
+.PHONY : install-server
+install-server:
+	./main_configuration.sh --server
+
+# Install client
+.PHONY : install-client
+install-client:
+	./main_configuration.sh --client
 
 # Remove daemon executable and chatlog file from system
 .PHONY : uninstall
 uninstall:	
 	./main_configuration.sh --uninstall
-
-# Upgrade daemon to newer version, by first uninstalling present files
-# daemon executable and chatlog file
-.PHONY : upgrade
-upgrade:
-	./main_configuration.sh --upgrade
 
 # Kill daemon
 .PHONY : kill
