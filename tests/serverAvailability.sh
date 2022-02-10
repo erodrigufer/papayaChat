@@ -30,7 +30,7 @@ SLEEP_TIME=2 # in seconds
 
 # Remove executables and chatlog after test
 defer(){
-	rm -f *.bin *.chat
+	sudo rm -f *.bin *.chat
 }
 
 echo "[test] ...Starting server availability test..."
