@@ -130,15 +130,6 @@ uninstall_server(){
 	return 0
 
 }
-# Remove both client's and server's files
-uninstall(){
-
-	[ "$1" == '--client' ] && uninstall_client  
-	[ "$1" == '--server' ] && uninstall_server 
-
-	return 0
-	
-}
 
 # execute this function if installation fails,
 # functions removes all installation files 
@@ -269,7 +260,7 @@ preconfiguration_server(){
 install_server(){
 	
 	# Remove any previous version, before starting installation process
-	uninstall --server
+	uninstall_server
 
 	preconfiguration_server
 	
@@ -284,7 +275,7 @@ install_client(){
 
 	# Remove any previous version, before starting installation process
 	echo "* Removing any previous versions of the client..."
-	uninstall --client
+	uninstall_client
 	# Create config files for client
 	echo "* Copying config files for client..."
 	preconfiguration_client
@@ -335,8 +326,8 @@ print_usage(){
 [ "$1" = '--server' ] && install_server
 [ "$1" = '-h' ] && print_usage
 [ "$1" = '--help' ] && print_usage
-[ "$1" = '-u' ] && { uninstall --client; uninstall --server ; exit 0; }
-[ "$1" = '--uninstall' ] && { uninstall --client ; uninstall --server ; exit 0; }
+[ "$1" = '-u' ] && { uninstall_client; uninstall_server; exit 0; }
+[ "$1" = '--uninstall' ] && { uninstall_client; uninstall_server; exit 0; }
 [ "$1" = '-r' ] && run_server
 [ "$1" = '--run' ] && run_server
 [ "$1" = '-k' ] && { kill_daemon; exit 0; }
