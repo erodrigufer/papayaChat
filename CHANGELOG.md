@@ -1,6 +1,10 @@
 # Pre-releases
-## v0.5.1-beta
+## v0.6.0-beta
 * Change installation/un-installation API
+	- `make install-server`
+	- `make install-client`
+	- The target `make upgrade` was removed
+* Networking workflow updated to show changes changes in Makefile targets
 ## v0.5.0-beta
 * Timeout of 1 second during authentication implemented
 ## v0.4.0-beta
