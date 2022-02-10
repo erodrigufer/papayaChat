@@ -9,26 +9,30 @@ Self-hosted CLI chat service for the cloud written in C, the client terminal int
 ## Installation guide
 
 ### Back-end
-Step by step guide:
+Step by step guide to install the server/daemon that will handle the chat service:
 1. `make install-server` 
-	You need sudo rights to install the daemon in your system. This command will copy the daemon executable
-To build and install the back-end executable:
-* `make install-server` (you need sudo rights to install the chat daemon in your system).
-This will create a system user named `papayachat` which will run the papayachat daemon _papayachatd_ in the background. The daemon's executable will be compiled and tested before being placed at `/usr/local/bin/papayachat/`. Meanwhile, the chatlog's file can be found at `/var/lib/papayachat/`. If there is an error during the compilation or the build does not pass the _networking_ test, the daemon will not be installed on the system.
+	- You need sudo rights to install the daemon in your system. 
+	- This command will create a system user named `papayachat`, which will run the papayachat daemon _papayachatd_ in the background.
+	- The daemon's executable will be compiled and tested before being placed at `/usr/local/bin/papayachat/`. 
+	- The chatlog's file can be found at `/var/lib/papayachat/`. 
+	- If there is an error during the compilation or the build does not pass the _networking_ test, the daemon will not be installed on the system.
+2. Change the server's configuration file (`/etc/papayachat/server.config`) to your needs
+	- You need sudo rights to modify the config files and server's key.
+	- Specify the `PORT` you would like to use for your chat service. _papayachatd_ daemon will be **listening** on this port for any clients wishing to connect to the service.
+3. Generate a new key and place it in the configuration folder for the server
+	- The file should be placed on `/etc/papayachat/` with the name `key`
+	- After the installation there will be a default key inside the config folder.
+	- The key should have the following permission rw-r----- root:papayachat, so that the daemon can read its contents
+	- The key should be exactly 128 characters long. It is recommended to generate it using a SHA-512 hash.
+4. `make run` to run the chat service as a daemon
+	- You can verify that the daemon is running with the following command: `ps -ef | grep papayachat` which should display the running process of the daemon, or with `ss -at` which should display that a service is **listening** at the `PORT` you choosed for the service.  
 
-After installing the back-end, to start running the daemon:
-* `make run`
-You can further check that the daemon is running with the command `ss -at`, it should show you a service _listening_ at the port you specified for the **papayachatd**.
-
-To upgrade the current version of papayachat in the system:
-* `make upgrade`
-This will take down any running instance of the daemon, remove its executable and the chatlog file from the system, and install again the backend found in the local repository version (always `git pull` before doing this to have the most recent version of the repo locally).
-
-To shutdown any running daemon and uninstall it from the system:
-* `make uninstall` 
-
-To shutdown any running daemon:
-* `make kill`
+### Further remarks
+* `make kill` will stop the papayachat daemon, if it is currently running.
+* `make uninstall` will shutdown any running papayachat daemon and un-install it and any files related to the client from the system
+* To **upgrade** to a newer version:
+	1. Get the release you want to upgrade to.
+	2. `make install-server` it will un-install you current server executables, chat logs and config files, and install the version from the local repo.
 
 ### Front-end
 **This section is incomplete!**
