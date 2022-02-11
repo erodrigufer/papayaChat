@@ -362,7 +362,9 @@ main(int argc, char *argv[])
 	
 	/* establish connection with server, get fd to be shared with child processes */
 	int server_fd = establishConnection(host_parsed,port_parsed);
-	/* TODO: can this function fail? It probably calls errExit from within */
+	/* if establishConenction fails, the program exits from within the function call
+	to establishConnection, if the authentication fails, the connection would be closed much later, that
+	is why it actually crashes when ncurses has already taken over control of the terminal */
 
 	/* Send authentication key to server */
 	sendAuthKey(server_fd,key);
