@@ -214,7 +214,7 @@ the whole file, otherwise check only in a reduced area at the end of the file */
 	if(count <= LINES_SEND_BACK_TO_CLIENT){
 		/* send message to client socket */
 		/* TODO: check if it is correct exactly what I am sending back to client, amount of bytes and index in array */
-		if(write(client_fd,chat_text[newline_index],bytesRead-newline_index)!=bytesRead-newline_index){
+		if(write(client_fd,(char*)chat_text[newline_index],bytesRead-newline_index)!=bytesRead-newline_index){
 			free(chat_text);
 			/* unlock file */	
 			if(flock(file_fd,LOCK_UN)==-1)
@@ -224,7 +224,7 @@ the whole file, otherwise check only in a reduced area at the end of the file */
 	}// end if count less or equal to LINES_SEND_BACK_TO_CLIENT
 
 	/* send just the last 10 lines */
-	if(count > LINES_BACK_TO_CLIENT){
+	if(count > LINES_SEND_BACK_TO_CLIENT){
 		/* find the newline at total_new_lines - LINES_SEND_BACK_TO_CLIENT,
 		and send everything from there until last byte of file which would be
 		exactly the max amount of lines of text allowed (LINES_SEND_BACK_TO_CLIENT) */		
@@ -243,7 +243,7 @@ the whole file, otherwise check only in a reduced area at the end of the file */
 
 		/* send text to client */
 		/* TODO: check if the index control is right */
-		if(write(client_fd,chat_text[startTextIndex],bytesRead-startTextIndex)!=bytesRead-startTextIndex){
+		if(write(client_fd,(char*)chat_text[startTextIndex],bytesRead-startTextIndex)!=bytesRead-startTextIndex){
 			free(chat_text);
 			/* unlock file */	
 			if(flock(file_fd,LOCK_UN)==-1)
