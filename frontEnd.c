@@ -62,16 +62,6 @@ configureTextWindow(int y_start, int x_start, int y_start_delimiter)
 	if(textWindow == NULL)	/* there was an error */
 		errExit("newwin [textWindow]");
 
-	/* TODO: remove this comments if the window partitioning works out */
-	//keypad(chatWindow, TRUE); /* Enable keypad and F-keys */
-
-	/* stdin reading should be non-blocking, if no character is read from
-	stdin, then getch returns ERR 
-	Otherwise, if it weren't non-blocking, we would not be able to 
-	print in the upper half of the chat window concurrently */
-	//if(nodelay(chatWindow,TRUE)==ERR)
-		//errExit("nodelay[chatWindow]");		/* nodelay() failed, catastrophic error */
-
 	return textWindow;
 }
 
@@ -331,18 +321,7 @@ getConfigValues(char * username_parsed, char * port_parsed, char * host_parsed, 
 
 }
 
-/* parse KEY */
-//static void
-//getKey(char * key)
-//{
-//
-//	const char * key_file = "/etc/papayachat/key";
-//	/* parse KEY in key file */
-//	if(parseConfigFile(key_file, "KEY", key)==-1)
-//	errExit("parseConfigFile for key failed");
-//	
-//}
-
+/* send authentication key to the server */
 static void
 sendAuthKey(int server_fd, char * key)
 {
@@ -388,10 +367,10 @@ main(int argc, char *argv[])
 	/* Send authentication key to server */
 	sendAuthKey(server_fd,key);
 
-	/* TODO: in theory to do it really safe, I should memset to 0 the memory blocks
-	where the key was*/
-
-	/* variables not needed any more */
+	/* SECURITY: if there is core dump here I want the memory block where the key was to be all 0s, so that
+	the key is not leaked, check 'The Linux Programming Interface' for a similar procedure */
+	memset(key,0,KEY_LENGTH);
+	/* free variables not needed any more */
 	free(key);
 	free(host_parsed);
 	free(port_parsed);
