@@ -144,7 +144,7 @@ sendNewMessages(int client_fd, int chatlog_fd)
 	/* TODO: integrate here the new function from file_locking.c */
 	/* read from chatlog as soon as the client connects, and send
 	new messages eventually right away */
-	offset = messagesFromFirstClientConnection(chatlog_fd, char* messages, size_t sizeMessages, client_fd);
+	offset = messagesFromFirstClientConnection(chatlog_fd, client_fd);
 	//offset = readChatlogSendClient(client_fd, chatlog_fd, offset);
 
 	//syslog(LOG_DEBUG, "value of flag_activated before SIGUSR1= %d", flag_activated);
