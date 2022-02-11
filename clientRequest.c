@@ -83,6 +83,9 @@ readChatlogSendClient(int client_fd, int chatlog_fd, off_t offset)
 
 	/* TODO: consider that all of this is happening after UNLOCKING
 	shared read lock */
+	/* ANSWER: this is a problem, MAYBE, because another client might send new messages 
+	to the server, but in that case I think that another SIGUSR would be triggered, and the
+	system would start reading again from the chatlog */
 
 	/* update offset value after read */
 	offset = offset + bytesRead;
