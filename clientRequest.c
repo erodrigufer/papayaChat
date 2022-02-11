@@ -141,6 +141,7 @@ sendNewMessages(int client_fd, int chatlog_fd)
 	/* start reading from beginning of file */
 	off_t offset = 0;
 
+	/* TODO: integrate here the new function from file_locking.c */
 	/* read from chatlog as soon as the client connects, and send
 	new messages eventually right away */
 	offset = readChatlogSendClient(client_fd, chatlog_fd, offset);
