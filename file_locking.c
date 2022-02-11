@@ -137,7 +137,7 @@ send a maximum amount of lines, send the lines to the client and unlock chatlog 
 returns -1 if there was an error, or the offset of the last byte of the file
 if it was successful */
 off_t
-messagesFromFirstClientConnection(int file_fd, char* messages, size_t sizeMessages, int client_fd)
+messagesFromFirstClientConnection(int file_fd, int client_fd)
 {
 		/* place a shared lock on chat log file, multiple process will be able to read
 	concurrently from the file, but no writes are permitted (LOCK_EX) exclusive locks */
@@ -214,7 +214,7 @@ the whole file, otherwise check only in a reduced area at the end of the file */
 	if(count <= LINES_SEND_BACK_TO_CLIENT){
 		/* send message to client socket */
 		/* TODO: check if it is correct exactly what I am sending back to client, amount of bytes and index in array */
-		if(write(client_fd,(char*)chat_text[newline_index],bytesRead-newline_index)!=bytesRead-newline_index){
+		if(write(client_fd,&chat_text[newline_index],bytesRead-newline_index)!=bytesRead-newline_index){
 			free(chat_text);
 			/* unlock file */	
 			if(flock(file_fd,LOCK_UN)==-1)
@@ -243,7 +243,7 @@ the whole file, otherwise check only in a reduced area at the end of the file */
 
 		/* send text to client */
 		/* TODO: check if the index control is right */
-		if(write(client_fd,(char*)chat_text[startTextIndex],bytesRead-startTextIndex)!=bytesRead-startTextIndex){
+		if(write(client_fd,&chat_text[startTextIndex],bytesRead-startTextIndex)!=bytesRead-startTextIndex){
 			free(chat_text);
 			/* unlock file */	
 			if(flock(file_fd,LOCK_UN)==-1)

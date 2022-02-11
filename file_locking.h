@@ -7,6 +7,6 @@
 int openChatLogFile(void);
 int exclusiveWrite(int, char *, size_t);
 int sharedRead(int, char*, size_t, off_t);
-off_t messagesFromFirstClientConnection(int, char*, size_t, int);
+off_t messagesFromFirstClientConnection(int, int);
 #endif
 /* Eduardo Rodriguez 2021 (c) (@erodrigufer). Licensed under GNU AGPLv3 */
