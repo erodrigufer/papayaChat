@@ -36,7 +36,7 @@ in the chatlog file could be */
 /* this is the maximum number of lines that we want to send back to the client
 after the connection is established with the server for the first time, in other
 words the last X lines of the file to be sent to the client */
-#define LINES_SEND_BACK_TO_CLIENT 12
+#define LINES_SEND_BACK_TO_CLIENT 7
 
 /* max amount of characters that can be sent back to the client */
 #define MAX_CHARACTERS_BACK_CLIENT (MAX_CHARACTERS_PER_LINE * LINES_SEND_BACK_TO_CLIENT)
