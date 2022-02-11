@@ -167,7 +167,7 @@ create_client_config_files(){
 	cp ${CLIENT_REPO_CONFIG} ${CLIENT_CONFIG} || { printf "[${COLOR_RED}ERROR${NO_COLOR}] Client config installation failed!\n"; exit -1 ; }
 	# Config files should have rw-r----- permissions, and be owned by user:user
 	#sudo chown root:root ${CLIENT_CONFIG} || { printf "[${COLOR_RED}ERROR${NO_COLOR}] chown failed!"; defer_installation ; } 
-	sudo chmod 640 ${CLIENT_CONFIG} || { printf "[${COLOR_RED}ERROR${NO_COLOR}] chmod failed!\n"; defer_installation ; } 
+	chmod 640 ${CLIENT_CONFIG} || { printf "[${COLOR_RED}ERROR${NO_COLOR}] chmod failed!\n"; defer_installation ; } 
 
 	printf "[${COLOR_GREEN}SUCCESS${NO_COLOR}] client config files installed properly at ${CLIENT_CONFIG_FILE_PATH}\n"
 
