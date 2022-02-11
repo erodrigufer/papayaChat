@@ -65,9 +65,6 @@ readChatlogSendClient(int client_fd, int chatlog_fd, off_t offset)
 	/* guarantee that string_buf has 0 value */
 	memset(string_buf,0,BUF_SIZE);
 
-	/* just a debug run, it should not exit here */
-	//syslog(LOG_DEBUG, "value of flag_activated= %d", flag_activated);
-
 	/* shared read (safe read) from chatlog file */	
 	ssize_t bytesRead = sharedRead(chatlog_fd, string_buf, BUF_SIZE, offset);
 	if(bytesRead==-1){
@@ -142,7 +139,7 @@ sendNewMessages(int client_fd, int chatlog_fd)
 	off_t offset = 0;
 
 	/* read from chatlog as soon as the client connects, and send
-	new messages eventually right away*/
+	new messages eventually right away */
 	offset = readChatlogSendClient(client_fd, chatlog_fd, offset);
 
 	//syslog(LOG_DEBUG, "value of flag_activated before SIGUSR1= %d", flag_activated);
