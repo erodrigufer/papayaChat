@@ -1,4 +1,6 @@
 # Pre-releases
+## v0.6.2-beta
+* Improve security against leaking key in the client, by memsetting all its values to 0, after finishing using the key.
 ## v0.6.1-beta
 * Update the README section regarding installation of both client and server
 ## v0.6.0-beta

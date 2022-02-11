@@ -51,10 +51,10 @@ Step by step guide to install the client:
 	2. `make install-client` will un-install you current client executable and config file, and install the version from the local repo.
 
 
-### Stopping the back end daemon
+## Inspecting and stopping the back end daemon
 In order to stop a, possibly, long-running instance of the back-end daemon:
 
-0. You can either simply run `make kill`, or:
+0. You can either simply run `make kill` from within the directory where the Makefile is, or:
 1. Find out the PID of the daemon with `ps -ef | grep papayachat`. If there is not an established connection with a client(s), there should be only a single running daemon process (every new client connection creates 2 processes).
 2. Kill all running processes owned by **papayachat** (you need sudo rights for this, since the daemon and its child processes are running as system user _papayachat_).
 
