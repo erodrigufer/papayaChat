@@ -475,13 +475,12 @@ main(int argc, char *argv[])
 	mvprintw(0,COLS/2-strlen("papayaChat")/2,"papayaChat\n");
 
 	/* HLINE not printing */
-	if(hline('_',COLS)==ERR)
-		errExit("hline1");
+	////if(hline('_',COLS)==ERR)
+		////errExit("hline1");
 	
-	printw("\n");
+	////printw("\n");
 	refresh();
 
-/* TODO: To solve the problem of not displaying UTF, probably change a to int64_u */
 	int a = 0;			/* TODO: uninitialized ERROR found here fix that*/
 
 	/* starting position for chatWindow */
