@@ -267,7 +267,7 @@ messagesFromFirstClientConnection(int file_fd, int client_fd)
 		return -1;
 
 	free(chat_text);
-	return lastByteOfFile;
+	return lastByteOfFile+1;
 }
 
 /* Eduardo Rodriguez 2021 (c) (@erodrigufer). Licensed under GNU AGPLv3 */
