@@ -488,11 +488,11 @@ main(int argc, char *argv[])
 	int y_start_chatWindow = LINES-4;
 	/* starting position for textWindow */
 	int x_start_textWindow = 1;
-	int y_start_textWindow = 5;
+	int y_start_textWindow = 3;
 	/* starting position for delimiting line */
-	int x_start_delimiter = 0;
-	int height_delimiter = 3;
-	int y_start_delimiter = y_start_chatWindow - height_delimiter;	
+////	int x_start_delimiter = 0;
+////	int height_delimiter = 3;
+	int y_start_delimiter = y_start_chatWindow - 2;	
 	int max_y_textWindow = LINES/2;
 
 	//move(y_start_chatWindow-1,0); /* move cursor to start position */
@@ -512,8 +512,8 @@ main(int argc, char *argv[])
 	textWindow=configureTextWindow(y_start_textWindow,x_start_textWindow,y_start_delimiter);
 
 	/* create delimiterWindow */
-	WINDOW * delimiterWindow;
-	delimiterWindow=configureDelimiterWindow(y_start_delimiter,x_start_delimiter,height_delimiter);
+////	WINDOW * delimiterWindow;
+////	delimiterWindow=configureDelimiterWindow(y_start_delimiter,x_start_delimiter,height_delimiter);
 
 	/* move the cursor on textWindow to the position (0,0) */
 	wmove(textWindow,0,0);
