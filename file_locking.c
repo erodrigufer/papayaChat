@@ -148,18 +148,27 @@ messagesFromFirstClientConnection(int file_fd, int client_fd)
 
 	/* find the offset for the last byte of the file */
 	off_t lastByteOfFile = lseek(file_fd,0,whence);
-	return lastByteOfFile;
 	if(lastByteOfFile==-1){
 		/* unlock file */	
 		if(flock(file_fd,LOCK_UN)==-1)
 			return -1;
 		return -1;	/* there was an error while finding the last byte */
 	}
+	/* if lastByteOfFile == 0, then return, since there is no text in the file */
+	if(lastByteOfFile==0){
+		/* unlock file */
+		if(flock(file_fd,LOCK_UN)==-1)
+			return -1;
+		return 0;	/* return 0, to read from beginning of file */
+	}
+	/* otherwise subtract 1 from lastByteOfFile, since lastByteOfFile points to the
+	next empty byte after the last byte with a character (SEEK_END) */
+	lastByteOfFile--;
 
 	off_t workingOffset;
-/* this checks if the size of the file is bigger than the possible biggest 
-message back which one would be able to send, if not, check for newlines inside
-the whole file, otherwise check only in a reduced area at the end of the file */
+	/* this checks if the size of the file is bigger than the possible biggest 
+	message which one would be able to send, if not, check for newlines inside
+	the whole file, otherwise check only in a reduced area at the end of the file */
 	if(lastByteOfFile < (MAX_CHARACTERS_BACK_CLIENT)){
 		workingOffset = 0; /* beginning of file */
 	}
