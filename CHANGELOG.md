@@ -1,4 +1,6 @@
 # Pre-releases
+## v0.7.1-beta
+* Removed one extra newline, by fixing file_locking.c, returning correct value from first messages sent to client
 ## v0.7.0-beta
 * Remove intro message from back-end server, to remove bug of intro message showing up later again
   probably due to a buffer overflow
