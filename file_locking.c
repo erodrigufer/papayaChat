@@ -139,7 +139,7 @@ if it was successful */
 off_t
 messagesFromFirstClientConnection(int file_fd, int client_fd)
 {
-		/* place a shared lock on chat log file, multiple process will be able to read
+		/* place a shared lock on chat log file, multiple processes will be able to read
 	concurrently from the file, but no writes are permitted (LOCK_EX) exclusive locks */
 	if(flock(file_fd,LOCK_SH)==-1)
 		return -1;
