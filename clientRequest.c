@@ -145,6 +145,11 @@ sendNewMessages(int client_fd, int chatlog_fd)
 	/* read from chatlog as soon as the client connects, and send
 	new messages eventually right away */
 	offset = messagesFromFirstClientConnection(chatlog_fd, client_fd);
+	/* check if there was an error in the above function call */
+	if(offset == -1){
+		syslog(LOG_ERR, "messagesFromFirstClientConnection failed: %s", strerror(errno));
+		_exit(EXIT_FAILURE);
+	}
 	//offset = readChatlogSendClient(client_fd, chatlog_fd, offset);
 
 	//syslog(LOG_DEBUG, "value of flag_activated before SIGUSR1= %d", flag_activated);
