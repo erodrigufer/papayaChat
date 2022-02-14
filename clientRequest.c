@@ -247,7 +247,7 @@ void
 handleRequest(int client_fd, int chatlog_fd)
 {
 	/* send intro message to client */
-	introMessage(client_fd);
+	//introMessage(client_fd);
 
 	/* store the pid of the child process in order to send kill signal when connection is closed */
 	pid_t sendingChild_pid = fork();
