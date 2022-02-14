@@ -1,4 +1,10 @@
 # Pre-releases
+## v0.7.0-beta
+* Remove intro message from back-end server, to remove bug of intro message showing up later again
+  probably due to a buffer overflow
+* First messages sent to client at connection start are now properly controlled to not 
+  overflow the chat text window
+* [BUG] First messages get two weird newlines after last message
 ## v0.6.2-beta
 * Improve security against leaking key in the client, by memsetting all its values to 0, after finishing using the key.
 ## v0.6.1-beta
