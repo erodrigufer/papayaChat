@@ -147,7 +147,8 @@ messagesFromFirstClientConnection(int file_fd, int client_fd)
 	int whence = SEEK_END;	/* SEEK_END= set the offset at one byte after the last byte of the file */
 
 	/* find the offset for the last byte of the file */
-	off_t lastByteOfFile = lseek(file_fd,-1,whence);
+	off_t lastByteOfFile = lseek(file_fd,0,whence);
+	return lastByteOfFile;
 	if(lastByteOfFile==-1){
 		/* unlock file */	
 		if(flock(file_fd,LOCK_UN)==-1)

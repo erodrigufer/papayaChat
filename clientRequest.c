@@ -145,6 +145,7 @@ sendNewMessages(int client_fd, int chatlog_fd)
 	/* read from chatlog as soon as the client connects, and send
 	new messages eventually right away */
 	offset = messagesFromFirstClientConnection(chatlog_fd, client_fd);
+	syslog(LOG_DEBUG, "lastByteOfFile= %d",offset);
 	/* check if there was an error in the above function call */
 	if(offset == -1){
 		syslog(LOG_ERR, "messagesFromFirstClientConnection failed: %s", strerror(errno));
