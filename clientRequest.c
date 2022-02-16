@@ -49,7 +49,7 @@ introMessage(int client_fd)
  
 }
 
-const char firstMessage [] = "papayachatd: Press ARROW_DOWN to exit papayachat.\n"
+const char firstMessage [] = "papayachatd: Press ARROW_DOWN to exit papayachat.\n";
 
 /* send message with instructions to client when initializing information exchange */
 static void
