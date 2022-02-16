@@ -49,6 +49,26 @@ introMessage(int client_fd)
  
 }
 
+const char firstMessage [] = "papayachatd: Press ARROW_DOWN to exit papayachat.\n"
+
+/* send message with instructions to client when initializing information exchange */
+static void
+serverIntro(int client_fd)
+{
+
+	/* the size of the string is calculated statically at compile time,
+	check 'Effective C' page 133 */
+	size_t firstMessage_size = sizeof firstMessage;
+	
+	/* the write() call should write exactly greetingSize bytes, otherwise
+	it has failed */
+	if(write(client_fd,firstMessage,firstMessage_size)!=firstMessage_size){
+		syslog(LOG_ERR, "serverIntro write() failed: %s", strerror(errno));
+		_exit(EXIT_FAILURE);
+	}
+ 
+}
+
 /* helper function used to read from chatlog file and to send its
 contents directly to the client */
 static off_t
@@ -248,6 +268,7 @@ handleRequest(int client_fd, int chatlog_fd)
 {
 	/* send intro message to client */
 	//introMessage(client_fd);
+	serverIntro(client_fd);
 
 	/* store the pid of the child process in order to send kill signal when connection is closed */
 	pid_t sendingChild_pid = fork();
