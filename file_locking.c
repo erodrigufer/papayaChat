@@ -202,29 +202,18 @@ messagesFromFirstClientConnection(int file_fd, int client_fd)
 		return -1; /* read failed */
 	}
 
-	int newline_index=0;
-	/* find first newline character, everything before the first newline, will not be sent back to the client */
-	for(int i=0;i<bytesRead;i++){
-		/* if true we found index of first newline */
-		if(chat_text[i]=='\n'){
-			/* start at one after newline */	
-			newline_index=i+1;
-			break;
-		}		
-	}// end for-loop
-	
 	/* count total amount of newlines in text, after first newline */
 	int count = 0;
-	for(int i=newline_index;i<bytesRead;i++){
+	for(int i=0;i<bytesRead;i++){
 		if(chat_text[i]=='\n')
 			count++;
 	}// end for-loop
 
-	/* send the whole text back */
+	/* send the whole text back, since it is less than the maximum amount
+	of lines permitted to be sent back to the client */
 	if(count <= LINES_SEND_BACK_TO_CLIENT){
 		/* send message to client socket */
-		/* TODO: check if it is correct exactly what I am sending back to client, amount of bytes and index in array */
-		if(write(client_fd,&chat_text[newline_index],bytesRead-newline_index)!=bytesRead-newline_index){
+		if(write(client_fd,&chat_text[0],bytesRead)!=bytesRead){
 			free(chat_text);
 			/* unlock file */	
 			if(flock(file_fd,LOCK_UN)==-1)
@@ -235,6 +224,17 @@ messagesFromFirstClientConnection(int file_fd, int client_fd)
 
 	/* send just the last 10 lines */
 	if(count > LINES_SEND_BACK_TO_CLIENT){
+		int newline_index=0;
+		/* find first newline character, everything before the first newline, will not be sent back to the client */
+		for(int i=0;i<bytesRead;i++){
+			/* if true we found index of first newline */
+			if(chat_text[i]=='\n'){
+				/* start at one after newline */	
+				newline_index=i+1;
+				break;
+			}		
+		}// end for-loop
+		
 		/* find the newline at total_new_lines - LINES_SEND_BACK_TO_CLIENT,
 		and send everything from there until last byte of file which would be
 		exactly the max amount of lines of text allowed (LINES_SEND_BACK_TO_CLIENT) */		
@@ -243,7 +243,8 @@ messagesFromFirstClientConnection(int file_fd, int client_fd)
 		for(int i=newline_index;i<bytesRead;i++){
 			if(chat_text[i]=='\n'){
 				count_newlines++;
-				if(count_newlines==(count-LINES_SEND_BACK_TO_CLIENT)){
+				/* subtract 1 from count, since we eliminated the first newline in the previous step */
+				if(count_newlines==((count-1)-LINES_SEND_BACK_TO_CLIENT)){
 					/* set index at 1 after the newline */
 					startTextIndex=i+1;
 					break;
@@ -262,11 +263,11 @@ messagesFromFirstClientConnection(int file_fd, int client_fd)
 		}
 	}// end if count bigger than LINES_SEND_BACK_TO_CLIENT
 
+	free(chat_text);
 	/* unlock file */	
 	if(flock(file_fd,LOCK_UN)==-1)
 		return -1;
 
-	free(chat_text);
 	return lastByteOfFile+1;
 }
 
