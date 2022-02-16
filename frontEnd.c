@@ -477,7 +477,7 @@ main(int argc, char *argv[])
 	subtract half of the length of 'papayaChat' from the x position in the
 	middle of the screen */
 	mvprintw(0,COLS/2-strlen("papayaChat")/2,"papayaChat\n");
-	mvprintw(1,0,"* Press ARROW_DOWN to exit chat.\n");
+	mvprintw(1,0,">>Press ARROW_DOWN to exit chat<<\n");
 	/* HLINE not printing */
 	////if(hline('_',COLS)==ERR)
 		////errExit("hline1");
