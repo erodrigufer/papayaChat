@@ -1,4 +1,9 @@
 # Pre-releases
+## v0.8.0-beta
+* Fix bug at authentication: if the client provided a false auth key, then the server, would not let it in. But it would also
+  not terminate the chield process created to handle the client with the failed authentication. If the sysadmin does not notice
+  this, this bug would eventually eat up a lot of resources from the server, if many authentications failed, since a lot of unnecessary
+  child process would be running.
 ## v0.7.1-beta
 * Removed one extra newline, by fixing file_locking.c, returning correct value from first messages sent to client
 ## v0.7.0-beta
