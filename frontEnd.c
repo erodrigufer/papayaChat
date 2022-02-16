@@ -337,6 +337,8 @@ sendAuthKey(int server_fd, char * key)
 int 
 main(int argc, char *argv[])
 {
+
+/*-------------------Parse config values-------------------------------------------------*/
 	/* allocate memory to store USERNAME, PORT and HOST values after being parsed,
 	MAX_LINE_LENGTH is the maximum amount of characters that will be parsed
 	per line */
@@ -357,9 +359,11 @@ main(int argc, char *argv[])
 	if(key==NULL)
 		errExit("malloc key failed");
 
-	/* parse username from config file */
+	/* parse username, port and key from config file */
 	getConfigValues(username_parsed,port_parsed,host_parsed,key);
-	
+
+/*---------------------------------------------------------------------------------------*/
+
 	/* establish connection with server, get fd to be shared with child processes */
 	int server_fd = establishConnection(host_parsed,port_parsed);
 	/* if establishConenction fails, the program exits from within the function call
@@ -473,7 +477,7 @@ main(int argc, char *argv[])
 	subtract half of the length of 'papayaChat' from the x position in the
 	middle of the screen */
 	mvprintw(0,COLS/2-strlen("papayaChat")/2,"papayaChat\n");
-
+	mvprintw(1,0,"* Press ARROW_DOWN to exit chat.\n");
 	/* HLINE not printing */
 	////if(hline('_',COLS)==ERR)
 		////errExit("hline1");
