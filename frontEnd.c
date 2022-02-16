@@ -16,7 +16,7 @@
 /* Load TCP/IP services from CONFIG.h header */
 #include "CONFIG.h" /* file defines IP and port of chat service server */
 
-#define MAX_MESSAGE_SENT COLS/2 /* max message size of message to be sent */
+#define MAX_MESSAGE_SENT (int)COLS*3/4 /* max message size of message to be sent */
 
 /* handle backspace portably, Mac OS presents some problems with recognizing
 BACKSPACE
@@ -489,23 +489,13 @@ main(int argc, char *argv[])
 
 	/* starting position for chatWindow */
 	int x_start_chatWindow = 1;
-	int y_start_chatWindow = LINES-4;
+	int y_start_chatWindow = LINES-4; /* 4 lines below the last line */
 	/* starting position for textWindow */
 	int x_start_textWindow = 1;
-	int y_start_textWindow = 3;
-	/* starting position for delimiting line */
-////	int x_start_delimiter = 0;
-////	int height_delimiter = 3;
+	int y_start_textWindow = 3; /* on the 4th vertical line form the top */
+	
 	int y_start_delimiter = y_start_chatWindow - 2;	
 	int max_y_textWindow = LINES/2;
-
-	//move(y_start_chatWindow-1,0); /* move cursor to start position */
-
-	/* Draw horizontal line */
-	//if(hline('_',COLS)==ERR)
-	//	errExit("hline2");
-	/* refresh() is needed to depict horizontal line */
-	//refresh();
 
 	/* create chatWindow */
 	WINDOW * chatWindow;
@@ -514,11 +504,7 @@ main(int argc, char *argv[])
 	/* create textWindow */
 	WINDOW * textWindow;
 	textWindow=configureTextWindow(y_start_textWindow,x_start_textWindow,y_start_delimiter);
-
-	/* create delimiterWindow */
-////	WINDOW * delimiterWindow;
-////	delimiterWindow=configureDelimiterWindow(y_start_delimiter,x_start_delimiter,height_delimiter);
-
+	
 	/* move the cursor on textWindow to the position (0,0) */
 	wmove(textWindow,0,0);
 
