@@ -268,7 +268,6 @@ handleRequest(int client_fd, int chatlog_fd)
 {
 	/* send intro message to client */
 	//introMessage(client_fd);
-	serverIntro(client_fd);
 
 	/* store the pid of the child process in order to send kill signal when connection is closed */
 	pid_t sendingChild_pid = fork();
@@ -281,6 +280,7 @@ handleRequest(int client_fd, int chatlog_fd)
 
 		/* Child process */
 		case 0:
+			serverIntro(client_fd);
 			sendNewMessages(client_fd, chatlog_fd);
 			/* when the parent process receiveMessages() receives a EOF from the client, when the client
 			disconnects, then the parent process sends a SIGTERM signal to the child (sendNewMessages) 
