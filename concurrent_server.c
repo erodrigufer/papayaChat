@@ -218,7 +218,7 @@ main(int argc, char *argv[])
 		syslog(LOG_ERR, "malloc key failed: %s", strerror(errno));
 		exit(EXIT_FAILURE);
 	}
-	getKey(key); /* auth key stored in key */
+	getKey(key); /* get auth key */
 
 	/* server listens on port, with a certain BACKLOG_QUEUE, and does not want to 
 	receive information about the address of the client socket (NULL) */
@@ -262,9 +262,13 @@ main(int argc, char *argv[])
             syslog(LOG_DEBUG, "Child process initialized (handling client connection)");
 			/* Authenticate client with key */
 			if(authClient(client_fd,key)==-1){
+			/* if the client takes more than 1 second to send the key, then the function authClient() 
+			times out, and the process receives a SIGALRM signal which terminates this child process
+			IMPORTANT: No syslog has been implemented to write down that authClient has timed out */
 				close(client_fd);
-				syslog(LOG_INFO,"Auth failed. Client dropped!");
-				break; /* authentication failed, try next client */
+				syslog(LOG_INFO,"Auth failed. Client dropped! Terminating child process...");
+				_exit(EXIT_SUCCESS); /* authentication failed, terminate child process, the exit is 
+				successful, since not authenticating a client is a valid operation */
 			}
             close(listen_fd);           /* Unneeded copy of listening socket */
 			free(key);					/* key not needed on child process anymore */
