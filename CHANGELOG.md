@@ -1,4 +1,7 @@
 # Pre-releases
+## v0.8.1-beta
+* Fix bug, in file_locking.c function handling first messages sent to client failed to send the first line of the chat log
+  file.
 ## v0.8.0-beta
 * Fix bug at authentication: if the client provided a false auth key, then the server, would not let it in. But it would also
   not terminate the chield process created to handle the client with the failed authentication. If the sysadmin does not notice
