@@ -1,4 +1,6 @@
 # Pre-releases
+## v0.9.0-beta
+* Message on how to leave chat is now displayed from within frontEnd, it fixes the bug of the intro message getting mishandled in the front-end
 ## v0.8.1-beta
 * Fix bug, in file_locking.c function handling first messages sent to client failed to send the first line of the chat log
   file.
