@@ -1,4 +1,11 @@
 # Pre-releases
+## v1.0.0
+* First stable version
+* Nice-to-haves:
+	- Different colours for different users
+	- Think about keeping or not the newline between old messages and new messages, after you connect for the first time
+* Otherwise, this version looks very stable and could and should work as a long-running uninterrupted daemon without any concers
+* While trying to achieve some of the nice-to-haves features, I had to revert some of those changes to the last stable pre-release version
 ## v0.9.1-beta
 * Minor security improvement, missing free() call in clientRequest.c file
 ## v0.9.0-beta
