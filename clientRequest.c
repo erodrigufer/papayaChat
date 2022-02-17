@@ -7,7 +7,7 @@ Functions to handle sending and receiving data from clients.
 
 #include <signal.h>		/* needed for sig_atomic_t variable */
 
-#include <syslog.h>		/* server runs as daemon, pipe errors messages to syslog */
+#include <syslog.h>	/* server runs as daemon, pipe errors messages to syslog */
 /* daemon posts still with the configuration of concurrent_server.c, 
 configure_syslog.h functions are unnecessary */
 #include "signalHandling.h"
@@ -17,10 +17,12 @@ configure_syslog.h functions are unnecessary */
 #include "CONFIG.h"	/* declaration of BUF_SIZE */
 
 /* global (extern) variable from signalHandling.c 
-this variable is 0 before SIGUSR1 is received, and it changes to 1, when SIGUSR1 is received */
+this variable is 0 before SIGUSR1 is received, and it changes to 1, when 
+SIGUSR1 is received */
 extern volatile sig_atomic_t flag_activated;
 
-/* define greetingMessage string, the compiler allocates enough memory for the string */
+/* define greetingMessage string, the compiler allocates enough memory for the 
+string */
 const char greetingMessage [] = "\
 \n\
                   ...papayaChat...\n\n\
@@ -98,6 +100,12 @@ readChatlogSendClient(int client_fd, int chatlog_fd, off_t offset)
 		free(string_buf);
 		_exit(EXIT_FAILURE);
 	}
+
+/* TODO: the reason why I have to append a newline to the messages in the
+front end, is because the snprintf, does not copy the \n of the line received
+from the server, because it copies bytesRead-1 characters and appends a \0
+check `man snprintf`
+So in order to "fix" that issue, I should probably start working here */
 	/* copy only the bytesRead into stringClient */
 	if(snprintf(stringClient,bytesRead,"%s",string_buf)<0){
 		syslog(LOG_ERR, "snprintf() failed: %s", strerror(errno));
@@ -129,13 +137,14 @@ readChatlogSendClient(int client_fd, int chatlog_fd, off_t offset)
 static void
 sendNewMessages(int client_fd, int chatlog_fd)
 {
-	/* activate SIGUSR1 only for this child process, this means that this child process
-	can receive the SIGUSR1 signal, when a client sends a message to the server */
+	/* activate SIGUSR1 only for this child process, this means that this 
+	child process can receive the SIGUSR1 signal, when a client sends a message 
+	to the server */
 	if(activateSIGUSR1()==-1){
 		syslog(LOG_ERR, "activateSIGUSR1() failed: %s", strerror(errno));
-		/* TODO: actually if something fails, then there should be a defered function
-		which also sends a kill SIGTERM to all processes in the group, or at least to 
-		all the processes handling the same client */
+		/* TODO: actually if something fails, then there should be a defered 
+		function which also sends a kill SIGTERM to all processes in the group, 
+		or at least to all the processes handling the same client */
 		_exit(EXIT_FAILURE);
 	}// end activateSIGUSR1()
 
@@ -152,18 +161,20 @@ sendNewMessages(int client_fd, int chatlog_fd)
 	}
 	
 	for(;;){
-		/* block until a signal is received, in this case the multicast SIGUSR1 */
+		/* block until a signal is received, in this case the multicast 
+		SIGUSR1 */
 		pause();			
 		
-		/* SIGUSR1 was received, so attempt to read from chatlog and send new messages to client */
+		/* SIGUSR1 was received, so attempt to read from chatlog and send new 
+		messages to client */
 		offset = readChatlogSendClient(client_fd, chatlog_fd, offset);
 
 
 	}// end for-loop
 }
 
-/* send a SIGTERM signal when closing connection or crashing with error to child process
-(the process sending the messages back to the client) */
+/* send a SIGTERM signal when closing connection or crashing with error to 
+child process (the process sending the messages back to the client) */
 static void
 killChild(pid_t child_pid)
 {
