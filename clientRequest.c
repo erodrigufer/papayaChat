@@ -91,7 +91,7 @@ readChatlogSendClient(int client_fd, int chatlog_fd, off_t offset)
 	offset = offset + bytesRead;
 
 	/* store only the characters read on a new string */
-	char * stringClient = (char *) malloc(bytesRead);
+	char * stringClient = (char *) malloc(bytesRead+1);
 	/* if malloc fails, it returns a NULL pointer */
 	if(stringClient == NULL){
 		syslog(LOG_ERR, "malloc failed: %s", strerror(errno));
