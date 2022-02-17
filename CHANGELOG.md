@@ -1,4 +1,6 @@
 # Pre-releases
+## v0.9.1-beta
+* Minor security improvement, missing free() call in clientRequest.c file
 ## v0.9.0-beta
 * Message on how to leave chat is now displayed from within frontEnd, it fixes the bug of the intro message getting mishandled in the front-end
 ## v0.8.1-beta
