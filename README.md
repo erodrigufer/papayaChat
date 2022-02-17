@@ -6,6 +6,8 @@
 
 Self-hosted CLI chat service for the cloud written in C, the client terminal interface is portable accross Unix systems (Mac OS, Linux).
 
+Check the [installation notes](#installation-guide) before proceeding with the installation of both the client and server.
+
 ## Motivation
 There are multiple reasons why I invested so much time into this endeavour, some definitely make more sense than others. In hindsight I did learn a lot about CI/CD, coding practices, why containers make sense, general sysadmin stuff, C wizardry, Unix, portability, networking, strace, tshark, cloud stuff, etc... 
 
@@ -13,8 +15,14 @@ So let me summarize my main motivation for building a cloud deployable self-host
 
 * Take control over your chat logs, and, specially, over the metadata from your chatlogs. The best way of doing that is by hosting your own chat service. Maybe your communication service provider talks about being E2E encrypted, but what do they do with all the metadata from your communications? Are they logging it? Are they maybe not logging it, but rather putting it through an algorithm to better great a targeted ad model about you, and then discarding that data? What kind of metadata are they storing? They might not have direct access to your pictures, texts and audio messages, but they definitely know when, where and with whom you are speaking. Isn't that too much already?
 * If all of this resonated with you, and you still use a common chat service, well, you might want to take a look at this great article by Rohan Kumar: [WhatsApp and the domestication of users](https://seirdy.one/2021/01/27/whatsapp-and-the-domestication-of-users.html)
+* It is nice to be able to chat with your friends from the command line:
+	- A CLI normally does not take much of your computer resources and the installation binaries are also quite small. Compare that to all those JS apps eating up your precious RAM.
+	- You can pretend to be working on your code at work using vim and tmux, while actually be chatting with your friends, while they also pretend to work on their codeat work.
 
 ## Installation guide
+The papayaChat service consists of a server, which hosts your chatlog and handles transferring information between clients, and clients which remotely connect to the server to participate in a papayaChat session.
+
+In order to have continuous uninterrupted access to your chat session from anywhere, you should think about hosting your papayaChat server within a cloud provider, so that you can have a static IP and run the back-end as an uninterrupted daemon. You can then install the client with your session key, in as many computers you want to use to participate in a papayaChat session with your friends.
 
 ### Back-end (server/daemon)
 Step by step guide to install the server/daemon that will handle the chat service:
