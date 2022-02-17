@@ -91,26 +91,26 @@ readChatlogSendClient(int client_fd, int chatlog_fd, off_t offset)
 	offset = offset + bytesRead;
 
 	/* store only the characters read on a new string */
-	//char * stringClient = (char *) malloc(bytesRead);
+	char * stringClient = (char *) malloc(bytesRead);
 	/* if malloc fails, it returns a NULL pointer */
-//	if(stringClient == NULL){
-//		syslog(LOG_ERR, "malloc failed: %s", strerror(errno));
-//		free(string_buf);
-//		_exit(EXIT_FAILURE);
-//	}
+	if(stringClient == NULL){
+		syslog(LOG_ERR, "malloc failed: %s", strerror(errno));
+		free(string_buf);
+		_exit(EXIT_FAILURE);
+	}
 	/* copy only the bytesRead into stringClient */
-//	if(snprintf(stringClient,bytesRead,"%s",string_buf)<0){
-//		syslog(LOG_ERR, "snprintf() failed: %s", strerror(errno));
-//		free(string_buf);
-//		free(stringClient);
-//		_exit(EXIT_FAILURE);
-//	}
-//
+	if(snprintf(stringClient,bytesRead,"%s",string_buf)<0){
+		syslog(LOG_ERR, "snprintf() failed: %s", strerror(errno));
+		free(string_buf);
+		free(stringClient);
+		_exit(EXIT_FAILURE);
+	}
+
 	/* send message to client socket */
-	if(write(client_fd,string_buf,bytesRead)!=bytesRead){
+	if(write(client_fd,stringClient,bytesRead)!=bytesRead){
 		syslog(LOG_ERR, "write() failed: %s", strerror(errno));
 		free(string_buf);
-		//free(stringClient);
+		free(stringClient);
 		_exit(EXIT_FAILURE);
 	}
 
@@ -119,7 +119,7 @@ readChatlogSendClient(int client_fd, int chatlog_fd, off_t offset)
 	
 	/* free malloc resources before end of loop */
 	free(string_buf);
-	//free(stringClient);
+	free(stringClient);
 
 	return offset; /* value used in the next iteration */
 
