@@ -158,6 +158,7 @@ activateSIGUSR1(void)
 void
 timeoutHandler(int sig)
 {
+_exit(EXIT_SUCCESS);
 }
 
 /* setup SIGALRM disposition for timeout during authentication,
