@@ -99,7 +99,7 @@ readChatlogSendClient(int client_fd, int chatlog_fd, off_t offset)
 		_exit(EXIT_FAILURE);
 	}
 	/* copy only the bytesRead into stringClient */
-	if(snprintf(stringClient,bytesRead,"%s",string_buf)<0){
+	if(snprintf(stringClient,bytesRead+1,"%s",string_buf)<0){
 		syslog(LOG_ERR, "snprintf() failed: %s", strerror(errno));
 		free(string_buf);
 		free(stringClient);
