@@ -95,6 +95,7 @@ readChatlogSendClient(int client_fd, int chatlog_fd, off_t offset)
 	/* if malloc fails, it returns a NULL pointer */
 	if(stringClient == NULL){
 		syslog(LOG_ERR, "malloc failed: %s", strerror(errno));
+		free(string_buf);
 		_exit(EXIT_FAILURE);
 	}
 	/* copy only the bytesRead into stringClient */
@@ -141,7 +142,6 @@ sendNewMessages(int client_fd, int chatlog_fd)
 	/* start reading from beginning of file */
 	off_t offset = 0;
 
-	/* TODO: integrate here the new function from file_locking.c */
 	/* read from chatlog as soon as the client connects, and send
 	new messages eventually right away */
 	offset = messagesFromFirstClientConnection(chatlog_fd, client_fd);
@@ -150,10 +150,6 @@ sendNewMessages(int client_fd, int chatlog_fd)
 		syslog(LOG_ERR, "messagesFromFirstClientConnection failed: %s", strerror(errno));
 		_exit(EXIT_FAILURE);
 	}
-	//offset = readChatlogSendClient(client_fd, chatlog_fd, offset);
-
-	//syslog(LOG_DEBUG, "value of flag_activated before SIGUSR1= %d", flag_activated);
-
 	
 	for(;;){
 		/* block until a signal is received, in this case the multicast SIGUSR1 */
