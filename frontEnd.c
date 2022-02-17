@@ -27,6 +27,9 @@ And in other Unix systems, only use KEY_BACKSPACE */
 #define PORTABLE_BACKSPACE KEY_BACKSPACE
 #endif
 
+/* Define colour pair names for ncurses */
+#define INSTRUCTIONS_COLOUR 1
+
 /* function to configure and initialize the ncurses environment */
 static void 
 configureNcurses(void)
@@ -34,6 +37,9 @@ configureNcurses(void)
 
 	initscr();			/* Start curses mode 		  */
 	start_color();		/* Add colour functionality */
+	/* colour pairs: first colour is text colour, second colour is background
+	colour */
+	init_pair(INSTRUCTIONS_COLOUR, COLOR_CYAN, COLOR_WHITE);	/* add colour pair */
 	cbreak();			/* No line buffering -> terminal input is
 						received immediately, no waiting for carriage
 						return (ENTER), CTRL-C and CTRL-Z still work
@@ -145,7 +151,7 @@ printMessagesFromServer(WINDOW * window, int pipe_fd, int max_y_position)
 			if(wmove(window,0,0)==ERR)
 				errExit("wmove");
 		}
-		wprintw(window,"%s\n",string_buf);
+		wprintw(window,"%s",string_buf);
 		wrefresh(window);
 	}// end bytesReceived > 0
 
@@ -477,7 +483,9 @@ main(int argc, char *argv[])
 	subtract half of the length of 'papayaChat' from the x position in the
 	middle of the screen */
 	mvprintw(0,COLS/2-strlen("papayaChat")/2,"papayaChat\n");
+	attron(COLOR_PAIR(INSTRUCTIONS_COLOUR));
 	mvprintw(1,0,">>Press ARROW_DOWN to exit chat<<\n");
+	attroff(COLOR_PAIR(INSTRUCTIONS_COLOUR));
 	/* HLINE not printing */
 	////if(hline('_',COLS)==ERR)
 		////errExit("hline1");
