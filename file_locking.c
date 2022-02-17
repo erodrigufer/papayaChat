@@ -113,7 +113,8 @@ sharedRead(int file_fd, char* string, size_t sizeString, off_t offset)
 
 	ssize_t bytesRead;	/* bytes read from chat log file */
 
-	int whence = SEEK_SET;	/* SEEK_SET= set the offset in relationship to the beginning of the file */ 
+	int whence = SEEK_SET;	/* SEEK_SET= set the offset in relationship to the beginning 
+							of the file */ 
 
 	/* set file offset in relationship to beginning of file */
 	if(lseek(file_fd,offset,whence)==-1)
