@@ -4,7 +4,7 @@
 [![Networking (CI)](https://github.com/erodrigufer/papayaChat/actions/workflows/networking.yml/badge.svg)](https://github.com/erodrigufer/papayaChat/actions/workflows/networking.yml)
 [![Unit-testing (CI)](https://github.com/erodrigufer/papayaChat/actions/workflows/unit-tests.yml/badge.svg)](https://github.com/erodrigufer/papayaChat/actions/workflows/unit-tests.yml)
 
-Self-hosted CLI chat service for the cloud written in C, the client terminal interface is portable accross Unix systems (Mac OS, Linux).
+Self-hosted CLI chat service for the cloud written in C, the client terminal interface is portable across Unix systems (Mac OS, Linux).
 
 Check the [installation notes](#installation-guide) before proceeding with the installation of both the client and server.
 
