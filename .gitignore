@@ -7,7 +7,7 @@
 # Ignore strace output files
 *.strace
 
-# Ignore this directory (it contains 'inspirational' souce code on a local machine)
+# Ignore this directory (it contains 'inspirational' source code on a local machine)
 unfinished/
 
 # Ignore binary (executable) files
@@ -26,3 +26,9 @@ userConfig.h
 
 # Ignore log files
 *.log
+
+# Ignore xelatex output
+*.aux
+
+# Living in an apple world
+*.DS_Store
