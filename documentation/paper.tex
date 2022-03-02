@@ -1,0 +1,68 @@
+\documentclass[journal]{IEEEtran}
+\usepackage{blindtext}
+
+% *** GRAPHICS RELATED PACKAGES ***
+\usepackage[pdftex]{graphicx}
+\graphicspath{{img/}}
+\DeclareGraphicsExtensions{.pdf,.jpeg,.png,.pdf_tex}
+\usepackage{color}
+
+% *** MATH PACKAGES ***
+\usepackage{amsmath}
+\usepackage{amssymb}
+\interdisplaylinepenalty=2500
+
+% *** SPECIALIZED LIST PACKAGES ***
+\usepackage{algorithmic}
+
+% *** ALIGNMENT PACKAGES ***
+\usepackage{array}
+
+% *** SUBFIGURE PACKAGES ***
+%\usepackage[caption=false,font=footnotesize]{subfig}
+%\usepackage{subcaption}
+
+% *** PDF, URL AND HYPERLINK PACKAGES ***
+\usepackage{url}
+\usepackage[noadjust]{cite} 
+\usepackage{csquotes}
+\usepackage[nolist,nohyperlinks]{acronym}
+\newcommand{\figref}[1]{\figurename~\ref{#1}}
+\newcommand{\tabref}[1]{\tablename~\ref{#1}}
+
+% correct bad hyphenation here
+%\hyphenation{}
+
+\begin{document}
+% paper title
+% can use linebreaks \\ within to get better formatting as desired
+\title{Exploring the design space of back end services: \\ Or how to lose your sanity with C}
+
+\author{\IEEEauthorblockN{Eduardo Rodriguez Fernandez}\\
+\IEEEauthorblockA{Chair for Data Processing, Technical University of Munich}\\
+\IEEEauthorblockA{\texttt{eduardo.rodriguez@tum.de}}
+%\thanks{Nobody}
+}
+
+% make the title area
+\maketitle
+
+\input{chapters/abstract}
+% Note that keywords are not normally used for peerreview papers.
+\begin{IEEEkeywords}
+C, Networking, Back-end services, Databases, Software architecture, Systems programming, Software engineering principles.
+\end{IEEEkeywords}
+\input{chapters/introduction}
+\input{chapters/conclusion}
+\input{chapters/appendix}
+
+\bibliographystyle{IEEEtran}
+\bibliography{other/bibliography}
+\nocite{*}
+
+\begin{IEEEbiography}[{\includegraphics[width=1in,height=1.25in,clip,keepaspectratio]{img/picture}}]{Eduardo Rodriguez}
+%\blindtext[1]
+is an Electrical Engineering and IT graduate student at TUM.
+\end{IEEEbiography}
+
+\end{document}
