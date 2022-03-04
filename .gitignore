@@ -27,7 +27,9 @@ userConfig.h
 # Ignore log files
 *.log
 
-# Ignore xelatex output
+# Ignore xelatex output and other latex related by-products
+*.synctex.gz
+*.blg
 *.aux
 
 # Living in an apple world
