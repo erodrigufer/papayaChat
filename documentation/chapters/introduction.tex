@@ -1,10 +1,11 @@
 \section{Introduction}
-Describe that a chat app is being used as an example implementation.
+Describe that a chat app is being used as an example implementation. Argue why the architectural design of the chat app is more IO-bound that CPU-bound \cite{Kennedy2018} and therefore works best with a traditional pre-emptive scheduler.
 \subsection{State of the art}
 Describe how the systems architecture of other popular web frameworks is, for instance Go and its goroutines.
 
-Describe the concurrency model of Golang, and its goroutines. Explicitly mentioning that most developers have no knowledge or even control, over how this is done.
+Describe the concurrency model of Golang, and its goroutines. Explicitly mentioning that most developers have no knowledge or even control, over how this is done \cite{Cox-Buday2017}. Make clear that since we are developing the chat app in C, it makes sense to compare it with Go, since Go is C for the 21st Century/ it was developed by the Bell Labs architects of C (maybe find a good reference from the Go philosophy statement from its creators that talks about this). And Go also being a concurrency-first language with a very simple syntax for handling concurrency.
 
 If, another main discussion in the methodology would be the async own database implementation, it would be interesting to talk about locks in any db system, and use the data book as a major reference.
-%\blindtext
+
+Might as well read and describe how nginx works ?????
 % Describe a normal RESTful API in Go
