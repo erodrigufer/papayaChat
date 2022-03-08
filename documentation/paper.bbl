@@ -30,6 +30,20 @@ W.~Kennedy, ``Scheduling in {Go},''
 K.~Cox-Buday, \emph{Concurrency in Go}.\hskip 1em plus 0.5em minus 0.4em\relax
   Sebastopol, California: O'Reilly, August 2017.
 
+\bibitem{Edge2016}
+J.~Edge, ``The perils of federated protocols,''
+  \url{https://lwn.net/Articles/687294/}, May 2016.
+
+\bibitem{Kaufman2016}
+B.~M. Kaufman, ``New documents reveal government effort to impose secrecy on
+  encryption company,''
+  \url{https://www.aclu.org/blog/national-security/secrecy/new-documents-reveal-government-effort-impose-secrecy-encryption},
+  October 2016.
+
+\bibitem{GoPL2015}
+A.~A. Donovan and B.~W. Kernighan, \emph{The Go Programming Language}.\hskip
+  1em plus 0.5em minus 0.4em\relax Addison-Wesley, October 2015.
+
 \bibitem{Kerrisk2010}
 M.~Kerrisk, \emph{The Linux Programming Interface}.\hskip 1em plus 0.5em minus
   0.4em\relax San Francisco: No Starch Press, 2010.
@@ -37,6 +51,11 @@ M.~Kerrisk, \emph{The Linux Programming Interface}.\hskip 1em plus 0.5em minus
 \bibitem{Kleppmann2017}
 M.~Kleppmann, \emph{Designing Data-Intensive Applications}.\hskip 1em plus
   0.5em minus 0.4em\relax Sebastopol, California: O'Reilly, March 2017.
+
+\bibitem{Kumar2021}
+R.~Kumar, ``{WhatsApp} and the domestication of users,''
+  \url{https://seirdy.one/2021/01/27/whatsapp-and-the-domestication-of-users.html},
+  January 2021.
 
 \bibitem{Seacord2020}
 R.~C. Seacord, \emph{Effective C: an introduction to professional C
