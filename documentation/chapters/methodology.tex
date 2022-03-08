@@ -1,0 +1,6 @@
+\section{Methodology}
+Describe that a chat app is being used as an example implementation. Argue why the architectural design of the chat app is more IO-bound that CPU-bound \cite{Kennedy2018} and therefore works best with a traditional pre-emptive scheduler.
+
+"If you have a program that is focused on IO-Bound work, then context switches are going to be an advantage. Once a Thread moves into a Waiting state, another Thread in a Runnable state is there to take its place. This allows the core to always be doing work. This is one of the most important aspects of scheduling. Don’t allow a core to go idle if there is work (Threads in a Runnable state) to be done.
+
+If your program is focused on CPU-Bound work, then context switches are going to be a performance nightmare. Since the Thead always has work to do, the context switch is stopping that work from progressing. This situation is in stark contrast with what happens with an IO-Bound workload"\cite{Kennedy2018} (correct this since it is actually from part 1)
