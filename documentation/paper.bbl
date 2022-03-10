@@ -67,6 +67,10 @@ M.~Kerrisk, \emph{The Linux Programming Interface}.\hskip 1em plus 0.5em minus
 M.~Kleppmann, \emph{Designing Data-Intensive Applications}.\hskip 1em plus
   0.5em minus 0.4em\relax Sebastopol, California: O'Reilly, March 2017.
 
+\bibitem{Pike2012}
+R.~Pike, ``Go at {Google}: {Language} design in the service of {Software
+  Engineering},'' \url{https://talks.golang.org/2012/splash.article}, 2012.
+
 \bibitem{Seacord2020}
 R.~C. Seacord, \emph{Effective C: an introduction to professional C
   programming}.\hskip 1em plus 0.5em minus 0.4em\relax San Francisco: No Starch
