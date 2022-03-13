@@ -54,6 +54,18 @@ A.~A. Donovan and B.~W. Kernighan, \emph{The Go Programming Language}.\hskip
 R.~Pike, ``Go at {Google}: {Language} design in the service of {Software
   Engineering},'' \url{https://talks.golang.org/2012/splash.article}, 2012.
 
+\bibitem{Morsing2013_2}
+D.~Morsing, ``The {Go} netpoller,'' \url{https://morsmachine.dk/netpoller},
+  September 2013.
+
+\bibitem{GoNet}
+``Go's standard library's net package. {Listener type},''
+  \url{https://pkg.go.dev/net#Listener}, go1.17.8.
+
+\bibitem{GoHTTP}
+``Go's standard library's net/http package. {Serve() function},''
+  \url{https://pkg.go.dev/net/http#Serve}, go1.17.8.
+
 \bibitem{Kennedy2018}
 W.~Kennedy, ``Scheduling in {Go},''
   \url{https://www.ardanlabs.com/blog/2018/08/scheduling-in-go-part2.html},
@@ -74,10 +86,6 @@ M.~Kleppmann, \emph{Designing Data-Intensive Applications}.\hskip 1em plus
 \bibitem{Morsing2013}
 D.~Morsing, ``The {Go} scheduler,'' \url{https://morsmachine.dk/go-scheduler},
   June 2013.
-
-\bibitem{Morsing2013_2}
-------, ``The {Go} netpoller,'' \url{https://morsmachine.dk/netpoller},
-  September 2013.
 
 \bibitem{Siebenmann2019}
 C.~Siebenmann, ``The {Go} runtime scheduler's clever way of dealing with system
