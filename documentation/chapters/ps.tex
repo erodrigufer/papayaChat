@@ -1,7 +1,4 @@
 \section{Problem statement}
-% In theory the title could also be objectives, goals, unsolved issues.... think about it
-After having seen how modern web frameworks provide their users with an immutable low level architecture to handle concurrent client connections, exemplified by Go's the standard library implementation of an HTTP server.
+After having seen how modern web frameworks provide their users with an immutable low level architecture to handle concurrent client connections, exemplified by Go's standard library implementation of an HTTP server, it will be discussed in this paper what other Unix system primitives could potentially be used to handle concurrency on a server.
 
-objectives, goals, unsolved issues
-
-If, another main discussion in the methodology would be the async own database implementation, it would be interesting to talk about locks in any db system, and use the data book as a major reference.
+The topic is first handled with a literature review of the advantages and disadvantages of different architectures. Afterwards, specific challenges regarding the implementation of the chat application will be covered, namely: how to guarantee a secure continuous operation of the server daemon, after opening a public port, what has to be considered when implementing a dependency-free database in a concurrent distributed system and is the application more easily portable when only having the standard C library as a dependency and compiling only with gcc?
