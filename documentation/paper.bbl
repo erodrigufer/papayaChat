@@ -66,11 +66,6 @@ D.~Morsing, ``The {Go} netpoller,'' \url{https://morsmachine.dk/netpoller},
 ``Go's standard library's net/http package. {Serve() function},''
   \url{https://pkg.go.dev/net/http#Serve}, go1.17.8.
 
-\bibitem{Kennedy2018}
-W.~Kennedy, ``Scheduling in {Go},''
-  \url{https://www.ardanlabs.com/blog/2018/08/scheduling-in-go-part2.html},
-  August 2018.
-
 \bibitem{Cox-Buday2017}
 K.~Cox-Buday, \emph{Concurrency in Go}.\hskip 1em plus 0.5em minus 0.4em\relax
   Sebastopol, California: O'Reilly, August 2017.
@@ -78,6 +73,11 @@ K.~Cox-Buday, \emph{Concurrency in Go}.\hskip 1em plus 0.5em minus 0.4em\relax
 \bibitem{Kerrisk2010}
 M.~Kerrisk, \emph{The Linux Programming Interface}.\hskip 1em plus 0.5em minus
   0.4em\relax San Francisco: No Starch Press, 2010.
+
+\bibitem{Kennedy2018}
+W.~Kennedy, ``Scheduling in {Go}: {OS} scheduler,''
+  \url{https://www.ardanlabs.com/blog/2018/08/scheduling-in-go-part1.html},
+  August 2018.
 
 \bibitem{Kleppmann2017}
 M.~Kleppmann, \emph{Designing Data-Intensive Applications}.\hskip 1em plus
