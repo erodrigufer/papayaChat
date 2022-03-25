@@ -12,7 +12,7 @@ If the main goal of this paper is to open a developer's eyes to the many differe
 	%where an .eps filename suffix will be assumed under latex, 
 	%and a .pdf suffix will be assumed for pdflatex; or what has been declared
 	%via \DeclareGraphicsExtensions.
-	\caption{Go runtime, the \textit{goroutines} are depicted as circles. Active goroutines are green, idle ones are yellow.}
+	\caption{High level depiction of the runtime environment in Go. \textit{Goroutines} are depicted as circles. Active goroutines running on a \textit{context} are green, idle goroutines waiting in a queue are yellow. The same color semantics apply to active and idle OS threads.}
 	\label{fig_go_runtime}
 \end{figure}
 The idiomatic way of dealing with client connections in Go, either in an HTTP server or through solely raw TCP communication, is by spawning a new goroutine that handles each client concurrently \cite{Morsing2013_2}\cite{GoNet}\cite{GoHTTP}. From a software engineering perspective this is a very practical approach, since it elevates the level of abstraction that the programmer has to deal with, so that it is unnecessary to directly intervene in memory synchronization and the management of a thread pool. This should have as a consequence gains in developer productivity, with the trade-off that there is less design freedom. The pledge of Go is that the runtime will single-handedly manage the scheduling of goroutines in the most effective way possible and that goroutines are so lightweight that the developer should not worry upfront about the amount of goroutines that would simultaneously be spawned \cite{Cox-Buday2017}.
