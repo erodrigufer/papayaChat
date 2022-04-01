@@ -83,6 +83,9 @@ W.~Kennedy, ``Scheduling in {Go}: {OS} scheduler,''
 M.~Kleppmann, \emph{Designing Data-Intensive Applications}.\hskip 1em plus
   0.5em minus 0.4em\relax Sebastopol, California: O'Reilly, March 2017.
 
+\bibitem{Kerrisk2021}
+M.~Kerrisk, ``Docker unplugged,'' Training material, October 2021.
+
 \bibitem{Morsing2013}
 D.~Morsing, ``The {Go} scheduler,'' \url{https://morsmachine.dk/go-scheduler},
   June 2013.

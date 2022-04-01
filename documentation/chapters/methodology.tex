@@ -23,7 +23,7 @@ This child process, called "\textit{Child RECV}" in fig. \ref{fig_server_backend
 
  Compartmentalizing the different clients into separate processes has the intrinsic advantage of granting more availability in case of a distributed denial of service (DDoS) attack or simply heavy traffic in the server's public-facing daemon. If for any reason, the daemon is getting cluttered with connection attempts, to a point in which the high load threatens to affect the communication performance of the clients already participating inside a chat service, then the daemon's process can be temporarily stopped, or even killed, so that the public-facing port is closed. Since each client's process cluster works completely independently from the daemon accepting new clients and from all other clients' process clusters, the service can continue uninterrupted for all clients already connected. 
  
- From a system administration perspective it is also very convenient to handle each client connection with different processes, since it makes the monitoring and administration of system resource utilization in a \textit{per-client} granular way easy through the use of tools like \textit{kill}, \textit{ps} and \textit{top}.
+ From a system administration perspective it is also very convenient to handle each client connection with different processes, since it makes the monitoring and administration of system resource utilization in a \textit{per-client} granular way easy through the use of command line tools like \textit{kill}, \textit{ps}, \textit{ss} or \textit{sockstat}, and \textit{top}.
 
 \subsection{Transactional isolation and atomicity}
 Although the data model of the chat application would fit well within a relational database, since the types of the data fields for every message exchange are immutable and translatable into the data types used in relational databases, the system intentionally avoids using any kind of external database system. This design decision makes the application more easily portable and deployable, due to the fact that the same executable of the chat server entirely handles the message storing and retrieving for all data exchanges. Deploying the chat server into a cloud server is as easy as pulling the repository, compiling and running the binary, there is no need to first install and configure a (No)SQL server.
@@ -32,9 +32,9 @@ Nonetheless, this implies that the chat program has to fulfil some data safety g
 
 Since the incoming messages from the clients will all be centrally stored in a log file and messages from different clients can arrive at any time simultaneously to the server, a transactional mechanism is implemented to avoid race conditions. 
 
-Therefore, the data management system must fulfil the following four requirements. Multiple clients simultaneously writing to the log file should not over-write their messages. It should not be possible to read the log file during a write-operation from another client to avoid reading partially complete data. 
+Therefore, the data management system must fulfil the following four requirements. Multiple clients simultaneously writing to the log file should not over-write their messages. Furthermore, it should not be possible to read the log file during a write-operation from another client to avoid reading incomplete data, and, conversely, it should not be possible to write to the log, while another client is reading from it. Finally, unlimited concurrent reading operations from multiple clients are permitted on the log file, since reading from the log file does not have any side effects on the stored data.
 
-
+To satisfy these criteria, the server opens 
 
 \subsection{Portability issues}
 Even when using only POSIX compliant syscalls the server does not compile entirely the same in all platforms. Mention problem between Debian (Ubuntu and Kali) distributions, in which strace had to be used to pinpoint a compilation difference.
@@ -42,6 +42,8 @@ Even when using only POSIX compliant syscalls the server does not compile entire
 \subsection{Security}
 We are not containerizing the application, since it would not do it portable across many Unix systems, e.g. the BSDs, so we have to guarantee the security of running an application with an Internet facing open port. -> Authentication system and running the server through a system user with very limited permissions.
 The system user technique limits the amount of damage that could possibly be generated, because the system user should not  have that many permissions.
+
+\cite{Kerrisk2021}
 
 --------------------------------------
 
