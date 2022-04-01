@@ -25,8 +25,10 @@ This child process, called "\textit{Child RECV}" in fig. \ref{fig_server_backend
  
  From a system administration perspective it is also very convenient to handle each client connection with different processes, since it makes the monitoring and administration of system resource utilization in a \textit{per-client} granular way easy through the use of tools like \textit{kill}, \textit{ps} and \textit{top}.
 
-\subsection{ACID data management}
-In order to make the program more easily portable
+\subsection{Transactional isolation}
+Although the data model of the chat application would fit well within a relational database, since the types of the data fields for every message exchange are immutable and translatable into the data types used in relational databases, the system intentionally avoids using any kind of external database system. This design decision makes the application more easily portable and deployable, due to the fact that the same executable of the chat server entirely handles the message storing and retrieving for all data exchanges.
+
+
 
 \subsection{Portability issues}
 Even when using only POSIX compliant syscalls the server does not compile entirely the same in all platforms. Mention problem between Debian (Ubuntu and Kali) distributions, in which strace had to be used to pinpoint a compilation difference.
