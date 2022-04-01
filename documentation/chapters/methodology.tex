@@ -40,6 +40,8 @@ To satisfy these criteria, the server opens
 Even when using only POSIX compliant syscalls the server does not compile entirely the same in all platforms. Mention problem between Debian (Ubuntu and Kali) distributions, in which strace had to be used to pinpoint a compilation difference.
 
 \subsection{Security}
+The chat server runs as a long-lasting daemon, therefore leaving at least one port open to the public internet. It must be taken for granted that the open port will eventually be discovered by web-scanning botnets \cite{Mirkovic2004}
+
 We are not containerizing the application, since it would not do it portable across many Unix systems, e.g. the BSDs, so we have to guarantee the security of running an application with an Internet facing open port. -> Authentication system and running the server through a system user with very limited permissions.
 The system user technique limits the amount of damage that could possibly be generated, because the system user should not  have that many permissions.
 
