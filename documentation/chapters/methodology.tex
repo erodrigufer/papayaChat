@@ -42,27 +42,25 @@ Conversely, when the server sends new messages to a client through Child SEND, i
 
 This file handling architecture makes sending messages to multiple clients a highly parallelizable operation, while writing to the chat log is a secure isolated task performed in an atomic way.
 
-\subsection{Multicasting}
+\subsection{Multicasting with Unix IPC}
 The system should deliver new messages instantly through the respective Child SEND process of every client each time a new message is received, in other words, every message must be multicasted to all participating clients. The number of connected clients can change over time and it is unlimited. 
 
 The two main IPC (inter-process communication) mechanisms capable of multicasting to multiple processes are sockets and signals \cite{Kerrisk2010}. Signals are used in this implementation, because from a software engineering perspective configuring sockets to handle multicasting is less portable and requires more code-refactoring.
 
 The Unix standard \textit{SIGUSR1} signal, which is reserved for "user defined behaviour", can be used to synchronously inform a group of processes about an event, in this case, the need to send new messages to the clients.
 
-By choosing to multicast with signals the possibility to work with threads, instead of with processes, was eliminated. Since all threads in a process share the same signal dispositions and for this design different signal disposition between parent and child processes are a requirement. Moreover, this architecture does not require an administrative centralized process constantly monitoring which clients are currently online, to whom the messages should be delivered. Instead, it outsources this task ti the kernel which manages signal distribution.
+By choosing to multicast with signals the possibility to work with threads, instead of with processes, was eliminated. Since all threads in a process share the same signal dispositions and for this design different signal disposition between parent and child processes are a requirement. Moreover, this architecture does not require an administrative centralized process constantly monitoring which clients are currently online, to whom the messages should be delivered. Instead, it outsources this task to the kernel which manages signal distribution.
 
 
 \subsection{Portability issues}
-Even when using only POSIX compliant syscalls the server does not compile entirely the same in all platforms. Mention problem between Debian (Ubuntu and Kali) distributions, in which strace had to be used to pinpoint a compilation difference.
+Even though, only portable Unix syscalls are used and the number of dependencies is reduced to the utmost minimum of GCC and the C standard library, some portability issues arise when deploying in a multi-platform fashion.
+
+The back-end is compiled with GCC and run in two Debian-based distros: Ubuntu and Kali Linux, the former is a 32-bit system. A single compilation difference between the two platforms rendered the back-end service completely useless in one instance. The root cause of the faulty behaviour was then established using a syscall and signals monitoring tool like \textit{strace} in a very cumbersome process. The bug was caused by a difference in the default flags assigned by the compiler to the syscall assigning a signal disposition.
+
+Thus, it is illusory to think that restricting the dependencies to the bare minimum of the C standard library and GCC will make the code perfectly compatible across GNU/Linux systems. Debugging unexplained behaviour will still be arduous.
 
 \subsection{Security}
 The chat server runs as a long-lasting daemon, therefore leaving at least one port open to the public internet, from which the clients will establish a connection with the server. It must be taken for granted that the open port will eventually be discovered by web-scanning botnets that periodically scan targeted hitlists (specially know IP ranges from cloud providers) or random IP ranges \cite{Mirkovic2004}\cite{Graham}.
 
 We are not containerizing the application, since it would not do it portable across many Unix systems, e.g. the BSDs, so we have to guarantee the security of running an application with an Internet facing open port. -> Authentication system and running the server through a system user with very limited permissions.
-The system user technique limits the amount of damage that could possibly be generated, because the system user should not  have that many permissions.
-
-\cite{Kerrisk2021}
-
---------------------------------------
-
-Mention that there were also portability issues, and that a different behaviour between the development environment and the production or deployment environment was seen. A system call was been compiled differently (the default flags were being used, which where different between systems) so working entirely with gcc and the the standard C library is not a guaranty for automatic perfect portability. In fact, it was very cumbersome to debug the faulty behaviour, since it had to be done using strace, in order to find the misbehaving syscall. Conclusion, thinking that using only C, gcc and the stdlib is working almost dependency-free is a fallacy or an illusion, debugging unexplained behaviour will still be arduous.
+The system user technique limits the amount of damage that could possibly be generated, because the system user should not  have that many permissions. \cite{Kerrisk2021}
