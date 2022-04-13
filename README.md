@@ -8,6 +8,22 @@ Self-hosted CLI chat service for the cloud written in C, the client terminal int
 
 Check the [installation notes](#installation-guide) before proceeding with the installation of both the client and server.
 
+## Table of contents
+<!-- vim-markdown-toc GFM -->
+
+* [Motivation](#motivation)
+* [Installation guide](#installation-guide)
+	- [Back-end (server/daemon)](#back-end-serverdaemon)
+	- [Further remarks](#further-remarks)
+	- [Client](#client)
+	- [Further remarks](#further-remarks-1)
+* [Inspecting and stopping the back end daemon](#inspecting-and-stopping-the-back-end-daemon)
+* [Debugging](#debugging)
+	- [Debugging with strace](#debugging-with-strace)
+	- [Debugging with tshark](#debugging-with-tshark)
+
+<!-- vim-markdown-toc -->
+
 ## Motivation
 There are multiple reasons why I invested so much time into this endeavour, some definitely make more sense than others. In hindsight I did learn a lot about CI/CD, coding practices, why containers make sense, general sysadmin stuff, C wizardry, Unix, portability, networking, strace, tshark, cloud stuff, etc... 
 
