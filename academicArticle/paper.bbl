@@ -59,6 +59,14 @@ R.~Pike, ``Go at {Google},'' in \emph{Proceedings of the 3rd Annual Conference
   \url{https://doi.org/10.1145/2384716.2384720}
 \BIBentrySTDinterwordspacing
 
+\bibitem{Ajmani2016}
+\BIBentryALTinterwordspacing
+S.~Ajmani, ``Program {Your} next {Server} in {Go},'' in \emph{Applicative
+  2016}, ser. Applicative 2016.\hskip 1em plus 0.5em minus 0.4em\relax New
+  York, NY, USA: Association for Computing Machinery, 2016. [Online].
+  Available: \url{https://doi.org/10.1145/2959689.2960078}
+\BIBentrySTDinterwordspacing
+
 \bibitem{Morsing2013_2}
 D.~Morsing, ``The {Go} netpoller,'' \url{https://morsmachine.dk/netpoller},
   September 2013.
