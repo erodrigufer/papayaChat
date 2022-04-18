@@ -65,10 +65,11 @@ Step by step guide to install the server/daemon that will handle the chat servic
 * To **upgrade** to a newer version:
 	1. Get the release you want to upgrade
 	2. `make install-server` will un-install you current server executables, chat logs and config files, and install the version from the local repo.
-* If you are not being able to connect to the server check the firewall setup of your system, `ufw` sometimes blocks packages coming from clients to the server.
+* If you are not being able to connect to the server, check the firewall setup of your system, `ufw` sometimes blocks packages coming from clients to the server.
 
 ### Client
 Step by step guide to install the client:
+
 0. **Dependencies**: A default Ubuntu system will throw an error while trying to compile the client, since the `ncurses` library tends to be missing. Run `sudo apt-get install libncurses5-dev` to install the `ncurses` library in the system.
 1. `make install-client`
 	- This command installs the client executable at `~/bin/papayachat` so that afterwards by simply typing `papayachat` in your terminal, the chat client should be executed.
