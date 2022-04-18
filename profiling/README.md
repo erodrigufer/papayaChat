@@ -11,8 +11,19 @@ A profile of the current papayachat **multi-process** implementation will be mea
 * To measure the difference in CPU load both applications will establish a listening port and subsequently accept a given number of clients that will attempt to communicate with the server concurrently (different numbers of concurrent clients will therefore correspond to different loads).
 * The overall CPU load of the system will be measured over a given amount of time after all clients have established a connection with the server.
 
-## Profiling C programs
+## Profiling with top
+As described in Reference #2: 
+
+```bash
+top -b -n 10 -d 1 -u papayachat >> <TEXT_OUTPUT_FILE>
+	-b : Batch mode (output goes to stdout)
+	-d : Delay between captures (in seconds)
+	-n : Total number of captures
+	-u : Show only processes being run by a particular user 
+```
+
+Further exploration of the functionality of top should be made regarding the `-S` flag, to should the cumulative time of the processes (see man page).
 
 ### References
-* [getrusage(2)](https://man7.org/linux/man-pages/man2/getrusage.2.html): Use the syscall getrusage(2) in a C program to measure the amount of time spent executing in both user and kernel mode for either the program itself or its children.
-* [Efficient way to calculate CPU usage of multiple processes in Linux (stackoverflow)](https://stackoverflow.com/questions/34103971/efficient-way-to-calculate-cpu-usage-of-multiple-processes-in-linux)
+1. [getrusage(2)](https://man7.org/linux/man-pages/man2/getrusage.2.html): Use the syscall getrusage(2) in a C program to measure the amount of time spent executing in both user and kernel mode for either the program itself or its children.
+2. [Efficient way to calculate CPU usage of multiple processes in Linux (stackoverflow)](https://stackoverflow.com/questions/34103971/efficient-way-to-calculate-cpu-usage-of-multiple-processes-in-linux)
