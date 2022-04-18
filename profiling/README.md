@@ -24,6 +24,42 @@ top -b -n 10 -d 1 -u papayachat >> <TEXT_OUTPUT_FILE>
 
 Further exploration of the functionality of top should be made regarding the `-S` flag, to should the cumulative time of the processes (see man page).
 
+Taken from the manpage:
+
+```
+38. TIME  --  CPU Time
+	Total  CPU time the task has used since it started.  When Cumulative mode 
+	is On, each process is listed with the cpu time that it and its dead 
+	children have used.  You toggle Cumulative mode with `S', which is both a 
+	command-line option and an interactive command.  See the `S' interactive 
+	command for  additional	information regarding this mode.
+
+39. TIME+  --  CPU Time, hundredths
+	The same as TIME, but reflecting more granularity through hundredths of a 
+	second.
+```
+
+Meaning of abbreviations:
+
+```
+%CPU  --  CPU Usage
+	The task's share of the elapsed CPU time since the last screen update, 
+	expressed as a percentage of total CPU time.
+
+%Cpu(s):  0.0 us,  0.0 sy,  0.0 ni,  100.0 id,  0.0 wa,  0.0 hi,  0.0 si,  0.0 st
+```
+
+```
+us, user    : time running un-niced user processes
+sy, system  : time running kernel processes
+ni, nice    : time running niced user processes
+id, idle    : time spent in the kernel idle handler
+wa, IO-wait : time waiting for I/O completion
+hi : time spent servicing hardware interrupts
+si : time spent servicing software interrupts
+st : time stolen from this vm by the hypervisor
+```
+
 ### References
 1. [getrusage(2)](https://man7.org/linux/man-pages/man2/getrusage.2.html): Use the syscall getrusage(2) in a C program to measure the amount of time spent executing in both user and kernel mode for either the program itself or its children.
 2. [Efficient way to calculate CPU usage of multiple processes in Linux (stackoverflow)](https://stackoverflow.com/questions/34103971/efficient-way-to-calculate-cpu-usage-of-multiple-processes-in-linux)
