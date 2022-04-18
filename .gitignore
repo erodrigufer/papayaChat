@@ -34,3 +34,6 @@ userConfig.h
 
 # Living in an apple world
 *.DS_Store
+
+# Folder with literature for the academic paper
+literature/
