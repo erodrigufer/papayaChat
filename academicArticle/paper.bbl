@@ -51,8 +51,13 @@ A.~A. Donovan and B.~W. Kernighan, \emph{The Go Programming Language}.\hskip
   1em plus 0.5em minus 0.4em\relax Addison-Wesley, October 2015.
 
 \bibitem{Pike2012}
-R.~Pike, ``Go at {Google}: {Language} design in the service of {Software
-  Engineering},'' \url{https://talks.golang.org/2012/splash.article}, 2012.
+\BIBentryALTinterwordspacing
+R.~Pike, ``Go at {Google},'' in \emph{Proceedings of the 3rd Annual Conference
+  on Systems, Programming, and Applications: Software for Humanity}, ser.
+  SPLASH '12.\hskip 1em plus 0.5em minus 0.4em\relax New York, NY, USA:
+  Association for Computing Machinery, 2012, p. 5–6. [Online]. Available:
+  \url{https://doi.org/10.1145/2384716.2384720}
+\BIBentrySTDinterwordspacing
 
 \bibitem{Morsing2013_2}
 D.~Morsing, ``The {Go} netpoller,'' \url{https://morsmachine.dk/netpoller},
@@ -91,16 +96,16 @@ J.~Mirkovic and P.~Reiher, ``A taxonomy of {DDoS} attack and {DDoS} defense
   \url{https://doi.org/10.1145/997150.997156}
 \BIBentrySTDinterwordspacing
 
+\bibitem{Graham}
+R.~D. Graham, ``{MASSCAN}: {Mass} {IP} port scanner,''
+  \url{https://github.com/robertdavidgraham/masscan}.
+
 \bibitem{Kerrisk2021}
 M.~Kerrisk, ``Docker unplugged,'' Training material, October 2021.
 
 \bibitem{Morsing2013}
 D.~Morsing, ``The {Go} scheduler,'' \url{https://morsmachine.dk/go-scheduler},
   June 2013.
-
-\bibitem{Graham}
-R.~D. Graham, ``{MASSCAN}: {Mass} {IP} port scanner,''
-  \url{https://github.com/robertdavidgraham/masscan}.
 
 \bibitem{Siebenmann2019}
 C.~Siebenmann, ``The {Go} runtime scheduler's clever way of dealing with system
