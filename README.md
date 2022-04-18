@@ -70,7 +70,7 @@ Step by step guide to install the server/daemon that will handle the chat servic
 ### Client
 Step by step guide to install the client:
 
-0. **Dependencies**: A default Ubuntu system will throw an error while trying to compile the client, since the `ncurses` library tends to be missing. Run `sudo apt-get install libncurses5-dev` to install the `ncurses` library in the system.
+0. **Dependencies**: A default Ubuntu/Debian system will throw an error while trying to compile the client, since the `ncurses` library tends to be missing. Run `sudo apt-get install libncurses5-dev` to install the `ncurses` library in the system.
 1. `make install-client`
 	- This command installs the client executable at `~/bin/papayachat` so that afterwards by simply typing `papayachat` in your terminal, the chat client should be executed.
 	- A configuration file for the client is also installed at `~/.papayachat/client.config`.
