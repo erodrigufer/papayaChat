@@ -9,6 +9,9 @@ A profile of the current papayachat **multi-process** implementation will be mea
 ## Framework
 * Both applications will be tested in the same cloud VMs running _Ubuntu 21.10 (GNU/Linux 5.13.0-30-generic x86_64)_ with **1 vCPU, 2vCPU and 4vCPU**. 
 * To measure the difference in CPU load both applications will establish a listening port and subsequently accept a given number of clients that will attempt to communicate with the server concurrently (different numbers of concurrent clients will therefore correspond to different loads).
+* The overall CPU load of the system will be measured over a given amount of time after all clients have established a connection with the server.
 
 ## Profiling C programs
 
+### References
+* [getrusage(2)](https://man7.org/linux/man-pages/man2/getrusage.2.html): Use the syscall getrusage(2) in a C program to measure the amount of time spent executing in both user and kernel mode for either the program itself or its children.
