@@ -60,6 +60,27 @@ si : time spent servicing software interrupts
 st : time stolen from this vm by the hypervisor
 ```
 
+### First test
+0. If running in Ubuntu, stop `ufw` before starting the test:
+```bash
+service ufw stop
+```
+1. On server (profiler), run `nc` listening on a port:
+```bash
+nc -l -k <PORT>
+``` 
+And subsequently (in another window, or run `nc` in the background in the same 
+window), run `top` to measure the CPU load:
+
+```bash
+top -b -n 20 -d 1 >> <FILE_OUTPUT> 
+```
+
+2. On client (load generator), run `tcpkali` to send a message to the server:
+```bash
+tcpkali --message "<MESSAGE_STRING>" <IP_PROFILER>:<PORT>
+```
+
 ### References
 1. [getrusage(2)](https://man7.org/linux/man-pages/man2/getrusage.2.html): Use the syscall getrusage(2) in a C program to measure the amount of time spent executing in both user and kernel mode for either the program itself or its children.
 2. [Efficient way to calculate CPU usage of multiple processes in Linux (stackoverflow)](https://stackoverflow.com/questions/34103971/efficient-way-to-calculate-cpu-usage-of-multiple-processes-in-linux)
