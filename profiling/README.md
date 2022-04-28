@@ -73,7 +73,13 @@ And subsequently (in another window, or run `nc` in the background in the same
 window), run `top` to measure the CPU load:
 
 ```bash
+Linux: 
 top -b -n 20 -d 1 >> <FILE_OUTPUT> 
+
+FreeBSD 
+top -s 0.5 -b -d <#_of_FRAMES> >> <FILE_OUTPUT>
+
+-s: Time between screen captures (can also be fractional)
 ```
 
 2. On client (load generator), run `tcpkali` to send a message to the server:
