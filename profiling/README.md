@@ -95,3 +95,6 @@ cat <FILE_OUTPUT> | grep " nc$" | less
 ### References
 1. [getrusage(2)](https://man7.org/linux/man-pages/man2/getrusage.2.html): Use the syscall getrusage(2) in a C program to measure the amount of time spent executing in both user and kernel mode for either the program itself or its children.
 2. [Efficient way to calculate CPU usage of multiple processes in Linux (stackoverflow)](https://stackoverflow.com/questions/34103971/efficient-way-to-calculate-cpu-usage-of-multiple-processes-in-linux)
+
+## tcpkali as a load generator
+`tcpkali --write-combine=off --workers <NUMBER OF CORES> --connections <NUMBER OF CORES> --duration 30s --first-message "conn" --message "message"`
