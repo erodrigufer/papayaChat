@@ -97,4 +97,8 @@ cat <FILE_OUTPUT> | grep " nc$" | less
 2. [Efficient way to calculate CPU usage of multiple processes in Linux (stackoverflow)](https://stackoverflow.com/questions/34103971/efficient-way-to-calculate-cpu-usage-of-multiple-processes-in-linux)
 
 ## tcpkali as a load generator
-`tcpkali --write-combine=off --workers <NUMBER OF CORES> --connections <NUMBER OF CORES> --duration 30s --first-message "conn" --message "message"`
+```bash
+tcpkali --write-combine=off --workers <NUMBER OF CORES> \ 
+--connections <NUMBER OF CONCURRENT TCP CONNECTIONS> --duration 30s \
+--first-message "conn" --message "message" <IP_SERVER>:<PORT>
+```
