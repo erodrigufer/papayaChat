@@ -1,4 +1,18 @@
 # Profiling
+
+## Table of contents
+<!-- vim-markdown-toc GFM -->
+
+* [Motivation](#motivation)
+	- [Hypothesis/Open questions](#hypothesisopen-questions)
+* [Framework](#framework)
+* [Profiling with top](#profiling-with-top)
+	- [First test](#first-test)
+	- [References](#references)
+* [tcpkali as a load generator](#tcpkali-as-a-load-generator)
+
+<!-- vim-markdown-toc -->
+
 ## Motivation
 A profile of the current papayachat **multi-process** implementation will be measured under different loads and compared with an HTTP server written in Go. The motivation behind this is to see what performance difference there is between a **multi-process** server implementation (papayachat) and a server running with a _non-preemptive_ scheduler, i.e. **coroutines** (Go HTTP server).
 
