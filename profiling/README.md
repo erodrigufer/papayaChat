@@ -114,5 +114,6 @@ cat <FILE_OUTPUT> | grep " nc$" | less
 ```bash
 tcpkali --write-combine=off --workers <NUMBER OF CORES> \ 
 --connections <NUMBER OF CONCURRENT TCP CONNECTIONS> --duration 30s \
---first-message "conn" --message "message" <IP_SERVER>:<PORT>
+--channel-bandwidth-upstream 500Kbps --first-message "conn" \
+--message "message" <IP_SERVER>:<PORT>
 ```
