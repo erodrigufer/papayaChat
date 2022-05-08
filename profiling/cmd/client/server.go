@@ -57,7 +57,7 @@ func main() {
 func (app *application) handleConnection(conn net.Conn) {
 	// read the data up to the newline into netData
 	for {
-		netData, err := bufio.NewReader(conn).ReadString(' ')
+		netData, err := bufio.NewReader(conn).ReadString('\n')
 		if err != nil {
 			//app.errorLog.Println(err)
 			continue
