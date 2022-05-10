@@ -10,16 +10,63 @@ Back-end server profilling
 /* libraries needed to print the pid of a process, */
 #include <sys/types.h>
 #include <unistd.h>
-#include "../../inet_sockets.h"       /* Declarations of inet*() socket functions */
-#include "../../basics.h"
-#include "../../signalHandling.h"		/* signal handlers library */
-#include "../../clientRequest.h"		/* what server does with client requests */
-#include "../../configParser.h"	/* function to parse config files */
-
-#include "../../CONFIG.h"				/* add config file to define TCP port, 
-								termAsync binary pathname, BUF_SIZE, backlog queue */
+#include "inet_sockets.h"       /* Declarations of inet*() socket functions */
+#include "basics.h"
+#include "signalHandling.h"		/* signal handlers library */
 
 #define BACKLOG_QUEUE 100		
+
+/* bytes transmission size, defined in CONFIG.h
+to share the value between multiple files */
+#define BUF_SIZE 4096 
+
+
+/* receive messages from client and write them exclusively to STDOUT */
+static void 
+receiveMessages(int client_fd)
+{
+
+	for(;;) {
+    	ssize_t numRead;
+		/* allocate memory on each for-loop to read message
+		from pipe */
+		char * buf = (char *) malloc(BUF_SIZE);
+		/* if malloc fails, it returns a NULL pointer */
+		if(buf == NULL){
+			errExit("malloc failed.");
+		}
+
+		/* if the client closes its connection, the previous read() syscall will get an
+		EOF, and it will return 0, in that case, the while-loop ends, and there is no 
+		syslog error appended to the log, since read() did not return an error */  
+		if ((numRead = read(client_fd, buf, BUF_SIZE)) > 0) {
+			/* add debug info to see amount of bytes received from client */
+			printf("%ld Bytes received from client.", numRead);
+
+			/* print message received to STDOUT */
+			printf("%s", buf);
+		} // read()
+
+		/* free resources */
+		free(buf);
+
+		if (numRead == -1) {
+			errExit("read() failed.");
+		}
+
+		/* EOF - client closed socket */
+		if (numRead == 0){
+			puts("Received EOF from client!");
+			break; /* break out of for-loop after EOF */
+		}
+	}//infinite for-loop
+	
+	/* kill  receiveMessages() child process, after this command, all child processes created for
+	a particular client should be gone!! this fixes the bug present in pre-release v0.1.0-alpha */
+	_exit(EXIT_SUCCESS);
+
+}
+
 
 int
 main(int argc, char *argv[])
@@ -63,7 +110,7 @@ main(int argc, char *argv[])
         case 0:                       			
             puts("[DEBUG] Child process initialized (handling client connection)");
             close(listen_fd);           /* Unneeded copy of listening socket */
-            handleRequest(client_fd, chatlog_fd);	/* handleRequest() needs to have the client_fd as
+            receiveMessages(client_fd);	/* handleRequest() needs to have the client_fd as
 										an input parameter, because it would otherwise not know
 										to which and from which file descriptor to perform
 										write and read calls */
