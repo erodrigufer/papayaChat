@@ -86,7 +86,7 @@ configureSignalDisposition(void)
 
 	sa_mask is the signal set of signals that would be blocked during the
 	invocation of the handler
-	-> create an empyte signal set, no signal blocked during invocation of handler */
+	-> create an empty signal set, no signal blocked during invocation of handler */
     if(sigemptyset(&sa_sigchild.sa_mask)==-1)
 		return 1;
 
