@@ -54,7 +54,7 @@ clientConnect(const char *host, const char *service, int type)
 	/* pointers are then definitely NULL pointers */
     addr_criteria.ai_addr = NULL;
     addr_criteria.ai_next = NULL;
-    addr_criteria.ai_family = AF_UNSPEC;        /* Allows IPv4 or IPv6 */
+    addr_criteria.ai_family = AF_INET;        /* Allows IPv4 */
     addr_criteria.ai_socktype = type;			/* can be either SOCK_STREAM or SOCK_DGRAM
 												to handle TCP and UDP */
 
