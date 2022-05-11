@@ -133,7 +133,7 @@ inetPassiveSocket(const char *service, int type, socklen_t *addrlen,
     addr_criteria.ai_addr = NULL;
     addr_criteria.ai_next = NULL;
     addr_criteria.ai_socktype = type;
-    addr_criteria.ai_family = AF_UNSPEC;        /* Allows IPv4 or IPv6 */
+    addr_criteria.ai_family = AF_INET;        /* Allows IPv4 */
     addr_criteria.ai_flags = AI_PASSIVE;        /* Use wildcard IP address */
 
     s = getaddrinfo(NULL, service, &addr_criteria, &addr_results);
