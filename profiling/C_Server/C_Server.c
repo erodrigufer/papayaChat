@@ -25,16 +25,16 @@ to share the value between multiple files */
 static void 
 receiveMessages(int client_fd)
 {
+	char * buf = (char *) malloc(BUF_SIZE);
+	/* if malloc fails, it returns a NULL pointer */
+	if(buf == NULL){
+		errExit("malloc failed.");
+	}
 
 	for(;;) {
     	ssize_t numRead;
 		/* allocate memory on each for-loop to read message
 		from pipe */
-		char * buf = (char *) malloc(BUF_SIZE);
-		/* if malloc fails, it returns a NULL pointer */
-		if(buf == NULL){
-			errExit("malloc failed.");
-		}
 
 		/* if the client closes its connection, the previous read() syscall will get an
 		EOF, and it will return 0, in that case, the while-loop ends, and there is no 
@@ -47,9 +47,6 @@ receiveMessages(int client_fd)
 			printf("%s", buf);
 		} // read()
 
-		/* free resources */
-		free(buf);
-
 		if (numRead == -1) {
 			errExit("read() failed.");
 		}
@@ -60,7 +57,10 @@ receiveMessages(int client_fd)
 			break; /* break out of for-loop after EOF */
 		}
 	}//infinite for-loop
-	
+
+	/* free resources */
+	free(buf);
+
 	/* kill  receiveMessages() child process, after this command, all child processes created for
 	a particular client should be gone!! this fixes the bug present in pre-release v0.1.0-alpha */
 	_exit(EXIT_SUCCESS);
@@ -110,7 +110,7 @@ main(int argc, char *argv[])
         case 0:                       			
             puts("[DEBUG] Child process initialized (handling client connection)");
             close(listen_fd);           /* Unneeded copy of listening socket */
-            receiveMessages(client_fd);	/* handleRequest() needs to have the client_fd as
+            receiveMessages(client_fd);	/* receiveMessages() needs to have the client_fd as
 										an input parameter, because it would otherwise not know
 										to which and from which file descriptor to perform
 										write and read calls */
