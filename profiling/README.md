@@ -14,7 +14,7 @@
 <!-- vim-markdown-toc -->
 
 ## Motivation
-A profile of the current papayachat **multi-process** implementation will be measured under different loads and compared with an HTTP server written in Go. The motivation behind this is to see what performance difference there is between a **multi-process** server implementation (papayachat) and a server running with a _non-preemptive_ scheduler, i.e. **coroutines** (Go HTTP server).
+A TCP server written in C will be measured under different loads and compared with a TCP server written in Go. The motivation behind this is to see what performance difference there is between a **multi-process** server implementation (papayachat) and a server running with a _non-preemptive_ scheduler, i.e. **coroutines** (Go TCP server).
 
 ### Hypothesis/Open questions
 * **How costly is the overhead of kernel-space context switches?** One would assume that the overhead of a multiprocess network application, that has to handle constant context switches through the kernel, would be significantly bigger than in a Go network application, since the Go scheduler tries to handle as many operations as possible in user-space. The difference should be seen in the CPU load of both applications, depending on how much load is applied to the application.
