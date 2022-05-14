@@ -1,7 +1,6 @@
 package main
 
 import (
-	"bufio"
 	"flag"
 	"fmt"
 	"log"
@@ -58,15 +57,23 @@ func (app *application) handleConnection(conn net.Conn) {
 	defer conn.Close()
 	// read the data up to the newline into netData
 	for {
-		netData, err := bufio.NewReader(conn).ReadString('\n')
+		//		netData, err := bufio.NewReader(conn).ReadString('\n')
+		//		if err != nil {
+		//			//app.errorLog.Println(err)
+		//			continue
+		//			//return
+		//		}
+		//		_, err = fmt.Println(netData)
+		//		if err != nil {
+		//			app.errorLog.Println(err)
+		//		}
+
+		buf := make([]byte, 0, 4096)
+		_, err := conn.Read(buf)
 		if err != nil {
-			//app.errorLog.Println(err)
-			continue
-			//return
+			break
 		}
-		_, err = fmt.Println(netData)
-		if err != nil {
-			app.errorLog.Println(err)
-		}
+		fmt.Println(string(buf))
+
 	}
 }
