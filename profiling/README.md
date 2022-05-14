@@ -6,6 +6,8 @@
 * [Motivation](#motivation)
 	- [Hypothesis/Open questions](#hypothesisopen-questions)
 * [Framework](#framework)
+* [Methodology](#methodology)
+* [Planned measurements](#planned-measurements)
 * [Profiling with top](#profiling-with-top)
 	- [First test](#first-test)
 	- [References](#references)
@@ -25,6 +27,45 @@ A TCP server written in C will be measured under different loads (different numb
 * To measure the difference in CPU load both applications will establish a listening port and subsequently accept a given number of clients that will attempt to communicate with the server concurrently (different numbers of concurrent clients will therefore correspond to different loads).
 * The overall CPU load of the system will be measured over a given amount of time after all clients have established a connection with the server.
 * The load (packages sent to the server) originates in another cloud VM running `FreeBSD 13 x64` in the same region as the server VM to avoid high latency. The load is generated with `tcpkali` (see [tcpkali's GitHub repo](https://github.com/satori-com/tcpkali)). `tcpkali` is a high performance TCP and WebSocket load generator.
+
+## Methodology
+1. Run `top` periodically and output its results to a text file to have a measurement of the system load.
+2. Start the server and wait until it is ready and listening for new connections.
+3. Start sending load with a given number of active concurrent connections, each connection having a limit to the maximum bandwidth that it can use.
+4. Measure a given number of times under the same conditions to calculate a median value and its deviation.
+5. Repeat the process for other values of active concurrent connections and cores used by the server.
+
+## Planned measurements
+This table describes the values under which measurements will be performed for each server type (C and Go):
+
+| # of CPU cores | # of active concurrent connections | Max. bandwidth per connection |
+| -- | -- | -- | 
+| 1  | 1 | 100Kbps |
+| 1 | 2 | 100Kbps |
+| 1 | 4 | 100Kbps |
+| 1 | 8 | 100Kbps |
+| 1 | 12 | 100Kbps |
+| 1 | 16 | 100Kbps |
+| 1 | 20 | 100Kbps |
+| 2  | 1 | 100Kbps |
+| 2 | 2 | 100Kbps |
+| 2 | 4 | 100Kbps |
+| 2 | 8 | 100Kbps |
+| 2 | 12 | 100Kbps |
+| 2 | 16 | 100Kbps |
+| 2 | 20 | 100Kbps |
+| 4  | 1 | 100Kbps |
+| 4 | 2 | 100Kbps |
+| 4 | 4 | 100Kbps |
+| 4 | 8 | 100Kbps |
+| 4 | 12 | 100Kbps |
+| 4 | 16 | 100Kbps |
+| 4 | 20 | 100Kbps |
+
+
+
+
+
 
 ## Profiling with top
 As described in Reference #2: 
