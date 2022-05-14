@@ -14,7 +14,7 @@ Back-end server profilling
 #include "basics.h"
 #include "signalHandling.h"		/* signal handlers library */
 
-#define BACKLOG_QUEUE 100		
+#define BACKLOG_QUEUE 200		
 
 /* bytes transmission size, defined in CONFIG.h
 to share the value between multiple files */
