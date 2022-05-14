@@ -14,11 +14,11 @@
 <!-- vim-markdown-toc -->
 
 ## Motivation
-A TCP server written in C will be measured under different loads and compared with a TCP server written in Go. The motivation behind this is to see what performance difference there is between a **multi-process** server implementation (papayachat) and a server running with a _non-preemptive_ scheduler, i.e. **coroutines** (Go TCP server).
+A TCP server written in C will be measured under different loads (different number of concurrent connections) and compared with a TCP server written in Go. The motivation behind this, is to see what performance difference (i.e. CPU load) there is between a **multi-process** server implementation (papayachat) and a server running with a _non-preemptive_ scheduler, i.e. **coroutines** (Go TCP server).
 
 ### Hypothesis/Open questions
-* **How costly is the overhead of kernel-space context switches?** One would assume that the overhead of a multiprocess network application, that has to handle constant context switches through the kernel, would be significantly bigger than in a Go network application, since the Go scheduler tries to handle as many operations as possible in user-space. The difference should be seen in the CPU load of both applications, depending on how much load is applied to the application.
-* Parallelization: Can one see a difference in the overall CPU load with an increase of the CPU cores while comparing both approaches? **Does having more cores make one implementation more efficient than the other one?**
+* **How costly is the overhead of kernel-space context switches?** One would assume that the overhead of a **multiprocess** network application, that has to handle constant context switches through the kernel for each concurrent client connection, would be significantly bigger than in a Go network application. Since the Go scheduler tries to handle as many operations as possible in **user-space**, where context-switches tend to be _cheaper_. The difference should be seen in the CPU load of both applications, depending on how many concurrent active connections a server has to handle. **Is there a very palpable difference between the performance of a multi-process server and one with a non-preemptive scheduler when the number of concurrent active connections increases?**
+* **Parallelization**: Can one see a difference in the overall CPU load with an increase of the available CPU cores for a server? **Does having more cores make one implementation more efficient than the other one?**
 
 ## Framework
 * Both applications will be tested in the same cloud VMs running _Ubuntu 21.10 (GNU/Linux 5.13.0-30-generic x86_64)_ with **1 vCPU, 2vCPU and 4vCPU**. 
