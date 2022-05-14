@@ -55,7 +55,7 @@ func main() {
 
 func (app *application) handleConnection(conn net.Conn) {
 	defer conn.Close()
-	buf := make([]byte, 0, 4096)
+	buf := make([]byte, 1024)
 	// read the data up to the newline into netData
 	for {
 		//		netData, err := bufio.NewReader(conn).ReadString('\n')
@@ -69,11 +69,13 @@ func (app *application) handleConnection(conn net.Conn) {
 		//			app.errorLog.Println(err)
 		//		}
 
-		_, err := conn.Read(buf)
+		n, err := conn.Read(buf)
 		if err != nil {
+			fmt.Printf("Error occured: %q", err)
 			break
 		}
-		fmt.Println(string(buf))
+		fmt.Printf("Bytes received: %d", n)
+		fmt.Printf("%q", buf[:n])
 
 	}
 }
