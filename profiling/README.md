@@ -21,9 +21,10 @@ A TCP server written in C will be measured under different loads (different numb
 * **Parallelization**: Can one see a difference in the overall CPU load with an increase of the available CPU cores for a server? **Does having more cores make one implementation more efficient than the other one?**
 
 ## Framework
-* Both applications will be tested in the same cloud VMs running _Ubuntu 21.10 (GNU/Linux 5.13.0-30-generic x86_64)_ with **1 vCPU, 2vCPU and 4vCPU**. 
+* Both server applications will be tested in the same cloud VMs (Vultr) running _FreeBSD 13 x64_ with **1vCPU, 2vCPU and 4vCPU**.
 * To measure the difference in CPU load both applications will establish a listening port and subsequently accept a given number of clients that will attempt to communicate with the server concurrently (different numbers of concurrent clients will therefore correspond to different loads).
 * The overall CPU load of the system will be measured over a given amount of time after all clients have established a connection with the server.
+* The load (packages sent to the server) originates in another cloud VM running `FreeBSD 13 x64` in the same region as the server VM to avoid high latency. The load is generated with `tcpkali`.
 
 ## Profiling with top
 As described in Reference #2: 
@@ -90,10 +91,10 @@ window), run `top` to measure the CPU load:
 Linux: 
 top -b -n 20 -d 1 >> <FILE_OUTPUT> 
 
-FreeBSD 
+FreeBSD:  
 top -s 0.5 -b -d <#_of_FRAMES> >> <FILE_OUTPUT>
 
--s: Time between screen captures (can also be fractional)
+-s: Time in seconds between screen captures (can also be fractional)
 ```
 
 2. On client (load generator), run `tcpkali` to send a message to the server:
