@@ -62,11 +62,6 @@ This table describes the values under which measurements will be performed for e
 | 4 | 16 | 100Kbps |
 | 4 | 20 | 100Kbps |
 
-
-
-
-
-
 ## Profiling with top
 As described in Reference #2: 
 
