@@ -128,9 +128,16 @@ Linux:
 top -b -n 20 -d 1 >> <FILE_OUTPUT> 
 
 FreeBSD:  
-top -s 0.5 -b -d <#_of_FRAMES> >> <FILE_OUTPUT>
+top -CIbtu -s 0.5 -d <# of screen captures> >> <FILE_OUTPUT>
 
+-b:	Batch mode, send output to STDOUT.
+-C:	Display raw CPU utilization
+-d:	Total amout of screen captures
+-I:	Do not display idle processes.
 -s: Time in seconds between screen captures (can also be fractional)
+-t:	Do not display the top process itself.
+-u: top does not read /etc/passwd to map usernames to UIDs, this might make
+	the execution of top faster.
 ```
 
 2. On client (load generator), run `tcpkali` to send a message to the server:
