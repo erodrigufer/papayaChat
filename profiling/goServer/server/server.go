@@ -75,7 +75,8 @@ func (app *application) handleConnection(conn net.Conn) {
 			break
 		}
 		fmt.Printf("Bytes received: %d\n", n)
-		fmt.Printf("%s\n", buf[:n])
+		fmt.Printf("%q\n", buf[:n]) // use q to print also non-readable
+		// characters being sent
 
 	}
 }
