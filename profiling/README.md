@@ -134,9 +134,9 @@ top -CIbtu -s 0.5 -d <# of screen captures> >> <FILE_OUTPUT>
 -C:	Display raw CPU utilization
 -d:	Total amout of screen captures
 -I:	Do not display idle processes.
--s: Time in seconds between screen captures (can also be fractional)
+-s:	Time in seconds between screen captures (can also be fractional)
 -t:	Do not display the top process itself.
--u: top does not read /etc/passwd to map usernames to UIDs, this might make
+-u:	top does not read /etc/passwd to map usernames to UIDs, this might make
 	the execution of top faster.
 ```
 
