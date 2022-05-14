@@ -24,7 +24,7 @@ A TCP server written in C will be measured under different loads (different numb
 * Both server applications will be tested in the same cloud VMs (Vultr) running _FreeBSD 13 x64_ with **1vCPU, 2vCPU and 4vCPU**.
 * To measure the difference in CPU load both applications will establish a listening port and subsequently accept a given number of clients that will attempt to communicate with the server concurrently (different numbers of concurrent clients will therefore correspond to different loads).
 * The overall CPU load of the system will be measured over a given amount of time after all clients have established a connection with the server.
-* The load (packages sent to the server) originates in another cloud VM running `FreeBSD 13 x64` in the same region as the server VM to avoid high latency. The load is generated with `tcpkali`.
+* The load (packages sent to the server) originates in another cloud VM running `FreeBSD 13 x64` in the same region as the server VM to avoid high latency. The load is generated with `tcpkali` (see [tcpkali's GitHub repo](https://github.com/satori-com/tcpkali)). `tcpkali` is a high performance TCP and WebSocket load generator.
 
 ## Profiling with top
 As described in Reference #2: 
