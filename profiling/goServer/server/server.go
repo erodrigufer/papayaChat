@@ -23,7 +23,7 @@ type application struct {
 func main() {
 
 	// Define default HOST and PORT, in case flag is not present
-	DEFAULT_SERVICE := ":3333"
+	DEFAULT_SERVICE := ":50000"
 
 	cfg := new(configValues)
 	app := new(application) // Create a logger for INFO messages, the prefix "INFO" and a tab will be
