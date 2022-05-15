@@ -1,0 +1,1124 @@
+last pid:  5497;  load averages:  0.64,  0.50,  0.43  up 1+01:07:16    18:27:55
+21 processes:  21 sleeping
+CPU:  0.4% user,  0.0% nice,  0.3% system,  0.1% interrupt, 99.1% idle
+Mem: 11M Active, 675M Inact, 6588K Laundry, 216M Wired, 102M Buf, 52M Free
+
+  PID    UID      THR PRI NICE   SIZE    RES STATE    TIME     CPU COMMAND
+
+last pid:  5497;  load averages:  0.64,  0.50,  0.43  up 1+01:07:17    18:27:56
+21 processes:  21 sleeping
+CPU:  0.0% user,  0.0% nice,  0.0% system,  0.0% interrupt,  100% idle
+Mem: 12M Active, 675M Inact, 6588K Laundry, 216M Wired, 102M Buf, 52M Free
+
+  PID    UID      THR PRI NICE   SIZE    RES STATE    TIME     CPU COMMAND
+  755      0        1  20    0    17M  3744K select   0:08   0.01% ntpd
+
+last pid:  5497;  load averages:  0.64,  0.50,  0.43  up 1+01:07:17    18:27:56
+21 processes:  21 sleeping
+CPU:  0.0% user,  0.0% nice,  0.0% system,  0.0% interrupt,  100% idle
+Mem: 12M Active, 675M Inact, 6588K Laundry, 216M Wired, 102M Buf, 52M Free
+
+  PID    UID      THR PRI NICE   SIZE    RES STATE    TIME     CPU COMMAND
+
+last pid:  5497;  load averages:  0.64,  0.50,  0.43  up 1+01:07:18    18:27:57
+21 processes:  21 sleeping
+CPU:  0.0% user,  0.0% nice,  0.0% system,  0.0% interrupt,  100% idle
+Mem: 12M Active, 675M Inact, 6588K Laundry, 216M Wired, 102M Buf, 52M Free
+
+  PID    UID      THR PRI NICE   SIZE    RES STATE    TIME     CPU COMMAND
+  755      0        1  20    0    17M  3744K select   0:08   0.02% ntpd
+
+last pid:  5497;  load averages:  0.64,  0.50,  0.43  up 1+01:07:18    18:27:57
+21 processes:  21 sleeping
+CPU:  6.2% user,  0.0% nice, 10.8% system,  4.6% interrupt, 78.5% idle
+Mem: 12M Active, 675M Inact, 6588K Laundry, 216M Wired, 102M Buf, 52M Free
+
+  PID    UID      THR PRI NICE   SIZE    RES STATE    TIME     CPU COMMAND
+ 5455      0        5  25    0   701M    10M uwait    0:30  20.05% server.bin
+  684      0        1  20    0    13M  2024K select   0:05   0.06% syslogd
+  491      0        1  20    0    11M  1012K select   0:10   0.05% devd
+
+last pid:  5497;  load averages:  0.59,  0.49,  0.43  up 1+01:07:19    18:27:58
+21 processes:  21 sleeping
+CPU: 27.7% user,  0.0% nice,  4.6% system, 10.8% interrupt, 56.9% idle
+Mem: 12M Active, 675M Inact, 6588K Laundry, 216M Wired, 102M Buf, 52M Free
+
+  PID    UID      THR PRI NICE   SIZE    RES STATE    TIME     CPU COMMAND
+ 5455      0        5  25    0   701M    10M uwait    0:30  39.07% server.bin
+ 5388      0        1  20    0    21M  9000K select   0:00   0.11% sshd
+  755      0        1  20    0    17M  3744K select   0:08   0.06% ntpd
+
+last pid:  5497;  load averages:  0.59,  0.49,  0.43  up 1+01:07:19    18:27:58
+21 processes:  21 sleeping
+CPU: 27.7% user,  0.0% nice, 12.3% system,  3.1% interrupt, 56.9% idle
+Mem: 12M Active, 675M Inact, 6588K Laundry, 216M Wired, 102M Buf, 52M Free
+
+  PID    UID      THR PRI NICE   SIZE    RES STATE    TIME     CPU COMMAND
+ 5455      0        5  25    0   701M    10M uwait    0:31  38.53% server.bin
+
+last pid:  5497;  load averages:  0.59,  0.49,  0.43  up 1+01:07:20    18:27:59
+21 processes:  21 sleeping
+CPU: 29.2% user,  0.0% nice, 16.9% system,  6.2% interrupt, 47.7% idle
+Mem: 12M Active, 675M Inact, 6588K Laundry, 216M Wired, 102M Buf, 52M Free
+
+  PID    UID      THR PRI NICE   SIZE    RES STATE    TIME     CPU COMMAND
+ 5455      0        5  25    0   701M    10M uwait    0:31  39.24% server.bin
+  755      0        1  20    0    17M  3744K select   0:08   0.04% ntpd
+
+last pid:  5497;  load averages:  0.59,  0.49,  0.43  up 1+01:07:21    18:28:00
+21 processes:  21 sleeping
+CPU: 27.7% user,  0.0% nice,  7.7% system,  3.1% interrupt, 61.5% idle
+Mem: 12M Active, 675M Inact, 6588K Laundry, 216M Wired, 102M Buf, 52M Free
+
+  PID    UID      THR PRI NICE   SIZE    RES STATE    TIME     CPU COMMAND
+ 5455      0        5  25    0   701M    10M uwait    0:31  40.98% server.bin
+
+last pid:  5497;  load averages:  0.59,  0.49,  0.43  up 1+01:07:21    18:28:00
+21 processes:  21 sleeping
+CPU: 37.5% user,  0.0% nice,  4.7% system,  6.3% interrupt, 51.6% idle
+Mem: 12M Active, 675M Inact, 6588K Laundry, 216M Wired, 102M Buf, 52M Free
+
+  PID    UID      THR PRI NICE   SIZE    RES STATE    TIME     CPU COMMAND
+ 5455      0        5  25    0   701M    10M uwait    0:31  43.57% server.bin
+  786      0        1  20    0    13M  1960K nanslp   0:01   0.13% cron
+  755      0        1  20    0    17M  3744K select   0:08   0.04% ntpd
+
+last pid:  5497;  load averages:  0.59,  0.49,  0.43  up 1+01:07:22    18:28:01
+21 processes:  1 running, 20 sleeping
+CPU: 35.4% user,  0.0% nice,  9.2% system,  7.7% interrupt, 47.7% idle
+Mem: 12M Active, 675M Inact, 6588K Laundry, 216M Wired, 102M Buf, 52M Free
+
+  PID    UID      THR PRI NICE   SIZE    RES STATE    TIME     CPU COMMAND
+ 5455      0        5  21    0   701M    10M RUN      0:31  44.74% server.bin
+  491      0        1  20    0    11M  1012K select   0:10   0.17% devd
+  684      0        1  20    0    13M  2024K select   0:05   0.07% syslogd
+
+last pid:  5497;  load averages:  0.59,  0.49,  0.43  up 1+01:07:22    18:28:01
+21 processes:  1 running, 20 sleeping
+CPU: 36.9% user,  0.0% nice,  6.2% system, 10.8% interrupt, 46.2% idle
+Mem: 12M Active, 675M Inact, 6588K Laundry, 216M Wired, 102M Buf, 52M Free
+
+  PID    UID      THR PRI NICE   SIZE    RES STATE    TIME     CPU COMMAND
+ 5455      0        5  23    0   701M    10M RUN      0:32  41.48% server.bin
+  755      0        1  20    0    17M  3744K select   0:08   0.02% ntpd
+
+last pid:  5497;  load averages:  0.59,  0.49,  0.43  up 1+01:07:23    18:28:02
+21 processes:  21 sleeping
+CPU: 35.4% user,  0.0% nice,  9.2% system, 12.3% interrupt, 43.1% idle
+Mem: 12M Active, 675M Inact, 6588K Laundry, 216M Wired, 102M Buf, 52M Free
+
+  PID    UID      THR PRI NICE   SIZE    RES STATE    TIME     CPU COMMAND
+ 5455      0        5  24    0   701M    10M uwait    0:32  46.64% server.bin
+
+last pid:  5497;  load averages:  0.59,  0.49,  0.43  up 1+01:07:23    18:28:02
+21 processes:  1 running, 20 sleeping
+CPU: 66.2% user,  0.0% nice,  7.7% system,  4.6% interrupt, 21.5% idle
+Mem: 12M Active, 675M Inact, 6588K Laundry, 216M Wired, 102M Buf, 52M Free
+
+  PID    UID      THR PRI NICE   SIZE    RES STATE    TIME     CPU COMMAND
+ 5455      0        5  25    0   701M    10M RUN      0:32  71.72% server.bin
+  755      0        1  20    0    17M  3744K select   0:08   0.05% ntpd
+
+last pid:  5497;  load averages:  0.59,  0.49,  0.43  up 1+01:07:24    18:28:03
+21 processes:  1 running, 20 sleeping
+CPU: 32.8% user,  0.0% nice,  6.3% system,  7.8% interrupt, 53.1% idle
+Mem: 12M Active, 675M Inact, 6588K Laundry, 216M Wired, 102M Buf, 52M Free
+
+  PID    UID      THR PRI NICE   SIZE    RES STATE    TIME     CPU COMMAND
+ 5455      0        5  26    0   701M    10M RUN      0:32  43.95% server.bin
+
+last pid:  5497;  load averages:  0.59,  0.49,  0.43  up 1+01:07:24    18:28:03
+21 processes:  1 running, 20 sleeping
+CPU: 27.7% user,  0.0% nice,  6.2% system,  3.1% interrupt, 63.1% idle
+Mem: 12M Active, 675M Inact, 6588K Laundry, 216M Wired, 102M Buf, 52M Free
+
+  PID    UID      THR PRI NICE   SIZE    RES STATE    TIME     CPU COMMAND
+ 5455      0        5  27    0   701M    10M RUN      0:33  35.55% server.bin
+  755      0        1  20    0    17M  3744K select   0:08   0.08% ntpd
+
+last pid:  5497;  load averages:  0.54,  0.48,  0.42  up 1+01:07:25    18:28:04
+21 processes:  21 sleeping
+CPU: 40.0% user,  0.0% nice, 30.8% system,  6.2% interrupt, 23.1% idle
+Mem: 12M Active, 675M Inact, 6588K Laundry, 216M Wired, 102M Buf, 52M Free
+
+  PID    UID      THR PRI NICE   SIZE    RES STATE    TIME     CPU COMMAND
+ 5455      0        5  30    0   701M    10M uwait    0:33  61.80% server.bin
+  491      0        1  20    0    11M  1012K select   0:10   0.12% devd
+  684      0        1  20    0    13M  2024K select   0:05   0.07% syslogd
+
+last pid:  5497;  load averages:  0.54,  0.48,  0.42  up 1+01:07:25    18:28:04
+21 processes:  21 sleeping
+CPU: 16.9% user,  0.0% nice,  4.6% system,  9.2% interrupt, 69.2% idle
+Mem: 12M Active, 675M Inact, 6588K Laundry, 216M Wired, 102M Buf, 52M Free
+
+  PID    UID      THR PRI NICE   SIZE    RES STATE    TIME     CPU COMMAND
+ 5455      0        5  28    0   701M    10M uwait    0:33  32.99% server.bin
+  755      0        1  20    0    17M  3744K select   0:08   0.17% ntpd
+
+last pid:  5497;  load averages:  0.54,  0.48,  0.42  up 1+01:07:26    18:28:05
+21 processes:  21 sleeping
+CPU: 31.3% user,  0.0% nice,  4.7% system,  7.8% interrupt, 56.3% idle
+Mem: 12M Active, 675M Inact, 6588K Laundry, 216M Wired, 102M Buf, 52M Free
+
+  PID    UID      THR PRI NICE   SIZE    RES STATE    TIME     CPU COMMAND
+ 5455      0        5  27    0   701M    10M uwait    0:33  34.63% server.bin
+
+last pid:  5497;  load averages:  0.54,  0.48,  0.42  up 1+01:07:26    18:28:05
+21 processes:  21 sleeping
+CPU: 36.9% user,  0.0% nice,  6.2% system, 12.3% interrupt, 44.6% idle
+Mem: 12M Active, 675M Inact, 6588K Laundry, 216M Wired, 102M Buf, 52M Free
+
+  PID    UID      THR PRI NICE   SIZE    RES STATE    TIME     CPU COMMAND
+ 5455      0        5  27    0   701M    10M kqread   0:33  40.84% server.bin
+  755      0        1  20    0    17M  3744K select   0:08   0.04% ntpd
+
+last pid:  5497;  load averages:  0.54,  0.48,  0.42  up 1+01:07:27    18:28:06
+21 processes:  21 sleeping
+CPU: 24.6% user,  0.0% nice,  6.2% system,  4.6% interrupt, 64.6% idle
+Mem: 12M Active, 675M Inact, 6588K Laundry, 216M Wired, 102M Buf, 52M Free
+
+  PID    UID      THR PRI NICE   SIZE    RES STATE    TIME     CPU COMMAND
+ 5455      0        5  28    0   701M    10M kqread   0:34  39.70% server.bin
+
+last pid:  5497;  load averages:  0.54,  0.48,  0.42  up 1+01:07:27    18:28:06
+21 processes:  21 sleeping
+CPU: 44.6% user,  0.0% nice,  7.7% system,  6.2% interrupt, 41.5% idle
+Mem: 12M Active, 675M Inact, 6588K Laundry, 216M Wired, 102M Buf, 52M Free
+
+  PID    UID      THR PRI NICE   SIZE    RES STATE    TIME     CPU COMMAND
+ 5455      0        5  29    0   701M    10M uwait    0:34  54.64% server.bin
+  755      0        1  20    0    17M  3744K select   0:08   0.06% ntpd
+
+last pid:  5497;  load averages:  0.54,  0.48,  0.42  up 1+01:07:28    18:28:07
+21 processes:  21 sleeping
+CPU: 46.9% user,  0.0% nice, 20.3% system,  6.3% interrupt, 26.6% idle
+Mem: 12M Active, 675M Inact, 6588K Laundry, 216M Wired, 102M Buf, 52M Free
+
+  PID    UID      THR PRI NICE   SIZE    RES STATE    TIME     CPU COMMAND
+ 5455      0        5  30    0   701M    10M uwait    0:34  64.66% server.bin
+  491      0        1  20    0    11M  1012K select   0:10   0.12% devd
+  684      0        1  20    0    13M  2024K select   0:05   0.06% syslogd
+
+last pid:  5497;  load averages:  0.54,  0.48,  0.42  up 1+01:07:28    18:28:07
+21 processes:  1 running, 20 sleeping
+CPU: 58.5% user,  0.0% nice, 20.0% system,  4.6% interrupt, 16.9% idle
+Mem: 12M Active, 675M Inact, 6588K Laundry, 216M Wired, 102M Buf, 52M Free
+
+  PID    UID      THR PRI NICE   SIZE    RES STATE    TIME     CPU COMMAND
+ 5455      0        5  31    0   701M    10M RUN      0:35  72.94% server.bin
+  755      0        1  20    0    17M  3744K select   0:08   0.04% ntpd
+
+last pid:  5497;  load averages:  0.54,  0.48,  0.42  up 1+01:07:29    18:28:08
+21 processes:  21 sleeping
+CPU: 43.1% user,  0.0% nice, 20.0% system,  3.1% interrupt, 33.8% idle
+Mem: 12M Active, 675M Inact, 6588K Laundry, 216M Wired, 102M Buf, 52M Free
+
+  PID    UID      THR PRI NICE   SIZE    RES STATE    TIME     CPU COMMAND
+ 5455      0        5  33    0   701M    10M uwait    0:35  67.14% server.bin
+
+last pid:  5497;  load averages:  0.54,  0.48,  0.42  up 1+01:07:29    18:28:08
+21 processes:  21 sleeping
+CPU: 23.1% user,  0.0% nice,  6.2% system,  3.1% interrupt, 67.7% idle
+Mem: 12M Active, 675M Inact, 6588K Laundry, 216M Wired, 102M Buf, 52M Free
+
+  PID    UID      THR PRI NICE   SIZE    RES STATE    TIME     CPU COMMAND
+ 5455      0        5  31    0   701M    10M uwait    0:35  29.79% server.bin
+  755      0        1  20    0    17M  3744K select   0:08   0.08% ntpd
+
+last pid:  5497;  load averages:  0.50,  0.47,  0.42  up 1+01:07:30    18:28:09
+21 processes:  21 sleeping
+CPU: 26.2% user,  0.0% nice,  6.2% system,  7.7% interrupt, 60.0% idle
+Mem: 12M Active, 675M Inact, 6588K Laundry, 216M Wired, 102M Buf, 52M Free
+
+  PID    UID      THR PRI NICE   SIZE    RES STATE    TIME     CPU COMMAND
+ 5455      0        5  29    0   701M    10M uwait    0:35  29.43% server.bin
+
+last pid:  5497;  load averages:  0.50,  0.47,  0.42  up 1+01:07:30    18:28:09
+21 processes:  21 sleeping
+CPU: 28.1% user,  0.0% nice,  4.7% system,  4.7% interrupt, 62.5% idle
+Mem: 12M Active, 675M Inact, 6588K Laundry, 216M Wired, 102M Buf, 52M Free
+
+  PID    UID      THR PRI NICE   SIZE    RES STATE    TIME     CPU COMMAND
+ 5455      0        5  28    0   701M    10M uwait    0:35  30.42% server.bin
+  755      0        1  20    0    17M  3744K select   0:08   0.02% ntpd
+
+last pid:  5497;  load averages:  0.50,  0.47,  0.42  up 1+01:07:31    18:28:10
+21 processes:  21 sleeping
+CPU: 26.2% user,  0.0% nice,  3.1% system,  4.6% interrupt, 66.2% idle
+Mem: 12M Active, 675M Inact, 6588K Laundry, 216M Wired, 102M Buf, 52M Free
+
+  PID    UID      THR PRI NICE   SIZE    RES STATE    TIME     CPU COMMAND
+ 5455      0        5  27    0   701M    10M uwait    0:36  28.04% server.bin
+  491      0        1  20    0    11M  1012K select   0:10   0.15% devd
+  684      0        1  20    0    13M  2024K select   0:05   0.07% syslogd
+
+last pid:  5497;  load averages:  0.50,  0.47,  0.42  up 1+01:07:31    18:28:10
+21 processes:  21 sleeping
+CPU: 24.6% user,  0.0% nice,  6.2% system,  4.6% interrupt, 64.6% idle
+Mem: 12M Active, 675M Inact, 6588K Laundry, 216M Wired, 102M Buf, 52M Free
+
+  PID    UID      THR PRI NICE   SIZE    RES STATE    TIME     CPU COMMAND
+ 5455      0        5  26    0   701M    10M uwait    0:36  30.14% server.bin
+  755      0        1  20    0    17M  3744K select   0:08   0.05% ntpd
+
+last pid:  5497;  load averages:  0.50,  0.47,  0.42  up 1+01:07:32    18:28:11
+21 processes:  1 running, 20 sleeping
+CPU: 26.2% user,  0.0% nice,  4.6% system,  3.1% interrupt, 66.2% idle
+Mem: 12M Active, 675M Inact, 6588K Laundry, 216M Wired, 102M Buf, 52M Free
+
+  PID    UID      THR PRI NICE   SIZE    RES STATE    TIME     CPU COMMAND
+ 5455      0        5  25    0   701M    10M RUN      0:36  30.94% server.bin
+
+last pid:  5497;  load averages:  0.50,  0.47,  0.42  up 1+01:07:32    18:28:11
+21 processes:  21 sleeping
+CPU: 17.2% user,  0.0% nice,  7.8% system,  9.4% interrupt, 65.6% idle
+Mem: 12M Active, 675M Inact, 6588K Laundry, 216M Wired, 102M Buf, 52M Free
+
+  PID    UID      THR PRI NICE   SIZE    RES STATE    TIME     CPU COMMAND
+ 5455      0        5  26    0   701M    10M kqread   0:36  31.15% server.bin
+  755      0        1  20    0    17M  3744K select   0:08   0.01% ntpd
+
+last pid:  5497;  load averages:  0.50,  0.47,  0.42  up 1+01:07:33    18:28:12
+21 processes:  21 sleeping
+CPU: 16.9% user,  0.0% nice,  6.2% system,  7.7% interrupt, 69.2% idle
+Mem: 12M Active, 675M Inact, 6588K Laundry, 216M Wired, 102M Buf, 52M Free
+
+  PID    UID      THR PRI NICE   SIZE    RES STATE    TIME     CPU COMMAND
+ 5455      0        5  27    0   701M    10M kqread   0:36  29.85% server.bin
+
+last pid:  5497;  load averages:  0.50,  0.47,  0.42  up 1+01:07:33    18:28:12
+21 processes:  1 running, 20 sleeping
+CPU: 30.8% user,  0.0% nice,  0.0% system,  6.2% interrupt, 63.1% idle
+Mem: 12M Active, 675M Inact, 6588K Laundry, 216M Wired, 102M Buf, 52M Free
+
+  PID    UID      THR PRI NICE   SIZE    RES STATE    TIME     CPU COMMAND
+ 5455      0        5  28    0   701M    10M uwait    0:36  30.65% server.bin
+  755      0        1  20    0    17M  3744K select   0:08   0.27% ntpd
+
+last pid:  5497;  load averages:  0.50,  0.47,  0.42  up 1+01:07:34    18:28:13
+21 processes:  21 sleeping
+CPU: 24.6% user,  0.0% nice, 18.5% system,  7.7% interrupt, 49.2% idle
+Mem: 12M Active, 675M Inact, 6588K Laundry, 216M Wired, 102M Buf, 52M Free
+
+  PID    UID      THR PRI NICE   SIZE    RES STATE    TIME     CPU COMMAND
+ 5455      0        5  28    0   701M    10M uwait    0:37  40.73% server.bin
+  491      0        1  20    0    11M  1012K select   0:10   0.29% devd
+  684      0        1  20    0    13M  2024K select   0:05   0.14% syslogd
+
+last pid:  5497;  load averages:  0.54,  0.48,  0.42  up 1+01:07:34    18:28:13
+21 processes:  21 sleeping
+CPU: 35.9% user,  0.0% nice,  9.4% system,  7.8% interrupt, 46.9% idle
+Mem: 12M Active, 675M Inact, 6588K Laundry, 216M Wired, 102M Buf, 52M Free
+
+  PID    UID      THR PRI NICE   SIZE    RES STATE    TIME     CPU COMMAND
+ 5455      0        5  28    0   701M    10M uwait    0:37  51.47% server.bin
+  755      0        1  20    0    17M  3744K select   0:08   0.02% ntpd
+
+last pid:  5497;  load averages:  0.54,  0.48,  0.42  up 1+01:07:35    18:28:14
+21 processes:  21 sleeping
+CPU: 33.8% user,  0.0% nice,  3.1% system,  3.1% interrupt, 60.0% idle
+Mem: 12M Active, 675M Inact, 6588K Laundry, 216M Wired, 102M Buf, 52M Free
+
+  PID    UID      THR PRI NICE   SIZE    RES STATE    TIME     CPU COMMAND
+ 5455      0        5  27    0   701M    10M uwait    0:37  34.30% server.bin
+
+last pid:  5497;  load averages:  0.54,  0.48,  0.42  up 1+01:07:35    18:28:14
+21 processes:  21 sleeping
+CPU: 27.7% user,  0.0% nice,  6.2% system,  6.2% interrupt, 60.0% idle
+Mem: 12M Active, 675M Inact, 6588K Laundry, 216M Wired, 102M Buf, 52M Free
+
+  PID    UID      THR PRI NICE   SIZE    RES STATE    TIME     CPU COMMAND
+ 5455      0        5  26    0   701M    10M uwait    0:37  31.45% server.bin
+  755      0        1  20    0    17M  3744K select   0:08   0.03% ntpd
+
+last pid:  5497;  load averages:  0.54,  0.48,  0.42  up 1+01:07:36    18:28:15
+21 processes:  1 running, 20 sleeping
+CPU: 27.7% user,  0.0% nice,  1.5% system,  7.7% interrupt, 63.1% idle
+Mem: 12M Active, 675M Inact, 6588K Laundry, 216M Wired, 102M Buf, 52M Free
+
+  PID    UID      THR PRI NICE   SIZE    RES STATE    TIME     CPU COMMAND
+ 5455      0        5  27    0   701M    10M RUN      0:37  30.29% server.bin
+
+last pid:  5497;  load averages:  0.54,  0.48,  0.42  up 1+01:07:36    18:28:15
+21 processes:  21 sleeping
+CPU: 32.8% user,  0.0% nice,  1.6% system,  6.3% interrupt, 59.4% idle
+Mem: 12M Active, 675M Inact, 6588K Laundry, 216M Wired, 102M Buf, 52M Free
+
+  PID    UID      THR PRI NICE   SIZE    RES STATE    TIME     CPU COMMAND
+ 5455      0        5  27    0   701M    10M uwait    0:37  32.92% server.bin
+  491      0        1  20    0    11M  1012K select   0:10   0.32% devd
+  684      0        1  20    0    13M  2024K select   0:05   0.12% syslogd
+  755      0        1  20    0    17M  3744K select   0:08   0.09% ntpd
+
+last pid:  5497;  load averages:  0.54,  0.48,  0.42  up 1+01:07:37    18:28:16
+21 processes:  21 sleeping
+CPU: 29.2% user,  0.0% nice,  1.5% system,  4.6% interrupt, 64.6% idle
+Mem: 12M Active, 675M Inact, 6588K Laundry, 216M Wired, 102M Buf, 52M Free
+
+  PID    UID      THR PRI NICE   SIZE    RES STATE    TIME     CPU COMMAND
+ 5455      0        5  27    0   701M    10M uwait    0:38  31.84% server.bin
+
+last pid:  5497;  load averages:  0.54,  0.48,  0.42  up 1+01:07:37    18:28:16
+21 processes:  21 sleeping
+CPU: 20.0% user,  0.0% nice, 10.8% system,  4.6% interrupt, 64.6% idle
+Mem: 12M Active, 675M Inact, 6588K Laundry, 216M Wired, 102M Buf, 52M Free
+
+  PID    UID      THR PRI NICE   SIZE    RES STATE    TIME     CPU COMMAND
+ 5455      0        5  27    0   701M    10M kqread   0:38  32.49% server.bin
+  755      0        1  20    0    17M  3744K select   0:08   0.14% ntpd
+
+last pid:  5497;  load averages:  0.54,  0.48,  0.42  up 1+01:07:38    18:28:17
+21 processes:  21 sleeping
+CPU: 27.7% user,  0.0% nice,  3.1% system,  1.5% interrupt, 67.7% idle
+Mem: 12M Active, 675M Inact, 6588K Laundry, 216M Wired, 102M Buf, 52M Free
+
+  PID    UID      THR PRI NICE   SIZE    RES STATE    TIME     CPU COMMAND
+ 5455      0        5  27    0   701M    10M uwait    0:38  33.05% server.bin
+
+last pid:  5497;  load averages:  0.54,  0.48,  0.42  up 1+01:07:38    18:28:17
+21 processes:  21 sleeping
+CPU: 18.5% user,  0.0% nice,  7.7% system,  9.2% interrupt, 64.6% idle
+Mem: 12M Active, 675M Inact, 6588K Laundry, 216M Wired, 102M Buf, 52M Free
+
+  PID    UID      THR PRI NICE   SIZE    RES STATE    TIME     CPU COMMAND
+ 5455      0        5  27    0   701M    10M uwait    0:38  33.49% server.bin
+  755      0        1  20    0    17M  3744K select   0:08   0.05% ntpd
+
+last pid:  5497;  load averages:  0.57,  0.49,  0.43  up 1+01:07:39    18:28:18
+21 processes:  21 sleeping
+CPU: 20.3% user,  0.0% nice, 10.9% system, 12.5% interrupt, 56.3% idle
+Mem: 12M Active, 675M Inact, 6588K Laundry, 216M Wired, 102M Buf, 52M Free
+
+  PID    UID      THR PRI NICE   SIZE    RES STATE    TIME     CPU COMMAND
+ 5455      0        5  27    0   701M    10M uwait    0:38  34.82% server.bin
+  755      0        1  20    0    17M  3744K select   0:08   0.18% ntpd
+
+last pid:  5497;  load averages:  0.57,  0.49,  0.43  up 1+01:07:39    18:28:18
+21 processes:  21 sleeping
+CPU: 24.6% user,  0.0% nice, 12.3% system,  4.6% interrupt, 58.5% idle
+Mem: 12M Active, 675M Inact, 6588K Laundry, 216M Wired, 102M Buf, 52M Free
+
+  PID    UID      THR PRI NICE   SIZE    RES STATE    TIME     CPU COMMAND
+ 5455      0        5  27    0   701M    10M uwait    0:39  35.82% server.bin
+  491      0        1  20    0    11M  1012K select   0:10   0.12% devd
+  684      0        1  20    0    13M  2024K select   0:05   0.08% syslogd
+
+last pid:  5497;  load averages:  0.57,  0.49,  0.43  up 1+01:07:40    18:28:19
+21 processes:  21 sleeping
+CPU: 27.7% user,  0.0% nice,  1.5% system, 12.3% interrupt, 58.5% idle
+Mem: 12M Active, 675M Inact, 6588K Laundry, 216M Wired, 102M Buf, 52M Free
+
+  PID    UID      THR PRI NICE   SIZE    RES STATE    TIME     CPU COMMAND
+ 5455      0        5  27    0   701M    10M uwait    0:39  35.59% server.bin
+  755      0        1  20    0    17M  3744K select   0:08   0.04% ntpd
+
+last pid:  5497;  load averages:  0.57,  0.49,  0.43  up 1+01:07:40    18:28:19
+21 processes:  21 sleeping
+CPU: 29.2% user,  0.0% nice,  1.5% system,  4.6% interrupt, 64.6% idle
+Mem: 12M Active, 675M Inact, 6588K Laundry, 216M Wired, 102M Buf, 52M Free
+
+  PID    UID      THR PRI NICE   SIZE    RES STATE    TIME     CPU COMMAND
+ 5455      0        5  27    0   701M    10M uwait    0:39  33.16% server.bin
+
+last pid:  5497;  load averages:  0.57,  0.49,  0.43  up 1+01:07:41    18:28:20
+21 processes:  21 sleeping
+CPU: 21.9% user,  0.0% nice,  9.4% system,  9.4% interrupt, 59.4% idle
+Mem: 12M Active, 675M Inact, 6588K Laundry, 216M Wired, 102M Buf, 52M Free
+
+  PID    UID      THR PRI NICE   SIZE    RES STATE    TIME     CPU COMMAND
+ 5455      0        5  27    0   701M    10M uwait    0:39  36.91% server.bin
+  755      0        1  20    0    17M  3744K select   0:08   0.01% ntpd
+
+last pid:  5497;  load averages:  0.57,  0.49,  0.43  up 1+01:07:41    18:28:20
+21 processes:  21 sleeping
+CPU: 38.5% user,  0.0% nice,  3.1% system,  4.6% interrupt, 53.8% idle
+Mem: 12M Active, 675M Inact, 6588K Laundry, 216M Wired, 102M Buf, 52M Free
+
+  PID    UID      THR PRI NICE   SIZE    RES STATE    TIME     CPU COMMAND
+ 5455      0        5  27    0   701M    10M uwait    0:39  32.17% server.bin
+  684      0        1  20    0    13M  2024K select   0:05   0.04% syslogd
+
+last pid:  5497;  load averages:  0.57,  0.49,  0.43  up 1+01:07:42    18:28:21
+21 processes:  1 running, 20 sleeping
+CPU: 30.8% user,  0.0% nice,  1.5% system,  7.7% interrupt, 60.0% idle
+Mem: 12M Active, 675M Inact, 6588K Laundry, 216M Wired, 102M Buf, 52M Free
+
+  PID    UID      THR PRI NICE   SIZE    RES STATE    TIME     CPU COMMAND
+ 5455      0        5  25    0   701M    10M RUN      0:39  29.89% server.bin
+  755      0        1  20    0    17M  3744K select   0:08   0.08% ntpd
+
+last pid:  5497;  load averages:  0.57,  0.49,  0.43  up 1+01:07:42    18:28:21
+21 processes:  21 sleeping
+CPU: 29.2% user,  0.0% nice, 10.8% system,  6.2% interrupt, 53.8% idle
+Mem: 12M Active, 675M Inact, 6588K Laundry, 216M Wired, 102M Buf, 52M Free
+
+  PID    UID      THR PRI NICE   SIZE    RES STATE    TIME     CPU COMMAND
+ 5455      0        5  24    0   701M    10M kqread   0:40  33.53% server.bin
+  491      0        1  20    0    11M  1012K select   0:10   0.12% devd
+  684      0        1  20    0    13M  2024K select   0:05   0.04% syslogd
+
+last pid:  5497;  load averages:  0.57,  0.49,  0.43  up 1+01:07:43    18:28:22
+21 processes:  21 sleeping
+CPU: 24.6% user,  0.0% nice,  4.6% system,  9.2% interrupt, 61.5% idle
+Mem: 12M Active, 675M Inact, 6588K Laundry, 216M Wired, 102M Buf, 52M Free
+
+  PID    UID      THR PRI NICE   SIZE    RES STATE    TIME     CPU COMMAND
+ 5455      0        5  25    0   701M    10M uwait    0:40  33.99% server.bin
+  755      0        1  20    0    17M  3744K select   0:08   0.18% ntpd
+
+last pid:  5497;  load averages:  0.57,  0.49,  0.43  up 1+01:07:43    18:28:22
+21 processes:  21 sleeping
+CPU: 28.1% user,  0.0% nice,  6.3% system,  7.8% interrupt, 57.8% idle
+Mem: 12M Active, 675M Inact, 6588K Laundry, 216M Wired, 102M Buf, 52M Free
+
+  PID    UID      THR PRI NICE   SIZE    RES STATE    TIME     CPU COMMAND
+ 5455      0        5  24    0   701M    10M uwait    0:40  32.25% server.bin
+
+last pid:  5497;  load averages:  0.53,  0.48,  0.42  up 1+01:07:44    18:28:23
+21 processes:  21 sleeping
+CPU: 32.3% user,  0.0% nice,  4.6% system,  3.1% interrupt, 60.0% idle
+Mem: 12M Active, 675M Inact, 6588K Laundry, 216M Wired, 102M Buf, 52M Free
+
+  PID    UID      THR PRI NICE   SIZE    RES STATE    TIME     CPU COMMAND
+ 5455      0        5  23    0   701M    10M uwait    0:40  32.16% server.bin
+  755      0        1  20    0    17M  3744K select   0:08   0.03% ntpd
+
+last pid:  5497;  load averages:  0.53,  0.48,  0.42  up 1+01:07:44    18:28:23
+21 processes:  21 sleeping
+CPU: 32.3% user,  0.0% nice,  7.7% system,  3.1% interrupt, 56.9% idle
+Mem: 12M Active, 675M Inact, 6588K Laundry, 216M Wired, 102M Buf, 52M Free
+
+  PID    UID      THR PRI NICE   SIZE    RES STATE    TIME     CPU COMMAND
+ 5455      0        5  24    0   701M    10M kqread   0:40  31.82% server.bin
+
+last pid:  5497;  load averages:  0.53,  0.48,  0.42  up 1+01:07:45    18:28:24
+21 processes:  21 sleeping
+CPU: 32.3% user,  0.0% nice,  7.7% system,  4.6% interrupt, 55.4% idle
+Mem: 12M Active, 675M Inact, 6588K Laundry, 216M Wired, 102M Buf, 52M Free
+
+  PID    UID      THR PRI NICE   SIZE    RES STATE    TIME     CPU COMMAND
+ 5455      0        5  24    0   701M    10M uwait    0:40  29.97% server.bin
+  755      0        1  20    0    17M  3744K select   0:08   0.04% ntpd
+
+last pid:  5497;  load averages:  0.53,  0.48,  0.42  up 1+01:07:46    18:28:25
+21 processes:  21 sleeping
+CPU: 23.1% user,  0.0% nice,  7.7% system,  3.1% interrupt, 66.2% idle
+Mem: 12M Active, 675M Inact, 6588K Laundry, 216M Wired, 102M Buf, 52M Free
+
+  PID    UID      THR PRI NICE   SIZE    RES STATE    TIME     CPU COMMAND
+ 5455      0        5  25    0   701M    10M kqread   0:41  32.50% server.bin
+  491      0        1  20    0    11M  1012K select   0:10   0.11% devd
+  684      0        1  20    0    13M  2024K select   0:05   0.06% syslogd
+
+last pid:  5497;  load averages:  0.53,  0.48,  0.42  up 1+01:07:46    18:28:25
+21 processes:  21 sleeping
+CPU: 18.8% user,  0.0% nice,  4.7% system, 14.1% interrupt, 62.5% idle
+Mem: 12M Active, 675M Inact, 6588K Laundry, 216M Wired, 102M Buf, 52M Free
+
+  PID    UID      THR PRI NICE   SIZE    RES STATE    TIME     CPU COMMAND
+ 5455      0        5  26    0   701M    10M kqread   0:41  27.71% server.bin
+  755      0        1  20    0    17M  3744K select   0:08   0.02% ntpd
+
+last pid:  5497;  load averages:  0.53,  0.48,  0.42  up 1+01:07:47    18:28:26
+21 processes:  1 running, 20 sleeping
+CPU: 29.2% user,  0.0% nice,  4.6% system,  6.2% interrupt, 60.0% idle
+Mem: 12M Active, 675M Inact, 6588K Laundry, 216M Wired, 102M Buf, 52M Free
+
+  PID    UID      THR PRI NICE   SIZE    RES STATE    TIME     CPU COMMAND
+ 5455      0        5  27    0   701M    10M RUN      0:41  33.08% server.bin
+ 5383      0        1  20    0    21M  9004K select   0:00   0.13% sshd
+
+last pid:  5497;  load averages:  0.53,  0.48,  0.42  up 1+01:07:47    18:28:26
+21 processes:  21 sleeping
+CPU: 23.1% user,  0.0% nice, 12.3% system,  4.6% interrupt, 60.0% idle
+Mem: 12M Active, 675M Inact, 6588K Laundry, 216M Wired, 102M Buf, 52M Free
+
+  PID    UID      THR PRI NICE   SIZE    RES STATE    TIME     CPU COMMAND
+ 5455      0        5  28    0   701M    10M uwait    0:41  35.61% server.bin
+  755      0        1  20    0    17M  3744K select   0:08   0.06% ntpd
+
+last pid:  5497;  load averages:  0.53,  0.48,  0.42  up 1+01:07:48    18:28:27
+21 processes:  21 sleeping
+CPU: 23.4% user,  0.0% nice,  7.8% system,  4.7% interrupt, 64.1% idle
+Mem: 12M Active, 675M Inact, 6588K Laundry, 216M Wired, 102M Buf, 52M Free
+
+  PID    UID      THR PRI NICE   SIZE    RES STATE    TIME     CPU COMMAND
+ 5455      0        5  27    0   701M    10M uwait    0:41  31.21% server.bin
+
+last pid:  5497;  load averages:  0.48,  0.47,  0.42  up 1+01:07:48    18:28:27
+21 processes:  21 sleeping
+CPU: 23.1% user,  0.0% nice,  4.6% system,  9.2% interrupt, 63.1% idle
+Mem: 12M Active, 675M Inact, 6588K Laundry, 216M Wired, 102M Buf, 52M Free
+
+  PID    UID      THR PRI NICE   SIZE    RES STATE    TIME     CPU COMMAND
+ 5455      0        5  26    0   701M    10M uwait    0:41  32.53% server.bin
+  755      0        1  20    0    17M  3744K select   0:08   0.02% ntpd
+
+last pid:  5497;  load averages:  0.48,  0.47,  0.42  up 1+01:07:49    18:28:28
+21 processes:  21 sleeping
+CPU: 32.3% user,  0.0% nice,  4.6% system, 10.8% interrupt, 52.3% idle
+Mem: 12M Active, 675M Inact, 6588K Laundry, 216M Wired, 102M Buf, 52M Free
+
+  PID    UID      THR PRI NICE   SIZE    RES STATE    TIME     CPU COMMAND
+ 5455      0        5  25    0   701M    10M uwait    0:42  31.72% server.bin
+ 5388      0        1  20    0    21M  9000K select   0:00   0.28% sshd
+  491      0        1  20    0    11M  1012K select   0:10   0.13% devd
+  684      0        1  20    0    13M  2024K select   0:05   0.06% syslogd
+
+last pid:  5497;  load averages:  0.48,  0.47,  0.42  up 1+01:07:49    18:28:28
+21 processes:  21 sleeping
+CPU: 26.2% user,  0.0% nice,  4.6% system,  4.6% interrupt, 64.6% idle
+Mem: 12M Active, 675M Inact, 6588K Laundry, 216M Wired, 102M Buf, 52M Free
+
+  PID    UID      THR PRI NICE   SIZE    RES STATE    TIME     CPU COMMAND
+ 5455      0        5  25    0   701M    10M kqread   0:42  33.22% server.bin
+  755      0        1  20    0    17M  3744K select   0:08   0.04% ntpd
+
+last pid:  5497;  load averages:  0.48,  0.47,  0.42  up 1+01:07:50    18:28:29
+21 processes:  21 sleeping
+CPU: 32.3% user,  0.0% nice,  4.6% system,  4.6% interrupt, 58.5% idle
+Mem: 12M Active, 675M Inact, 6588K Laundry, 216M Wired, 102M Buf, 52M Free
+
+  PID    UID      THR PRI NICE   SIZE    RES STATE    TIME     CPU COMMAND
+ 5455      0        5  25    0   701M    10M kqread   0:42  34.87% server.bin
+
+last pid:  5497;  load averages:  0.48,  0.47,  0.42  up 1+01:07:50    18:28:29
+21 processes:  1 running, 20 sleeping
+CPU: 25.0% user,  0.0% nice, 12.5% system,  4.7% interrupt, 57.8% idle
+Mem: 12M Active, 675M Inact, 6588K Laundry, 216M Wired, 102M Buf, 52M Free
+
+  PID    UID      THR PRI NICE   SIZE    RES STATE    TIME     CPU COMMAND
+ 5455      0        5  26    0   701M    10M RUN      0:42  31.47% server.bin
+  755      0        1  20    0    17M  3744K select   0:08   0.16% ntpd
+
+last pid:  5497;  load averages:  0.48,  0.47,  0.42  up 1+01:07:51    18:28:30
+21 processes:  21 sleeping
+CPU: 23.1% user,  0.0% nice,  4.6% system,  9.2% interrupt, 63.1% idle
+Mem: 12M Active, 675M Inact, 6588K Laundry, 216M Wired, 102M Buf, 52M Free
+
+  PID    UID      THR PRI NICE   SIZE    RES STATE    TIME     CPU COMMAND
+ 5455      0        5  26    0   701M    10M uwait    0:42  34.87% server.bin
+
+last pid:  5497;  load averages:  0.48,  0.47,  0.42  up 1+01:07:51    18:28:30
+21 processes:  21 sleeping
+CPU: 24.6% user,  0.0% nice,  6.2% system,  3.1% interrupt, 66.2% idle
+Mem: 12M Active, 675M Inact, 6588K Laundry, 216M Wired, 102M Buf, 52M Free
+
+  PID    UID      THR PRI NICE   SIZE    RES STATE    TIME     CPU COMMAND
+ 5455      0        5  26    0   701M    10M kqread   0:42  31.47% server.bin
+  755      0        1  20    0    17M  3744K select   0:08   0.04% ntpd
+
+last pid:  5497;  load averages:  0.48,  0.47,  0.42  up 1+01:07:52    18:28:31
+21 processes:  21 sleeping
+CPU: 26.2% user,  0.0% nice,  9.2% system,  4.6% interrupt, 60.0% idle
+Mem: 12M Active, 675M Inact, 6588K Laundry, 216M Wired, 102M Buf, 52M Free
+
+  PID    UID      THR PRI NICE   SIZE    RES STATE    TIME     CPU COMMAND
+ 5455      0        5  27    0   701M    10M kqread   0:43  32.45% server.bin
+  491      0        1  20    0    11M  1012K select   0:10   0.11% devd
+  684      0        1  20    0    13M  2024K select   0:05   0.04% syslogd
+
+last pid:  5497;  load averages:  0.48,  0.47,  0.42  up 1+01:07:52    18:28:31
+21 processes:  21 sleeping
+CPU: 25.0% user,  0.0% nice,  9.4% system,  3.1% interrupt, 62.5% idle
+Mem: 12M Active, 675M Inact, 6588K Laundry, 216M Wired, 102M Buf, 52M Free
+
+  PID    UID      THR PRI NICE   SIZE    RES STATE    TIME     CPU COMMAND
+ 5455      0        5  28    0   701M    10M uwait    0:43  38.53% server.bin
+  755      0        1  20    0    17M  3744K select   0:08   0.03% ntpd
+
+last pid:  5497;  load averages:  0.48,  0.47,  0.42  up 1+01:07:53    18:28:32
+21 processes:  21 sleeping
+CPU: 27.7% user,  0.0% nice,  4.6% system, 12.3% interrupt, 55.4% idle
+Mem: 12M Active, 675M Inact, 6588K Laundry, 216M Wired, 102M Buf, 52M Free
+
+  PID    UID      THR PRI NICE   SIZE    RES STATE    TIME     CPU COMMAND
+ 5455      0        5  27    0   701M    10M uwait    0:43  33.60% server.bin
+
+last pid:  5497;  load averages:  0.48,  0.47,  0.42  up 1+01:07:53    18:28:32
+21 processes:  21 sleeping
+CPU: 30.8% user,  0.0% nice,  6.2% system,  7.7% interrupt, 55.4% idle
+Mem: 12M Active, 675M Inact, 6588K Laundry, 216M Wired, 102M Buf, 52M Free
+
+  PID    UID      THR PRI NICE   SIZE    RES STATE    TIME     CPU COMMAND
+ 5455      0        5  26    0   701M    10M uwait    0:43  33.88% server.bin
+  755      0        1  20    0    17M  3744K select   0:08   0.02% ntpd
+
+last pid:  5497;  load averages:  0.61,  0.50,  0.43  up 1+01:07:54    18:28:33
+21 processes:  21 sleeping
+CPU: 30.8% user,  0.0% nice,  9.2% system,  7.7% interrupt, 52.3% idle
+Mem: 12M Active, 675M Inact, 6588K Laundry, 216M Wired, 102M Buf, 52M Free
+
+  PID    UID      THR PRI NICE   SIZE    RES STATE    TIME     CPU COMMAND
+ 5455      0        5  25    0   701M    10M uwait    0:43  39.07% server.bin
+
+last pid:  5497;  load averages:  0.61,  0.50,  0.43  up 1+01:07:54    18:28:33
+21 processes:  1 running, 20 sleeping
+CPU: 23.4% user,  0.0% nice,  4.7% system, 10.9% interrupt, 60.9% idle
+Mem: 12M Active, 675M Inact, 6588K Laundry, 216M Wired, 102M Buf, 52M Free
+
+  PID    UID      THR PRI NICE   SIZE    RES STATE    TIME     CPU COMMAND
+ 5455      0        5  25    0   701M    10M RUN      0:43  37.93% server.bin
+  755      0        1  20    0    17M  3744K select   0:08   0.05% ntpd
+
+last pid:  5497;  load averages:  0.61,  0.50,  0.43  up 1+01:07:55    18:28:34
+21 processes:  1 running, 20 sleeping
+CPU: 31.8% user,  0.0% nice,  0.0% system,  9.1% interrupt, 59.1% idle
+Mem: 12M Active, 675M Inact, 6588K Laundry, 216M Wired, 102M Buf, 52M Free
+
+  PID    UID      THR PRI NICE   SIZE    RES STATE    TIME     CPU COMMAND
+ 5455      0        5  26    0   701M    10M RUN      0:44  34.52% server.bin
+  491      0        1  20    0    11M  1012K select   0:10   0.15% devd
+  684      0        1  20    0    13M  2024K select   0:05   0.07% syslogd
+
+last pid:  5497;  load averages:  0.61,  0.50,  0.43  up 1+01:07:55    18:28:34
+21 processes:  21 sleeping
+CPU: 36.9% user,  0.0% nice,  9.2% system,  6.2% interrupt, 47.7% idle
+Mem: 12M Active, 675M Inact, 6588K Laundry, 216M Wired, 102M Buf, 52M Free
+
+  PID    UID      THR PRI NICE   SIZE    RES STATE    TIME     CPU COMMAND
+ 5455      0        5  27    0   701M    10M kqread   0:44  44.27% server.bin
+  755      0        1  20    0    17M  3744K select   0:08   0.02% ntpd
+
+last pid:  5497;  load averages:  0.61,  0.50,  0.43  up 1+01:07:56    18:28:35
+21 processes:  21 sleeping
+CPU: 43.1% user,  0.0% nice,  7.7% system,  4.6% interrupt, 44.6% idle
+Mem: 12M Active, 675M Inact, 6588K Laundry, 216M Wired, 102M Buf, 52M Free
+
+  PID    UID      THR PRI NICE   SIZE    RES STATE    TIME     CPU COMMAND
+ 5455      0        5  27    0   701M    10M uwait    0:44  40.61% server.bin
+
+last pid:  5497;  load averages:  0.61,  0.50,  0.43  up 1+01:07:56    18:28:35
+21 processes:  21 sleeping
+CPU: 29.2% user,  0.0% nice,  3.1% system,  7.7% interrupt, 60.0% idle
+Mem: 12M Active, 675M Inact, 6588K Laundry, 216M Wired, 102M Buf, 52M Free
+
+  PID    UID      THR PRI NICE   SIZE    RES STATE    TIME     CPU COMMAND
+ 5455      0        5  27    0   701M    10M uwait    0:44  38.11% server.bin
+  755      0        1  20    0    17M  3744K select   0:08   0.19% ntpd
+
+last pid:  5497;  load averages:  0.61,  0.50,  0.43  up 1+01:07:57    18:28:36
+21 processes:  21 sleeping
+CPU: 24.6% user,  0.0% nice,  6.2% system,  6.2% interrupt, 63.1% idle
+Mem: 12M Active, 675M Inact, 6588K Laundry, 216M Wired, 102M Buf, 52M Free
+
+  PID    UID      THR PRI NICE   SIZE    RES STATE    TIME     CPU COMMAND
+ 5455      0        5  27    0   701M    10M uwait    0:44  36.03% server.bin
+
+last pid:  5497;  load averages:  0.61,  0.50,  0.43  up 1+01:07:57    18:28:36
+21 processes:  21 sleeping
+CPU: 21.9% user,  0.0% nice,  6.3% system,  9.4% interrupt, 62.5% idle
+Mem: 12M Active, 675M Inact, 6588K Laundry, 216M Wired, 102M Buf, 52M Free
+
+  PID    UID      THR PRI NICE   SIZE    RES STATE    TIME     CPU COMMAND
+ 5455      0        5  27    0   701M    10M uwait    0:45  32.62% server.bin
+  755      0        1  20    0    17M  3744K select   0:08   0.04% ntpd
+
+last pid:  5497;  load averages:  0.61,  0.50,  0.43  up 1+01:07:58    18:28:37
+21 processes:  21 sleeping
+CPU: 26.2% user,  0.0% nice,  3.1% system,  9.2% interrupt, 61.5% idle
+Mem: 12M Active, 675M Inact, 6588K Laundry, 216M Wired, 102M Buf, 52M Free
+
+  PID    UID      THR PRI NICE   SIZE    RES STATE    TIME     CPU COMMAND
+ 5455      0        5  27    0   701M    10M uwait    0:45  34.70% server.bin
+  491      0        1  20    0    11M  1012K select   0:10   0.13% devd
+  684      0        1  20    0    13M  2024K select   0:05   0.07% syslogd
+
+last pid:  5497;  load averages:  0.61,  0.50,  0.43  up 1+01:07:58    18:28:37
+21 processes:  21 sleeping
+CPU: 26.2% user,  0.0% nice,  9.2% system,  9.2% interrupt, 55.4% idle
+Mem: 12M Active, 675M Inact, 6588K Laundry, 216M Wired, 102M Buf, 52M Free
+
+  PID    UID      THR PRI NICE   SIZE    RES STATE    TIME     CPU COMMAND
+ 5455      0        5  27    0   701M    10M uwait    0:45  36.56% server.bin
+  755      0        1  20    0    17M  3744K select   0:08   0.02% ntpd
+
+last pid:  5497;  load averages:  0.64,  0.50,  0.43  up 1+01:07:59    18:28:38
+21 processes:  21 sleeping
+CPU: 24.6% user,  0.0% nice,  3.1% system, 10.8% interrupt, 61.5% idle
+Mem: 12M Active, 675M Inact, 6588K Laundry, 216M Wired, 102M Buf, 52M Free
+
+  PID    UID      THR PRI NICE   SIZE    RES STATE    TIME     CPU COMMAND
+ 5455      0        5  27    0   701M    10M uwait    0:45  35.04% server.bin
+
+last pid:  5497;  load averages:  0.64,  0.50,  0.43  up 1+01:07:59    18:28:38
+21 processes:  21 sleeping
+CPU: 25.0% user,  0.0% nice,  9.4% system, 12.5% interrupt, 53.1% idle
+Mem: 12M Active, 675M Inact, 6588K Laundry, 216M Wired, 102M Buf, 52M Free
+
+  PID    UID      THR PRI NICE   SIZE    RES STATE    TIME     CPU COMMAND
+ 5455      0        5  27    0   701M    10M uwait    0:45  34.12% server.bin
+  755      0        1  20    0    17M  3744K select   0:08   0.04% ntpd
+
+last pid:  5497;  load averages:  0.64,  0.50,  0.43  up 1+01:08:00    18:28:39
+21 processes:  21 sleeping
+CPU: 38.5% user,  0.0% nice,  1.5% system,  7.7% interrupt, 52.3% idle
+Mem: 12M Active, 675M Inact, 6588K Laundry, 216M Wired, 102M Buf, 52M Free
+
+  PID    UID      THR PRI NICE   SIZE    RES STATE    TIME     CPU COMMAND
+ 5455      0        5  27    0   701M    10M uwait    0:46  33.27% server.bin
+
+last pid:  5497;  load averages:  0.64,  0.50,  0.43  up 1+01:08:00    18:28:39
+21 processes:  21 sleeping
+CPU: 32.3% user,  0.0% nice,  1.5% system,  9.2% interrupt, 56.9% idle
+Mem: 12M Active, 675M Inact, 6588K Laundry, 216M Wired, 102M Buf, 52M Free
+
+  PID    UID      THR PRI NICE   SIZE    RES STATE    TIME     CPU COMMAND
+ 5455      0        5  27    0   701M    10M uwait    0:46  31.32% server.bin
+  491      0        1  20    0    11M  1012K select   0:10   0.15% devd
+  684      0        1  20    0    13M  2024K select   0:05   0.06% syslogd
+  755      0        1  20    0    17M  3744K select   0:08   0.02% ntpd
+
+last pid:  5497;  load averages:  0.64,  0.50,  0.43  up 1+01:08:01    18:28:40
+21 processes:  21 sleeping
+CPU: 26.2% user,  0.0% nice,  6.2% system,  7.7% interrupt, 60.0% idle
+Mem: 12M Active, 675M Inact, 6588K Laundry, 216M Wired, 102M Buf, 52M Free
+
+  PID    UID      THR PRI NICE   SIZE    RES STATE    TIME     CPU COMMAND
+ 5455      0        5  27    0   701M    10M uwait    0:46  30.80% server.bin
+
+last pid:  5497;  load averages:  0.64,  0.50,  0.43  up 1+01:08:01    18:28:40
+21 processes:  21 sleeping
+CPU: 28.1% user,  0.0% nice,  3.1% system,  3.1% interrupt, 65.6% idle
+Mem: 12M Active, 675M Inact, 6588K Laundry, 216M Wired, 102M Buf, 52M Free
+
+  PID    UID      THR PRI NICE   SIZE    RES STATE    TIME     CPU COMMAND
+ 5455      0        5  27    0   701M    10M uwait    0:46  35.15% server.bin
+  755      0        1  20    0    17M  3744K select   0:08   0.05% ntpd
+
+last pid:  5497;  load averages:  0.64,  0.50,  0.43  up 1+01:08:02    18:28:41
+21 processes:  21 sleeping
+CPU: 34.8% user,  0.0% nice,  7.6% system,  3.0% interrupt, 54.5% idle
+Mem: 12M Active, 675M Inact, 6588K Laundry, 216M Wired, 102M Buf, 52M Free
+
+  PID    UID      THR PRI NICE   SIZE    RES STATE    TIME     CPU COMMAND
+ 5455      0        5  27    0   701M    10M uwait    0:46  33.61% server.bin
+
+last pid:  5497;  load averages:  0.64,  0.50,  0.43  up 1+01:08:02    18:28:41
+21 processes:  21 sleeping
+CPU: 26.6% user,  0.0% nice,  3.1% system,  4.7% interrupt, 65.6% idle
+Mem: 12M Active, 675M Inact, 6588K Laundry, 216M Wired, 102M Buf, 52M Free
+
+  PID    UID      THR PRI NICE   SIZE    RES STATE    TIME     CPU COMMAND
+ 5455      0        5  27    0   701M    10M uwait    0:46  32.68% server.bin
+  755      0        1  20    0    17M  3744K select   0:08   0.13% ntpd
+
+last pid:  5497;  load averages:  0.64,  0.50,  0.43  up 1+01:08:03    18:28:42
+21 processes:  21 sleeping
+CPU: 30.8% user,  0.0% nice,  3.1% system,  6.2% interrupt, 60.0% idle
+Mem: 12M Active, 675M Inact, 6588K Laundry, 216M Wired, 102M Buf, 52M Free
+
+  PID    UID      THR PRI NICE   SIZE    RES STATE    TIME     CPU COMMAND
+ 5455      0        5  27    0   701M    10M uwait    0:47  36.02% server.bin
+
+last pid:  5497;  load averages:  0.64,  0.50,  0.43  up 1+01:08:03    18:28:42
+21 processes:  21 sleeping
+CPU: 30.8% user,  0.0% nice,  4.6% system,  4.6% interrupt, 60.0% idle
+Mem: 12M Active, 675M Inact, 6588K Laundry, 216M Wired, 102M Buf, 52M Free
+
+  PID    UID      THR PRI NICE   SIZE    RES STATE    TIME     CPU COMMAND
+ 5455      0        5  20    0   701M    10M uwait    0:47  34.88% server.bin
+  491      0        1  20    0    11M  1012K select   0:10   0.34% devd
+  684      0        1  20    0    13M  2024K select   0:05   0.17% syslogd
+  755      0        1  20    0    17M  3744K select   0:08   0.03% ntpd
+
+last pid:  5497;  load averages:  0.64,  0.50,  0.43  up 1+01:08:04    18:28:43
+21 processes:  21 sleeping
+CPU: 29.7% user,  0.0% nice,  4.7% system, 10.9% interrupt, 54.7% idle
+Mem: 12M Active, 675M Inact, 6588K Laundry, 216M Wired, 102M Buf, 52M Free
+
+  PID    UID      THR PRI NICE   SIZE    RES STATE    TIME     CPU COMMAND
+ 5455      0        5  20    0   701M    10M kqread   0:47  41.23% server.bin
+  755      0        1  20    0    17M  3744K select   0:08   0.01% ntpd
+
+last pid:  5497;  load averages:  0.59,  0.50,  0.43  up 1+01:08:04    18:28:43
+21 processes:  1 running, 20 sleeping
+CPU: 21.5% user,  0.0% nice,  3.1% system, 10.8% interrupt, 64.6% idle
+Mem: 12M Active, 675M Inact, 6588K Laundry, 216M Wired, 102M Buf, 52M Free
+
+  PID    UID      THR PRI NICE   SIZE    RES STATE    TIME     CPU COMMAND
+ 5455      0        5  21    0   701M    10M RUN      0:47  32.15% server.bin
+
+last pid:  5497;  load averages:  0.59,  0.50,  0.43  up 1+01:08:05    18:28:44
+21 processes:  21 sleeping
+CPU: 16.9% user,  0.0% nice, 10.8% system,  6.2% interrupt, 66.2% idle
+Mem: 12M Active, 675M Inact, 6588K Laundry, 216M Wired, 102M Buf, 52M Free
+
+  PID    UID      THR PRI NICE   SIZE    RES STATE    TIME     CPU COMMAND
+ 5455      0        5  22    0   701M    10M kqread   0:47  31.41% server.bin
+  755      0        1  20    0    17M  3744K select   0:08   0.04% ntpd
+
+last pid:  5497;  load averages:  0.59,  0.50,  0.43  up 1+01:08:05    18:28:44
+21 processes:  1 running, 20 sleeping
+CPU: 13.8% user,  0.0% nice,  4.6% system,  6.2% interrupt, 75.4% idle
+Mem: 12M Active, 675M Inact, 6588K Laundry, 216M Wired, 102M Buf, 52M Free
+
+  PID    UID      THR PRI NICE   SIZE    RES STATE    TIME     CPU COMMAND
+ 5455      0        5  22    0   701M    10M RUN      0:47  29.34% server.bin
+
+last pid:  5497;  load averages:  0.59,  0.50,  0.43  up 1+01:08:06    18:28:45
+21 processes:  1 running, 20 sleeping
+CPU: 21.5% user,  0.0% nice,  7.7% system,  4.6% interrupt, 66.2% idle
+Mem: 12M Active, 675M Inact, 6588K Laundry, 216M Wired, 102M Buf, 52M Free
+
+  PID    UID      THR PRI NICE   SIZE    RES STATE    TIME     CPU COMMAND
+ 5455      0        5  24    0   701M    10M RUN      0:48  33.47% server.bin
+  755      0        1  20    0    17M  3744K select   0:08   0.04% ntpd
+
+last pid:  5497;  load averages:  0.59,  0.50,  0.43  up 1+01:08:06    18:28:45
+21 processes:  21 sleeping
+CPU: 39.1% user,  0.0% nice,  3.1% system,  3.1% interrupt, 54.7% idle
+Mem: 12M Active, 675M Inact, 6588K Laundry, 216M Wired, 102M Buf, 52M Free
+
+  PID    UID      THR PRI NICE   SIZE    RES STATE    TIME     CPU COMMAND
+ 5455      0        5  26    0   701M    10M kqread   0:48  35.57% server.bin
+  491      0        1  20    0    11M  1012K select   0:10   0.14% devd
+  684      0        1  20    0    13M  2024K select   0:05   0.08% syslogd
+
+last pid:  5497;  load averages:  0.59,  0.50,  0.43  up 1+01:08:07    18:28:46
+21 processes:  21 sleeping
+CPU: 26.2% user,  0.0% nice,  9.2% system,  7.7% interrupt, 56.9% idle
+Mem: 12M Active, 675M Inact, 6588K Laundry, 216M Wired, 102M Buf, 52M Free
+
+  PID    UID      THR PRI NICE   SIZE    RES STATE    TIME     CPU COMMAND
+ 5455      0        5  27    0   701M    10M kqread   0:48  33.61% server.bin
+  755      0        1  20    0    17M  3744K select   0:08   0.03% ntpd
+
+last pid:  5497;  load averages:  0.59,  0.50,  0.43  up 1+01:08:07    18:28:46
+21 processes:  21 sleeping
+CPU: 26.2% user,  0.0% nice,  7.7% system,  3.1% interrupt, 63.1% idle
+Mem: 12M Active, 675M Inact, 6588K Laundry, 216M Wired, 102M Buf, 52M Free
+
+  PID    UID      THR PRI NICE   SIZE    RES STATE    TIME     CPU COMMAND
+ 5455      0        5  27    0   701M    10M uwait    0:48  32.54% server.bin
+
+last pid:  5497;  load averages:  0.59,  0.50,  0.43  up 1+01:08:08    18:28:47
+21 processes:  21 sleeping
+CPU: 30.8% user,  0.0% nice,  6.2% system,  7.7% interrupt, 55.4% idle
+Mem: 12M Active, 675M Inact, 6588K Laundry, 216M Wired, 102M Buf, 52M Free
+
+  PID    UID      THR PRI NICE   SIZE    RES STATE    TIME     CPU COMMAND
+ 5455      0        5  27    0   701M    10M kqread   0:48  40.56% server.bin
+  755      0        1  20    0    17M  3744K select   0:08   0.03% ntpd
+
+last pid:  5497;  load averages:  0.70,  0.52,  0.44  up 1+01:08:08    18:28:47
+21 processes:  21 sleeping
+CPU: 32.8% user,  0.0% nice, 12.5% system,  3.1% interrupt, 51.6% idle
+Mem: 12M Active, 675M Inact, 6588K Laundry, 216M Wired, 102M Buf, 52M Free
+
+  PID    UID      THR PRI NICE   SIZE    RES STATE    TIME     CPU COMMAND
+ 5455      0        5  27    0   701M    10M uwait    0:48  38.97% server.bin
+
+last pid:  5497;  load averages:  0.70,  0.52,  0.44  up 1+01:08:09    18:28:48
+21 processes:  21 sleeping
+CPU: 21.2% user,  0.0% nice,  6.1% system,  6.1% interrupt, 66.7% idle
+Mem: 12M Active, 675M Inact, 6588K Laundry, 216M Wired, 102M Buf, 52M Free
+
+  PID    UID      THR PRI NICE   SIZE    RES STATE    TIME     CPU COMMAND
+ 5455      0        5  26    0   701M    10M kqread   0:49  31.83% server.bin
+  755      0        1  20    0    17M  3744K select   0:08   0.03% ntpd
+
+last pid:  5497;  load averages:  0.70,  0.52,  0.44  up 1+01:08:09    18:28:48
+21 processes:  21 sleeping
+CPU: 31.3% user,  0.0% nice,  6.3% system,  1.6% interrupt, 60.9% idle
+Mem: 12M Active, 675M Inact, 6588K Laundry, 216M Wired, 102M Buf, 52M Free
+
+  PID    UID      THR PRI NICE   SIZE    RES STATE    TIME     CPU COMMAND
+ 5455      0        5  28    0   701M    10M uwait    0:49  28.56% server.bin
+  684      0        1  20    0    13M  2024K select   0:05   0.12% syslogd
+  491      0        1  20    0    11M  1012K select   0:10   0.08% devd
+
+last pid:  5497;  load averages:  0.70,  0.52,  0.44  up 1+01:08:10    18:28:49
+21 processes:  21 sleeping
+CPU: 24.6% user,  0.0% nice,  6.2% system,  4.6% interrupt, 64.6% idle
+Mem: 12M Active, 675M Inact, 6588K Laundry, 216M Wired, 102M Buf, 52M Free
+
+  PID    UID      THR PRI NICE   SIZE    RES STATE    TIME     CPU COMMAND
+ 5455      0        5  27    0   701M    10M uwait    0:49  28.40% server.bin
+  755      0        1  20    0    17M  3744K select   0:08   0.03% ntpd
+
+last pid:  5497;  load averages:  0.70,  0.52,  0.44  up 1+01:08:10    18:28:49
+21 processes:  21 sleeping
+CPU: 30.8% user,  0.0% nice,  6.2% system,  6.2% interrupt, 56.9% idle
+Mem: 12M Active, 675M Inact, 6588K Laundry, 216M Wired, 102M Buf, 52M Free
+
+  PID    UID      THR PRI NICE   SIZE    RES STATE    TIME     CPU COMMAND
+ 5455      0        5  26    0   701M    10M uwait    0:49  35.04% server.bin
+
+last pid:  5497;  load averages:  0.70,  0.52,  0.44  up 1+01:08:11    18:28:50
+21 processes:  21 sleeping
+CPU: 28.1% user,  0.0% nice, 10.9% system,  4.7% interrupt, 56.3% idle
+Mem: 12M Active, 675M Inact, 6588K Laundry, 216M Wired, 102M Buf, 52M Free
+
+  PID    UID      THR PRI NICE   SIZE    RES STATE    TIME     CPU COMMAND
+ 5455      0        5  25    0   701M    10M kqread   0:49  31.61% server.bin
+  755      0        1  20    0    17M  3744K select   0:08   0.03% ntpd
+
+last pid:  5497;  load averages:  0.70,  0.52,  0.44  up 1+01:08:12    18:28:51
+21 processes:  21 sleeping
+CPU: 15.4% user,  0.0% nice,  3.1% system, 13.8% interrupt, 67.7% idle
+Mem: 12M Active, 675M Inact, 6588K Laundry, 216M Wired, 102M Buf, 52M Free
+
+  PID    UID      THR PRI NICE   SIZE    RES STATE    TIME     CPU COMMAND
+ 5455      0        5  26    0   701M    10M kqread   0:49  30.82% server.bin
+  684      0        1  20    0    13M  2024K select   0:05   0.04% syslogd
+
+last pid:  5497;  load averages:  0.70,  0.52,  0.44  up 1+01:08:12    18:28:51
+21 processes:  21 sleeping
+CPU: 21.5% user,  0.0% nice,  6.2% system,  4.6% interrupt, 67.7% idle
+Mem: 12M Active, 675M Inact, 6588K Laundry, 216M Wired, 102M Buf, 52M Free
+
+  PID    UID      THR PRI NICE   SIZE    RES STATE    TIME     CPU COMMAND
+ 5455      0        5  27    0   701M    10M kqread   0:50  31.43% server.bin
+  755      0        1  20    0    17M  3744K select   0:08   0.13% ntpd
+
+last pid:  5497;  load averages:  0.70,  0.52,  0.44  up 1+01:08:13    18:28:52
+21 processes:  1 running, 20 sleeping
+CPU: 26.2% user,  0.0% nice,  1.5% system,  7.7% interrupt, 64.6% idle
+Mem: 12M Active, 675M Inact, 6588K Laundry, 216M Wired, 102M Buf, 52M Free
+
+  PID    UID      THR PRI NICE   SIZE    RES STATE    TIME     CPU COMMAND
+ 5455      0        5  28    0   701M    10M RUN      0:50  32.28% server.bin
+  491      0        1  20    0    11M  1012K select   0:10   0.29% devd
+  684      0        1  20    0    13M  2024K select   0:05   0.06% syslogd
+
+last pid:  5497;  load averages:  0.80,  0.54,  0.45  up 1+01:08:13    18:28:52
+21 processes:  21 sleeping
+CPU: 35.9% user,  0.0% nice,  4.7% system,  4.7% interrupt, 54.7% idle
+Mem: 12M Active, 675M Inact, 6588K Laundry, 216M Wired, 102M Buf, 52M Free
+
+  PID    UID      THR PRI NICE   SIZE    RES STATE    TIME     CPU COMMAND
+ 5455      0        5  27    0   701M    10M uwait    0:50  36.90% server.bin
+  755      0        1  20    0    17M  3744K select   0:08   0.04% ntpd
+
+last pid:  5497;  load averages:  0.80,  0.54,  0.45  up 1+01:08:14    18:28:53
+21 processes:  21 sleeping
+CPU: 25.8% user,  0.0% nice,  6.1% system,  6.1% interrupt, 62.1% idle
+Mem: 12M Active, 675M Inact, 6588K Laundry, 216M Wired, 102M Buf, 52M Free
+
+  PID    UID      THR PRI NICE   SIZE    RES STATE    TIME     CPU COMMAND
+ 5455      0        5  26    0   701M    10M uwait    0:50  34.35% server.bin
+
+last pid:  5497;  load averages:  0.80,  0.54,  0.45  up 1+01:08:14    18:28:53
+21 processes:  21 sleeping
+CPU: 31.3% user,  0.0% nice,  9.4% system,  6.3% interrupt, 53.1% idle
+Mem: 12M Active, 675M Inact, 6588K Laundry, 216M Wired, 102M Buf, 52M Free
+
+  PID    UID      THR PRI NICE   SIZE    RES STATE    TIME     CPU COMMAND
+ 5455      0        5  27    0   701M    10M uwait    0:50  43.47% server.bin
+  755      0        1  20    0    17M  3744K select   0:08   0.02% ntpd
+
+last pid:  5497;  load averages:  0.80,  0.54,  0.45  up 1+01:08:15    18:28:54
+21 processes:  1 running, 20 sleeping
+CPU: 29.7% user,  0.0% nice,  4.7% system,  6.3% interrupt, 59.4% idle
+Mem: 12M Active, 675M Inact, 6588K Laundry, 216M Wired, 102M Buf, 52M Free
+
+  PID    UID      THR PRI NICE   SIZE    RES STATE    TIME     CPU COMMAND
+ 5455      0        5  27    0   701M    10M RUN      0:51  34.01% server.bin
+
+last pid:  5497;  load averages:  0.80,  0.54,  0.45  up 1+01:08:15    18:28:54
+21 processes:  21 sleeping
+CPU: 30.3% user,  0.0% nice,  9.1% system,  7.6% interrupt, 53.0% idle
+Mem: 12M Active, 675M Inact, 6588K Laundry, 216M Wired, 102M Buf, 52M Free
+
+  PID    UID      THR PRI NICE   SIZE    RES STATE    TIME     CPU COMMAND
+ 5455      0        5  28    0   701M    10M uwait    0:51  38.94% server.bin
+  755      0        1  20    0    17M  3744K select   0:08   0.05% ntpd
+
+last pid:  5497;  load averages:  0.80,  0.54,  0.45  up 1+01:08:16    18:28:55
+21 processes:  21 sleeping
+CPU: 28.1% user,  0.0% nice,  7.8% system,  3.1% interrupt, 60.9% idle
+Mem: 12M Active, 675M Inact, 6588K Laundry, 216M Wired, 102M Buf, 52M Free
+
+  PID    UID      THR PRI NICE   SIZE    RES STATE    TIME     CPU COMMAND
+ 5455      0        5  27    0   701M    10M uwait    0:51  29.95% server.bin
+  491      0        1  20    0    11M  1012K select   0:10   0.12% devd
+  684      0        1  20    0    13M  2024K select   0:05   0.07% syslogd
+
+last pid:  5497;  load averages:  0.80,  0.54,  0.45  up 1+01:08:16    18:28:55
+21 processes:  1 running, 20 sleeping
+CPU: 36.9% user,  0.0% nice,  9.2% system,  4.6% interrupt, 49.2% idle
+Mem: 12M Active, 675M Inact, 6588K Laundry, 216M Wired, 102M Buf, 52M Free
+
+  PID    UID      THR PRI NICE   SIZE    RES STATE    TIME     CPU COMMAND
+ 5455      0        5  26    0   701M    10M RUN      0:51  38.95% server.bin
+  755      0        1  20    0    17M  3744K select   0:08   0.03% ntpd
+
+last pid:  5497;  load averages:  0.80,  0.54,  0.45  up 1+01:08:17    18:28:56
+21 processes:  21 sleeping
+CPU: 46.2% user,  0.0% nice,  7.7% system,  3.1% interrupt, 43.1% idle
+Mem: 12M Active, 675M Inact, 6588K Laundry, 216M Wired, 102M Buf, 52M Free
+
+  PID    UID      THR PRI NICE   SIZE    RES STATE    TIME     CPU COMMAND
+ 5455      0        5  26    0   701M    10M uwait    0:51  44.03% server.bin
+ 5383      0        1  20    0    21M  9004K select   0:00   0.22% sshd
+
+last pid:  5497;  load averages:  0.74,  0.54,  0.44  up 1+01:08:17    18:28:56
+21 processes:  21 sleeping
+CPU: 39.1% user,  0.0% nice,  7.8% system,  7.8% interrupt, 45.3% idle
+Mem: 12M Active, 675M Inact, 6588K Laundry, 216M Wired, 102M Buf, 52M Free
+
+  PID    UID      THR PRI NICE   SIZE    RES STATE    TIME     CPU COMMAND
+ 5455      0        5  25    0   701M    10M uwait    0:52  43.13% server.bin
+  755      0        1  20    0    17M  3744K select   0:08   0.03% ntpd
+
+last pid:  5497;  load averages:  0.74,  0.54,  0.44  up 1+01:08:18    18:28:57
+21 processes:  21 sleeping
+CPU: 32.3% user,  0.0% nice, 13.8% system,  6.2% interrupt, 47.7% idle
+Mem: 12M Active, 675M Inact, 6588K Laundry, 216M Wired, 102M Buf, 52M Free
+
+  PID    UID      THR PRI NICE   SIZE    RES STATE    TIME     CPU COMMAND
+ 5455      0        5  27    0   701M    10M kqread   0:52  45.33% server.bin
+
+last pid:  5497;  load averages:  0.74,  0.54,  0.44  up 1+01:08:18    18:28:57
+21 processes:  21 sleeping
+CPU: 20.0% user,  0.0% nice,  4.6% system, 10.8% interrupt, 64.6% idle
+Mem: 12M Active, 675M Inact, 6588K Laundry, 216M Wired, 102M Buf, 52M Free
+
+  PID    UID      THR PRI NICE   SIZE    RES STATE    TIME     CPU COMMAND
+ 5455      0        5  27    0   701M    10M kqread   0:52  34.09% server.bin
+  755      0        1  20    0    17M  3744K select   0:08   0.03% ntpd
+
+last pid:  5497;  load averages:  0.74,  0.54,  0.44  up 1+01:08:19    18:28:58
+21 processes:  21 sleeping
+CPU: 27.7% user,  0.0% nice,  7.7% system,  7.7% interrupt, 56.9% idle
+Mem: 12M Active, 675M Inact, 6588K Laundry, 216M Wired, 102M Buf, 52M Free
+
+  PID    UID      THR PRI NICE   SIZE    RES STATE    TIME     CPU COMMAND
+ 5455      0        5  27    0   701M    10M uwait    0:52  34.88% server.bin
+  491      0        1  20    0    11M  1012K select   0:10   0.15% devd
+ 5388      0        1  20    0    21M  9000K select   0:00   0.12% sshd
+  684      0        1  20    0    13M  2024K select   0:05   0.10% syslogd
+
+last pid:  5497;  load averages:  0.74,  0.54,  0.44  up 1+01:08:19    18:28:58
+21 processes:  21 sleeping
+CPU:  2.9% user,  0.0% nice,  0.0% system,  0.0% interrupt, 97.1% idle
+Mem: 12M Active, 675M Inact, 6588K Laundry, 216M Wired, 102M Buf, 52M Free
+
+  PID    UID      THR PRI NICE   SIZE    RES STATE    TIME     CPU COMMAND
+ 5455      0        5  27    0   701M    10M uwait    0:52   3.00% server.bin
+  755      0        1  20    0    17M  3744K select   0:08   0.01% ntpd
+
+last pid:  5497;  load averages:  0.74,  0.54,  0.44  up 1+01:08:20    18:28:59
+21 processes:  21 sleeping
+CPU:  0.0% user,  0.0% nice,  0.0% system,  0.0% interrupt,  100% idle
+Mem: 12M Active, 675M Inact, 6588K Laundry, 216M Wired, 102M Buf, 52M Free
+
+  PID    UID      THR PRI NICE   SIZE    RES STATE    TIME     CPU COMMAND
+
+last pid:  5497;  load averages:  0.74,  0.54,  0.44  up 1+01:08:20    18:28:59
+21 processes:  21 sleeping
+CPU:  0.0% user,  0.0% nice,  0.0% system,  0.0% interrupt,  100% idle
+Mem: 12M Active, 675M Inact, 6588K Laundry, 216M Wired, 102M Buf, 52M Free
+
+  PID    UID      THR PRI NICE   SIZE    RES STATE    TIME     CPU COMMAND
+  755      0        1  20    0    17M  3744K select   0:08   0.03% ntpd
+
+last pid:  5497;  load averages:  0.74,  0.54,  0.44  up 1+01:08:21    18:29:00
+21 processes:  21 sleeping
+CPU:  0.0% user,  0.0% nice,  0.0% system,  0.0% interrupt,  100% idle
+Mem: 12M Active, 675M Inact, 6588K Laundry, 216M Wired, 102M Buf, 52M Free
+
+  PID    UID      THR PRI NICE   SIZE    RES STATE    TIME     CPU COMMAND
+  786      0        1  20    0    13M  1960K nanslp   0:01   0.11% cron
+
