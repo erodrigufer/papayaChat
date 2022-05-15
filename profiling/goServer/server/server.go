@@ -36,7 +36,7 @@ func main() {
 
 	flag.StringVar(&cfg.addr, "addr", DEFAULT_SERVICE, "Server's listening address")
 
-	app.infoLog.Printf("Server listening on %s", cfg.addr)
+	app.infoLog.Printf("Server listening on %s\n", cfg.addr)
 	ln, err := net.Listen("tcp", cfg.addr)
 	defer ln.Close()
 	if err != nil {
