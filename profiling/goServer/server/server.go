@@ -72,6 +72,11 @@ func (app *application) handleConnection(conn net.Conn) {
 		n, err := conn.Read(buf)
 		if err != nil {
 			//fmt.Printf("Error occured: %q\n", err)
+			// This break is necessary to return from the goroutine after a
+			// client terminates a session with an io.EOF error.
+			// Otherwise, the for-loops runs again, but the conn.Read method
+			// will not read anything and infinite empty strings will be printed
+			// to stdout.
 			break
 		}
 		//fmt.Printf("Bytes received: %d\n", n)
