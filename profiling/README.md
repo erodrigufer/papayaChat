@@ -8,6 +8,9 @@
 * [Framework](#framework)
 * [Methodology](#methodology)
 * [Planned measurements](#planned-measurements)
+* [Commands to perform measurements](#commands-to-perform-measurements)
+	- [Server-side (FreeBSD)](#server-side-freebsd)
+	- [Load-generator-side (FreeBSD)](#load-generator-side-freebsd)
 * [Profiling with top](#profiling-with-top)
 	- [First test](#first-test)
 	- [References](#references)
@@ -61,6 +64,20 @@ This table describes the values under which measurements will be performed for e
 | 4 | 16 | 1Mbps |
 | 4 | 32 | 1Mbps |
 | 4 | 64 | 1Mbps |
+
+## Commands to perform measurements
+### Server-side (FreeBSD)
+```bash
+./server.bin > /dev/null
+
+top -CIbtu -s 0.5 -d <# of screen captures> >> <FILE_OUTPUT>
+```
+
+### Load-generator-side (FreeBSD)
+```bash
+tcpkali -c <# of connections> --duration 100s \ 
+--channel-bandwidth-upstream 1Mbps -em 'message\n' <IP>:<PORT>
+```
 
 ## Profiling with top
 As described in Reference #2: 
