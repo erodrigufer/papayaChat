@@ -70,12 +70,12 @@ This table describes the values under which measurements will be performed for e
 ```bash
 ./server.bin > /dev/null
 
-top -CIbtu -s 0.5 -d <# of screen captures> >> <FILE_OUTPUT>
+top -CIbtu -s 0.5 -d infi >> <FILE_OUTPUT>
 ```
 
 ### Load-generator-side (FreeBSD)
 ```bash
-tcpkali -c <# of connections> --duration 100s \ 
+tcpkali -c <# of connections> --duration 60s \ 
 --channel-bandwidth-upstream 1Mbps -em 'message\n' <IP>:<PORT>
 ```
 
