@@ -71,10 +71,10 @@ func (app *application) handleConnection(conn net.Conn) {
 
 		n, err := conn.Read(buf)
 		if err != nil {
-			fmt.Printf("Error occured: %q\n", err)
+			//fmt.Printf("Error occured: %q\n", err)
 			break
 		}
-		fmt.Printf("Bytes received: %d\n", n)
+		//fmt.Printf("Bytes received: %d\n", n)
 		fmt.Printf("%q\n", buf[:n]) // use q to print also non-readable
 		// characters being sent
 
