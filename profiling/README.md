@@ -40,27 +40,27 @@ This table describes the values under which measurements will be performed for e
 
 | # of CPU cores | # of active concurrent connections | Max. bandwidth per connection |
 | -- | -- | -- | 
-| 1  | 1 | 100Kbps |
-| 1 | 2 | 100Kbps |
-| 1 | 4 | 100Kbps |
-| 1 | 8 | 100Kbps |
-| 1 | 12 | 100Kbps |
-| 1 | 16 | 100Kbps |
-| 1 | 20 | 100Kbps |
-| 2  | 1 | 100Kbps |
-| 2 | 2 | 100Kbps |
-| 2 | 4 | 100Kbps |
-| 2 | 8 | 100Kbps |
-| 2 | 12 | 100Kbps |
-| 2 | 16 | 100Kbps |
-| 2 | 20 | 100Kbps |
-| 4  | 1 | 100Kbps |
-| 4 | 2 | 100Kbps |
-| 4 | 4 | 100Kbps |
-| 4 | 8 | 100Kbps |
-| 4 | 12 | 100Kbps |
-| 4 | 16 | 100Kbps |
-| 4 | 20 | 100Kbps |
+| 1  | 1 | 1Mbps |
+| 1 | 2 | 1Mbps |
+| 1 | 4 | 1Mbps |
+| 1 | 8 | 1Mbps |
+| 1 | 16 | 1Mbps |
+| 1 | 32 | 1Mbps |
+| 1 | 64 | 1Mbps |
+| 2  | 1 | 1Mbps |
+| 2 | 2 | 1Mbps |
+| 2 | 4 | 1Mbps |
+| 2 | 8 | 1Mbps |
+| 2 | 16 | 1Mbps |
+| 2 | 32 | 1Mbps |
+| 2 | 64 | 1Mbps |
+| 4  | 1 | 1Mbps |
+| 4 | 2 | 1Mbps |
+| 4 | 4 | 1Mbps |
+| 4 | 8 | 1Mbps |
+| 4 | 16 | 1Mbps |
+| 4 | 32 | 1Mbps |
+| 4 | 64 | 1Mbps |
 
 ## Profiling with top
 As described in Reference #2: 
