@@ -82,9 +82,13 @@ tcpkali -c <# of connections> --duration 60s \
 
 ## Naming conventions of measurements
 1cpu1c1Mb_go
+
 1cpu = 1 CPU core
+
 1c = 1 active concurrent connection
+
 1Mb = 1Mbps max. bandwidth per connection
+
 go = Measurement for go server
 
 ## Profiling with top
