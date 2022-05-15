@@ -8,7 +8,7 @@ CC_FLAGS = -Wall -Werror
 
 # Objects and executable for concurrent_server
 OBJECTS_SERVER = C_Server.o error_handling.o inet_sockets.o signalHandling.o 
-EXECUTABLE_SERVER = ./C_server.bin
+EXECUTABLE_SERVER = ./server.bin
 
 # Compile only server
 .PHONY : server
@@ -33,6 +33,11 @@ error_names.c.inc :
 inet_sockets.o : inet_sockets.h basics.h
 
 signalHandling.o :
+
+.PHONY : run
+run : $(EXECUTABLE_SERVER)
+	./$(EXECUTABLE_SERVER)
+	
 
 # Remove object files, executables and error names file (system dependant)
 .PHONY : clean
