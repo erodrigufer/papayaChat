@@ -11,6 +11,7 @@
 * [Commands to perform measurements](#commands-to-perform-measurements)
 	- [Server-side (FreeBSD)](#server-side-freebsd)
 	- [Load-generator-side (FreeBSD)](#load-generator-side-freebsd)
+* [Naming conventions of measurements](#naming-conventions-of-measurements)
 * [Profiling with top](#profiling-with-top)
 	- [First test](#first-test)
 	- [References](#references)
@@ -78,6 +79,13 @@ top -CIbtu -s 0.5 -d infi >> <FILE_OUTPUT>
 tcpkali -c <# of connections> --duration 60s \ 
 --channel-bandwidth-upstream 1Mbps -em 'message\n' <IP>:<PORT>
 ```
+
+## Naming conventions of measurements
+1cpu1c1Mb_go
+1cpu = 1 CPU core
+1c = 1 active concurrent connection
+1Mb = 1Mbps max. bandwidth per connection
+go = Measurement for go server
 
 ## Profiling with top
 As described in Reference #2: 
