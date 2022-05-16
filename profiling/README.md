@@ -11,6 +11,7 @@
 * [Commands to perform measurements](#commands-to-perform-measurements)
 	- [Server-side (FreeBSD)](#server-side-freebsd)
 	- [Load-generator-side (FreeBSD)](#load-generator-side-freebsd)
+	- [Cleaning data](#cleaning-data)
 * [Naming conventions of measurements](#naming-conventions-of-measurements)
 * [Profiling with top](#profiling-with-top)
 	- [First test](#first-test)
@@ -78,6 +79,13 @@ top -CIbtu -s 0.5 -d infi >> <FILE_OUTPUT>
 ```bash
 tcpkali -c <# of connections> --duration 60s \ 
 --channel-bandwidth-upstream 1Mbps -em 'message\n' <IP>:<PORT>
+```
+
+### Cleaning data
+For the go measurements, in which the server is always a single process for every screen capture. Then the CPU load can be extracted from the text file with this command:
+
+```bash
+sed -n -e '/server.bin/p' <Input file> | awk '{print $10}' > <Output file>
 ```
 
 ## Naming conventions of measurements
