@@ -83,10 +83,15 @@ tcpkali -c <# of connections> --duration 60s \
 
 ### Cleaning data
 For the go measurements, in which the server is always a single process for every screen capture. Then the CPU load can be extracted from the text file with this command:
-
 ```bash
 sed -n -e '/server.bin/p' <Input file> | awk '{print $10}' > <Output file>
 ```
+
+For the C measurements run this command:
+```bash
+sed -n -e 's/last.*$/---/' -e '/---/p' -e '/server.bin/p' 1c
+```
+
 
 ## Naming conventions of measurements
 1cpu1c1Mb_go
