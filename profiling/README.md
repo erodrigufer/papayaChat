@@ -89,9 +89,8 @@ sed -n -e '/server.bin/p' <Input file> | awk '{print $10}' > <Output file>
 
 For the C measurements run this command:
 ```bash
-sed -n -e 's/last.*$/---/' -e '/---/p' -e '/server.bin/p' 1c
+sed -n -e 's/last.*$/---/' -e '/---/p' -e '/server.bin/p' <Input file> | awk 'BEGIN {sum=0} $1 == "---" {if(sum != 0) {print sum}; sum=0} $11 == "server.bin" {sum+=$10}' > <Output file>
 ```
-
 
 ## Naming conventions of measurements
 1cpu1c1Mb_go
