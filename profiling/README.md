@@ -95,7 +95,7 @@ $11 == "server.bin" {sum+=$10}' > <Output file>
 ```
 
 ## Naming conventions of measurements
-1cpu1c1Mb_go
+1cpu1c1Mb.go
 
 1cpu = 1 CPU core
 
@@ -103,7 +103,7 @@ $11 == "server.bin" {sum+=$10}' > <Output file>
 
 1Mb = 1Mbps max. bandwidth per connection
 
-go = Measurement for go server
+gom = GOMeasurement (cm = CMeasurement)
 
 ## Profiling with top
 As described in Reference #2: 
