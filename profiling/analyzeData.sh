@@ -10,7 +10,7 @@ analyzeData(){
 	# should be stored.
 	local OUTPUT_FILE=$2
 
-	awk 'BEGIN {mean=0; count=0} {mean+=$1;count+=1} END {print mean/count}' ${INPUT_FILE} 
+	awk 'BEGIN {mean=0; count=0} {mean+=$1;count+=1} END {print "Mean: ", mean/count}' ${INPUT_FILE} 
 
 }
 
