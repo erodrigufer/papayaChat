@@ -2,6 +2,7 @@ package main
 
 import (
 	"bufio"
+	"flag"
 	"fmt"
 	"image/color"
 	"log"
@@ -14,7 +15,21 @@ import (
 )
 
 func main() {
-	dataFile, err := os.Open("./1cpu1c1Mb.gom.cl")
+	var fileName string
+	var plotOutput string
+	flag.StringVar(&fileName, "file", "", "File to plot and analyze.")
+	flag.StringVar(&plotOutput, "o", "", "File name to output plot.")
+	flag.Parse()
+
+	if fileName == "" {
+		log.Fatalln("-file flag missing.")
+	}
+
+	if plotOutput == "" {
+		log.Fatalln("-o flag missing.")
+	}
+
+	dataFile, err := os.Open(fileName)
 	if err != nil {
 		log.Fatalln(err)
 	}
@@ -65,7 +80,7 @@ func main() {
 	p.Legend.Add("Data", s)
 
 	// Save the plot to a PNG file.
-	if err := p.Save(4*vg.Inch, 4*vg.Inch, "data.pdf"); err != nil {
+	if err := p.Save(4*vg.Inch, 4*vg.Inch, plotOutput); err != nil {
 		panic(err)
 	}
 }
