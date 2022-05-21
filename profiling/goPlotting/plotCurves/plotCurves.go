@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"image/color"
 	"log"
-	"math/rand"
 	"os"
 	"strconv"
 
@@ -22,6 +21,7 @@ func main() {
 	defer dataFile.Close()
 	var mean float64 = 0.0
 	var counter int = 0
+	pts := make(plotter.XYs, 200)
 	scanner := bufio.NewScanner(dataFile)
 	for scanner.Scan() {
 		//fmt.Println(scanner.Text())
@@ -29,6 +29,8 @@ func main() {
 		if err != nil {
 			fmt.Fprintln(os.Stderr, "strconv to float64", err)
 		}
+		pts[counter].X = float64(counter)
+		pts[counter].Y = dataPoint
 		counter++
 		mean += dataPoint
 	}
@@ -38,10 +40,6 @@ func main() {
 	}
 
 	fmt.Println("Mean: ", mean/float64(counter))
-
-	return
-
-	dataToPlot := randomPoints(15)
 
 	// Create a new plot, set its title and
 	// axis labels.
@@ -54,7 +52,7 @@ func main() {
 	p.Add(plotter.NewGrid())
 
 	// Make a scatter plotter and set its style.
-	s, err := plotter.NewScatter(dataToPlot)
+	s, err := plotter.NewScatter(pts)
 	if err != nil {
 		panic(err)
 	}
@@ -73,15 +71,15 @@ func main() {
 }
 
 // randomPoints returns some random x, y points.
-func randomPoints(n int) plotter.XYs {
-	pts := make(plotter.XYs, n)
-	for i := range pts {
-		if i == 0 {
-			pts[i].X = rand.Float64()
-		} else {
-			pts[i].X = pts[i-1].X + rand.Float64()
-		}
-		pts[i].Y = pts[i].X + 10*rand.Float64()
-	}
-	return pts
-}
+// func randomPoints(n int) plotter.XYs {
+// 	pts := make(plotter.XYs, n)
+// 	for i := range pts {
+// 		if i == 0 {
+// 			pts[i].X = rand.Float64()
+// 		} else {
+// 			pts[i].X = pts[i-1].X + rand.Float64()
+// 		}
+// 		pts[i].Y = pts[i].X + 10*rand.Float64()
+// 	}
+// 	return pts
+// }
