@@ -14,8 +14,20 @@ import (
 	"gonum.org/v1/plot/vg"
 )
 
+// type results struct {
+// 	mean float64
+// 	variance float64
+// 	// Name of measurement.
+// 	name string
+// 	// Number of data-points for measurement.
+// 	numberOfPoints int
+// }
+
 func main() {
+	// Name of file from where data is extracted.
 	var fileName string
+	// Name of file where plot is stored (the file extension determines the plot
+	// file type, e.g. .svg, .pdf, .png, .jpeg, etc.).
 	var plotOutput string
 	flag.StringVar(&fileName, "file", "", "File to plot and analyze.")
 	flag.StringVar(&plotOutput, "o", "", "File name to output plot.")
@@ -29,20 +41,30 @@ func main() {
 		log.Fatalln("-o flag missing.")
 	}
 
+	// Open file with data.
 	dataFile, err := os.Open(fileName)
 	if err != nil {
 		log.Fatalln(err)
 	}
 	defer dataFile.Close()
+
+	// Scan data from file into 'plotter.XYs' data structure, and calculate mean
+	// value of measurement.
 	var mean float64 = 0.0
 	var counter int = 0
+	// Make slice of structs with two floats, that contain the whole scatter
+	// points to plot.
 	pts := make(plotter.XYs, 200)
 	scanner := bufio.NewScanner(dataFile)
+	// Scan one line of the file until EOF.
 	for scanner.Scan() {
 		//fmt.Println(scanner.Text())
+		// Transform data as string into floats 64.
 		dataPoint, err := strconv.ParseFloat(scanner.Text(), 64)
 		if err != nil {
 			fmt.Fprintln(os.Stderr, "strconv to float64", err)
+			// Scan next line after error.
+			continue
 		}
 		pts[counter].X = float64(counter)
 		pts[counter].Y = dataPoint
@@ -84,17 +106,3 @@ func main() {
 		panic(err)
 	}
 }
-
-// randomPoints returns some random x, y points.
-// func randomPoints(n int) plotter.XYs {
-// 	pts := make(plotter.XYs, n)
-// 	for i := range pts {
-// 		if i == 0 {
-// 			pts[i].X = rand.Float64()
-// 		} else {
-// 			pts[i].X = pts[i-1].X + rand.Float64()
-// 		}
-// 		pts[i].Y = pts[i].X + 10*rand.Float64()
-// 	}
-// 	return pts
-// }
