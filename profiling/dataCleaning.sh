@@ -36,7 +36,7 @@ FILES=$(ls)
 for FILE in $FILES; do
 	# If FILE is a regular file (to avoid iterating over directories).
 	if [ -f ${FILE} ]; then
-		OUTPUT_FILE=./cleanData/${FILE}.cl
+		OUTPUT_FILE=./cleanData/${FILE}.clean
 		processFile ${FILE} ${OUTPUT_FILE} && echo "Processed filed: ${FILE}"
 	fi
 done
