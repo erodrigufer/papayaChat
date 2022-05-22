@@ -66,7 +66,7 @@ func main() {
 			// Scan next line after error.
 			continue
 		}
-		pts[counter].X = float64(counter)
+		pts[counter].X = float64(counter+1) * 0.5
 		pts[counter].Y = dataPoint
 		counter++
 		mean += dataPoint
@@ -82,8 +82,8 @@ func main() {
 	// axis labels.
 	p := plot.New()
 
-	p.Title.Text = "CPU load for C program with 2 connections"
-	p.X.Label.Text = "t"
+	p.Title.Text = ""
+	p.X.Label.Text = "t in s"
 	p.Y.Label.Text = "CPU load in %"
 	// Draw a grid behind the data.
 	p.Add(plotter.NewGrid())
@@ -99,7 +99,7 @@ func main() {
 	// entry for each.
 	p.Add(s)
 	//p.Add(s, l, lpLine, lpPoints)
-	p.Legend.Add("Data", s)
+	//p.Legend.Add("Data", s)
 
 	// Save the plot to a PNG file.
 	if err := p.Save(4*vg.Inch, 4*vg.Inch, plotOutput); err != nil {
