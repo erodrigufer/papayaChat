@@ -1,5 +1,17 @@
 #!/bin/bash
 
+###########################################################
+#User-defined variables####################################
+# Path with all the measurements to analyze.
+RESULTS_PATH="./measurements/15_05_2022"
+
+###########################################################
+#Global variables##########################################
+# Store current path, where this script is being executed.
+CURRENT_PATH=$(pwd)
+PLOTTER_EXECUTABLE="plotCurves.bin"
+###########################################################
+
 
 # processFile, extracts the CPU load data out of the raw 'top' output file.
 processFile(){
@@ -22,21 +34,35 @@ processFile(){
 		# measurement (they are always nested between '---' lines).
 }
 
-# Store current path, where this script is being executed.
-CURRENT_PATH=$(pwd)
+# Compile the go program in charge of plotting all the data and calculating the
+# mean values, variance and so on.
+buildPlotter(){
+	cd ./goPlotting/plotCurves
+	go build -o ../../${PLOTTER_EXECUTABLE} plotCurves.go && echo "Successfully built executable for plotter." || { echo "Failed at building plotter."; return -1; }
+	cd ../../
+	return
+}
 
-RESULTS_PATH="./measurements/15_05_2022"
 
-cd ${RESULTS_PATH}
-mkdir -p "cleanData"
+main(){
 
-# Store results of 'ls' command.
-FILES=$(ls)
+	cd ${RESULTS_PATH}
+	mkdir -p "cleanData" 	# Store cleaned data here.
+	mkdir -p "results" 		# Store plots and other results here.	
 
-for FILE in $FILES; do
-	# If FILE is a regular file (to avoid iterating over directories).
-	if [ -f ${FILE} ]; then
-		OUTPUT_FILE=./cleanData/${FILE}.clean
-		processFile ${FILE} ${OUTPUT_FILE} && echo "Processed filed: ${FILE}"
-	fi
-done
+	# Store results of 'ls' command.
+	FILES=$(ls)
+
+	for FILE in $FILES; do
+		# If FILE is a regular file (to avoid iterating over directories).
+		if [ -f ${FILE} ]; then
+			# Where to store clean data.
+			OUTPUT_FILE=./cleanData/${FILE}.clean
+			processFile ${FILE} ${OUTPUT_FILE} && { echo "Cleaned data from file: ${FILE}"; }
+		fi
+	done
+}
+
+buildPlotter || exit -1
+
+main
