@@ -59,10 +59,10 @@ main(){
 			# Where to store clean data.
 			OUTPUT_FILE=./cleanData/${FILE}.clean
 			processFile ${FILE} ${OUTPUT_FILE} && { echo "Cleaned data from file: ${FILE}"; }
+			../../plotCurves.bin -file ${OUTPUT_FILE} -o ./results/${FILE}.pdf
 		fi
 	done
 }
 
 buildPlotter || exit -1
-
 main
