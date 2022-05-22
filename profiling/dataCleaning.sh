@@ -40,5 +40,3 @@ for FILE in $FILES; do
 		processFile ${FILE} ${OUTPUT_FILE} && echo "Processed filed: ${FILE}"
 	fi
 done
-
-# cd ${CURRENT_PATH}
