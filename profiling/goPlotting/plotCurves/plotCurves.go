@@ -24,6 +24,9 @@ type results struct {
 	variance float64
 	// standardDeviation
 	standardDeviation float64
+	// cov, coefficient of variation equals standard deviation divided by the
+	// mean
+	cov float64
 }
 
 type application struct {
@@ -96,6 +99,8 @@ func main() {
 	app.results.variance = calculateVariance(app.results.mean, pts)
 	// Calculate standard deviation.
 	app.results.standardDeviation = calculateStandardDeviation(app.results.variance)
+	// Calculate the coeffecient of variation.
+	app.results.cov = calculateCov(app.results.standardDeviation, app.results.mean)
 
 	// Create a new plot, set its title and
 	// axis labels.
@@ -191,8 +196,13 @@ func (app *application) exportResults() error {
 	// decimal point.
 	sdString := strconv.FormatFloat(app.results.standardDeviation, 'f', 4, 64)
 
+	// Transform coefficient of variation into string with precision of 4.
+	covString := strconv.FormatFloat(app.results.cov, 'f', 4, 64)
+
 	// Create output string for results output file.
-	outputString := fmt.Sprintf("%s\t\t%s\t%s\t%s\n", measurementName, meanString, varianceString, sdString)
+	// The results are: name of measurement, mean, variance, standard deviation
+	// and coefficient of variance.
+	outputString := fmt.Sprintf("%s\t\t%s\t%s\t%s\t%s\n", measurementName, meanString, varianceString, sdString, covString)
 
 	// If the file doesn't exist, create it, or append to the file.
 	f, err := os.OpenFile(app.outputFile, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
@@ -241,6 +251,12 @@ func calculateVariance(mean float64, pts plotter.XYs) float64 {
 // standard deviation.
 func calculateStandardDeviation(variance float64) float64 {
 	return math.Sqrt(variance)
+}
+
+// calculateCov, calculate a coefficient of variation given a standard deviation
+// and a mean from the same measurement.
+func calculateCov(sd, mean float64) float64 {
+	return sd / mean
 }
 
 // createLine, creates a straight line through out the Y axis, at the height
