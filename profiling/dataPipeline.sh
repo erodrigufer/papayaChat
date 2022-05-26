@@ -1,5 +1,11 @@
 #!/bin/bash
 
+# dataPipeline.sh processes all the CPU load data from the files in a folder. 
+# It calculates the mean value and the variance and then plots the data.
+#
+# Eduardo Rodriguez (@erodrigufer) (c) 2022.
+# Licensed under AGPLv3.
+
 ###########################################################
 #User-defined variables####################################
 # Path with all the measurements to analyze.
@@ -47,6 +53,9 @@ buildPlotter(){
 main(){
 
 	cd ${RESULTS_PATH}
+	# Remove any previous iteration of results and clean data in the same path.
+	rm -rf "cleanData"
+	rm -rf "results"
 	mkdir -p "cleanData" 	# Store cleaned data here.
 	mkdir -p "results" 		# Store plots and other results here.	
 
@@ -59,7 +68,7 @@ main(){
 			# Where to store clean data.
 			OUTPUT_FILE=./cleanData/${FILE}.clean
 			processFile ${FILE} ${OUTPUT_FILE} && { echo "Cleaned data from file: ${FILE}"; }
-			../../plotCurves.bin -file ${OUTPUT_FILE} -o ./results/${FILE}.pdf
+			../../plotCurves.bin -input ${OUTPUT_FILE} -plot ./results/${FILE}.pdf -output ./results/results.txt
 		fi
 	done
 }

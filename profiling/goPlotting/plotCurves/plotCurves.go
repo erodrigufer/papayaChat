@@ -7,7 +7,9 @@ import (
 	"image/color"
 	"log"
 	"os"
+	"path/filepath"
 	"strconv"
+	"strings"
 
 	"gonum.org/v1/plot"
 	"gonum.org/v1/plot/plotter"
@@ -79,8 +81,6 @@ func main() {
 		pts = append(pts, dataPoint)
 		counter++
 		mean += CPUUsage
-		// For debugging.
-		// fmt.Printf("X: %f.\nY: %f.\n", pts[counter-1].X, pts[counter-1].Y)
 	}
 
 	if err := scanner.Err(); err != nil {
@@ -89,11 +89,6 @@ func main() {
 
 	// Finish calculation of mean value.
 	app.results.mean = mean / float64(len(pts))
-
-	//For debugging.
-	fmt.Printf("Number of elements in slice: %d.\n", len(pts))
-
-	fmt.Println("Mean: ", app.results.mean)
 
 	// Create a new plot, set its title and
 	// axis labels.
@@ -140,16 +135,34 @@ func main() {
 		log.Fatalln(err)
 	}
 
+	// Export results to text file.
 	if err := app.exportResults(); err != nil {
 		log.Fatalln(err)
 	}
 }
 
+// exportResults, stores the results of processing each measurement into an
+// output file (app.outputFile).
 func (app *application) exportResults() error {
-	// Transform mean into string.
-	meanString := strconv.FormatFloat(app.results.mean, 'f', 2, 64)
-	err := os.WriteFile(app.outputFile, []byte(meanString), 0644)
+	// Transform mean into string with two numbers after the decimal point.
+	precision := 2
+	meanString := strconv.FormatFloat(app.results.mean, 'f', precision, 64)
+	// Get basename from measurement and remove file extension (e.g. .pdf).
+	measurementName := strings.TrimSuffix(filepath.Base(app.plotFile), filepath.Ext(filepath.Base(app.plotFile)))
+	outputString := fmt.Sprintf("%s\t\t%s\n", measurementName, meanString)
+
+	// If the file doesn't exist, create it, or append to the file.
+	f, err := os.OpenFile(app.outputFile, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
 	if err != nil {
+		return err
+	}
+	// Write to the file.
+	if _, err := f.Write([]byte(outputString)); err != nil {
+		f.Close()
+		return err
+	}
+	// Close file after writing.
+	if err := f.Close(); err != nil {
 		return err
 	}
 	return nil
