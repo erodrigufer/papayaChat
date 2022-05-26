@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"image/color"
 	"log"
+	"math"
 	"os"
 	"path/filepath"
 	"strconv"
@@ -20,7 +21,9 @@ type results struct {
 	// mean, mean value of all data points in a measurement.
 	mean float64
 	// variance, variance of all data points in a measurement.
-	// variance float64
+	variance float64
+	// standardDeviation
+	standardDeviation float64
 }
 
 type application struct {
@@ -58,7 +61,7 @@ func main() {
 
 	// Scan data from file into 'plotter.XYs' data structure, and calculate mean
 	// value of measurement.
-	var mean float64 = 0.0
+	var sumOfCPUUsage float64 = 0.0
 	var counter int = 0
 	// Make a slice of structs with two floats (plotter.XYs), that contain the
 	// whole scatter points to plot.
@@ -80,15 +83,19 @@ func main() {
 		dataPoint.Y = CPUUsage
 		pts = append(pts, dataPoint)
 		counter++
-		mean += CPUUsage
+		sumOfCPUUsage += CPUUsage
 	}
 
 	if err := scanner.Err(); err != nil {
 		fmt.Fprintln(os.Stderr, "reading standard input:", err)
 	}
 
-	// Finish calculation of mean value.
-	app.results.mean = mean / float64(len(pts))
+	// Calculate mean value.
+	app.results.mean = sumOfCPUUsage / float64(len(pts))
+	// Calculate variance.
+	app.results.variance = calculateVariance(app.results.mean, pts)
+	// Calculate standard deviation.
+	app.results.standardDeviation = calculateStandardDeviation(app.results.variance)
 
 	// Create a new plot, set its title and
 	// axis labels.
@@ -149,7 +156,15 @@ func (app *application) exportResults() error {
 	meanString := strconv.FormatFloat(app.results.mean, 'f', precision, 64)
 	// Get basename from measurement and remove file extension (e.g. .pdf).
 	measurementName := strings.TrimSuffix(filepath.Base(app.plotFile), filepath.Ext(filepath.Base(app.plotFile)))
-	outputString := fmt.Sprintf("%s\t\t%s\n", measurementName, meanString)
+	// Transform variance into string with four numbers after the decimal point.
+	varianceString := strconv.FormatFloat(app.results.variance, 'f', 4, 64)
+
+	// Transform standard deviation into string with four numbers after the
+	// decimal point.
+	sdString := strconv.FormatFloat(app.results.standardDeviation, 'f', 4, 64)
+
+	// Create output string for results output file.
+	outputString := fmt.Sprintf("%s\t\t%s\t%s\t%s\n", measurementName, meanString, varianceString, sdString)
 
 	// If the file doesn't exist, create it, or append to the file.
 	f, err := os.OpenFile(app.outputFile, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
@@ -166,4 +181,34 @@ func (app *application) exportResults() error {
 		return err
 	}
 	return nil
+}
+
+// calculateVariance, calculates the variance of a plotter.XYs object.
+// The variance is defined as the addition of all deviations from the mean,
+// divided by the total number of data points in plotter.XYs.
+func calculateVariance(mean float64, pts plotter.XYs) float64 {
+	// Variable to add up all deviations from the mean for all datapoints.
+	var deviations float64 = 0.0
+
+	for _, dataPoint := range pts {
+		// Add up all the deviations from the mean for all datapoints.
+		// A deviation from the mean is the difference of a datapoint from
+		// the mean to the power of two.
+		deviations += (dataPoint.Y - mean) * (dataPoint.Y - mean)
+
+		// For debugging.
+		// fmt.Printf("------------------\ndataPoint.Y: %f.\nmean: %f.\ndeviations: %f.\n", dataPoint.Y, mean, deviations)
+
+	}
+
+	// The variance equals the division of the sum of the deviations by
+	// the total number of data points.
+	variance := deviations / float64(len(pts))
+
+	return variance
+
+}
+
+func calculateStandardDeviation(variance float64) float64 {
+	return math.Sqrt(variance)
 }
