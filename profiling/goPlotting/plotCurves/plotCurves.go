@@ -65,7 +65,7 @@ func main() {
 		counter++
 		mean += CPUUsage
 		// For debugging.
-		fmt.Printf("X: %f.\nY: %f.\n", pts[counter-1].X, pts[counter-1].Y)
+		// fmt.Printf("X: %f.\nY: %f.\n", pts[counter-1].X, pts[counter-1].Y)
 	}
 
 	if err := scanner.Err(); err != nil {
