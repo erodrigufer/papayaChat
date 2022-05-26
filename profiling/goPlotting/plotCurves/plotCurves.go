@@ -14,26 +14,41 @@ import (
 	"gonum.org/v1/plot/vg"
 )
 
+type results struct {
+	// mean, mean value of all data points in a measurement.
+	mean float64
+	// variance, variance of all data points in a measurement.
+	// variance float64
+}
+
+type application struct {
+	// inputFile, file with input data.
+	inputFile string
+	// plotFile, name of file in which plot will be stored.
+	plotFile string
+	// outputFile, file in which mean value, variance and so on, will be stored
+	// in text format.
+	outputFile string
+	// results, results struct of values that should be exported to outputFile.
+	results results
+}
+
 func main() {
-	// Name of file from where data is extracted.
-	var fileName string
-	// Name of file where plot is stored (the file extension determines the plot
-	// file type, e.g. .svg, .pdf, .png, .jpeg, etc.).
-	var plotOutput string
-	flag.StringVar(&fileName, "file", "", "File to plot and analyze.")
-	flag.StringVar(&plotOutput, "o", "", "File name to output plot.")
+
+	app := new(application)
+
+	flag.StringVar(&app.inputFile, "input", "", "File with input data to plot and analyze.")
+	flag.StringVar(&app.plotFile, "plot", "", "File name to output plot.")
+	flag.StringVar(&app.outputFile, "output", "", "File name to output results.")
 	flag.Parse()
 
-	if fileName == "" {
-		log.Fatalln("-file flag missing.")
-	}
-
-	if plotOutput == "" {
-		log.Fatalln("-o flag missing.")
+	if app.inputFile == "" || app.plotFile == "" || app.outputFile == "" {
+		flag.Usage()
+		os.Exit(-1)
 	}
 
 	// Open file with data.
-	dataFile, err := os.Open(fileName)
+	dataFile, err := os.Open(app.inputFile)
 	if err != nil {
 		log.Fatalln(err)
 	}
@@ -73,11 +88,12 @@ func main() {
 	}
 
 	// Finish calculation of mean value.
-	mean = mean / float64(len(pts))
+	app.results.mean = mean / float64(len(pts))
+
 	//For debugging.
 	fmt.Printf("Number of elements in slice: %d.\n", len(pts))
 
-	fmt.Println("Mean: ", mean)
+	fmt.Println("Mean: ", app.results.mean)
 
 	// Create a new plot, set its title and
 	// axis labels.
@@ -92,18 +108,49 @@ func main() {
 	// Make a scatter plotter and set its style.
 	s, err := plotter.NewScatter(pts)
 	if err != nil {
-		panic(err)
+		log.Fatalln(err)
 	}
 	s.GlyphStyle.Color = color.RGBA{R: 255, B: 128, A: 255}
 
-	// Add the plotters to the plot, with a legend
-	// entry for each.
-	p.Add(s)
-	//p.Add(s, l, lpLine, lpPoints)
+	var meanDataPoint plotter.XY
+	meanDataPoint.X = pts[0].X
+	meanDataPoint.Y = app.results.mean
+	meanLine := make(plotter.XYs, 0, 2)
+	meanLine = append(meanLine, meanDataPoint)
+	meanDataPoint.X = pts[len(pts)-1].X
+	meanDataPoint.Y = app.results.mean
+	meanLine = append(meanLine, meanDataPoint)
+
+	// Make a line plotter and set its style.
+	l, err := plotter.NewLine(meanLine)
+	if err != nil {
+		log.Fatalln(err)
+	}
+	l.LineStyle.Width = vg.Points(1)
+	l.LineStyle.Dashes = []vg.Length{vg.Points(5), vg.Points(5)}
+	l.LineStyle.Color = color.RGBA{B: 255, A: 255}
+
+	// Add the plotters to the plot.
+	p.Add(s, l)
 	//p.Legend.Add("Data", s)
 
-	// Save the plot to a PNG file.
-	if err := p.Save(4*vg.Inch, 4*vg.Inch, plotOutput); err != nil {
-		panic(err)
+	// Save the plot to an external file, use the first 2 parameters to
+	// determine the font's width and height.
+	if err := p.Save(4*vg.Inch, 4*vg.Inch, app.plotFile); err != nil {
+		log.Fatalln(err)
 	}
+
+	if err := app.exportResults(); err != nil {
+		log.Fatalln(err)
+	}
+}
+
+func (app *application) exportResults() error {
+	// Transform mean into string.
+	meanString := strconv.FormatFloat(app.results.mean, 'f', 2, 64)
+	err := os.WriteFile(app.outputFile, []byte(meanString), 0644)
+	if err != nil {
+		return err
+	}
+	return nil
 }
