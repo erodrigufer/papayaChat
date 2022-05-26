@@ -114,26 +114,42 @@ func main() {
 	}
 	s.GlyphStyle.Color = color.RGBA{R: 255, B: 128, A: 255}
 
+	// Create a datapoint for the mean line at the first X value with the mean
+	// value as Y.
 	var meanDataPoint plotter.XY
 	meanDataPoint.X = pts[0].X
 	meanDataPoint.Y = app.results.mean
+	// Create a slice to store two mean values and create a line.
 	meanLine := make(plotter.XYs, 0, 2)
+	// Append first mean value.
 	meanLine = append(meanLine, meanDataPoint)
+	// Create the second point at the last value in the X axis and append it.
 	meanDataPoint.X = pts[len(pts)-1].X
 	meanDataPoint.Y = app.results.mean
 	meanLine = append(meanLine, meanDataPoint)
 
 	// Make a line plotter and set its style.
-	l, err := plotter.NewLine(meanLine)
+	lineMean, err := plotter.NewLine(meanLine)
 	if err != nil {
 		log.Fatalln(err)
 	}
-	l.LineStyle.Width = vg.Points(1)
-	l.LineStyle.Dashes = []vg.Length{vg.Points(5), vg.Points(5)}
-	l.LineStyle.Color = color.RGBA{B: 255, A: 255}
+	lineMean.LineStyle.Width = vg.Points(1)
+	lineMean.LineStyle.Dashes = []vg.Length{vg.Points(5), vg.Points(5)}
+	lineMean.LineStyle.Color = color.RGBA{B: 255, A: 255}
+
+	sdPos := createLine(app.results.standardDeviation+app.results.mean, pts)
+
+	// Make a line plotter and set its style.
+	sdPosLine, err := plotter.NewLine(sdPos)
+	if err != nil {
+		log.Fatalln(err)
+	}
+	sdPosLine.LineStyle.Width = vg.Points(1)
+	sdPosLine.LineStyle.Dashes = []vg.Length{vg.Points(5), vg.Points(5)}
+	sdPosLine.LineStyle.Color = color.RGBA{R: 255, G: 153, B: 0, A: 255}
 
 	// Add the plotters to the plot.
-	p.Add(s, l)
+	p.Add(s, lineMean, sdPosLine)
 	//p.Legend.Add("Data", s)
 
 	// Save the plot to an external file, use the first 2 parameters to
@@ -209,6 +225,26 @@ func calculateVariance(mean float64, pts plotter.XYs) float64 {
 
 }
 
+// calculateStandardDeviation, given a variance as a parameter, calculate its
+// standard deviation.
 func calculateStandardDeviation(variance float64) float64 {
 	return math.Sqrt(variance)
+}
+
+// createLine, creates a straight line through out the
+func createLine(value float64, pts plotter.XYs) plotter.XYs {
+	var points plotter.XY
+	points.X = pts[0].X
+	points.Y = value
+	// Create a slice where the two points for the line will be stored.
+	line := make(plotter.XYs, 0, 2)
+	// Append first data points.
+	line = append(line, points)
+	// Create the second point at the last value in the X axis and append it.
+	points.X = pts[len(pts)-1].X
+	points.Y = value
+	line = append(line, points)
+
+	return line
+
 }
