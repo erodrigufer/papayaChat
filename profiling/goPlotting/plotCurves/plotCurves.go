@@ -134,12 +134,12 @@ func main() {
 		log.Fatalln(err)
 	}
 	lineMean.LineStyle.Width = vg.Points(1)
-	lineMean.LineStyle.Dashes = []vg.Length{vg.Points(5), vg.Points(5)}
+	// lineMean.LineStyle.Dashes = []vg.Length{vg.Points(5), vg.Points(5)}
 	lineMean.LineStyle.Color = color.RGBA{B: 255, A: 255}
 
+	// Make a line plotter for the standard deviation positive from the mean
+	// and set its style.
 	sdPos := createLine(app.results.standardDeviation+app.results.mean, pts)
-
-	// Make a line plotter and set its style.
 	sdPosLine, err := plotter.NewLine(sdPos)
 	if err != nil {
 		log.Fatalln(err)
@@ -148,9 +148,21 @@ func main() {
 	sdPosLine.LineStyle.Dashes = []vg.Length{vg.Points(5), vg.Points(5)}
 	sdPosLine.LineStyle.Color = color.RGBA{R: 255, G: 153, B: 0, A: 255}
 
+	// Make a line plotter for the standard deviation positive from the mean
+	// and set its style.
+	sdNeg := createLine(app.results.mean-app.results.standardDeviation, pts)
+	sdNegLine, err := plotter.NewLine(sdNeg)
+	if err != nil {
+		log.Fatalln(err)
+	}
+	sdNegLine.LineStyle.Width = vg.Points(1)
+	sdNegLine.LineStyle.Dashes = []vg.Length{vg.Points(5), vg.Points(5)}
+	sdNegLine.LineStyle.Color = color.RGBA{R: 255, G: 153, B: 0, A: 255}
+
 	// Add the plotters to the plot.
-	p.Add(s, lineMean, sdPosLine)
-	//p.Legend.Add("Data", s)
+	p.Add(s, lineMean, sdPosLine, sdNegLine)
+	// p.Legend.Add("Mean", lineMean)
+	// p.Legend.Add("Mean +/- sd", sdPosLine)
 
 	// Save the plot to an external file, use the first 2 parameters to
 	// determine the font's width and height.
@@ -231,7 +243,10 @@ func calculateStandardDeviation(variance float64) float64 {
 	return math.Sqrt(variance)
 }
 
-// createLine, creates a straight line through out the
+// createLine, creates a straight line through out the Y axis, at the height
+// of value. It returns the line as a plotter.XYs object with only two values.
+// It requires as input a plotter.XYs to calculate the max. X values where to
+// plot the line.
 func createLine(value float64, pts plotter.XYs) plotter.XYs {
 	var points plotter.XY
 	points.X = pts[0].X
