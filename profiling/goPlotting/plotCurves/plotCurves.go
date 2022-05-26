@@ -14,15 +14,6 @@ import (
 	"gonum.org/v1/plot/vg"
 )
 
-// type results struct {
-// 	mean float64
-// 	variance float64
-// 	// Name of measurement.
-// 	name string
-// 	// Number of data-points for measurement.
-// 	numberOfPoints int
-// }
-
 func main() {
 	// Name of file from where data is extracted.
 	var fileName string
@@ -52,31 +43,41 @@ func main() {
 	// value of measurement.
 	var mean float64 = 0.0
 	var counter int = 0
-	// Make slice of structs with two floats, that contain the whole scatter
-	// points to plot.
-	pts := make(plotter.XYs, 200)
+	// Make a slice of structs with two floats (plotter.XYs), that contain the
+	// whole scatter points to plot.
+	pts := make(plotter.XYs, 0, 200)
 	scanner := bufio.NewScanner(dataFile)
 	// Scan one line of the file until EOF.
 	for scanner.Scan() {
-		//fmt.Println(scanner.Text())
-		// Transform data as string into floats 64.
-		dataPoint, err := strconv.ParseFloat(scanner.Text(), 64)
+		// Transform data as string into floats 64. Return one line at the time,
+		// until \n is encountered (scanner.Text()), of the text previously
+		// scanned with scanner.Scan().
+		CPUUsage, err := strconv.ParseFloat(scanner.Text(), 64)
 		if err != nil {
 			fmt.Fprintln(os.Stderr, "strconv to float64", err)
 			// Scan next line after error.
 			continue
 		}
-		pts[counter].X = float64(counter+1) * 0.5
-		pts[counter].Y = dataPoint
+		var dataPoint plotter.XY
+		dataPoint.X = float64(counter+1) * 0.5 // time in s
+		dataPoint.Y = CPUUsage
+		pts = append(pts, dataPoint)
 		counter++
-		mean += dataPoint
+		mean += CPUUsage
+		// For debugging.
+		fmt.Printf("X: %f.\nY: %f.\n", pts[counter-1].X, pts[counter-1].Y)
 	}
 
 	if err := scanner.Err(); err != nil {
 		fmt.Fprintln(os.Stderr, "reading standard input:", err)
 	}
 
-	fmt.Println("Mean: ", mean/float64(counter))
+	// Finish calculation of mean value.
+	mean = mean / float64(len(pts))
+	//For debugging.
+	fmt.Printf("Number of elements in slice: %d.\n", len(pts))
+
+	fmt.Println("Mean: ", mean)
 
 	// Create a new plot, set its title and
 	// axis labels.
