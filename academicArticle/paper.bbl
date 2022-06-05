@@ -25,7 +25,7 @@
 \BIBentryALTinterwordspacing
 P.-H. Kamp, ``A {Generation Lost in the Bazaar}: {Quality} happens only when
   someone is responsible for it.'' \emph{ACM Queue}, vol.~10, no.~8, p.
-  20–23, aug 2012. [Online]. Available:
+  20–23, August 2012. [Online]. Available:
   \url{https://doi.org/10.1145/2346916.2349257}
 \BIBentrySTDinterwordspacing
 
@@ -48,6 +48,16 @@ B.~M. Kaufman, ``New documents reveal government effort to impose secrecy on
   encryption company,''
   \url{https://www.aclu.org/blog/national-security/secrecy/new-documents-reveal-government-effort-impose-secrecy-encryption},
   October 2016.
+
+\bibitem{socialmedia2017}
+\BIBentryALTinterwordspacing
+D.~Choudhery and C.~K. Leung, ``Social media mining: Prediction of box office
+  revenue,'' in \emph{Proceedings of the 21st International Database
+  Engineering; Applications Symposium}, ser. IDEAS 2017.\hskip 1em plus 0.5em
+  minus 0.4em\relax New York, NY, USA: Association for Computing Machinery,
+  2017, p. 20–29. [Online]. Available:
+  \url{https://doi.org/10.1145/3105831.3105854}
+\BIBentrySTDinterwordspacing
 
 \bibitem{Rodriguez2022}
 E.~{Rodriguez Fernandez}, ``{papayaChat}: a self-hosted {CLI} chat service for
@@ -78,8 +88,8 @@ S.~Ajmani, ``Program {Your} next {Server} in {Go},'' in \emph{Applicative
 \bibitem{GoArticleACM}
 \BIBentryALTinterwordspacing
 R.~Cox, R.~Griesemer, R.~Pike, I.~L. Taylor, and K.~Thompson, ``The {Go}
-  programming language and environment,'' \emph{Commun. ACM}, vol.~65, no.~5,
-  p. 70–78, apr 2022. [Online]. Available:
+  programming language and environment,'' \emph{Communications of the ACM},
+  vol.~65, no.~5, p. 70–78, April 2022. [Online]. Available:
   \url{https://doi.org/10.1145/3488716}
 \BIBentrySTDinterwordspacing
 
@@ -89,11 +99,11 @@ D.~Morsing, ``The {Go} netpoller,'' \url{https://morsmachine.dk/netpoller},
 
 \bibitem{GoNet}
 ``Go's standard library's net package. {Listener type},''
-  \url{https://pkg.go.dev/net#Listener}, go1.17.8.
+  \url{https://pkg.go.dev/net#Listener}, go1.18.3.
 
 \bibitem{GoHTTP}
 ``Go's standard library's net/http package. {Serve() function},''
-  \url{https://pkg.go.dev/net/http#Serve}, go1.17.8.
+  \url{https://pkg.go.dev/net/http#Serve}, go1.18.3.
 
 \bibitem{Cox-Buday2017}
 K.~Cox-Buday, \emph{Concurrency in Go}.\hskip 1em plus 0.5em minus 0.4em\relax
@@ -141,15 +151,5 @@ C.~Siebenmann, ``The {Go} runtime scheduler's clever way of dealing with system
 R.~C. Seacord, \emph{Effective C: an introduction to professional C
   programming}.\hskip 1em plus 0.5em minus 0.4em\relax San Francisco: No Starch
   Press, 2020.
-
-\bibitem{socialmedia2017}
-\BIBentryALTinterwordspacing
-D.~Choudhery and C.~K. Leung, ``Social media mining: Prediction of box office
-  revenue,'' in \emph{Proceedings of the 21st International Database
-  Engineering ; Applications Symposium}, ser. IDEAS 2017.\hskip 1em plus
-  0.5em minus 0.4em\relax New York, NY, USA: Association for Computing
-  Machinery, 2017, p. 20–29. [Online]. Available:
-  \url{https://doi.org/10.1145/3105831.3105854}
-\BIBentrySTDinterwordspacing
 
 \end{thebibliography}
