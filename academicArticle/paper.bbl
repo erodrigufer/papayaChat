@@ -130,13 +130,6 @@ J.~Mirkovic and P.~Reiher, ``A taxonomy of {DDoS} attack and {DDoS} defense
   \url{https://doi.org/10.1145/997150.997156}
 \BIBentrySTDinterwordspacing
 
-\bibitem{Graham}
-R.~D. Graham, ``{MASSCAN}: {Mass} {IP} port scanner,''
-  \url{https://github.com/robertdavidgraham/masscan}.
-
-\bibitem{Kerrisk2021}
-M.~Kerrisk, ``Docker unplugged,'' Training material, October 2021.
-
 \bibitem{Morsing2013}
 D.~Morsing, ``The {Go} scheduler,'' \url{https://morsmachine.dk/go-scheduler},
   June 2013.
