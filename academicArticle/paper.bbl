@@ -21,6 +21,14 @@
 \providecommand{\BIBdecl}{\relax}
 \BIBdecl
 
+\bibitem{2012PoulHenning}
+\BIBentryALTinterwordspacing
+P.-H. Kamp, ``A {Generation Lost in the Bazaar}: {Quality} happens only when
+  someone is responsible for it.'' \emph{ACM Queue}, vol.~10, no.~8, p.
+  20–23, aug 2012. [Online]. Available:
+  \url{https://doi.org/10.1145/2346916.2349257}
+\BIBentrySTDinterwordspacing
+
 \bibitem{Kumar2021}
 R.~Kumar, ``{WhatsApp} and the domestication of users,''
   \url{https://seirdy.one/2021/01/27/whatsapp-and-the-domestication-of-users.html},
@@ -65,6 +73,14 @@ S.~Ajmani, ``Program {Your} next {Server} in {Go},'' in \emph{Applicative
   2016}, ser. Applicative 2016.\hskip 1em plus 0.5em minus 0.4em\relax New
   York, NY, USA: Association for Computing Machinery, 2016. [Online].
   Available: \url{https://doi.org/10.1145/2959689.2960078}
+\BIBentrySTDinterwordspacing
+
+\bibitem{GoArticleACM}
+\BIBentryALTinterwordspacing
+R.~Cox, R.~Griesemer, R.~Pike, I.~L. Taylor, and K.~Thompson, ``The {Go}
+  programming language and environment,'' \emph{Commun. ACM}, vol.~65, no.~5,
+  p. 70–78, apr 2022. [Online]. Available:
+  \url{https://doi.org/10.1145/3488716}
 \BIBentrySTDinterwordspacing
 
 \bibitem{Morsing2013_2}
