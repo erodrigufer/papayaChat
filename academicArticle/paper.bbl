@@ -142,4 +142,14 @@ R.~C. Seacord, \emph{Effective C: an introduction to professional C
   programming}.\hskip 1em plus 0.5em minus 0.4em\relax San Francisco: No Starch
   Press, 2020.
 
+\bibitem{socialmedia2017}
+\BIBentryALTinterwordspacing
+D.~Choudhery and C.~K. Leung, ``Social media mining: Prediction of box office
+  revenue,'' in \emph{Proceedings of the 21st International Database
+  Engineering ; Applications Symposium}, ser. IDEAS 2017.\hskip 1em plus
+  0.5em minus 0.4em\relax New York, NY, USA: Association for Computing
+  Machinery, 2017, p. 20–29. [Online]. Available:
+  \url{https://doi.org/10.1145/3105831.3105854}
+\BIBentrySTDinterwordspacing
+
 \end{thebibliography}
