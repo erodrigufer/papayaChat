@@ -21,6 +21,27 @@
 \providecommand{\BIBdecl}{\relax}
 \BIBdecl
 
+\bibitem{2005Threads}
+\BIBentryALTinterwordspacing
+A.~Gustafsson, ``Threads without the pain: Multithreaded programming need not
+  be so angst-ridden.'' \emph{ACM Queue}, vol.~3, no.~9, p. 34–41, November
+  2005. [Online]. Available: \url{https://doi.org/10.1145/1105664.1105678}
+\BIBentrySTDinterwordspacing
+
+\bibitem{2013ContextSwitching}
+\BIBentryALTinterwordspacing
+S.~Dolan, S.~Muralidharan, and D.~Gregg, ``Compiler support for lightweight
+  context switching,'' \emph{ACM Transactions in Architecture and Code
+  Optimization}, vol.~9, no.~4, January 2013. [Online]. Available:
+  \url{https://doi.org/10.1145/2400682.2400695}
+\BIBentrySTDinterwordspacing
+
+\bibitem{2003Events}
+R.~von Behren, J.~Condit, and E.~Brewer, ``Why events are a bad idea (for
+  high-concurrency servers),'' in \emph{Proceedings of the 9th Conference on
+  Hot Topics in Operating Systems - Volume 9}, ser. HOTOS'03.\hskip 1em plus
+  0.5em minus 0.4em\relax USA: USENIX Association, 2003, p.~4.
+
 \bibitem{2012PoulHenning}
 \BIBentryALTinterwordspacing
 P.-H. Kamp, ``A {Generation Lost in the Bazaar}: {Quality} happens only when

@@ -230,3 +230,56 @@
 	location = {Bristol, United Kingdom},
 	series = {IDEAS 2017}
 }
+
+@article{2013ContextSwitching,
+	author = {Dolan, Stephen and Muralidharan, Servesh and Gregg, David},
+	title = {Compiler Support for Lightweight Context Switching},
+	year = {2013},
+	issue_date = {January 2013},
+	publisher = {Association for Computing Machinery},
+	address = {New York, NY, USA},
+	volume = {9},
+	number = {4},
+	issn = {1544-3566},
+	url = {https://doi.org/10.1145/2400682.2400695},
+	doi = {10.1145/2400682.2400695},
+	abstract = {We propose a new language-neutral primitive for the LLVM compiler, which provides efficient context switching and message passing between lightweight threads of control. The primitive, called Swapstack, can be used by any language implementation based on LLVM to build higher-level language structures such as continuations, coroutines, and lightweight threads. As part of adding the primitives to LLVM, we have also added compiler support for passing parameters across context switches. Our modified LLVM compiler produces highly efficient code through a combination of exposing the context switching code to existing compiler optimizations, and adding novel compiler optimizations to further reduce the cost of context switches. To demonstrate the generality and efficiency of our primitives, we add one-shot continuations to C++, and provide a simple fiber library that allows millions of fibers to run on multiple cores, with a work-stealing scheduler and fast inter-fiber sychronization. We argue that compiler-supported lightweight context switching can be significantly faster than using a library to switch between contexts, and provide experimental evidence to support the position.},
+	journal = {ACM Transactions in Architecture and Code Optimization},
+	month = {January},
+	articleno = {36},
+	numpages = {25},
+	keywords = {Compiler, fiber, synchronization, continuation}
+}
+
+@article{2005Threads,
+	author = {Gustafsson, Andreas},
+	title = {Threads without the Pain: Multithreaded Programming Need Not Be so Angst-Ridden.},
+	year = {2005},
+	issue_date = {November 2005},
+	publisher = {Association for Computing Machinery},
+	address = {New York, NY, USA},
+	volume = {3},
+	number = {9},
+	issn = {1542-7730},
+	url = {https://doi.org/10.1145/1105664.1105678},
+	doi = {10.1145/1105664.1105678},
+	abstract = {Much of today’s software deals with multiple concurrent tasks. Web browsers support multiple concurrent HTTP connections, graphical user interfaces deal with multiple windows and input devices, and Web and DNS servers handle concurrent connections or transactions from large numbers of clients. The number of concurrent tasks that needs to be handled increases while software grows more complex. Structuring concurrent software in a way that meets the increasing scalability requirements while remaining simple, structured, and safe enough to allow mortal programmers to construct ever-more complex systems is a major engineering challenge.},
+	journal = {ACM Queue},
+	month = {November},
+	pages = {34–41},
+	numpages = {8}
+}
+
+@inproceedings{2003Events,
+	author = {von Behren, Rob and Condit, Jeremy and Brewer, Eric},
+	title = {Why Events Are a Bad Idea (for High-Concurrency Servers)},
+	year = {2003},
+	publisher = {USENIX Association},
+	address = {USA},
+	abstract = {Event-based programming has been highly touted in recent years as the best way to write highly concurrent applications. Having worked on several of these systems, we now believe this approach to be a mistake. Specifically, we believe that threads can achieve all of the strengths of events, including support for high concurrency, low overhead, and a simple concurrency model. Moreover, we argue that threads allow a simpler and more natural programming style.We examine the claimed strengths of events over threads and show that the weaknesses of threads are artifacts of specific threading implementations and not inherent to the threading paradigm. As evidence, we present a user-level thread package that scales to 100,000 threads and achieves excellent performance in a web server. We also refine the duality argument of Lauer and Needham, which implies that good implementations of thread systems and event systems will have similar performance. Finally, we argue that compiler support for thread systems is a fruitful area for future research. It is a mistake to attempt high concurrency without help from the compiler, and we discuss several enhancements that are enabled by relatively simple compiler changes.},
+	booktitle = {Proceedings of the 9th Conference on Hot Topics in Operating Systems - Volume 9},
+	pages = {4},
+	numpages = {1},
+	location = {Lihue, Hawaii},
+	series = {HOTOS'03}
+}
