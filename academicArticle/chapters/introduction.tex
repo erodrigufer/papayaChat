@@ -1,9 +1,11 @@
 \section{Introduction}
 When using any of the most popular modern web development frameworks the inherent system architecture supporting multiple concurrent client connections is often concealed from the developer. Moreover, the system-level design choices to handle concurrent connections tend to be immutable, so that, for instance, a framework based on an event-driven architecture, like Node.js, cannot be modified or configured to work in a multi-threaded or multi-procedural way. It could be argued that modern web development ecosystems have entirely renounced providing the user with the full spectrum of system-level primitives that can enable concurrency, in favour of abstracting the complexity of concurrent systems away from the framework's APIs and making portability invisible to the developer.
 
-\cite{2005Threads} \cite{2013ContextSwitching}\cite{2003Events}
-
 Another aspect that characterizes some of these frameworks, is that the developer ends up having many different library or packet dependencies from a diverse range of sources, which are sometimes fundamental to enable basic functionality or enhance the capabilities of the framework. With an increasing number of dependencies numerous issues can arise, e.g. mutual incompatibilities between different package versions, supply chain attacks, a cumbersome management of patches for vulnerabilities and difficulties recreating the same behaviour of an application between the development and the production environments \cite{2012PoulHenning}. 
+
+Some of the literature dating back to the early days of web development argue for a multi-threaded paradigm
+
+\cite{2005Threads} \cite{2013ContextSwitching}\cite{2003Events}
 
 The goal of this work is to develop a stand-alone, almost dependency-free, command-line interface chat service independent of current backend frameworks. In order to explore the challenges and advantages of different system-level networking architectures. There is an unexplored technological gap, because current web frameworks do not offer the ability to implement backend services in a multi-procedural and dependency-free way. 
 
