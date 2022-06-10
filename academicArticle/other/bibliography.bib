@@ -283,3 +283,23 @@
 	location = {Lihue, Hawaii},
 	series = {HOTOS'03}
 }
+
+@inproceedings{2022DataRacesGolang,
+	author = {Chabbi, Milind and Ramanathan, Murali Krishna},
+	title = {A Study of Real-World Data Races in {Golang}},
+	year = {2022},
+	isbn = {9781450392655},
+	publisher = {Association for Computing Machinery},
+	address = {New York, NY, USA},
+	url = {https://doi.org/10.1145/3519939.3523720},
+	doi = {10.1145/3519939.3523720},
+	abstract = {The concurrent programming literature is rich with tools and techniques for data race detection. Less, however, has been known about real-world, industry-scale deployment, experience, and insights about data races. Golang (Go for short) is a modern programming language that makes concurrency a first-class citizen. Go offers both message passing and shared memory for communicating among concurrent threads. Go is gaining popularity in modern microservice-based systems. Data races in Go stand in the face of its emerging popularity.  
+	
+	In this paper, using our industrial codebase as an example, we demonstrate that Go developers embrace concurrency and show how the abundance of concurrency alongside language idioms and nuances make Go programs highly susceptible to data races. Google’s Go distribution ships with a built-in dynamic data race detector based on ThreadSanitizer. However, dynamic race detectors pose scalability and flakiness challenges; we discuss various software engineering trade-offs to make this detector work effectively at scale. We have deployed this detector in Uber’s 46 million lines of Go codebase hosting 2100 distinct microservices, found over 2000 data races, and fixed over 1000 data races, spanning 790 distinct code patches submitted by 210 unique developers over a six-month period. Based on a detailed investigation of these data race patterns in Go, we make seven high-level observations relating to the complex interplay between the Go language paradigm and data races.},
+	booktitle = {Proceedings of the 43rd ACM SIGPLAN International Conference on Programming Language Design and Implementation},
+	pages = {474–489},
+	numpages = {16},
+	keywords = {Golang, Dynamic analysis, Data race},
+	location = {San Diego, CA, USA},
+	series = {PLDI 2022}
+}

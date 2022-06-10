@@ -106,6 +106,16 @@ S.~Ajmani, ``Program {Your} next {Server} in {Go},'' in \emph{Applicative
   Available: \url{https://doi.org/10.1145/2959689.2960078}
 \BIBentrySTDinterwordspacing
 
+\bibitem{2022DataRacesGolang}
+\BIBentryALTinterwordspacing
+M.~Chabbi and M.~K. Ramanathan, ``A study of real-world data races in
+  {Golang},'' in \emph{Proceedings of the 43rd ACM SIGPLAN International
+  Conference on Programming Language Design and Implementation}, ser. PLDI
+  2022.\hskip 1em plus 0.5em minus 0.4em\relax New York, NY, USA: Association
+  for Computing Machinery, 2022, p. 474–489. [Online]. Available:
+  \url{https://doi.org/10.1145/3519939.3523720}
+\BIBentrySTDinterwordspacing
+
 \bibitem{GoArticleACM}
 \BIBentryALTinterwordspacing
 R.~Cox, R.~Griesemer, R.~Pike, I.~L. Taylor, and K.~Thompson, ``The {Go}
