@@ -1,5 +1,14 @@
 \section{Experiments}
+To evaluate the performance of a concurrency paradigm based upon context-switching in user-space and another one based upon context-switching in kernel-space, the same very rudimentary IM application was developed in both C and Go. The C program handles concurrent client connections by spawning a process per client, while the Go application spawns a goroutine for each client. 
+
+% Maybe write, being benchmarked, instead of tested.
+The application being tested receives a constant load of packets through a network interface with a given number of concurrent connections. The load per concurrent client connection (measured in Mbps) is kept constant throughout all tests and it is delivered to the test subject for a given amount of time. In order to simulate a real-life IM application both implementations read the data being sent to them by the load generator and output it to \textit{stdout}. To not overwhelm the system with filesystem writes and focus primarily in the performance of the concurrency handling mechanisms in a real-life environment, the data being output to stdout is immediately discarded to \textit{/dev/null}. 
+
+Through the experiment the CPU usage is measured and recorded using \textit{top(1)} with a sampling rate of 500ms. The number of active concurrent clients is incremented in each new test, in order to see how that affects the performance of the implementation.
+
 \subsection{Test environment}
+
+
 Add specifics of measurements: FreeBSD version, vCPU and memory stats, GCC version, (maybe even stdlib version?). Version of tcpkali and of golang compiler (v 1.18.2). 
 
 Measure mean latency between instances in the FRA region?.
