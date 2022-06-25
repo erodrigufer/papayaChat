@@ -3,13 +3,13 @@ As previously stated in the introduction, there is ample literature that affirms
 
 This work strives to first design the architecture of a multi-procedural concurrent IM application written in C and, then, create a benchmark that makes a performance comparison with a non-preemptively scheduled IM application in Go possible, to address the following research questions (RQ):
 
-\textbf{RQ 1: How does the mean CPU usage of a multi-procedural C application compares to the CPU usage of a non-preemptively scheduled executable in Go?} As an experimental comparison of the performance of context-switching with a user-space paradigm and a kernel-space one.
+\textbf{RQ 1: How does the mean CPU usage of a multi-procedural C application compares to the CPU usage of a similar non-preemptively scheduled program in Go?} As an experimental comparison of the performance of context-switching with a user-space paradigm and a kernel-space paradigm.
 
-\textbf{RQ 2: How stable over a period of time is the CPU usage of the two models being compared?} Is there a difference in the coefficient of variation of both concurrency models? This question is important to more accurately provision servers for high load scenarios.
+\textbf{RQ 2: How stable over a period of time is the CPU usage of the two models being compared, when receiving a constant load?} This question is relevant to more accurately be able to provision servers for high load scenarios.
 
-\textbf{RQ 3: How portable across Unix platforms is the IM application developed in C with minimal dependencies?}
+\textbf{RQ 3: How portable across Unix platforms is the IM application developed in C with minimal dependencies?} Can the program be built and executed without any changes across different Unix platforms?
 
-How do two different concurrency approaches like processes and goroutines compare performance-wise (CPU utilization) with a same implementation?
+% How do two different concurrency approaches like processes and goroutines compare performance-wise (CPU utilization) with a same implementation?
 
 
 
