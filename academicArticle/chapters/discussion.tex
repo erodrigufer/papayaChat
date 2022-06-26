@@ -7,10 +7,3 @@ The backend was compiled with GCC and tested in two different Debian-based distr
 The same code that worked flawlessly in Ubuntu listened for clients in FreeBSD using solely IPv6, which changed the behaviour of the application massively and required code refactoring to enforce IPv4 in a cross-platform fashion.
 
 Thus, it is illusory to think that restricting the dependencies to the bare minimum of the C standard library and GCC will make the code perfectly compatible across Unix systems. Debugging unexplained behaviour will still be arduous.
-
-\subsection{Security}
-The chat server runs as a long-lasting daemon, therefore leaving at least one port open to the public internet from which the clients will establish a connection with the server. It must be taken for granted that the open port will eventually be discovered by web-scanning botnets that periodically scan targeted hitlists (specially, known IP ranges from cloud providers) or random IP ranges \cite{Mirkovic2004}. Accordingly, it is necessary to secure the application to not compromise the infrastructure.
-
-The backend service is not run inside a container, since this would reduce the portability across Unix systems, e.g. the BSDs do not have kernel features such as cgroups and Linux namespaces, which make natively running typical container management systems like Docker impossible.
-
-An alternative way of sandboxing the application without containers is running the service as a specially created system user account with the minimum amount possible of privileges. Thereupon, even if the service is compromised the amount of possible damage is limited to the reduced capabilities of the system user. Furthermore, a long authentication token is required to access any given chat session.

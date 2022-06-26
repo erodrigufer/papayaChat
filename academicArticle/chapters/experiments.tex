@@ -2,14 +2,47 @@
 To evaluate the performance of a concurrency paradigm based upon context-switching in user-space and another one based upon context-switching in kernel-space, the same very rudimentary IM application was developed in both C and Go. The C program handles concurrent client network connections by spawning a new process per client, while the Go application spawns a goroutine for each client. 
 
 % Maybe write, being benchmarked, instead of tested.
-A TCP load generator running in a cloud server is used to send a constant load of network packets to another server running the application being tested. Each application accepts a given number of concurrent client connections, receives its packets (which simulate text messages from the users in a real IM application) and writes the text in the packets to 
+A TCP load generator running in a cloud server is used to send a constant load of network packets to another server running the application being tested. Each application accepts a given number of concurrent client connections per test, receives and reads the clients' packets (which simulate text messages from the users in a real IM application) and writes the text in the packets to to \textit{stdout}. To not overwhelm the system with filesystem writes and focus primarily in the performance of the concurrency handling mechanisms in a real-life environment, the data being output to stdout is immediately discarded to \textit{/dev/null}. 
 
-The load per concurrent client connection (measured in Mbps) is kept constant throughout all tests and it is delivered to the test subject for a given amount of time. In order to simulate a real-life IM application both implementations read the data being sent to them by the load generator and output it to \textit{stdout}. To not overwhelm the system with filesystem writes and focus primarily in the performance of the concurrency handling mechanisms in a real-life environment, the data being output to stdout is immediately discarded to \textit{/dev/null}. 
-
-Through the experiment the CPU usage is measured and recorded using \textit{top(1)} with a sampling rate of 500ms. The number of active concurrent clients is incremented in each new test, in order to see how that affects the performance of the implementation.
+Throughout the experiment the CPU usage is measured and recorded using \textit{top(1)} with a sampling rate of 500ms. The number of active concurrent clients is incremented in each new test, in order to see how that affects the performance of the implementation.
 
 \subsection{Test environment}
-2 VMs 1vCPU 2GB RAM, running in the Frankfurt region (low latency) in Vultr cloud
-Load generator: tcpkali v1.1.1 running in FreeBSD 13.0-RELEASE-p11
-GCC v10.4
-Go version v1.18.2
+Both the TCP load generator and the application under test were executed in cloud virtual machines running FreeBSD 13.0-RELEASE-p11 in the same region with 1vCPU and 2GB RAM. The versions of software used for these experiments were: for the TCP load generator \textit{tcpkali v1.1.1}, for the C compiler \textit{GCC v10.4} and for the Go compiler \textit{Go v1.18.2}.
+
+\subsection{Results}
+\begin{figure}[!t]
+	%\centering
+	\includegraphics[width=2.5in]{img/1cpu2c1Mb_cm.pdf}
+	%where an .eps filename suffix will be assumed under latex, 
+	%and a .pdf suffix will be assumed for pdflatex; or what has been declared
+	%via \DeclareGraphicsExtensions.
+	\caption{.}
+	\label{fig_c_experiment}
+\end{figure}
+
+\begin{table}[]
+\begin{tabular}{|c|ccr|}
+		\hline
+	\# Conn.         &  Paradigm    & $\mu$ CPU usage [\%] & $\sigma$ $\mu^{-1}$ \\
+	\hline
+	\multirow{2}{*}{1} & C & 0.34 & 0.159   \\
+	&\cellcolor[gray]{0.9} Go &\cellcolor[gray]{0.9} 1.94 &\cellcolor[gray]{0.9} 0.169  \\ \hline
+	\multirow{2}{*}{2} & C & 0.45 & 0.221   \\
+	&\cellcolor[gray]{0.9} Go &\cellcolor[gray]{0.9} 2.61 &\cellcolor[gray]{0.9} 0.205  \\ \hline
+	\multirow{2}{*}{4} & C & 0.79 & 0.228   \\
+&\cellcolor[gray]{0.9} Go &\cellcolor[gray]{0.9} 4.35 &\cellcolor[gray]{0.9} 0.172  \\ \hline
+	\multirow{2}{*}{8} & C & 1.37 & 0.137   \\
+&\cellcolor[gray]{0.9} Go &\cellcolor[gray]{0.9} 6.15 &\cellcolor[gray]{0.9} 0.276  \\ \hline
+	\multirow{2}{*}{16} & C & 2.17 & 0.147   \\
+&\cellcolor[gray]{0.9} Go &\cellcolor[gray]{0.9} 11.71 &\cellcolor[gray]{0.9} 0.229  \\ \hline
+	\multirow{2}{*}{32} & C & 2.53 & 0.172   \\
+&\cellcolor[gray]{0.9} Go &\cellcolor[gray]{0.9} 22.71 &\cellcolor[gray]{0.9} 0.322  \\ \hline
+	\multirow{2}{*}{64} & C & 2.53 & 0.180   \\
+&\cellcolor[gray]{0.9} Go &\cellcolor[gray]{0.9} 36.08 &\cellcolor[gray]{0.9} 0.243  \\ \hline
+\end{tabular}
+
+%\caption{asdasd. jasdkjasd}
+%\label{tab_results}
+\end{table}
+
+%% TODO: create a new graphic that integrates bith C and Go measurement with 2 clients.
