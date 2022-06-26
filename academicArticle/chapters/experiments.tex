@@ -11,7 +11,7 @@ Both the TCP load generator and the application under test were executed in clou
 
 \subsection{Results}
 \begin{figure}[!t]
-	%\centering
+	\centering
 	\includegraphics[width=2.5in]{img/1cpu2c1Mb_cm.pdf}
 	%where an .eps filename suffix will be assumed under latex, 
 	%and a .pdf suffix will be assumed for pdflatex; or what has been declared
@@ -20,7 +20,8 @@ Both the TCP load generator and the application under test were executed in clou
 	\label{fig_c_experiment}
 \end{figure}
 
-\begin{table}[]
+\begin{table}[h]
+	\centering
 \begin{tabular}{|c|ccr|}
 		\hline
 	\# Conn.         &  Paradigm    & $\mu$ CPU usage [\%] & $\sigma$ $\mu^{-1}$ \\
@@ -40,9 +41,9 @@ Both the TCP load generator and the application under test were executed in clou
 	\multirow{2}{*}{64} & C & 2.53 & 0.180   \\
 &\cellcolor[gray]{0.9} Go &\cellcolor[gray]{0.9} 36.08 &\cellcolor[gray]{0.9} 0.243  \\ \hline
 \end{tabular}
-
-%\caption{asdasd. jasdkjasd}
-%\label{tab_results}
+\bigskip	
+\caption{Results}
+\label{tab_results}
 \end{table}
 
 %% TODO: create a new graphic that integrates bith C and Go measurement with 2 clients.
