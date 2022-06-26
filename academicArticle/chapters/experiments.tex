@@ -1,25 +1,24 @@
 \section{Experiments}
+\begin{figure}[!t]
+	\centering
+	\includegraphics[width=2.5in]{img/mean.pdf}
+	%where an .eps filename suffix will be assumed under latex, 
+	%and a .pdf suffix will be assumed for pdflatex; or what has been declared
+	%via \DeclareGraphicsExtensions.
+	\caption{The figure compares the development of the mean CPU usage value depending on the number of concurrent connections being handled by the two different concurrency platforms.}
+	\label{fig_mean_values}
+\end{figure}
 To evaluate the performance of a concurrency paradigm based upon context-switching in user-space and another one based upon context-switching in kernel-space, the same very rudimentary IM application was developed in both C and Go. The C program handles concurrent client network connections by spawning a new process per client, while the Go application creates a goroutine for each client. 
 
 % Maybe write, being benchmarked, instead of tested.
 A TCP load generator running in a cloud server is used to send a constant load of network packets (1Mbps) per concurrent connection for exactly 60 seconds to another server running the application being tested. Each application accepts a given number of concurrent client connections per test, receives and reads the clients' packets (which simulate text messages from the users in a real IM application) and writes the text in the packets to \textit{stdout}. To not overwhelm the system with filesystem writes and focus primarily in the performance of the concurrency handling mechanisms in a real-life environment, the data being output to stdout is immediately discarded to \textit{/dev/null}. 
 
-The CPU usage of the IM application is measured and recorded using \textit{top(1)} with a sampling rate of 500ms. The number of active concurrent clients is incremented in each new test (starting at 1 and going all the way to 64 concurrent connections).
+The CPU usage of the IM application is measured and recorded using \textit{top(1)} with a sampling rate of 500ms. The number of active concurrent clients is incremented in each new test, starting at 1 and going all the way up to 64 concurrent connections.
 
 \subsection{Test environment}
 Both the TCP load generator and the application under test were executed in cloud virtual machines inside the same region running FreeBSD 13.0-RELEASE-p11 with 1vCPU and 2GB RAM. The versions of software used for these experiments were: for the TCP load generator \textit{tcpkali v1.1.1}, for the C compiler \textit{GCC v10.4} and for the Go compiler \textit{Go v1.18.2}.
 
 \subsection{Results}
-\begin{figure}[!t]
-	\centering
-	\includegraphics[width=2.5in]{img/1cpu2c1Mb_cm.pdf}
-	%where an .eps filename suffix will be assumed under latex, 
-	%and a .pdf suffix will be assumed for pdflatex; or what has been declared
-	%via \DeclareGraphicsExtensions.
-	\caption{.}
-	\label{fig_c_experiment}
-\end{figure}
-
 \begin{table}[h]
 	\centering
 \begin{tabular}{|c|ccr|}
@@ -42,7 +41,7 @@ Both the TCP load generator and the application under test were executed in clou
 &\cellcolor[gray]{0.9} Go &\cellcolor[gray]{0.9} 36.08 &\cellcolor[gray]{0.9} 0.243  \\ \hline
 \end{tabular}
 \bigskip	
-\caption{The table shows a comparison of the mean $\mu$ CPU usage in \% and the coefficient of variation of the CPU usage $\frac{\sigma}{\mu}$ measured on the IM rudimentary application with a multi-process concurrency paradigm (C) and a non-preemptive scheduler (Go) under a load of a different number of concurrent network connections.}
+\caption{The table shows a comparison of the mean ($\mu$) CPU usage in \% and the coefficient of variation of the CPU usage $\frac{\sigma}{\mu}$ measured on the IM rudimentary application with a multi-process concurrency paradigm (C) and a non-preemptive scheduler (Go) under a load of a different number of concurrent network connections.}
 \label{tab_results}
 \end{table}
 

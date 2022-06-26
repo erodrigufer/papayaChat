@@ -38,11 +38,11 @@ Conversely, when the server sends new messages to a client through Child SEND, i
 
 This file handling architecture makes sending messages to multiple clients a highly parallelizable operation, while writing to the chat file is a secure isolated task performed in an atomic way.
 
-\subsection{Multicasting with Unix IPC}
-The system should deliver new messages instantly through the respective Child SEND process of every client each time a new message is received, in other words, every message must be multicasted to all participating clients. The number of connected clients can change over time and it is unlimited. 
-
-The two main IPC (inter-process communication) mechanisms capable of multicasting to multiple processes are sockets and POSIX signals \cite{Kerrisk2010}. Signals are used in this implementation, because from a software engineering perspective configuring sockets to handle multicasting is less portable and requires more code-refactoring. 
-
-The Unix standard \textit{SIGUSR1} signal, which is reserved for "user defined behaviour", can be used to synchronously inform a group of processes about an event, in this particular case, the need to send new messages to the clients.
-
-By choosing to multicast with signals the possibility to work with threads, instead of with processes, is eliminated. Since all threads in a process share the same signal dispositions and for this design a different signal disposition between parent and child processes is a requirement. Moreover, multicasting with POSIX signals does not require a centralized administrative process constantly monitoring which clients are currently online, to whom the messages should be delivered. Instead, it outsources this task to the kernel which manages signal distribution, thus making the logic needed to deliver messages much simpler to program.
+%\subsection{Multicasting with Unix IPC}
+%The system should deliver new messages instantly through the respective Child SEND process of every client each time a new message is received, in other words, every message must be multicasted to all participating clients. The number of connected clients can change over time and it is unlimited. 
+%
+%The two main IPC (inter-process communication) mechanisms capable of multicasting to multiple processes are sockets and POSIX signals \cite{Kerrisk2010}. Signals are used in this implementation, because from a software engineering perspective configuring sockets to handle multicasting is less portable and requires more code-refactoring. 
+%
+%The Unix standard \textit{SIGUSR1} signal, which is reserved for "user defined behaviour", can be used to synchronously inform a group of processes about an event, in this particular case, the need to send new messages to the clients.
+%
+%By choosing to multicast with signals the possibility to work with threads, instead of with processes, is eliminated. Since all threads in a process share the same signal dispositions and for this design a different signal disposition between parent and child processes is a requirement. Moreover, multicasting with POSIX signals does not require a centralized administrative process constantly monitoring which clients are currently online, to whom the messages should be delivered. Instead, it outsources this task to the kernel which manages signal distribution, thus making the logic needed to deliver messages much simpler to program.
