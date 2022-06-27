@@ -149,17 +149,4 @@ W.~Kennedy. (2018, August) Scheduling in {Go}: {OS} scheduler. Visited on
 M.~Kleppmann, \emph{Designing Data-Intensive Applications}.\hskip 1em plus
   0.5em minus 0.4em\relax Sebastopol, California: O'Reilly, March 2017.
 
-\bibitem{Morsing2013}
-\BIBentryALTinterwordspacing
-D.~Morsing. (2013, June) The {Go} scheduler. Visited on 2022-06-27. [Online].
-  Available: \url{https://morsmachine.dk/go-scheduler}
-\BIBentrySTDinterwordspacing
-
-\bibitem{Siebenmann2019}
-\BIBentryALTinterwordspacing
-C.~Siebenmann. (2019, December) The {Go} runtime scheduler's clever way of
-  dealing with system calls. Visited on 2022-06-27. [Online]. Available:
-  \url{https://utcc.utoronto.ca/~cks/space/blog/programming/GoSchedulerAndSyscalls}
-\BIBentrySTDinterwordspacing
-
 \end{thebibliography}
