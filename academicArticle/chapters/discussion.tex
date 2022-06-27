@@ -6,7 +6,7 @@ Nonetheless, in a comparison based on programs similar to real-life deployed net
 
 Moreover, the CPU usage of the non-preemptively scheduled implementation has an overall higher coefficient of variation ($C_v$), calculated by dividing the standard deviation ($\sigma$) of a measurement by its mean value ($\mu$). This value allows us to answer RQ2 and compare the stability of the CPU usage of both platforms, a higher $C_v$ implies that the data points of a measurement are on average spread farther from the mean value as in a measurement with a lower $C_v$. 
 
-Especially over higher loads, as can be seen in fig. \ref{fig_results}(a), the multi-process implementation achieves a more stable CPU utilization (lower $C_v$), which does not oscillate so far from the mean value as the Go implementation. This insight in the stability of the CPU usage of a particular paradigm has relevance to servers that periodically work close to the maximum CPU usage during high load periods, since an application with a smaller $C_v$ will react more predictably and securely close to the maximum CPU usage of a platform.
+Especially at high loads, as can be seen in fig. \ref{fig_results}(a), the multi-process implementation achieves a more stable CPU utilization (lower $C_v$), which does not oscillate so far from the mean value as the Go implementation. This insight in the stability of the CPU usage of a particular paradigm has relevance to servers that periodically work close to the maximum CPU usage during high load events, since an application with a smaller $C_v$ will react more predictably and securely close to the maximum possible CPU usage of a platform by not putting an even bigger burden on the server with CPU load spikes.
 
 %\begin{figure}[h]
 %	\centering
