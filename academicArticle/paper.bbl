@@ -64,9 +64,10 @@ R.~Kumar, ``{WhatsApp} and the domestication of users,''
   January 2021.
 
 \bibitem{Hodgson2020}
-M.~Hodgson, ``On privacy versus freedom,''
-  \url{https://matrix.org/blog/2020/01/02/on-privacy-versus-freedom}, January
-  2020.
+\BIBentryALTinterwordspacing
+M.~Hodgson. On privacy versus freedom. Visited on 2022-06-27. [Online].
+  Available: \url{https://matrix.org/blog/2020/01/02/on-privacy-versus-freedom}
+\BIBentrySTDinterwordspacing
 
 \bibitem{Edge2016}
 J.~Edge, ``The perils of federated protocols,''
@@ -170,10 +171,5 @@ C.~Siebenmann, ``The {Go} runtime scheduler's clever way of dealing with system
   calls,''
   \url{https://utcc.utoronto.ca/~cks/space/blog/programming/GoSchedulerAndSyscalls},
   December 2019.
-
-\bibitem{Seacord2020}
-R.~C. Seacord, \emph{Effective C: an introduction to professional C
-  programming}.\hskip 1em plus 0.5em minus 0.4em\relax San Francisco: No Starch
-  Press, 2020.
 
 \end{thebibliography}
