@@ -1,12 +1,12 @@
 \section{Experiments}
 \begin{figure}[!t]
 	\centering
-	\includegraphics[width=2.5in]{img/mean_new.pdf}
+	\includegraphics[width=2.5in]{img/combined_graph.pdf}
 	%where an .eps filename suffix will be assumed under latex, 
 	%and a .pdf suffix will be assumed for pdflatex; or what has been declared
 	%via \DeclareGraphicsExtensions.
-	\caption{The figure compares the development of the mean CPU usage value depending on the number of concurrent connections being handled by the two different concurrency platforms.}
-	\label{fig_mean_values}
+	\caption{(a) compares the development of the coefficient of variation depending on the number of concurrent connections being handled by the two different concurrency platforms. (b) compares the mean CPU usage value (\%) depending on the number of concurrent connections.}
+	\label{fig_results}
 \end{figure}
 To evaluate the performance of a concurrency paradigm based upon context-switching in user-space and another one based upon context-switching in kernel-space, the same very rudimentary IM application was developed in both C and Go. The C program handles concurrent client network connections by spawning a new process per client, while the Go application creates a goroutine for each client. 
 

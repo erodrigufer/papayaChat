@@ -154,14 +154,6 @@ W.~Kennedy, ``Scheduling in {Go}: {OS} scheduler,''
 M.~Kleppmann, \emph{Designing Data-Intensive Applications}.\hskip 1em plus
   0.5em minus 0.4em\relax Sebastopol, California: O'Reilly, March 2017.
 
-\bibitem{Mirkovic2004}
-\BIBentryALTinterwordspacing
-J.~Mirkovic and P.~Reiher, ``A taxonomy of {DDoS} attack and {DDoS} defense
-  mechanisms,'' \emph{SIGCOMM Comput. Commun. Rev.}, vol.~34, no.~2, p.
-  39–53, Apr. 2004. [Online]. Available:
-  \url{https://doi.org/10.1145/997150.997156}
-\BIBentrySTDinterwordspacing
-
 \bibitem{Morsing2013}
 D.~Morsing, ``The {Go} scheduler,'' \url{https://morsmachine.dk/go-scheduler},
   June 2013.
