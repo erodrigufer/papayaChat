@@ -59,9 +59,11 @@ M.~Kerrisk, \emph{The Linux Programming Interface}.\hskip 1em plus 0.5em minus
   0.4em\relax San Francisco: No Starch Press, 2010.
 
 \bibitem{Kumar2021}
-R.~Kumar, ``{WhatsApp} and the domestication of users,''
-  \url{https://seirdy.one/2021/01/27/whatsapp-and-the-domestication-of-users.html},
-  January 2021.
+\BIBentryALTinterwordspacing
+R.~Kumar. (2021, January) {WhatsApp} and the domestication of users. Visited on
+  2022-06-27. [Online]. Available:
+  \url{https://seirdy.one/2021/01/27/whatsapp-and-the-domestication-of-users.html}
+\BIBentrySTDinterwordspacing
 
 \bibitem{Hodgson2020}
 \BIBentryALTinterwordspacing
@@ -70,29 +72,33 @@ M.~Hodgson. On privacy versus freedom. Visited on 2022-06-27. [Online].
 \BIBentrySTDinterwordspacing
 
 \bibitem{Edge2016}
-J.~Edge, ``The perils of federated protocols,''
-  \url{https://lwn.net/Articles/687294/}, May 2016.
+\BIBentryALTinterwordspacing
+J.~Edge. (2016, May) The perils of federated protocols. Visited on 2022-06-27.
+  [Online]. Available: \url{https://lwn.net/Articles/687294/}
+\BIBentrySTDinterwordspacing
 
 \bibitem{Kaufman2016}
-B.~M. Kaufman, ``New documents reveal government effort to impose secrecy on
-  encryption company,''
-  \url{https://www.aclu.org/blog/national-security/secrecy/new-documents-reveal-government-effort-impose-secrecy-encryption},
-  October 2016.
+\BIBentryALTinterwordspacing
+B.~M. Kaufman. (2016, October) New documents reveal government effort to impose
+  secrecy on encryption company. Visited on 2022-06-27. [Online]. Available:
+  \url{https://www.aclu.org/blog/national-security/secrecy/new-documents-reveal-government-effort-impose-secrecy-encryption}
+\BIBentrySTDinterwordspacing
 
 \bibitem{socialmedia2017}
 \BIBentryALTinterwordspacing
 D.~Choudhery and C.~K. Leung, ``Social media mining: Prediction of box office
   revenue,'' in \emph{Proceedings of the 21st International Database
   Engineering; Applications Symposium}, ser. IDEAS 2017.\hskip 1em plus 0.5em
-  minus 0.4em\relax New York, NY, USA: Association for Computing Machinery,
-  2017, p. 20–29. [Online]. Available:
-  \url{https://doi.org/10.1145/3105831.3105854}
+  minus 0.4em\relax New York, NY, USA: ACM, 2017, p. 20–29. [Online].
+  Available: \url{https://doi.org/10.1145/3105831.3105854}
 \BIBentrySTDinterwordspacing
 
 \bibitem{Rodriguez2022}
-E.~{Rodriguez Fernandez}, ``{papayaChat}: a self-hosted {CLI} chat service for
-  the cloud written in {C},'' \url{https://github.com/erodrigufer/papayaChat},
-  2022.
+\BIBentryALTinterwordspacing
+E.~{Rodriguez Fernandez}. (2022) {papayaChat}: a self-hosted {CLI} chat service
+  for the cloud written in {C}. Visited on 2022-06-27. [Online]. Available:
+  \url{https://github.com/erodrigufer/papayaChat}
+\BIBentrySTDinterwordspacing
 
 \bibitem{GoPL2015}
 A.~A. Donovan and B.~W. Kernighan, \emph{The Go Programming Language}.\hskip
@@ -102,8 +108,8 @@ A.~A. Donovan and B.~W. Kernighan, \emph{The Go Programming Language}.\hskip
 \BIBentryALTinterwordspacing
 R.~Pike, ``Go at {Google},'' in \emph{Proceedings of the 3rd Annual Conference
   on Systems, Programming, and Applications: Software for Humanity}, ser.
-  SPLASH '12.\hskip 1em plus 0.5em minus 0.4em\relax New York, NY, USA:
-  Association for Computing Machinery, 2012, p. 5–6. [Online]. Available:
+  SPLASH '12.\hskip 1em plus 0.5em minus 0.4em\relax New York, NY, USA: ACM,
+  2012, p. 5–6. [Online]. Available:
   \url{https://doi.org/10.1145/2384716.2384720}
 \BIBentrySTDinterwordspacing
 
@@ -111,7 +117,7 @@ R.~Pike, ``Go at {Google},'' in \emph{Proceedings of the 3rd Annual Conference
 \BIBentryALTinterwordspacing
 S.~Ajmani, ``Program your next server in {Go},'' in \emph{Applicative 2016},
   ser. Applicative 2016.\hskip 1em plus 0.5em minus 0.4em\relax New York, NY,
-  USA: Association for Computing Machinery, 2016. [Online]. Available:
+  USA: ACM, 2016. [Online]. Available:
   \url{https://doi.org/10.1145/2959689.2960078}
 \BIBentrySTDinterwordspacing
 
@@ -134,34 +140,39 @@ R.~Cox, R.~Griesemer, R.~Pike, I.~L. Taylor, and K.~Thompson, ``The {Go}
 \BIBentrySTDinterwordspacing
 
 \bibitem{Morsing2013_2}
-D.~Morsing, ``The {Go} netpoller,'' \url{https://morsmachine.dk/netpoller},
-  September 2013.
+\BIBentryALTinterwordspacing
+D.~Morsing. (2013, September) The {Go} netpoller. Visited on 2022-06-27.
+  [Online]. Available: \url{https://morsmachine.dk/netpoller}
+\BIBentrySTDinterwordspacing
 
 \bibitem{GoNet}
-``Go's standard library's net package. {Listener type},''
-  \url{https://pkg.go.dev/net#Listener}, go1.18.3.
-
-\bibitem{GoHTTP}
-``Go's standard library's net/http package. {Serve() function},''
-  \url{https://pkg.go.dev/net/http#Serve}, go1.18.3.
+\BIBentryALTinterwordspacing
+(go1.18.3) Go's standard library's net package. {Listener type}. Visited on
+  2022-06-27. [Online]. Available: \url{https://pkg.go.dev/net#Listener}
+\BIBentrySTDinterwordspacing
 
 \bibitem{Kennedy2018}
-W.~Kennedy, ``Scheduling in {Go}: {OS} scheduler,''
-  \url{https://www.ardanlabs.com/blog/2018/08/scheduling-in-go-part1.html},
-  August 2018.
+\BIBentryALTinterwordspacing
+W.~Kennedy. (2018, August) Scheduling in {Go}: {OS} scheduler. Visited on
+  2022-06-27. [Online]. Available:
+  \url{https://www.ardanlabs.com/blog/2018/08/scheduling-in-go-part1.html}
+\BIBentrySTDinterwordspacing
 
 \bibitem{Kleppmann2017}
 M.~Kleppmann, \emph{Designing Data-Intensive Applications}.\hskip 1em plus
   0.5em minus 0.4em\relax Sebastopol, California: O'Reilly, March 2017.
 
 \bibitem{Morsing2013}
-D.~Morsing, ``The {Go} scheduler,'' \url{https://morsmachine.dk/go-scheduler},
-  June 2013.
+\BIBentryALTinterwordspacing
+D.~Morsing. (2013, June) The {Go} scheduler. Visited on 2022-06-27. [Online].
+  Available: \url{https://morsmachine.dk/go-scheduler}
+\BIBentrySTDinterwordspacing
 
 \bibitem{Siebenmann2019}
-C.~Siebenmann, ``The {Go} runtime scheduler's clever way of dealing with system
-  calls,''
-  \url{https://utcc.utoronto.ca/~cks/space/blog/programming/GoSchedulerAndSyscalls},
-  December 2019.
+\BIBentryALTinterwordspacing
+C.~Siebenmann. (2019, December) The {Go} runtime scheduler's clever way of
+  dealing with system calls. Visited on 2022-06-27. [Online]. Available:
+  \url{https://utcc.utoronto.ca/~cks/space/blog/programming/GoSchedulerAndSyscalls}
+\BIBentrySTDinterwordspacing
 
 \end{thebibliography}
