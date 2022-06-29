@@ -149,4 +149,10 @@ W.~Kennedy. (2018, August) Scheduling in {Go}: {OS} scheduler. Visited on
 M.~Kleppmann, \emph{Designing Data-Intensive Applications}.\hskip 1em plus
   0.5em minus 0.4em\relax Sebastopol, California: O'Reilly, March 2017.
 
+\bibitem{2008Pekka}
+P.~Jääskeläinen, P.~Kellomäki, J.~Takala, H.~Kultala, and M.~Lepistö,
+  ``Reducing context switch overhead with compiler-assisted threading,'' in
+  \emph{2008 IEEE/IFIP International Conference on Embedded and Ubiquitous
+  Computing}, vol.~2, 2008, pp. 461--466.
+
 \end{thebibliography}
