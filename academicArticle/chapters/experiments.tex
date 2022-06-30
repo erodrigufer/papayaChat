@@ -1,11 +1,11 @@
 \section{Experiments}
 \begin{figure}[!t]
 	\centering
-	\includegraphics[width=3in]{img/combined_graph.pdf}
+	\includegraphics[width=3in]{img/experiments.pdf}
 	%where an .eps filename suffix will be assumed under latex, 
 	%and a .pdf suffix will be assumed for pdflatex; or what has been declared
 	%via \DeclareGraphicsExtensions.
-	\caption{(a) compares the development of the coefficient of variation $C_v$ depending on the number of concurrent connections being handled by the two different concurrency platforms. (b) compares the mean CPU usage value (\%) in relationship to the number of concurrent connections.}
+	\caption{(a) compares the mean CPU usage value (\%) in relationship to the number of active concurrent connections. (b) compares the development of the coefficient of variation $C_v$ depending on the number of concurrent connections being handled by the two different concurrency platforms.}
 	\label{fig_results}
 \end{figure}
 To evaluate the performance of a concurrency paradigm based upon context-switching in user-space and another one based upon context-switching in kernel-space, the same very rudimentary IM application was developed in both C and Go. The C program handles concurrent client network connections by spawning a new process per client, while the Go application creates a goroutine for each client. 
@@ -19,9 +19,9 @@ The CPU usage of the IM application is measured and recorded using \textit{top(1
 Both the TCP load generator and the application under test were executed in cloud virtual machines (VM) inside the same region running FreeBSD 13.0-RELEASE-p11 with 1vCPU and 2GB RAM. The versions of software used for these experiments were: for the TCP load generator \textit{tcpkali v1.1.1}, for the C compiler \textit{GCC v10.4} and for the Go compiler \textit{Go v1.18.2}.
 
 \subsection{Constraints}
-The cloud VMs were generated exclusively for the tests with the default FreeBSD configuration, which has a minimal amount of executing daemons. A small number of system daemons running is beneficial to not have the execution of other programs affect the tests. Nonetheless, some system daemons were intermittently running during the tests. Especially, \textit{ntpd}, the system daemon in charge of syncing the VM's clock with time servers, recurrently used system resources and forced context-switches when the number of active concurrent clients was low (below 16 active client connections). 
+The cloud VMs were generated exclusively for the tests with the default FreeBSD configuration for a first-time boot, which has a minimal amount of long-running daemons. A small number of system daemons is important to try to interfere with the tests as less as possible. 
 
-Running idle, ntpd did not used more than 1,5\% of CPU usage.
+Nonetheless, some system daemons were intermittently running during the tests. Especially, \textit{ntpd}, the system daemon in charge of syncing the VM's clock with time servers, recurrently used system resources and forced context-switches when the number of active concurrent clients was low (below 16 active client connections). Running idle, ntpd and the remaining system daemons did not used more than 1,5\% of CPU usage.
 
 %\subsection{Results}
 %\begin{table}[h]
