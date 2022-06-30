@@ -74,7 +74,7 @@ check_distribution(){
 
 create_system_user(){
 	
-	echo "* Checking existance of correct system user for daemon..."
+	echo "* Checking existence of correct system user for daemon..."
 	# if the system_user does not exist, it is created
 	id ${SYSTEM_USER} > /dev/null && return 0
 
