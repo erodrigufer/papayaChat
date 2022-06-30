@@ -9,7 +9,7 @@
 	\caption{Server's back-end architectural overview. The blue rectangle denotes the process cluster created exclusively for each client taking part in a chat service.}
 	\label{fig_server_backend}
 \end{figure}
-The requirements for the chat application are that an undefined number of participants can simultaneously exchange text messages in a chatroom. Furthermore, the communication might be asynchronous, so that the participants can read messages sent to them while they were not connected to the server. The application should use the least amount of dependencies as possible to enable portability across Unix systems, i.e. the chat server should compile natively with the same source file in FreeBSD or in a Linux distribution.
+The requirements for the chat application are that an undefined number of participants can simultaneously exchange text messages in a chatroom. Furthermore, the communication might be asynchronous, so that the participants can read messages sent to them while they were not connected to the server. The application should use the least possible amount of dependencies to enable portability across Unix systems, i.e. the chat server should compile natively with the same source file in FreeBSD or in a Linux distribution.
 
 The server fundamentally requires a process working as a daemon accepting incoming connection attempts from clients. For each accepted client connection the daemon handles the given client separately in a unique child process.
 

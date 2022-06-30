@@ -5,7 +5,7 @@
 	%where an .eps filename suffix will be assumed under latex, 
 	%and a .pdf suffix will be assumed for pdflatex; or what has been declared
 	%via \DeclareGraphicsExtensions.
-	\caption{(a) compares the mean CPU usage value (\%) in relationship to the number of active concurrent connections. (b) compares the development of the coefficient of variation $C_v$ depending on the number of concurrent connections being handled by the two different concurrency platforms.}
+	\caption{(a) compares the mean CPU usage value (\%) in relationship to the number of active concurrent connections. (b) compares the development of the coefficient of variation $C_v$ depending on the number of concurrent connections being handled by the two different programs.}
 	\label{fig_results}
 \end{figure}
 To evaluate the performance of a concurrency paradigm based upon context-switching in user-space and another one based upon context-switching in kernel-space, the same very rudimentary IM application was developed in both C and Go. The C program handles concurrent client network connections by spawning a new process per client, while the Go application creates a goroutine for each client. 
@@ -21,7 +21,7 @@ Both the TCP load generator and the application under test were executed in clou
 \subsection{Constraints}
 The cloud VMs were generated exclusively for the tests with the default FreeBSD configuration for a first-time boot, which has a minimal amount of long-running daemons.
 
-Nonetheless, some system daemons were intermittently running during the tests. Especially, \textit{ntpd}, the system daemon in charge of syncing the VM's clock with time servers, recurrently used system resources and forced context-switches when the number of active concurrent clients was low (below 16 active client connections). When the server was running idle without any load, ntpd and the remaining system daemons did not use more than 1,5\% of CPU usage. It must be taken into consideration that these system daemons might skew the results lightly.
+Nonetheless, some system daemons were intermittently running during the tests. Especially, \textit{ntpd}, the system daemon in charge of syncing the VM's clock with time servers, recurrently used system resources and forced context-switches when the number of active concurrent clients was low (below 16 active client connections). When the server was running idle without any load, ntpd and the remaining system daemons did not take more than 1,5\% of CPU usage. It must be taken into consideration that these system daemons might skew the results lightly.
 
 %\subsection{Results}
 %\begin{table}[h]
