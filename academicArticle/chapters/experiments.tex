@@ -19,9 +19,9 @@ The CPU usage of the IM application is measured and recorded using \textit{top(1
 Both the TCP load generator and the application under test were executed in cloud virtual machines (VM) inside the same region running FreeBSD 13.0-RELEASE-p11 with 1vCPU and 2GB RAM. The versions of software used for these experiments were: for the TCP load generator \textit{tcpkali v1.1.1}, for the C compiler \textit{GCC v10.4} and for the Go compiler \textit{Go v1.18.2}.
 
 \subsection{Constraints}
-The cloud VMs were generated exclusively for the tests with the default FreeBSD configuration for a first-time boot, which has a minimal amount of long-running daemons. A small number of system daemons is important to try to interfere with the tests as less as possible. 
+The cloud VMs were generated exclusively for the tests with the default FreeBSD configuration for a first-time boot, which has a minimal amount of long-running daemons.
 
-Nonetheless, some system daemons were intermittently running during the tests. Especially, \textit{ntpd}, the system daemon in charge of syncing the VM's clock with time servers, recurrently used system resources and forced context-switches when the number of active concurrent clients was low (below 16 active client connections). Running idle, ntpd and the remaining system daemons did not used more than 1,5\% of CPU usage.
+Nonetheless, some system daemons were intermittently running during the tests. Especially, \textit{ntpd}, the system daemon in charge of syncing the VM's clock with time servers, recurrently used system resources and forced context-switches when the number of active concurrent clients was low (below 16 active client connections). When the server was running idle without any load, ntpd and the remaining system daemons did not use more than 1,5\% of CPU usage. It must be taken into consideration that these system daemons might skew the results lightly.
 
 %\subsection{Results}
 %\begin{table}[h]
