@@ -6,7 +6,7 @@ Nonetheless, in a comparison based on programs similar to real-life deployed net
 
 The coefficient of variation ($C_v$), is calculated by dividing the standard deviation ($\sigma$) of a measurement by its mean value ($\mu$). $C_v$ allows us to answer RQ2 and compare the stability of the CPU usage of both platforms, a high $C_v$ implies that the data points of a measurement are on average spread farther away from the mean value as in a measurement with a lower $C_v$. 
 
-At high loads, as can be seen in fig. \ref{fig_results}(b), the multi-process C implementation has a more unstable CPU utilization (higher $C_v$), which oscillates farther away from its mean value as the Go implementation. This insight in the stability of the CPU usage of a particular paradigm has relevance to servers that periodically work close to the maximum CPU usage during high load events. Because an application with a smaller $C_v$ will react more predictably and securely close to the maximum possible CPU usage of a platform by not putting an even bigger burden on the server with CPU load spikes.
+As depicted in fig. \ref{fig_results}(b), the multi-process C implementation has a more unstable CPU utilization (higher $C_v$) at high loads. This insight in the stability of the CPU usage of a particular paradigm has relevance to servers that periodically work close to the maximum CPU usage during high load events. Because an application with a smaller $C_v$ will react more predictably and securely close to the maximum possible CPU usage of a platform by not putting an even bigger burden on the server with CPU load spikes.
 
 %\begin{figure}[h]
 %	\centering
