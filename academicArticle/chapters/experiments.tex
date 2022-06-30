@@ -11,12 +11,17 @@
 To evaluate the performance of a concurrency paradigm based upon context-switching in user-space and another one based upon context-switching in kernel-space, the same very rudimentary IM application was developed in both C and Go. The C program handles concurrent client network connections by spawning a new process per client, while the Go application creates a goroutine for each client. 
 
 % Maybe write, being benchmarked, instead of tested.
-A TCP load generator running in a cloud server is used to send a constant load of network packets (1Mbps) per concurrent connection for exactly 60 seconds to another server running the application being tested. Each application accepts a given number of concurrent client connections per test, receives and reads the clients' packets (which simulate text messages from the users in a real IM application) and writes the text in the packets to \textit{stdout}. To not overwhelm the system with filesystem writes and focus primarily in the performance of the concurrency handling mechanisms in a real-life environment, the data being output to stdout is immediately discarded to \textit{/dev/null}. 
+A TCP load generator running in a cloud server is used to send a constant load of network packets (1Mbps) per concurrent connection for exactly 60 seconds to another server running the application being tested. Each application accepts a given number of concurrent client connections per test, receives and reads the clients' packets (which simulate text messages coming from the users in a real IM application) and writes the text in the packets to \textit{stdout}. To not overwhelm the system with filesystem writes and focus primarily in the performance of the concurrency-handling mechanisms in a real-life environment, the data being output to stdout is immediately discarded to \textit{/dev/null}. 
 
 The CPU usage of the IM application is measured and recorded using \textit{top(1)} with a sampling rate of 500ms. The number of active concurrent clients is incremented in each new test, starting at 1 and going all the way up to 64 concurrent connections.
 
 \subsection{Test environment}
-Both the TCP load generator and the application under test were executed in cloud virtual machines inside the same region running FreeBSD 13.0-RELEASE-p11 with 1vCPU and 2GB RAM. The versions of software used for these experiments were: for the TCP load generator \textit{tcpkali v1.1.1}, for the C compiler \textit{GCC v10.4} and for the Go compiler \textit{Go v1.18.2}.
+Both the TCP load generator and the application under test were executed in cloud virtual machines (VM) inside the same region running FreeBSD 13.0-RELEASE-p11 with 1vCPU and 2GB RAM. The versions of software used for these experiments were: for the TCP load generator \textit{tcpkali v1.1.1}, for the C compiler \textit{GCC v10.4} and for the Go compiler \textit{Go v1.18.2}.
+
+\subsection{Constraints}
+The cloud VMs were generated exclusively for the tests with the default FreeBSD configuration, which has a minimal amount of executing daemons. A small number of system daemons running is beneficial to not have the execution of other programs affect the tests. Nonetheless, some system daemons were intermittently running during the tests. Especially, \textit{ntpd}, the system daemon in charge of syncing the VM's clock with time servers, recurrently used system resources and forced context-switches when the number of active concurrent clients was low (below 16 active client connections). 
+
+Running idle, ntpd did not used more than 1,5\% of CPU usage.
 
 %\subsection{Results}
 %\begin{table}[h]
