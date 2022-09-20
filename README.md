@@ -99,7 +99,7 @@ Some useful tips for debugging low level system calls and/or networking issues.
 ### Debugging with strace
 Useful debugging commands for syscall profilling with **strace**
 ```
-strace -f -T -o <output_file> <process_to_profile>
+$ strace -f -T -o <output_file> <process_to_profile>
 
 -f : Trace child processes as well
 -T : Show relative time of syscalls
@@ -111,7 +111,7 @@ strace -f -T -o <output_file> <process_to_profile>
 ### Debugging with tshark
 Capture packages with **tshark**. See traffic flow between server and client.
 ```
-sudo tshark -i 1 -P -x -f "tcp port ${PORT_NUMBER}" > ${OUTPUT_FILE}
+$ sudo tshark -i 1 -P -x -f "tcp port ${PORT_NUMBER}" > ${OUTPUT_FILE}
 
 -i : Capture on interface 1 (runs smoothly in Linode)
 -P : (not sure) print summary
